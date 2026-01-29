@@ -3,7 +3,7 @@ import { CashVarianceRecord } from '../types/cash-variance';
 export const mockCashVarianceData: CashVarianceRecord[] = [
     {
         id: 'VAR-001',
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split('T')[0]!,
         userName: 'John Doe',
         userId: 'user-001',
         storeName: 'Downtown Store',
@@ -24,7 +24,7 @@ export const mockCashVarianceData: CashVarianceRecord[] = [
     },
     {
         id: 'VAR-002',
-        date: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0],
+        date: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0]!,
         userName: 'Jane Smith',
         userId: 'user-002',
         storeName: 'Downtown Store',
@@ -45,7 +45,7 @@ export const mockCashVarianceData: CashVarianceRecord[] = [
     },
     {
         id: 'VAR-003',
-        date: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString().split('T')[0],
+        date: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString().split('T')[0]!,
         userName: 'Mike Wilson',
         userId: 'user-003',
         storeName: 'Westside Mall',

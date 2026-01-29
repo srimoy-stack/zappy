@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRouteAccess } from '@/hooks/useRouteAccess';
+
 import { CustomerStatsHeader, OrderHistoryTable } from '../components/Customers';
 import { CustomerDetails } from '../types/customers';
 import { mockCustomerDetails } from '../mock/customers';
@@ -9,7 +9,7 @@ import { ChevronLeft, History, AlertCircle, Info } from 'lucide-react';
 export const CustomerProfilePage: React.FC = () => {
     const { customerId } = useParams<{ customerId: string }>();
     const navigate = useNavigate();
-    const { role } = useRouteAccess();
+
 
     // -- State --
     const [customer, setCustomer] = useState<CustomerDetails | null>(null);

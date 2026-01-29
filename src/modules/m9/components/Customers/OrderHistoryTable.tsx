@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CustomerOrder } from '../../types/customers';
-import { RefreshCcw, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { RefreshCcw, Loader2, CheckCircle2 } from 'lucide-react';
 
 interface ReorderButtonProps {
     orderId: string;
