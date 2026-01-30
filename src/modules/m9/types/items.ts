@@ -1,42 +1,56 @@
-export type ItemType = 'PIZZA' | 'SIDE' | 'DRINK' | 'COMBO' | 'RETAIL' | 'SERVICE';
+export type ItemType = 'SINGLE' | 'COMBO';
 
 export interface Category {
     id: string;
     name: string;
     description?: string;
-    isHiddenPerChannel?: {
-        pos: boolean;
-        online: boolean;
-        uber: boolean;
-    };
+}
+
+export interface SubOption {
+    id: string;
+    name: string;
+    price: number;
+    inventoryImpact?: RecipeEntry[];
 }
 
 export interface ModifierOption {
     id: string;
     name: string;
     price: number;
-    isFree: boolean;
-    isAvailable: boolean;
-    // Recipe/BOM is handled in the Recipe tab or backend
+    isPremium?: boolean;
+    subOptions?: SubOption[];
+    isTopping?: boolean; // If true, enables Placement UI: Full, Left, Right
 }
 
 export interface ModifierGroup {
     id: string;
     name: string;
+    isRequired: boolean;
     minSelection: number;
     maxSelection: number;
+    isToppingGroup: boolean; // enables placement UI for all options
     isHalfAndHalfEnabled: boolean;
-    isPremiumRuleEnabled: boolean;
+    isPremiumRuleEnabled: boolean; // Premium counts as 2 regular
     options: ModifierOption[];
+    linkedVariantGroupId?: string; // For Combo products
 }
 
 export interface ItemVariant {
     id: string;
-    name: string; // e.g. "Medium", "Large"
+    name: string; // e.g. "Small", "Regular"
     basePrice: number;
     sku?: string;
     isAvailable: boolean;
     recipe?: RecipeEntry[]; // BOM per variant
+}
+
+export interface ItemVariantGroup {
+    id: string;
+    name: string; // e.g. "Size", "Dough", or for Combos "Pizza 1"
+    isRequired: boolean;
+    defaultVariantId: string;
+    variants: ItemVariant[];
+    sortOrder: number;
 }
 
 export interface StoreOverride {
@@ -44,27 +58,20 @@ export interface StoreOverride {
     price?: number;
     isAvailable?: boolean;
     isPremiumRuleEnabled?: boolean;
-    modifierOverrides?: {
-        modifierId: string;
-        isAvailable: boolean;
-    }[];
 }
-
-
 
 export interface Item {
     id: string;
-    type: ItemType;
+    productType: ItemType; // Immutable after creation
     name: string;
     description: string;
     imageUrl?: string;
     categoryId: string;
-    variants: ItemVariant[];
-    modifierGroupIds: string[]; // Reference to global Modifier Groups
+    variantGroups: ItemVariantGroup[];
+    modifierGroups: ModifierGroup[];
     isAvailable: boolean;
     taxRate?: number;
     storeOverrides: StoreOverride[];
-    modifierMappings?: ModifierIngredientMapping[]; // Mapping for modifier options used in this item
     auditLog?: {
         timestamp: string;
         user: string;
@@ -75,7 +82,7 @@ export interface Item {
 export interface Ingredient {
     id: string;
     name: string;
-    unit: 'kg' | 'liter' | 'piece' | 'g' | 'ml'; // Standardized units
+    unit: 'kg' | 'liter' | 'piece' | 'g' | 'ml';
 }
 
 export interface RecipeEntry {
@@ -86,5 +93,5 @@ export interface RecipeEntry {
 export interface ModifierIngredientMapping {
     modifierOptionId: string;
     ingredientId: string;
-    quantity: number; // Base quantity for full placement
+    quantity: number;
 }

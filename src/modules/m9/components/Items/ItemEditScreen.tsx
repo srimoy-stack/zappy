@@ -1,117 +1,640 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, Globe, Info, Clock, ShieldCheck, Layers, Settings2, DollarSign, Package, AlertCircle, Plus, Trash2 } from 'lucide-react';
-import { Item, Category, ModifierGroup, Ingredient, RecipeEntry, ModifierIngredientMapping, ItemVariant } from '../../types/items';
-import { mockIngredients } from '../../mock/ingredients';
+import {
+    ChevronLeft, Save, Globe, Info, Clock, ShieldCheck,
+    Layers, Settings2, DollarSign, Package,
+    Plus, Trash2, GripVertical, ChevronDown, Check,
+    CircleDot, Radio, ArrowRight
+} from 'lucide-react';
+import {
+    Item, Category, ItemType, ItemVariantGroup, ItemVariant,
+    ModifierGroup, ModifierOption, SubOption
+} from '../../types/items';
+import { cn } from '@/utils';
 
-interface ItemEditScreenProps {
-    item: Item | null;
-    onClose: () => void;
-    categories: Category[];
-    modifierGroups: ModifierGroup[];
-}
+/* --- SUB-COMPONENTS (Defined above main component to ensure initialization) --- */
 
-type TabId = 'GENERAL' | 'VARIANTS' | 'MODIFIERS' | 'PRICING' | 'INVENTORY' | 'AVAILABILITY' | 'OVERRIDES' | 'AUDIT';
+const PlacementBtn = ({ icon: Icon, label, active }: { icon: any, label: string, active: boolean }) => (
+    <div className={cn(
+        "flex-1 h-full flex flex-col items-center justify-center gap-2 rounded-[24px] border-3 transition-all cursor-pointer group/pb shadow-sm",
+        active ? "bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-200 scale-105" : "bg-slate-50 border-transparent text-slate-300 hover:border-slate-200 hover:bg-white"
+    )}>
+        <Icon size={30} strokeWidth={3} className={cn("transition-transform", active ? "scale-110" : "group-hover/pb:scale-110")} />
+        <span className="text-[10px] font-black uppercase tracking-widest leading-none">{label}</span>
+    </div>
+);
 
-export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, categories, modifierGroups }) => {
+const HalfIconLeft = (props: any) => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22V2Z" fill="currentColor" fillOpacity="0.4" />
+        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22V12V2Z" fill="currentColor" />
+    </svg>
+);
+
+const HalfIconRight = (props: any) => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180" {...props}>
+        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22V2Z" fill="currentColor" fillOpacity="0.4" />
+        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22V12V2Z" fill="currentColor" />
+    </svg>
+);
+
+const RuleToggle = ({ label, checked, onChange, color = 'emerald' }: any) => {
+    const colorClasses: any = {
+        blue: "bg-blue-600 border-blue-600 shadow-blue-100",
+        purple: "bg-purple-600 border-purple-600 shadow-purple-100",
+        amber: "bg-amber-500 border-amber-500 shadow-amber-100",
+        emerald: "bg-emerald-600 border-emerald-600 shadow-emerald-100"
+    };
+
+    return (
+        <div
+            onClick={() => onChange(!checked)}
+            className={cn(
+                "flex items-center gap-5 cursor-pointer select-none group/tgl px-8 py-4 rounded-[30px] border-3 transition-all",
+                checked ? `${colorClasses[color]} text-white shadow-2xl scale-[1.02]` : "bg-white border-slate-100 hover:border-slate-300 text-slate-500 hover:text-slate-900"
+            )}
+        >
+            <div className={cn(
+                "w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all",
+                checked ? "bg-white border-white scale-110" : "bg-slate-50 border-slate-200"
+            )}>
+                {checked && <Check size={20} className={cn(color === 'amber' ? 'text-amber-500' : color === 'blue' ? 'text-blue-600' : color === 'purple' ? 'text-purple-600' : 'text-emerald-600')} strokeWidth={4} />}
+            </div>
+            <span className="font-black uppercase tracking-widest text-[11px] whitespace-nowrap">{label}</span>
+        </div>
+    );
+};
+
+/* --- TAB SECTIONS --- */
+
+const GeneralTab = ({ formData, setFormData, categories, isExisting }: any) => (
+    <div className="space-y-16 max-w-4xl animate-in fade-in slide-in-from-bottom-8 duration-600">
+        <div className="space-y-10">
+            <div className="flex items-center gap-4 border-l-[6px] border-slate-900 pl-6 h-10">
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-[0.15em]">Core Configuration</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between ml-1">
+                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Product Type (Locked after save)</label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        {(['SINGLE', 'COMBO'] as ItemType[]).map(type => (
+                            <button
+                                key={type}
+                                disabled={isExisting}
+                                onClick={() => setFormData({ ...formData, productType: type })}
+                                className={cn(
+                                    "px-6 py-5 rounded-[22px] border-2 text-[11px] font-black uppercase tracking-widest transition-all",
+                                    formData.productType === type
+                                        ? "bg-slate-900 text-white border-slate-900 shadow-2xl shadow-slate-200 scale-[1.02]"
+                                        : "bg-white text-slate-400 border-slate-100 hover:border-slate-300",
+                                    isExisting && formData.productType !== type && "opacity-30 cursor-not-allowed"
+                                )}
+                            >
+                                {type} PRODUCT
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="space-y-4">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Menu Category</label>
+                    <div className="relative">
+                        <select
+                            value={formData.categoryId}
+                            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                            className="w-full px-8 py-5 bg-slate-50 border-2 border-slate-100 rounded-[22px] text-sm font-black text-slate-900 focus:border-slate-900 focus:bg-white transition-all outline-none appearance-none"
+                        >
+                            <option value="">Select Catalog Pool</option>
+                            {categories.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                        </select>
+                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                    </div>
+                </div>
+
+                <div className="md:col-span-2 space-y-4">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Merchant Display Name</label>
+                    <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full px-10 py-6 bg-slate-50 border-2 border-slate-100 rounded-[30px] text-2xl font-black text-slate-900 focus:border-slate-900 focus:bg-white transition-all outline-none shadow-sm"
+                        placeholder="e.g. Traditional Sicilian Pepperoni"
+                    />
+                </div>
+
+                <div className="md:col-span-2 space-y-4">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Public Story</label>
+                    <textarea
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        rows={5}
+                        className="w-full px-10 py-8 bg-slate-50 border-2 border-slate-100 rounded-[30px] text-sm font-bold text-slate-600 focus:border-slate-900 focus:bg-white transition-all outline-none resize-none leading-relaxed"
+                        placeholder="Public-facing description..."
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo }: any) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+
+    const addVariant = () => {
+        const newVariant: ItemVariant = {
+            id: 'v-' + Date.now(),
+            name: 'New Option',
+            basePrice: 0,
+            isAvailable: true
+        };
+        updateGroup({ ...group, variants: [...group.variants, newVariant] });
+    };
+
+    return (
+        <div className="bg-white border-2 border-slate-100 rounded-[44px] shadow-sm overflow-hidden transition-all hover:shadow-2xl hover:border-slate-200">
+            <div className="px-10 py-10 bg-slate-50/80 flex items-center justify-between border-b-2 border-slate-100">
+                <div className="flex items-center gap-8">
+                    <div className="cursor-grab p-3 bg-white rounded-2xl shadow-sm border border-slate-100 text-slate-300">
+                        <GripVertical size={24} />
+                    </div>
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-4">
+                            <input
+                                value={group.name}
+                                onChange={(e) => updateGroup({ ...group, name: e.target.value.toUpperCase() })}
+                                className="bg-transparent text-lg font-black text-slate-900 uppercase tracking-widest outline-none border-b-2 border-transparent focus:border-slate-900 w-[450px] h-12 transition-all"
+                                placeholder={isCombo ? "COMPONENT NAME (e.g. PIZZA 1)" : "GROUP NAME (e.g. SIZE)"}
+                            />
+                            <span className="px-5 py-1.5 bg-slate-900 text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg shadow-slate-200 italic">Mandatory</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        className="p-4 text-slate-400 hover:text-slate-900 transition-all bg-white rounded-3xl border-2 border-slate-100 shadow-sm"
+                    >
+                        <ChevronDown size={24} className={cn("transition-transform duration-500", isExpanded && "rotate-180")} />
+                    </button>
+                    <button onClick={removeGroup} className="p-4 text-slate-200 hover:text-rose-500 transition-colors">
+                        <Trash2 size={24} />
+                    </button>
+                </div>
+            </div>
+
+            {isExpanded && (
+                <div className="p-12 space-y-10 animate-in slide-in-from-top-6 duration-700">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+                        {group.variants.map((v: ItemVariant) => {
+                            const isDefault = group.defaultVariantId === v.id;
+                            return (
+                                <div
+                                    key={v.id}
+                                    onClick={() => updateGroup({ ...group, defaultVariantId: v.id })}
+                                    className={cn(
+                                        "relative group/v flex flex-col items-center bg-slate-50 border-4 rounded-[40px] p-8 transition-all cursor-pointer hover:border-slate-300",
+                                        isDefault ? "border-slate-900 bg-white scale-[1.05] z-10 shadow-3xl shadow-slate-200" : "border-transparent"
+                                    )}
+                                >
+                                    {isDefault && (
+                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 bg-emerald-500 text-white text-[9px] font-black rounded-full uppercase shadow-xl shadow-emerald-100 z-20">
+                                            Default
+                                        </div>
+                                    )}
+
+                                    <div className={cn(
+                                        "w-24 h-24 bg-white rounded-[32px] flex items-center justify-center border-2 mb-6 transition-transform group-hover:scale-110",
+                                        isDefault ? "border-emerald-500" : "border-slate-100"
+                                    )}>
+                                        <Radio size={40} className={isDefault ? "text-emerald-500" : "text-slate-100"} strokeWidth={1} />
+                                    </div>
+
+                                    <div className="text-center space-y-4 w-full">
+                                        <input
+                                            value={v.name}
+                                            onClick={(e) => e.stopPropagation()}
+                                            onChange={(e) => {
+                                                const newVariants = group.variants.map((vnt: any) => vnt.id === v.id ? { ...vnt, name: e.target.value } : vnt);
+                                                updateGroup({ ...group, variants: newVariants });
+                                            }}
+                                            className="w-full bg-transparent text-sm font-black text-slate-900 text-center outline-none"
+                                            placeholder="Label"
+                                        />
+                                        <div className="flex items-center justify-center gap-1.5 px-6 py-3 bg-white rounded-2xl border-2 border-slate-100 inline-flex mx-auto shadow-sm">
+                                            <span className="text-[10px] font-black text-slate-300">$</span>
+                                            <input
+                                                type="number"
+                                                value={v.basePrice}
+                                                onClick={(e) => e.stopPropagation()}
+                                                onChange={(e) => {
+                                                    const newVariants = group.variants.map((vnt: any) => vnt.id === v.id ? { ...vnt, basePrice: parseFloat(e.target.value) || 0 } : vnt);
+                                                    updateGroup({ ...group, variants: newVariants });
+                                                }}
+                                                className="w-20 bg-transparent text-xs font-black text-slate-900 outline-none text-center tabular-nums"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            updateGroup({
+                                                ...group,
+                                                variants: group.variants.filter((vnt: any) => vnt.id !== v.id),
+                                                defaultVariantId: isDefault ? '' : group.defaultVariantId
+                                            });
+                                        }}
+                                        className="absolute -top-3 -right-3 p-3 bg-white text-slate-200 hover:text-rose-500 rounded-2xl shadow-xl border border-slate-100 transition-all opacity-0 group-hover/v:opacity-100"
+                                    >
+                                        <Trash2 size={20} />
+                                    </button>
+                                </div>
+                            );
+                        })}
+                        <button
+                            onClick={addVariant}
+                            className="border-4 border-dashed border-slate-100 rounded-[40px] bg-slate-50/50 p-10 flex flex-col items-center justify-center gap-4 hover:border-slate-300 hover:bg-white transition-all group/add"
+                        >
+                            <div className="w-20 h-20 bg-white rounded-[32px] flex items-center justify-center shadow-xl border-2 border-slate-50 group-hover/add:scale-125 transition-all">
+                                <Plus size={40} className="text-slate-200" />
+                            </div>
+                            <span className="text-[11px] font-black uppercase text-slate-300">New Option</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const ModifierOptionRow = ({ opt, group, updateOption, removeOption }: any) => {
+    return (
+        <div className="p-12 bg-slate-50/50 border-3 border-slate-100 rounded-[50px] flex flex-col gap-12 transition-all hover:bg-white hover:border-slate-200 hover:shadow-3xl animate-in scale-in duration-500">
+            <div className="flex items-center gap-12">
+                <div className="w-24 h-24 bg-white rounded-[32px] flex items-center justify-center border-2 border-slate-100 shadow-inner shrink-0">
+                    <Package size={44} className="text-slate-100" />
+                </div>
+
+                <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12">
+                    <div className="space-y-4">
+                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Option Name</label>
+                        <input
+                            value={opt.name}
+                            onChange={(e) => updateOption({ ...opt, name: e.target.value })}
+                            className="w-full bg-white border-2 border-slate-100 rounded-[28px] px-8 py-5 text-lg font-black text-slate-900 outline-none focus:border-slate-900 shadow-sm"
+                            placeholder="e.g. Extra Cheese"
+                        />
+                    </div>
+                    <div className="space-y-4">
+                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1 text-center block">Surcharge</label>
+                        <div className="relative">
+                            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 font-black">$</span>
+                            <input
+                                type="number"
+                                value={opt.price}
+                                onChange={(e) => updateOption({ ...opt, price: parseFloat(e.target.value) || 0 })}
+                                className="w-full bg-white border-2 border-slate-100 rounded-[28px] pl-12 pr-6 py-5 text-lg font-black text-slate-900 outline-none focus:border-slate-900 shadow-sm text-center tabular-nums"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-8 pt-10">
+                        {group.isPremiumRuleEnabled && (
+                            <label className="flex items-center gap-4 cursor-pointer p-4 bg-white border-2 border-slate-100 rounded-[24px] shadow-sm select-none">
+                                <div className={cn(
+                                    "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all",
+                                    opt.isPremium ? "bg-amber-500 border-amber-500" : "bg-slate-50 border-slate-200"
+                                )}>
+                                    {opt.isPremium && <Check size={18} className="text-white" strokeWidth={4} />}
+                                </div>
+                                <span className="text-[10px] font-black uppercase text-slate-400">Premium</span>
+                                <input type="checkbox" checked={opt.isPremium} onChange={(e) => updateOption({ ...opt, isPremium: e.target.checked })} className="hidden" />
+                            </label>
+                        )}
+                        <button onClick={removeOption} className="ml-auto p-4 text-slate-200 hover:text-rose-500 transition-all">
+                            <Trash2 size={28} />
+                        </button>
+                    </div>
+                </div>
+
+                {group.isToppingGroup && (
+                    <div className="w-80 p-8 bg-white border-2 border-slate-100 rounded-[40px] shadow-sm shrink-0 space-y-5">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center block">Visual Scope</span>
+                        <div className="flex items-center justify-center gap-3 h-20">
+                            <PlacementBtn icon={CircleDot} label="Full" active />
+                            <PlacementBtn icon={HalfIconLeft} label="Left" active={false} />
+                            <PlacementBtn icon={HalfIconRight} label="Right" active={false} />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* Sub-Options System */}
+            <div className="ml-20 pl-16 border-l-4 border-slate-100 space-y-10">
+                <header className="flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                        <ArrowRight size={24} strokeWidth={4} className="text-emerald-500" />
+                        <h5 className="text-[14px] font-black text-slate-900 uppercase">Nested Prep Choices (Sauce Model)</h5>
+                    </div>
+                    <button
+                        onClick={() => {
+                            const newSub: SubOption = { id: 'sub-' + Date.now(), name: 'New Intensity', price: 0 };
+                            updateOption({ ...opt, subOptions: [...(opt.subOptions || []), newSub] });
+                        }}
+                        className="px-8 py-3 bg-white border-2 border-slate-100 rounded-[22px] text-[10px] font-black text-slate-400 uppercase hover:border-emerald-500"
+                    >
+                        + Add Sub-choice
+                    </button>
+                </header>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
+                    {(opt.subOptions || []).map((sub: any, sidx: number) => (
+                        <div key={sub.id} className="flex items-center gap-8 bg-white p-8 rounded-[36px] border-2 border-slate-100 shadow-sm group/sub transition-all hover:border-emerald-300">
+                            <Radio size={28} className="text-emerald-200" strokeWidth={3} />
+                            <div className="flex-1 space-y-2">
+                                <input
+                                    value={sub.name}
+                                    onChange={(e) => {
+                                        const subOpts = [...(opt.subOptions || [])];
+                                        subOpts[sidx] = { ...sub, name: e.target.value };
+                                        updateOption({ ...opt, subOptions: subOpts });
+                                    }}
+                                    className="w-full text-base font-black text-slate-700 bg-transparent outline-none focus:text-emerald-500"
+                                    placeholder="Prep level"
+                                />
+                                <div className="flex items-center gap-3 text-slate-400 font-bold">
+                                    <span>$</span>
+                                    <input
+                                        type="number"
+                                        value={sub.price}
+                                        onChange={(e) => {
+                                            const subOpts = [...(opt.subOptions || [])];
+                                            subOpts[sidx] = { ...sub, price: parseFloat(e.target.value) || 0 };
+                                            updateOption({ ...opt, subOptions: subOpts });
+                                        }}
+                                        className="w-24 bg-transparent outline-none tabular-nums"
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => updateOption({ ...opt, subOptions: opt.subOptions.filter((s: any) => s.id !== sub.id) })}
+                                className="p-3 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover/sub:opacity-100"
+                            >
+                                <Trash2 size={24} />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ModifierGroupCard = (props: any) => {
+    const { group, variantGroups, updateGroup, removeGroup, isCombo } = props;
+    const [isExpanded, setIsExpanded] = useState(true);
+
+    return (
+        <div className="bg-white border-2 border-slate-100 rounded-[50px] shadow-sm overflow-hidden transition-all hover:shadow-2xl">
+            <div className="px-12 py-12 bg-slate-50/80 border-b-2 border-slate-100 flex flex-col gap-10">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-10">
+                        <div className="p-4 bg-white rounded-3xl shadow-sm border border-slate-100 text-slate-300">
+                            <GripVertical size={28} />
+                        </div>
+                        <div className="space-y-5">
+                            <input
+                                value={group.name}
+                                onChange={(e) => updateGroup({ ...group, name: e.target.value.toUpperCase() })}
+                                className="bg-transparent text-xl font-black text-slate-900 uppercase tracking-widest outline-none border-b-3 border-transparent focus:border-slate-900 w-[600px] h-14 transition-all"
+                            />
+                            <div className="flex items-center gap-8">
+                                <div className="flex items-center gap-4 px-6 py-3 bg-white border-2 border-slate-100 rounded-2xl shadow-sm">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase">Min</span>
+                                    <input
+                                        type="number"
+                                        value={group.minSelection}
+                                        onChange={(e) => updateGroup({ ...group, minSelection: parseInt(e.target.value) || 0 })}
+                                        className="w-12 text-center text-sm font-black text-slate-900 bg-transparent outline-none tabular-nums"
+                                    />
+                                </div>
+                                <div className="flex items-center gap-4 px-6 py-3 bg-white border-2 border-slate-100 rounded-2xl shadow-sm">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase">Max</span>
+                                    <input
+                                        type="number"
+                                        value={group.maxSelection}
+                                        onChange={(e) => updateGroup({ ...group, maxSelection: parseInt(e.target.value) || 0 })}
+                                        className="w-12 text-center text-sm font-black text-slate-900 bg-transparent outline-none tabular-nums"
+                                    />
+                                </div>
+                                {isCombo && (
+                                    <div className="flex items-center gap-6 pl-10 border-l-3 border-slate-200">
+                                        <span className="text-[10px] font-black text-emerald-600 uppercase">Bind Component:</span>
+                                        <select
+                                            value={group.linkedVariantGroupId || ''}
+                                            onChange={(e) => updateGroup({ ...group, linkedVariantGroupId: e.target.value })}
+                                            className="px-6 py-3 bg-slate-900 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest outline-none"
+                                        >
+                                            <option value="">Choose Component...</option>
+                                            {variantGroups.map((vg: any) => <option key={vg.id} value={vg.id}>{vg.name}</option>)}
+                                        </select>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setIsExpanded(!isExpanded)} className="p-5 text-slate-400 hover:text-slate-900 transition-all bg-white rounded-[32px] border-2 border-slate-100 shadow-sm">
+                            <ChevronDown size={32} className={cn("transition-transform", isExpanded && "rotate-180")} />
+                        </button>
+                        <button onClick={removeGroup} className="p-5 text-slate-200 hover:text-rose-500 transition-colors">
+                            <Trash2 size={32} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-12 pl-16 pt-2 border-t-2 border-slate-100/50">
+                    <RuleToggle label="Placement Logic" checked={group.isToppingGroup} onChange={(v: any) => updateGroup({ ...group, isToppingGroup: v })} color="blue" />
+                    <RuleToggle label="Half & Half" checked={group.isHalfAndHalfEnabled} onChange={(v: any) => updateGroup({ ...group, isHalfAndHalfEnabled: v })} color="purple" />
+                    <RuleToggle label="Premium Rule" checked={group.isPremiumRuleEnabled} onChange={(v: any) => updateGroup({ ...group, isPremiumRuleEnabled: v })} color="amber" />
+                </div>
+            </div>
+
+            {isExpanded && (
+                <div className="p-16 space-y-12">
+                    <div className="grid grid-cols-1 gap-12">
+                        {group.options.map((opt: ModifierOption, optIdx: number) => (
+                            <ModifierOptionRow
+                                key={opt.id}
+                                opt={opt}
+                                group={group}
+                                updateOption={(updated: any) => {
+                                    const newOptions = [...group.options];
+                                    newOptions[optIdx] = updated;
+                                    updateGroup({ ...group, options: newOptions });
+                                }}
+                                removeOption={() => updateGroup({ ...group, options: group.options.filter((o: any) => o.id !== opt.id) })}
+                            />
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => {
+                            const newOption: ModifierOption = { id: 'opt-' + Date.now(), name: 'New Choice', price: 1.00, subOptions: [] };
+                            updateGroup({ ...group, options: [...group.options, newOption] });
+                        }}
+                        className="w-full py-16 border-6 border-dashed border-slate-50 rounded-[60px] bg-slate-50/20 flex flex-col items-center justify-center gap-8 group transition-all hover:bg-white hover:border-slate-200"
+                    >
+                        <Plus size={48} className="text-emerald-500" strokeWidth={4} />
+                        <span className="text-[16px] font-black uppercase text-slate-300">Add Choice variant</span>
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+/* --- MAIN COMPONENT --- */
+
+export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, categories }) => {
     const [activeTab, setActiveTab] = useState<TabId>('GENERAL');
-    const [formData, setFormData] = useState<Partial<Item>>(item || {
-        type: 'PIZZA',
-        name: '',
-        description: '',
-        categoryId: '',
-        isAvailable: true,
-        variants: [],
-        modifierGroupIds: [],
-        storeOverrides: [],
-        modifierMappings: []
+    const [formData, setFormData] = useState<Item>(() => {
+        if (item) return JSON.parse(JSON.stringify(item));
+        return {
+            id: 'new-' + Date.now(),
+            productType: 'SINGLE',
+            name: '',
+            description: '',
+            categoryId: '',
+            isAvailable: true,
+            variantGroups: [],
+            modifierGroups: [],
+            storeOverrides: [],
+            auditLog: []
+        };
     });
+
+    const isExisting = item !== null;
 
     const tabs: { id: TabId, label: string, icon: any }[] = [
         { id: 'GENERAL', label: 'General', icon: Info },
         { id: 'VARIANTS', label: 'Variants', icon: Layers },
-        { id: 'MODIFIERS', label: 'Modifier Groups', icon: Settings2 },
+        { id: 'MODIFIERS', label: 'Modifiers', icon: Settings2 },
         { id: 'PRICING', label: 'Pricing', icon: DollarSign },
-        { id: 'INVENTORY', label: 'Inventory / Recipe', icon: Package },
+        { id: 'INVENTORY', label: 'Inventory', icon: Package },
         { id: 'AVAILABILITY', label: 'Availability', icon: Clock },
-        { id: 'OVERRIDES', label: 'Store Overrides', icon: Globe },
+        { id: 'OVERRIDES', label: 'Overrides', icon: Globe },
         { id: 'AUDIT', label: 'Audit Log', icon: ShieldCheck },
     ];
 
     const handleSave = () => {
-        console.log('Saving Item Configuration:', formData);
+        if (!formData.name) return alert('Name is required');
+        if (formData.productType === 'COMBO' && formData.variantGroups.length === 0) return alert('Combo must have components');
+        if (formData.variantGroups.some(vg => vg.variants.length > 0 && !vg.defaultVariantId)) return alert('Missing default selection in variant group');
+        if (formData.productType === 'COMBO' && formData.modifierGroups.some(mg => !mg.linkedVariantGroupId)) return alert('Combo modifiers must be bound to a component');
+
+        console.log('Saving Configuration:', formData);
         onClose();
     };
 
     return (
         <div className="bg-slate-50/50 -mx-4 -mt-6 px-4 pt-6 min-h-screen">
-            {/* Context Header */}
-            <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 -mx-4 px-6 py-4 flex items-center justify-between shadow-sm">
-                <div className="flex items-center gap-4">
+            {/* Header */}
+            <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 -mx-4 px-8 py-5 flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-6">
                     <button
                         onClick={onClose}
-                        className="p-2 text-slate-400 hover:text-slate-900 transition-colors bg-slate-50 rounded-xl"
+                        className="p-2.5 text-slate-400 hover:text-slate-900 transition-all bg-slate-50 rounded-2xl border border-slate-100"
                     >
-                        <ChevronLeft size={20} />
+                        <ChevronLeft size={22} />
                     </button>
                     <div>
-                        <div className="flex items-center gap-2">
-                            <h2 className="text-lg font-black text-slate-900 tracking-tight">
-                                {item ? `Edit: ${item.name}` : 'New Pizza Setup'}
+                        <div className="flex items-center gap-3">
+                            <h2 className="text-xl font-black text-slate-900 tracking-tight">
+                                {isExisting ? `Edit: ${formData.name}` : 'Setup Offering'}
                             </h2>
-                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-[9px] font-black uppercase tracking-widest border border-emerald-100">
-                                Item Type: Pizza
+                            <span className={cn(
+                                "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border",
+                                formData.productType === 'SINGLE' ? "bg-blue-50 text-blue-700 border-blue-100" : "bg-purple-50 text-purple-700 border-purple-100"
+                            )}>
+                                {formData.productType} PRODUCT
                             </span>
                         </div>
-                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.15em] mt-0.5 opacity-80">
-                            Central Catalog Source of Truth
-                        </p>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                    <button
-                        onClick={onClose}
-                        className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors"
-                    >
-                        Discard
-                    </button>
+                <div className="flex items-center gap-4">
                     <button
                         onClick={handleSave}
-                        className="flex items-center gap-2 px-6 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95"
+                        className="flex items-center gap-2 px-10 py-3.5 bg-slate-900 text-white rounded-[22px] text-xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-slate-200 transition-all"
                     >
-                        <Save size={14} className="text-emerald-400" />
-                        Save Item
+                        <Save size={16} className="text-emerald-400" />
+                        Save Product
                     </button>
                 </div>
             </div>
 
-            {/* Tabbed Layout Container */}
-            <div className="max-w-[1400px] mx-auto py-8 flex flex-col lg:flex-row gap-8">
-                {/* Left Sidebar Tabs */}
-                <div className="w-full lg:w-64 shrink-0 space-y-1">
+            {/* Layout */}
+            <div className="max-w-[1550px] mx-auto py-10 flex flex-col lg:flex-row gap-8">
+                {/* Sidebar */}
+                <div className="w-full lg:w-72 shrink-0 space-y-2">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-xl shadow-slate-200' : 'text-slate-500 hover:bg-white hover:text-slate-900'}`}
+                            className={cn(
+                                "w-full flex items-center gap-4 px-6 py-4 rounded-[22px] text-[11px] font-black uppercase tracking-widest transition-all",
+                                activeTab === tab.id
+                                    ? "bg-slate-900 text-white shadow-2xl scale-[1.03]"
+                                    : "text-slate-500 hover:bg-white/80 hover:text-slate-900"
+                            )}
                         >
-                            <tab.icon size={16} strokeWidth={activeTab === tab.id ? 3 : 2.5} />
+                            <tab.icon size={18} strokeWidth={activeTab === tab.id ? 3 : 2.5} />
                             {tab.label}
                         </button>
                     ))}
                 </div>
 
-                {/* Right Content Area */}
-                <div className="flex-1 bg-white rounded-[32px] border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden min-h-[600px]">
-                    <div className="p-10">
-                        {activeTab === 'GENERAL' && <GeneralTab formData={formData} setFormData={setFormData} categories={categories} />}
-                        {activeTab === 'VARIANTS' && <VariantsTab formData={formData} setFormData={setFormData} />}
-                        {activeTab === 'MODIFIERS' && <ModifierGroupsTab formData={formData} setFormData={setFormData} modifierGroups={modifierGroups} />}
-                        {activeTab === 'PRICING' && <PricingTab formData={formData} setFormData={setFormData} />}
-                        {activeTab === 'INVENTORY' && <InventoryTab formData={formData} setFormData={setFormData} modifierGroups={modifierGroups} />}
-                        {activeTab === 'AVAILABILITY' && <AvailabilityTab formData={formData} setFormData={setFormData} />}
-                        {activeTab === 'OVERRIDES' && <StoreOverridesTab formData={formData} setFormData={setFormData} />}
-                        {activeTab === 'AUDIT' && <AuditLogTab auditLog={item?.auditLog || []} />}
+                {/* Editor Area */}
+                <div className="flex-1 bg-white rounded-[44px] border border-slate-200 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden min-h-[850px]">
+                    <div className="p-16 h-full overflow-y-auto max-h-[calc(100vh-200px)]">
+                        {activeTab === 'GENERAL' && <GeneralTab formData={formData} setFormData={setFormData} categories={categories} isExisting={isExisting} />}
+                        {activeTab === 'VARIANTS' && (
+                            <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="flex items-center justify-between border-l-[6px] border-slate-900 pl-6 h-12">
+                                    <h3 className="text-xl font-black text-slate-900 uppercase tracking-[0.15em]">Variant Structure</h3>
+                                    <button
+                                        onClick={() => {
+                                            const newGroup: ItemVariantGroup = { id: 'vg-' + Date.now(), name: 'NEW GROUP', isRequired: true, defaultVariantId: '', variants: [], sortOrder: formData.variantGroups.length + 1 };
+                                            setFormData({ ...formData, variantGroups: [...formData.variantGroups, newGroup] });
+                                        }}
+                                        className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-[20px] text-[11px] font-black uppercase tracking-widest"
+                                    >
+                                        <Plus size={18} strokeWidth={4} /> Add Group
+                                    </button>
+                                </div>
+                                <div className="space-y-8">
+                                    {formData.variantGroups.map((group, idx) => (
+                                        <VariantGroupCard
+                                            key={group.id}
+                                            group={group}
+                                            isCombo={formData.productType === 'COMBO'}
+                                            updateGroup={(updated: any) => {
+                                                const newGroups = [...formData.variantGroups];
+                                                newGroups[idx] = updated;
+                                                setFormData({ ...formData, variantGroups: newGroups });
+                                            }}
+                                            removeGroup={() => setFormData({ ...formData, variantGroups: formData.variantGroups.filter((_, i) => i !== idx) })}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        {activeTab === 'MODIFIERS' && (
+                            <ModifiersTab formData={formData} setFormData={setFormData} />
+                        )}
+                        {activeTab === 'PRICING' && <PlaceholderTab icon={DollarSign} label="Pricing Logic" description="Financial overrides and fee structures appear here." />}
+                        {activeTab === 'INVENTORY' && <PlaceholderTab icon={Package} label="Recipe / BOM" description="Link variants and modifier choices to raw ingredients." />}
                     </div>
                 </div>
             </div>
@@ -119,515 +642,60 @@ export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, c
     );
 };
 
-// --- Tab Components ---
+interface ItemEditScreenProps {
+    item: Item | null;
+    onClose: () => void;
+    categories: Category[];
+}
 
-const GeneralTab: React.FC<{ formData: any, setFormData: any, categories: Category[] }> = ({ formData, setFormData, categories }) => (
-    <div className="space-y-8 max-w-2xl">
-        <div className="space-y-6">
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-4">Base Identity</h3>
+type TabId = 'GENERAL' | 'VARIANTS' | 'MODIFIERS' | 'PRICING' | 'INVENTORY' | 'AVAILABILITY' | 'OVERRIDES' | 'AUDIT';
 
-            <div className="space-y-4">
-                <div>
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Pizza Name</label>
-                    <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. Veggie Supreme"
-                        className="w-full px-5 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:border-slate-900 transition-all shadow-sm"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Menu Category</label>
-                    <select
-                        value={formData.categoryId}
-                        onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                        className="w-full px-5 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:border-slate-900 transition-all shadow-sm appearance-none"
-                    >
-                        <option value="">Select Category</option>
-                        {categories.map(cat => (
-                            <option key={cat.id} value={cat.id}>{cat.name}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <div>
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Public Description</label>
-                    <textarea
-                        value={formData.description}
-                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                        rows={4}
-                        placeholder="Describe your pizza for the customers..."
-                        className="w-full px-5 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:border-slate-900 transition-all shadow-sm resize-none"
-                    />
-                </div>
-            </div>
-        </div>
-    </div>
-);
-
-const VariantsTab: React.FC<{ formData: any, setFormData: any }> = ({ formData, setFormData: _setFormData }) => (
-    <div className="space-y-8">
-        <div className="flex items-center justify-between border-l-4 border-slate-900 pl-4">
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Size & Crust Variants</h3>
-            <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-slate-200">
-                <Plus size={14} /> Add Variant
-            </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {formData.variants.map((v: any, idx: number) => (
-                <div key={v.id} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4 group hover:bg-white hover:border-slate-900 transition-all shadow-sm">
-                    <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Variant #{idx + 1}</span>
-                        <div className="flex items-center gap-2">
-                            <button className="p-1.5 text-slate-300 hover:text-rose-500 transition-colors"><Trash2 size={14} /></button>
-                        </div>
-                    </div>
-                    <div className="space-y-3">
-                        <input
-                            type="text"
-                            value={v.name}
-                            placeholder="Variant Name (e.g. Medium)"
-                            className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold"
-                        />
-                        <div className="flex items-center gap-3">
-                            <div className="relative flex-1">
-                                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
-                                <input
-                                    type="number"
-                                    value={v.basePrice}
-                                    className="w-full pl-8 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold font-mono"
-                                />
-                            </div>
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" checked={v.isAvailable} className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900" />
-                                <span className="text-[10px] font-black text-slate-400 uppercase">Live</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </div>
-);
-
-const ModifierGroupsTab: React.FC<{ formData: any, setFormData: any, modifierGroups: ModifierGroup[] }> = ({ formData, setFormData, modifierGroups }) => (
-    <div className="space-y-8">
-        <div className="flex items-center justify-between border-l-4 border-slate-900 pl-4">
-            <div>
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Assigned Modifiers</h3>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight mt-1 items-center flex gap-1">
-                    <AlertCircle size={10} /> Select from global reusable pools
-                </p>
-            </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4">
-            {modifierGroups.map(group => {
-                const isSelected = formData.modifierGroupIds.includes(group.id);
-                return (
-                    <div
-                        key={group.id}
-                        onClick={() => {
-                            const newIds = isSelected
-                                ? formData.modifierGroupIds.filter((id: string) => id !== group.id)
-                                : [...formData.modifierGroupIds, group.id];
-                            setFormData({ ...formData, modifierGroupIds: newIds });
-                        }}
-                        className={`p-6 rounded-3xl border transition-all cursor-pointer flex items-center justify-between ${isSelected ? 'bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-200' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-900 group'}`}
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className={`p-3 rounded-2xl ${isSelected ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-slate-100'}`}>
-                                <Settings2 size={20} className={isSelected ? 'text-emerald-400' : 'text-slate-400'} />
-                            </div>
-                            <div>
-                                <h4 className="text-sm font-black uppercase tracking-widest">{group.name}</h4>
-                                <p className={`text-[10px] font-medium mt-0.5 ${isSelected ? 'text-slate-300' : 'text-slate-400'}`}>
-                                    {group.options.length} Options • Min {group.minSelection} / Max {group.maxSelection}
-                                </p>
-                            </div>
-                        </div>
-                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-emerald-500 border-emerald-500 text-slate-900' : 'border-slate-200'}`}>
-                            {isSelected && <Save size={14} strokeWidth={4} />}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    </div>
-);
-
-const PricingTab: React.FC<{ formData: any, setFormData: any }> = ({ formData: _formData, setFormData: _setFormData }) => (
-    <div className="space-y-8 py-10 text-center">
-        <div className="inline-block p-6 bg-slate-50 rounded-full mb-4">
-            <DollarSign size={48} className="text-slate-200" strokeWidth={1} />
-        </div>
-        <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase tracking-widest">Global Pricing Model</h3>
-            <p className="text-xs text-slate-500 font-medium leading-relaxed mt-2 uppercase tracking-wide">
-                Primary pricing is defined at the Variant level. Unified tax rates and service charges applies globally unless overridden at the store level.
-            </p>
-        </div>
-        <div className="p-6 bg-slate-50/50 rounded-3xl border border-slate-100 max-w-sm mx-auto">
-            <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Default Tax Rate</span>
-                <span className="text-sm font-black text-slate-900">13%</span>
-            </div>
-            <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Currency</span>
-                <span className="text-sm font-black text-slate-900">USD ($)</span>
-            </div>
-        </div>
-    </div>
-);
-
-const InventoryTab: React.FC<{ formData: any, setFormData: any, modifierGroups: ModifierGroup[] }> = ({ formData, setFormData, modifierGroups }) => {
-
-    // Helper: Find ingredient details
-    const getIngredient = (id: string): Ingredient | undefined => mockIngredients.find(i => i.id === id);
-
-    // --- Actions ---
-
-    const handleVariantRecipeChange = (variantId: string, newRecipe: RecipeEntry[]) => {
-        const newVariants = formData.variants.map((v: ItemVariant) =>
-            v.id === variantId ? { ...v, recipe: newRecipe } : v
-        );
-        setFormData({ ...formData, variants: newVariants });
-    };
-
-    const handleAddIngredientToRecipe = (variantId: string, ingredientId: string) => {
-        if (!ingredientId) return;
-        const variant = formData.variants.find((v: ItemVariant) => v.id === variantId);
-        if (!variant) return;
-
-        const currentRecipe = variant.recipe || [];
-        if (currentRecipe.find((r: RecipeEntry) => r.ingredientId === ingredientId)) return; // Already exists
-
-        const newEntry: RecipeEntry = { ingredientId, quantity: 0 };
-        handleVariantRecipeChange(variantId, [...currentRecipe, newEntry]);
-    };
-
-    const handleRemoveIngredientFromRecipe = (variantId: string, ingredientId: string) => {
-        const variant = formData.variants.find((v: ItemVariant) => v.id === variantId);
-        if (!variant) return;
-        const newRecipe = (variant.recipe || []).filter((r: RecipeEntry) => r.ingredientId !== ingredientId);
-        handleVariantRecipeChange(variantId, newRecipe);
-    };
-
-    const handleUpdateRecipeQuantity = (variantId: string, ingredientId: string, qty: number) => {
-        const variant = formData.variants.find((v: ItemVariant) => v.id === variantId);
-        if (!variant) return;
-        const newRecipe = (variant.recipe || []).map((r: RecipeEntry) =>
-            r.ingredientId === ingredientId ? { ...r, quantity: qty } : r
-        );
-        handleVariantRecipeChange(variantId, newRecipe);
-    };
-
-    const handleModifierMappingChange = (modifierOptionId: string, ingredientId: string, quantity: number) => {
-        const currentMappings = (formData.modifierMappings || []) as ModifierIngredientMapping[];
-
-        // Remove existing mapping for this option
-        const filtered = currentMappings.filter(m => m.modifierOptionId !== modifierOptionId);
-
-        if (ingredientId) {
-            // Add new mapping
-            const newMapping: ModifierIngredientMapping = { modifierOptionId, ingredientId, quantity };
-            setFormData({ ...formData, modifierMappings: [...filtered, newMapping] });
-        } else {
-            // Just removed
-            setFormData({ ...formData, modifierMappings: filtered });
-        }
-    };
+const ModifiersTab = (props: any) => {
+    const { formData, setFormData } = props;
+    const isCombo = formData.productType === 'COMBO';
 
     return (
-        <div className="space-y-12 pb-24">
-            {/* Header */}
-            <div>
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-4 mb-2">Inventory Logic Setup</h3>
-                <p className="text-xs text-slate-500 font-medium pl-5 max-w-2xl">
-                    Define the precise Bill of Materials (BOM) for each variant and map modifier options to ingredients.
-                    <br />
-                    <span className="text-emerald-600 font-bold">Note:</span> All input quantities are deducted from <span className="font-bold text-slate-900">Inventory &gt; Ingredients</span> automatically upon sale.
-                </p>
+        <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="flex items-center justify-between border-l-[6px] border-slate-900 pl-6 h-12">
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-[0.15em]">Modifier Pools</h3>
+                <button
+                    onClick={() => {
+                        const newGroup: ModifierGroup = { id: 'mg-' + Date.now(), name: 'NEW POOL', isRequired: false, minSelection: 0, maxSelection: 10, isToppingGroup: true, isHalfAndHalfEnabled: true, isPremiumRuleEnabled: true, options: [] };
+                        setFormData({ ...formData, modifierGroups: [...formData.modifierGroups, newGroup] });
+                    }}
+                    className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-[20px] text-[11px] font-black uppercase tracking-widest"
+                >
+                    <Plus size={18} strokeWidth={4} /> New Pool
+                </button>
             </div>
 
-            {/* PART 1: Variant Recipes */}
-            <div className="space-y-6">
-                <div className="flex items-center gap-2">
-                    <Layers size={16} className="text-slate-400" />
-                    <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">A. Base Recipe (Per Variant)</h4>
-                </div>
-
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    {formData.variants.map((variant: ItemVariant) => (
-                        <div key={variant.id} className="p-6 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all">
-                            <div className="flex items-center justify-between mb-4 border-b border-slate-200 pb-4">
-                                <div>
-                                    <div className="text-sm font-black text-slate-900">{variant.name}</div>
-                                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Base Variant</div>
-                                </div>
-                                <div className="p-2 bg-white rounded-xl border border-slate-100 shadow-sm">
-                                    <Package size={16} className="text-slate-400" />
-                                </div>
-                            </div>
-
-                            {/* Ingredients List */}
-                            <div className="space-y-2">
-                                {(variant.recipe || []).length === 0 && (
-                                    <div className="text-center py-6 text-slate-400 text-xs italic bg-white rounded-xl border border-dashed border-slate-200">
-                                        No ingredients mapped yet.
-                                    </div>
-                                )}
-                                {(variant.recipe || []).map((entry: RecipeEntry) => {
-                                    const ing = getIngredient(entry.ingredientId);
-                                    if (!ing) return null;
-                                    return (
-                                        <div key={entry.ingredientId} className="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
-                                            <div className="flex-1">
-                                                <div className="text-xs font-bold text-slate-700">{ing.name}</div>
-                                                <div className="text-[9px] text-slate-400 uppercase tracking-wide">Unit: {ing.unit}</div>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    step="0.001"
-                                                    value={entry.quantity || ''}
-                                                    onChange={(e) => handleUpdateRecipeQuantity(variant.id, entry.ingredientId, parseFloat(e.target.value))}
-                                                    placeholder="Qty"
-                                                    className="w-20 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-right focus:border-slate-900"
-                                                />
-                                                <span className="text-[10px] font-bold text-slate-400 w-8">{ing.unit}</span>
-                                                <button
-                                                    onClick={() => handleRemoveIngredientFromRecipe(variant.id, entry.ingredientId)}
-                                                    className="p-1.5 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                                                >
-                                                    <Trash2 size={14} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Add Ingredient Footer */}
-                            <div className="mt-4 pt-4 border-t border-slate-200">
-                                <select
-                                    onChange={(e) => {
-                                        handleAddIngredientToRecipe(variant.id, e.target.value);
-                                        e.target.value = '';
-                                    }}
-                                    className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 focus:border-slate-900 hover:border-slate-300 transition-all cursor-pointer"
-                                >
-                                    <option value="">+ Add Ingredient to Recipe...</option>
-                                    {mockIngredients
-                                        .filter(ing => !(variant.recipe || []).find((r: RecipeEntry) => r.ingredientId === ing.id))
-                                        .map(ing => (
-                                            <option key={ing.id} value={ing.id}>{ing.name} ({ing.unit})</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* PART 2: Modifier Mappings */}
-            <div className="space-y-6">
-                <div className="flex items-center gap-2">
-                    <Settings2 size={16} className="text-slate-400" />
-                    <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">B. Topping & Modifier Mapping</h4>
-                </div>
-
-                <div className="space-y-6">
-                    {formData.modifierGroupIds.map((groupId: string) => {
-                        const group = modifierGroups.find(g => g.id === groupId);
-                        if (!group) return null;
-
-                        return (
-                            <div key={groupId} className="border border-slate-200 rounded-[28px] overflow-hidden">
-                                <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-                                    <div>
-                                        <div className="text-sm font-black text-slate-900">{group.name}</div>
-                                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">
-                                            {group.options.length} Options • Half/Half: {group.isHalfAndHalfEnabled ? 'Yes' : 'No'}
-                                        </div>
-                                    </div>
-                                    {group.isPremiumRuleEnabled && (
-                                        <span className="px-2 py-1 bg-amber-50 text-amber-700 text-[9px] font-black uppercase tracking-widest rounded border border-amber-100">
-                                            Premium Rules Active
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div className="divide-y divide-slate-100 bg-white">
-                                    {group.options.map(opt => {
-                                        const mapping: ModifierIngredientMapping | undefined = (formData.modifierMappings || []).find((m: ModifierIngredientMapping) => m.modifierOptionId === opt.id);
-                                        const linkedIng = mapping ? getIngredient(mapping.ingredientId) : null;
-
-                                        return (
-                                            <div key={opt.id} className="px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors group">
-                                                <div className="w-1/3 shrink-0">
-                                                    <div className="text-xs font-black text-slate-800">{opt.name}</div>
-                                                    <div className="text-[10px] text-slate-400 font-medium">Price: +${opt.price}</div>
-                                                </div>
-
-                                                <div className="flex-1 flex items-center gap-4">
-                                                    {/* Ingredient Selector */}
-                                                    <div className="flex-1">
-                                                        <select
-                                                            value={mapping?.ingredientId || ''}
-                                                            onChange={(e) => handleModifierMappingChange(opt.id, e.target.value, mapping?.quantity || 0)}
-                                                            className={`w-full px-3 py-2 rounded-xl text-xs font-bold border transition-all ${mapping ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-slate-50 border-slate-200 text-slate-400'}`}
-                                                        >
-                                                            <option value="">No Ingredient Mapped (Non-Inventory)</option>
-                                                            {mockIngredients.map(ing => (
-                                                                <option key={ing.id} value={ing.id}>{ing.name} ({ing.unit})</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
-
-                                                    {/* Quantity Input */}
-                                                    {mapping && linkedIng && (
-                                                        <div className="flex items-center gap-2 animate-in fade-in slide-in-from-left-2 duration-300">
-                                                            <div className="flex flex-col items-end">
-                                                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter mb-0.5">Base Qty (Full)</span>
-                                                                <div className="flex items-center">
-                                                                    <input
-                                                                        type="number"
-                                                                        step="0.001"
-                                                                        min="0"
-                                                                        value={mapping.quantity}
-                                                                        onChange={(e) => handleModifierMappingChange(opt.id, mapping.ingredientId, parseFloat(e.target.value))}
-                                                                        className="w-20 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-black text-right focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10"
-                                                                    />
-                                                                    <span className="ml-2 text-[10px] font-bold text-slate-500 w-8">{linkedIng.unit}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Info Footer */}
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-start gap-3">
-                <Info size={16} className="text-slate-400 mt-0.5" />
-                <div>
-                    <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Logic Explanation</h5>
-                    <p className="text-[10px] text-slate-500 mt-1 leading-relaxed">
-                        • <strong>Variant Recipe:</strong> Deducted 100% every time this variant is sold.
-                        <br />
-                        • <strong>Modifier Mapping:</strong> Deducted based on selection. If placement is "Left/Right" (Half), the system automatically deducts 50% of the Base Qty.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const AvailabilityTab: React.FC<{ formData: any, setFormData: any }> = ({ formData, setFormData }) => (
-    <div className="space-y-8 max-w-lg">
-        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-4 mb-6">Channel Visibility</h3>
-
-        <div className="space-y-4">
-            <label className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 cursor-pointer hover:border-slate-900 transition-all">
-                <input
-                    type="checkbox"
-                    checked={formData.isAvailable}
-                    onChange={(e) => setFormData({ ...formData, isAvailable: e.target.checked })}
-                    className="w-5 h-5 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
-                />
-                <div>
-                    <span className="text-sm font-black text-slate-900 uppercase tracking-tight">Main Public Switch</span>
-                    <p className="text-[10px] text-slate-400 font-medium mt-0.5">Global visibility across ALL channels and stores.</p>
-                </div>
-            </label>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-4">
-                {['POS', 'Online', 'Uber Eats'].map(channel => (
-                    <div key={channel} className="p-4 bg-white border border-slate-100 rounded-2xl text-center shadow-sm">
-                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">{channel}</span>
-                        <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Live</span>
-                    </div>
+            <div className="space-y-12">
+                {formData.modifierGroups.map((group: any, idx: number) => (
+                    <ModifierGroupCard
+                        key={group.id}
+                        group={group}
+                        variantGroups={formData.variantGroups}
+                        updateGroup={(updated: any) => {
+                            const newGroups = [...formData.modifierGroups];
+                            newGroups[idx] = updated;
+                            setFormData({ ...formData, modifierGroups: newGroups });
+                        }}
+                        removeGroup={() => setFormData({ ...formData, modifierGroups: formData.modifierGroups.filter((_: any, i: number) => i !== idx) })}
+                        isCombo={isCombo}
+                    />
                 ))}
             </div>
         </div>
-    </div>
-);
-
-const StoreOverridesTab: React.FC<{ formData: any, setFormData: any }> = ({ formData: _formData, setFormData: _setFormData }) => (
-    <div className="space-y-8">
-        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-4 mb-6">Localized Adaptations</h3>
-
-        <div className="bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
-            <table className="w-full text-left">
-                <thead>
-                    <tr className="bg-white border-b border-slate-100">
-                        <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Store Branch</th>
-                        <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Override Type</th>
-                        <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Status</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                    {[
-                        { name: 'Downtown Branch', type: 'Custom Price', status: 'Active' },
-                        { name: 'Westside Mall', type: 'Availability', status: 'Global' },
-                        { name: 'Airport Kiosk', type: 'Premium Rules', status: 'Overridden' }
-                    ].map(store => (
-                        <tr key={store.name} className="hover:bg-white transition-all cursor-pointer group uppercase tracking-tight">
-                            <td className="px-6 py-4 text-xs font-black text-slate-900">{store.name}</td>
-                            <td className="px-6 py-4 text-[10px] font-bold text-slate-500">{store.type}</td>
-                            <td className="px-6 py-4 text-right">
-                                <span className={`text-[9px] font-black px-2 py-0.5 rounded-lg border ${store.status === 'Global' ? 'text-slate-400 bg-slate-100 border-slate-200' : 'text-emerald-600 bg-emerald-50 border-emerald-100'}`}>
-                                    {store.status}
-                                </span>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+    );
+};
+const PlaceholderTab = ({ icon: Icon, label, description }: any) => (
+    <div className="flex flex-col items-center justify-center py-40 text-center space-y-6 animate-in fade-in duration-700">
+        <div className="p-10 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center shadow-inner">
+            <Icon size={64} className="text-slate-200" strokeWidth={1} />
+        </div>
+        <div className="max-w-sm">
+            <h4 className="text-xl font-black text-slate-800 uppercase tracking-[0.2em]">{label}</h4>
+            <p className="text-xs font-bold text-slate-400 mt-3 uppercase leading-relaxed tracking-widest">{description}</p>
         </div>
     </div>
 );
-
-const AuditLogTab: React.FC<{ auditLog: any[] }> = ({ auditLog }) => (
-    <div className="space-y-8">
-        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-4 mb-6">Immutable Governance Trail</h3>
-
-        <div className="space-y-4">
-            {auditLog.length > 0 ? auditLog.map((log, idx) => (
-                <div key={idx} className="flex gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-colors group">
-                    <div className="w-8 h-8 bg-slate-900 rounded-xl flex items-center justify-center text-white text-[10px] font-black shrink-0">
-                        {log.user.charAt(0)}
-                    </div>
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-3">
-                            <span className="text-xs font-black text-slate-900">{log.user}</span>
-                            <span className="text-[10px] font-bold text-slate-400 italic">
-                                {new Date(log.timestamp).toLocaleString()}
-                            </span>
-                        </div>
-                        <p className="text-xs text-slate-600 font-medium bg-white px-3 py-1.5 rounded-xl border border-slate-100 inline-block shadow-sm">
-                            {log.action}
-                        </p>
-                    </div>
-                </div>
-            )) : (
-                <div className="text-center py-20 text-slate-300 italic">No activity recorded for this session.</div>
-            )}
-        </div>
-    </div>
-);
-
-

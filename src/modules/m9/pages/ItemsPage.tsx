@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Package, Layers, Settings2, Plus, Search, Filter, ChevronRight, Edit3, Trash2 } from 'lucide-react';
-import { Item, Category, ModifierGroup } from '../types/items';
-import { mockItems, mockCategories, mockModifierGroups } from '../mock/items';
+import { Package, Layers, Settings2, Plus, Search, ChevronRight, Edit3 } from 'lucide-react';
+import { Item, Category } from '../types/items';
+import { mockItems, mockCategories } from '../mock/items';
 import { ItemEditScreen } from '../components/Items/ItemEditScreen';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
+import { cn } from '@/utils';
 
 type SubView = 'LIST' | 'CATEGORIES' | 'MODIFIERS' | 'EDIT';
 
@@ -30,7 +31,7 @@ export const ItemsPage: React.FC = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
                 <div>
                     <h1 className="text-2xl font-black text-slate-900 tracking-tight">Catalog Management</h1>
-                    <p className="text-sm text-slate-500 font-medium">Manage items, variants, recipes and store overrides.</p>
+                    <p className="text-sm text-slate-500 font-medium">Manage items, variants, and modifiers with hierarchical configuration.</p>
                 </div>
 
                 {isAdmin && currentView === 'LIST' && (
@@ -48,24 +49,33 @@ export const ItemsPage: React.FC = () => {
             <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-2xl w-fit">
                 <button
                     onClick={() => setCurrentView('LIST')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${currentView === 'LIST' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:bg-white/50'}`}
+                    className={cn(
+                        "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
+                        currentView === 'LIST' ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:bg-white/50"
+                    )}
                 >
                     <Package size={14} />
                     Item List
                 </button>
                 <button
                     onClick={() => setCurrentView('CATEGORIES')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${currentView === 'CATEGORIES' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:bg-white/50'}`}
+                    className={cn(
+                        "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
+                        currentView === 'CATEGORIES' ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:bg-white/50"
+                    )}
                 >
                     <Layers size={14} />
                     Categories
                 </button>
                 <button
                     onClick={() => setCurrentView('MODIFIERS')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${currentView === 'MODIFIERS' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:bg-white/50'}`}
+                    className={cn(
+                        "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
+                        currentView === 'MODIFIERS' ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:bg-white/50"
+                    )}
                 >
                     <Settings2 size={14} />
-                    Modifier Groups
+                    Global Modifiers
                 </button>
             </div>
 
@@ -78,14 +88,17 @@ export const ItemsPage: React.FC = () => {
                     <CategoryListView categories={mockCategories} />
                 )}
                 {currentView === 'MODIFIERS' && (
-                    <ModifierListView groups={mockModifierGroups} />
+                    <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+                        <Settings2 size={48} strokeWidth={1} />
+                        <p className="mt-4 font-black uppercase tracking-widest text-xs tracking-[0.2em]">Global Modifier Management Coming Soon</p>
+                        <p className="mt-2 text-[10px] font-bold uppercase tracking-tight">Currently, modifiers are configured per item.</p>
+                    </div>
                 )}
                 {currentView === 'EDIT' && (
                     <ItemEditScreen
                         item={selectedItem}
                         onClose={() => setCurrentView('LIST')}
                         categories={mockCategories}
-                        modifierGroups={mockModifierGroups}
                     />
                 )}
             </div>
@@ -103,84 +116,93 @@ const ItemListView: React.FC<{ items: Item[], onEdit: (item: Item) => void }> = 
                     <input
                         type="text"
                         placeholder="Search items by name, SKU or ID..."
-                        className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:border-slate-900 transition-all"
+                        className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:border-slate-900 transition-all font-bold"
                     />
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-white transition-all">
-                    <Filter size={14} />
-                    Filters
-                </button>
             </div>
 
             {/* Table */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-[32px] border border-slate-200 shadow-sm overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-slate-50 border-b border-slate-100">
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Item Details</th>
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Type</th>
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</th>
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Price Range</th>
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Status</th>
-                            <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Actions</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Item Identity</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Architecture</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Base Range</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Status</th>
+                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right"></th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
-                        {items.map((item) => (
-                            <tr
-                                key={item.id}
-                                className="group hover:bg-slate-50/50 transition-colors cursor-pointer"
-                                onClick={() => onEdit(item)}
-                            >
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0">
-                                            {item.imageUrl ? (
-                                                <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-slate-400">
-                                                    <Package size={20} />
+                        {items.map((item) => {
+                            const allVariants = item.variantGroups.flatMap(vg => vg.variants);
+                            const minPrice = allVariants.length > 0 ? Math.min(...allVariants.map(v => v.basePrice)) : 0;
+                            const maxPrice = allVariants.length > 0 ? Math.max(...allVariants.map(v => v.basePrice)) : 0;
+
+                            return (
+                                <tr
+                                    key={item.id}
+                                    className="group hover:bg-slate-50 transition-colors cursor-pointer"
+                                    onClick={() => onEdit(item)}
+                                >
+                                    <td className="px-6 py-5">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex-shrink-0 flex items-center justify-center">
+                                                {item.imageUrl ? (
+                                                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <Package size={20} className="text-slate-200" />
+                                                )}
+                                            </div>
+                                            <div>
+                                                <div className="text-sm font-black text-slate-900 tracking-tight">{item.name}</div>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className={cn(
+                                                        "text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded border",
+                                                        item.productType === 'SINGLE' ? "bg-blue-50 text-blue-600 border-blue-100" : "bg-purple-50 text-purple-600 border-purple-100"
+                                                    )}>
+                                                        {item.productType}
+                                                    </span>
+                                                    <span className="text-[9px] text-slate-400 font-bold uppercase tracking-tight">ID: {item.id}</span>
                                                 </div>
-                                            )}
+                                            </div>
                                         </div>
-                                        <div>
-                                            <div className="text-sm font-black text-slate-900">{item.name}</div>
-                                            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">ID: {item.id}</div>
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <div className="flex flex-col gap-1">
+                                            <div className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{item.variantGroups.length} Variant Groups</div>
+                                            <div className="text-[9px] text-slate-400 font-bold uppercase tracking-tight">{item.modifierGroups.length} Modifier Pools</div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <span className="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-black uppercase tracking-wider border border-slate-200">
-                                        {item.type}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 text-sm font-bold text-slate-600">
-                                    {mockCategories.find(c => c.id === item.categoryId)?.name || 'Unassigned'}
-                                </td>
-                                <td className="px-6 py-4 text-right tabular-nums">
-                                    <div className="text-sm font-black text-slate-900">
-                                        ${Math.min(...item.variants.map(v => v.basePrice))} - ${Math.max(...item.variants.map(v => v.basePrice))}
-                                    </div>
-                                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{item.variants.length} Variants</div>
-                                </td>
-                                <td className="px-6 py-4 text-center">
-                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border uppercase tracking-widest ${item.isAvailable ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-slate-100 text-slate-400 border-slate-200'}`}>
-                                        {item.isAvailable ? 'Active' : 'Hidden'}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <div className="flex items-center justify-end gap-2">
-                                        <button className="p-2 text-slate-400 hover:text-slate-900 transition-colors">
-                                            <Edit3 size={16} />
-                                        </button>
-                                        <button className="p-2 text-slate-400 hover:text-rose-600 transition-colors">
-                                            <Trash2 size={16} />
-                                        </button>
-                                        <ChevronRight size={16} className="text-slate-300 group-hover:translate-x-1 transition-all" />
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <span className="text-xs font-black text-slate-500 uppercase tracking-widest">
+                                            {mockCategories.find(c => c.id === item.categoryId)?.name || 'Unassigned'}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-5 text-right tabular-nums">
+                                        <div className="text-sm font-black text-slate-900">
+                                            ${minPrice.toFixed(2)} - ${maxPrice.toFixed(2)}
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-5 text-center">
+                                        <span className={cn(
+                                            "px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border transition-all",
+                                            item.isAvailable ? "bg-emerald-50 text-emerald-600 border-emerald-100" : "bg-slate-50 text-slate-400 border-slate-100"
+                                        )}>
+                                            {item.isAvailable ? 'Active' : 'Offline'}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <div className="flex items-center justify-end">
+                                            <div className="p-2 text-slate-300 hover:text-slate-900 group-hover:bg-white rounded-xl transition-all shadow-sm">
+                                                <Edit3 size={16} />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
@@ -190,99 +212,26 @@ const ItemListView: React.FC<{ items: Item[], onEdit: (item: Item) => void }> = 
 
 const CategoryListView: React.FC<{ categories: Category[] }> = ({ categories }) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {categories.map((cat) => (
-                <div key={cat.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-slate-900 transition-all cursor-pointer group">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-slate-900 rounded-2xl shadow-lg shadow-slate-200">
-                            <Layers size={20} className="text-emerald-400" />
+                <div key={cat.id} className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm hover:border-slate-900 transition-all cursor-pointer group flex flex-col justify-between h-full">
+                    <div>
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-xl shadow-slate-200">
+                                <Layers size={20} className="text-emerald-400" />
+                            </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                            <button className="p-2 text-slate-300 hover:text-slate-900 transition-colors">
-                                <Edit3 size={14} />
-                            </button>
-                        </div>
+                        <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase tracking-widest">{cat.name}</h3>
+                        <p className="text-xs text-slate-500 font-bold mt-2 leading-relaxed uppercase tracking-tighter">
+                            {cat.description || 'No description provided for this category.'}
+                        </p>
                     </div>
-                    <h3 className="text-lg font-black text-slate-900 tracking-tight">{cat.name}</h3>
-                    <p className="text-xs text-slate-500 font-medium mt-1 leading-relaxed">
-                        {cat.description || 'No description provided for this category.'}
-                    </p>
-                    <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Menu Grouping</span>
-                        <ChevronRight size={14} className="text-slate-300 group-hover:translate-x-1 transition-all" />
+                    <div className="mt-10 pt-6 border-t border-slate-50 flex items-center justify-between">
+                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">View Catalog Items</span>
+                        <ChevronRight size={16} className="text-slate-200 group-hover:translate-x-1 transition-all group-hover:text-slate-900" />
                     </div>
                 </div>
             ))}
-            <button className="border-2 border-dashed border-slate-200 rounded-3xl p-6 flex flex-col items-center justify-center gap-3 hover:border-slate-400 hover:bg-slate-50 transition-all">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100">
-                    <Plus size={20} className="text-slate-400" />
-                </div>
-                <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Create New Category</span>
-            </button>
-        </div>
-    );
-};
-
-const ModifierListView: React.FC<{ groups: ModifierGroup[] }> = ({ groups }) => {
-    return (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {groups.map((group) => (
-                <div key={group.id} className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group hover:border-slate-900 transition-all cursor-pointer">
-                    <div className="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white rounded-xl shadow-sm border border-slate-100 text-slate-500">
-                                <Settings2 size={16} />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">{group.name}</h3>
-                                <div className="text-[9px] text-slate-400 font-bold uppercase tracking-tight">ID: {group.id}</div>
-                            </div>
-                        </div>
-                        <ChevronRight size={16} className="text-slate-300 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <div className="p-6 flex-1 space-y-4">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex flex-col items-center">
-                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Min Selection</span>
-                                <span className="text-base font-black text-slate-900">{group.minSelection}</span>
-                            </div>
-                            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex flex-col items-center">
-                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Max Selection</span>
-                                <span className="text-base font-black text-slate-900">{group.maxSelection}</span>
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2 pt-2">
-                            {group.isHalfAndHalfEnabled && (
-                                <span className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-[9px] font-black uppercase tracking-tighter border border-blue-100">Half-and-Half</span>
-                            )}
-                            {group.isPremiumRuleEnabled && (
-                                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-[9px] font-black uppercase tracking-tighter border border-emerald-100">Premium Rules</span>
-                            )}
-                        </div>
-                        <div className="pt-4 space-y-1">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Modifier Options ({group.options.length})</span>
-                            <div className="flex flex-wrap gap-1.5">
-                                {group.options.slice(0, 3).map(opt => (
-                                    <span key={opt.id} className="text-xs font-bold text-slate-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100">
-                                        {opt.name}
-                                    </span>
-                                ))}
-                                {group.options.length > 3 && (
-                                    <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">
-                                        +{group.options.length - 3} more
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ))}
-            <button className="border-2 border-dashed border-slate-200 rounded-3xl p-6 flex flex-col items-center justify-center gap-3 hover:border-slate-400 hover:bg-slate-50 transition-all min-h-[300px]">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100">
-                    <Plus size={20} className="text-slate-400" />
-                </div>
-                <span className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">Define Global<br />Modifier Group</span>
-            </button>
         </div>
     );
 };

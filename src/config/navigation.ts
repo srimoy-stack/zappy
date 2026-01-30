@@ -6,7 +6,10 @@ import {
     Package,
     Users,
     UserCircle,
-    MoreHorizontal
+    MoreHorizontal,
+    Warehouse,
+    Settings,
+    LayoutGrid
 } from 'lucide-react';
 import { UserRole } from '@/types';
 
@@ -91,8 +94,8 @@ export const navigationConfig: MenuConfig[] = [
     },
     {
         id: 'employees',
-        label: 'Employees',
-        route: '/backoffice/employees',
+        label: 'Users',
+        route: '/backoffice/users',
         icon: 'Users',
         allowedRoles: ['ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
         accessMode: {
@@ -114,6 +117,30 @@ export const navigationConfig: MenuConfig[] = [
             EMPLOYEE: 'read-only'
         },
         requiresStoreScope: true
+    },
+    {
+        id: 'inventory',
+        label: 'Inventory',
+        route: '/backoffice/inventory',
+        icon: 'Warehouse',
+        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        accessMode: {
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: true
+    },
+    {
+        id: 'business-operations',
+        label: 'Settings',
+        route: '/backoffice/settings/business-operations',
+        icon: 'Settings',
+        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        accessMode: {
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
     },
     {
         id: 'more',
@@ -139,4 +166,7 @@ export const iconMap = {
     Users,
     UserCircle,
     MoreHorizontal,
+    Warehouse,
+    Settings,
+    LayoutGrid,
 };

@@ -10,3 +10,12 @@ export { CashVariancePage } from './CashVariancePage';
 export { CustomerProfilePage } from './CustomerProfilePage';
 export { ProfileDetailSettings } from './ProfileDetailSettings';
 export { GenericSettingsDetail } from './GenericSettingsDetail';
+
+// Inventory Module
+export * from './inventory';
+
+// User Management
+export * from './users';
+
+// Settings
+export { BusinessOperationsPage } from './settings/BusinessOperationsPage';
