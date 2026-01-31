@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
-import { Navigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ProfileSettings,
     EmployeeSettings,
@@ -19,10 +20,11 @@ import { Settings as SettingsIcon, ShieldCheck } from 'lucide-react';
  */
 export const SettingsPage: React.FC = () => {
     const { role, user } = useRouteAccess();
+    const router = useRouter();
 
     // Access Control: Brand Admin Full, Store Manager Store-level, POS/KDS No access
     if (role === 'POS_USER' || role === 'KDS_USER' || role === 'EMPLOYEE') {
-        return <Navigate to="/backoffice/home" replace />;
+        useEffect(() => { router.replace('/backoffice/home'); }, [router]); return null;
     }
 
     const isAdmin = role === 'ADMIN';

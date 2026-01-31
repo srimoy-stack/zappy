@@ -1,13 +1,18 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+
 import {
     ArrowLeft,
     Save,
     Search,
     Trash2,
     ChefHat,
-    AlertCircle,
-    Info
+    Info,
+    Plus,
+    X,
+    MapPin,
 } from 'lucide-react';
 import { InventoryItem, RecipeStatus, CreateRecipeDTO } from '../../types/inventory';
 import { inventoryItemService, recipeService } from '../../services/inventoryService';
@@ -17,10 +22,44 @@ interface IngredientRow {
     inventoryItemId: string;
     inventoryItemName: string;
     baseUnit: string;
+    usageUnit: string;
     unitCost: number;
     quantityUsed: number;
     wastagePercentage: number;
 }
+
+// Unit Conversion Helpers
+
+const USAGE_UNITS = ['g', 'kg', 'ml', 'l', 'oz', 'lb', 'piece'];
+
+const convertToQt = (qty: number, from: string, to: string): number => {
+    if (from === to) return qty;
+
+    // Gram/Kg conversions
+    if (to === 'Kilogram') {
+        if (from === 'g') return qty / 1000;
+        if (from === 'lb') return qty * 0.453592;
+        if (from === 'oz') return qty * 0.0283495;
+    }
+    if (to === 'Gram') {
+        if (from === 'kg') return qty * 1000;
+    }
+
+    // Liter/Ml conversions
+    if (to === 'Liter') {
+        if (from === 'ml') return qty / 1000;
+        if (from === 'fl oz') return qty * 0.0295735;
+    }
+    if (to === 'Milliliter') {
+        if (from === 'l') return qty * 1000;
+    }
+
+    // Simplified fallback (should be refined for strict production)
+    if ((from === 'g' || from === 'ml') && (to === 'kg' || to === 'l')) return qty / 1000;
+    if ((from === 'kg' || from === 'l') && (to === 'g' || to === 'ml')) return qty * 1000;
+
+    return qty; // Fallback 1:1
+};
 
 /**
  * Create Recipe Page
@@ -33,7 +72,7 @@ interface IngredientRow {
  * 5. Save
  */
 export const CreateRecipePage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [submitting, setSubmitting] = useState(false);
 
     // Form State
@@ -87,6 +126,7 @@ export const CreateRecipePage: React.FC = () => {
             inventoryItemId: item.id,
             inventoryItemName: item.name,
             baseUnit: item.baseUnit,
+            usageUnit: item.baseUnit === 'Kilogram' ? 'g' : (item.baseUnit === 'Liter' ? 'ml' : 'piece'), // Smart default
             unitCost: item.averageCost,
             quantityUsed: 1, // Default 1
             wastagePercentage: 0 // Default 0
@@ -104,6 +144,7 @@ export const CreateRecipePage: React.FC = () => {
     const updateIngredient = (tempId: string, field: keyof IngredientRow, value: number) => {
         setIngredients(ingredients.map(ing => {
             if (ing.tempId === tempId) {
+                // If value is string (unit change), cast properly
                 return { ...ing, [field]: value };
             }
             return ing;
@@ -112,7 +153,8 @@ export const CreateRecipePage: React.FC = () => {
 
     // Calculations
     const calculateLineCost = (ing: IngredientRow) => {
-        const effectiveQty = ing.quantityUsed + (ing.quantityUsed * ing.wastagePercentage / 100);
+        const convertedQty = convertToQt(ing.quantityUsed, ing.usageUnit, ing.baseUnit);
+        const effectiveQty = convertedQty + (convertedQty * ing.wastagePercentage / 100);
         return effectiveQty * ing.unitCost;
     };
 
@@ -146,7 +188,7 @@ export const CreateRecipePage: React.FC = () => {
 
             await recipeService.create(recipeData, 'TENANT001'); // Mock tenant
             alert('Recipe created successfully!');
-            navigate('/backoffice/inventory/recipes');
+            router.push('/backoffice/inventory/recipes');
         } catch (error: any) {
             alert('Failed to create recipe: ' + error.message);
         } finally {
@@ -159,7 +201,7 @@ export const CreateRecipePage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/recipes')}
+                    onClick={() => router.push('/backoffice/inventory/recipes')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -170,7 +212,7 @@ export const CreateRecipePage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <button
-                        onClick={() => navigate('/backoffice/inventory/recipes')}
+                        onClick={() => router.push('/backoffice/inventory/recipes')}
                         className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
                     >
                         Cancel
@@ -294,37 +336,50 @@ export const CreateRecipePage: React.FC = () => {
                                     <thead>
                                         <tr className="bg-slate-50 border-b border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                             <th className="px-6 py-4">Ingredient</th>
-                                            <th className="px-4 py-4 text-right">Unit Cost</th>
-                                            <th className="px-4 py-4 text-center">Qty Used</th>
+                                            <th className="px-4 py-4 text-right">Unit Cost (Base)</th>
+                                            <th className="px-4 py-4 text-center">Usage Qty / Unit</th>
                                             <th className="px-4 py-4 text-center">Wastage %</th>
-                                            <th className="px-4 py-4 text-right">Effective Qty</th>
+                                            <th className="px-4 py-4 text-right">Converted Qty (Base)</th>
                                             <th className="px-4 py-4 text-right">Line Cost</th>
                                             <th className="px-4 py-4"></th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-50">
                                         {ingredients.map((ing) => {
-                                            const effectiveQty = ing.quantityUsed + (ing.quantityUsed * ing.wastagePercentage / 100);
+                                            const convertedBaseQty = convertToQt(ing.quantityUsed, ing.usageUnit, ing.baseUnit);
+                                            const effectiveQty = convertedBaseQty + (convertedBaseQty * ing.wastagePercentage / 100);
                                             const lineCost = effectiveQty * ing.unitCost;
 
                                             return (
                                                 <tr key={ing.tempId} className="hover:bg-slate-50/50 transition-colors group">
                                                     <td className="px-6 py-4">
                                                         <div className="text-sm font-black text-slate-900">{ing.inventoryItemName}</div>
-                                                        <div className="text-xs font-bold text-slate-400">{ing.baseUnit}</div>
+                                                        <div className="text-[10px] text-slate-400 font-medium">Base: {ing.baseUnit}</div>
                                                     </td>
                                                     <td className="px-4 py-4 text-right">
                                                         <div className="text-sm font-bold text-slate-600">${ing.unitCost.toFixed(2)}</div>
+                                                        <div className="text-[10px] text-slate-400">per {ing.baseUnit}</div>
                                                     </td>
                                                     <td className="px-4 py-4">
-                                                        <input
-                                                            type="number"
-                                                            min="0"
-                                                            step="0.01"
-                                                            value={ing.quantityUsed}
-                                                            onChange={(e) => updateIngredient(ing.tempId, 'quantityUsed', parseFloat(e.target.value) || 0)}
-                                                            className="w-24 h-10 px-3 text-center bg-white border border-slate-200 rounded-lg font-bold text-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none"
-                                                        />
+                                                        <div className="flex items-center justify-center gap-2">
+                                                            <input
+                                                                type="number"
+                                                                min="0"
+                                                                step="0.01"
+                                                                value={ing.quantityUsed}
+                                                                onChange={(e) => updateIngredient(ing.tempId, 'quantityUsed', parseFloat(e.target.value) || 0)}
+                                                                className="w-20 h-10 px-2 text-center bg-white border border-slate-200 rounded-lg font-bold text-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none"
+                                                            />
+                                                            <select
+                                                                value={ing.usageUnit}
+                                                                onChange={(e) => updateIngredient(ing.tempId, 'usageUnit', e.target.value as any)}
+                                                                className="h-10 px-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-600 outline-none"
+                                                            >
+                                                                {USAGE_UNITS.map(u => (
+                                                                    <option key={u} value={u}>{u}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
                                                     </td>
                                                     <td className="px-4 py-4">
                                                         <div className="flex items-center justify-center gap-1">
@@ -334,16 +389,17 @@ export const CreateRecipePage: React.FC = () => {
                                                                 max="100"
                                                                 value={ing.wastagePercentage}
                                                                 onChange={(e) => updateIngredient(ing.tempId, 'wastagePercentage', parseFloat(e.target.value) || 0)}
-                                                                className="w-20 h-10 px-3 text-center bg-white border border-slate-200 rounded-lg font-bold text-amber-600 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none"
+                                                                className="w-16 h-10 px-2 text-center bg-white border border-slate-200 rounded-lg font-bold text-amber-600 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none"
                                                             />
                                                             <span className="text-xs font-black text-slate-400">%</span>
                                                         </div>
                                                     </td>
                                                     <td className="px-4 py-4 text-right">
-                                                        <div className="text-sm font-bold text-slate-600">{effectiveQty.toFixed(2)} <span className="text-[10px] text-slate-400">{ing.baseUnit}</span></div>
+                                                        <div className="text-sm font-bold text-slate-600">{effectiveQty.toFixed(4)}</div>
+                                                        <div className="text-[10px] text-slate-400">{ing.baseUnit} (incl. waste)</div>
                                                     </td>
                                                     <td className="px-4 py-4 text-right">
-                                                        <div className="text-sm font-black text-slate-900">${lineCost.toFixed(2)}</div>
+                                                        <div className="text-sm font-black text-emerald-600">${lineCost.toFixed(2)}</div>
                                                     </td>
                                                     <td className="px-4 py-4 text-right">
                                                         <button
@@ -361,16 +417,53 @@ export const CreateRecipePage: React.FC = () => {
                             </div>
                         )}
 
-                        {ingredients.length > 0 && (
-                            <div className="bg-orange-50/50 p-4 border-t border-orange-100 flex items-center gap-3">
-                                <AlertCircle size={18} className="text-orange-500 flex-shrink-0" />
-                                <p className="text-xs text-orange-800 font-medium leading-relaxed">
-                                    <span className="font-bold">Note on Effective Quantity:</span> This includes the wastage buffer.
-                                    Inventory will be deducted based on the specific recipe mapping rules, but cost is calculated on effective quantity.
-                                </p>
-                            </div>
-                        )}
+
                     </div>
+
+                    {/* Usage Locations (Read-Only) */}
+                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
+                                <MapPin size={18} className="text-slate-400" />
+                                Recipe Usage Locations
+                            </h2>
+                            <button className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-900 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition-colors">
+                                <Plus size={14} /> Link Item
+                            </button>
+                        </div>
+
+                        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                            <p className="text-xs text-slate-500 font-medium mb-3">This recipe is linked to the following menu items:</p>
+                            <div className="space-y-2">
+                                {/* Dummy Data as requested */}
+                                <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-slate-100 shadow-sm group">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 text-xs font-black">P1</div>
+                                        <div>
+                                            <div className="text-sm font-bold text-slate-900">Veggie Supreme Pizza</div>
+                                            <div className="text-[10px] text-slate-500">Variant: Medium</div>
+                                        </div>
+                                    </div>
+                                    <button className="p-2 text-slate-300 hover:text-rose-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all">
+                                        <X size={16} />
+                                    </button>
+                                </div>
+                                <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-slate-100 shadow-sm group">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 text-xs font-black">P1</div>
+                                        <div>
+                                            <div className="text-sm font-bold text-slate-900">Veggie Supreme Pizza</div>
+                                            <div className="text-[10px] text-slate-500">Variant: Large</div>
+                                        </div>
+                                    </div>
+                                    <button className="p-2 text-slate-300 hover:text-rose-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all">
+                                        <X size={16} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 {/* Right Column: Calculations & Rules */}

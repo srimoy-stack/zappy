@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Save,
@@ -17,7 +20,7 @@ import { vendorService } from '../../services/inventoryService';
  * Manage supplier details.
  */
 export const VendorFormPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
     const isEditMode = !!id;
 
@@ -50,7 +53,7 @@ export const VendorFormPage: React.FC = () => {
                 setStatus(data.status);
             } else {
                 alert('Vendor not found');
-                navigate('/backoffice/inventory/vendors');
+                router.push('/backoffice/inventory/vendors');
             }
         } catch (error) {
             console.error('Failed to load vendor:', error);
@@ -84,7 +87,7 @@ export const VendorFormPage: React.FC = () => {
                 await vendorService.create(vendorData);
                 alert('Vendor created successfully');
             }
-            navigate('/backoffice/inventory/vendors');
+            router.push('/backoffice/inventory/vendors');
         } catch (error: any) {
             console.error('Failed to save vendor:', error);
             alert('Failed to save vendor: ' + error.message);
@@ -109,7 +112,7 @@ export const VendorFormPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/vendors')}
+                    onClick={() => router.push('/backoffice/inventory/vendors')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -213,7 +216,7 @@ export const VendorFormPage: React.FC = () => {
 
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
                     <button
-                        onClick={() => navigate('/backoffice/inventory/vendors')}
+                        onClick={() => router.push('/backoffice/inventory/vendors')}
                         className="px-6 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
                     >
                         Cancel

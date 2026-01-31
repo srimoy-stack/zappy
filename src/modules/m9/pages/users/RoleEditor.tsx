@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ArrowLeft, Save, AlertTriangle } from 'lucide-react';
 import { Role } from '../../types/users';

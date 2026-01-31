@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ChevronDown, Store as StoreIcon } from 'lucide-react';
 import { useTenantStore } from '@/app/providers/TenantStoreProvider';

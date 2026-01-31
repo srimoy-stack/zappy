@@ -58,7 +58,7 @@ export const Header: React.FC = () => {
                         <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tight mt-0.5">Tenant: {user?.tenantId}</span>
                     </div>
                     <div className="h-8 w-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 uppercase">
-                        {user?.name.split(' ').map(n => n[0]).join('')}
+                        {user?.name?.split(' ').map((n: string) => n[0]).join('') || '?'}
                     </div>
                 </div>
             </div>

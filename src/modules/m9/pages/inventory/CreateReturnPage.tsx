@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -29,7 +32,7 @@ interface ReturnItem {
  * - Internal Usage (Stock Out)
  */
 export const CreateReturnPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Header
     const [returnType, setReturnType] = useState<ReturnType>('Damaged');
@@ -132,7 +135,7 @@ export const CreateReturnPage: React.FC = () => {
         console.log('Saving return:', payload);
         // await inventoryService.createReturn(payload); // Mock call
         alert('Return/Adjustment created successfully!');
-        navigate('/backoffice/inventory/returns');
+        router.push('/backoffice/inventory/returns');
     };
 
     return (
@@ -140,7 +143,7 @@ export const CreateReturnPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/returns')}
+                    onClick={() => router.push('/backoffice/inventory/returns')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />

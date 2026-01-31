@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -23,7 +26,7 @@ import { mockInventoryEntries, mockVendors } from '../../mock/inventory';
  * Delete: Admin only, before stock is received
  */
 export const InventoryEntriesPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
@@ -81,7 +84,7 @@ export const InventoryEntriesPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -254,7 +257,7 @@ export const InventoryEntriesPage: React.FC = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-2">
                                                 <button
-                                                    onClick={() => navigate(`/backoffice/inventory/entries/${entry.id}`)}
+                                                    onClick={() => router.push(`/backoffice/inventory/entries/${entry.id}`)}
                                                     className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                     title="View"
                                                 >
@@ -269,7 +272,7 @@ export const InventoryEntriesPage: React.FC = () => {
                                                 </button>
                                                 {canEdit(entry) && (
                                                     <button
-                                                        onClick={() => navigate(`/backoffice/inventory/entries/${entry.id}/edit`)}
+                                                        onClick={() => router.push(`/backoffice/inventory/entries/${entry.id}/edit`)}
                                                         className="p-2 text-slate-400 hover:text-emerald-600 transition-colors"
                                                         title="Edit"
                                                     >

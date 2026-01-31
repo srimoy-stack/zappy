@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Plus, History, Shield, Users as UsersIcon } from 'lucide-react';
 import { User } from '../../types/users';
@@ -5,10 +7,11 @@ import { userService } from '../../services/userService';
 import { UsersTable } from './UsersTable';
 import { AddUserModal } from './AddUserModal';
 import { AuditLogPanel } from './AuditLogPanel';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 
 export const UsersPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,7 +78,7 @@ export const UsersPage: React.FC = () => {
                         {showAudit ? 'Hide Audit Log' : 'View Audit Log'}
                     </button>
                     <button
-                        onClick={() => navigate('/backoffice/roles')}
+                        onClick={() => router.push('/backoffice/roles')}
                         className="flex items-center gap-2 px-5 py-3 text-slate-600 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all"
                     >
                         <Shield size={18} />

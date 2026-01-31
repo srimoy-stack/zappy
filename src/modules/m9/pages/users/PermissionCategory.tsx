@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Check } from 'lucide-react';
 import { PermissionCategory as CategoryType } from '../../types/users';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { ChevronLeft } from 'lucide-react';
 
 interface ReportLayoutProps {
@@ -15,14 +16,14 @@ export const ReportLayout: React.FC<ReportLayoutProps> = ({
     dateRangeDisplay,
     children
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <div className="max-w-[1600px] mx-auto space-y-6 pb-20 px-4">
             {/* Header */}
             <div className="flex flex-col gap-4 border-b border-slate-200 pb-4 pt-2">
                 <button
-                    onClick={() => navigate('/backoffice/reports')}
+                    onClick={() => router.push('/backoffice/reports')}
                     className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600 transition-colors w-fit"
                 >
                     <ChevronLeft className="w-3.5 h-3.5" />

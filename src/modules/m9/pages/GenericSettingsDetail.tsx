@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
+;
 import { SettingsLayout } from '../components/Settings/SettingsLayout';
 import { Clock, Bell, Globe, Percent, Printer, ShieldAlert, Key } from 'lucide-react';
 
@@ -15,7 +16,7 @@ const CONFIG_SCHEMA: Record<string, { title: string, description: string, icon: 
 
 export const GenericSettingsDetail: React.FC = () => {
     const { subItem } = useParams<{ subItem: string }>();
-    // const navigate = useNavigate();
+    // const router = useRouter();
     const config = CONFIG_SCHEMA[subItem || ''] || {
         title: 'Settings Configuration',
         description: 'Manage advanced system parameters.',

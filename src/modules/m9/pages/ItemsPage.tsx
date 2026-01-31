@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Package, Layers, Settings2, Plus, Search, ChevronRight, Edit3 } from 'lucide-react';
 import { Item, Category } from '../types/items';

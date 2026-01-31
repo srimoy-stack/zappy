@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
-import { Navigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     CashVarianceTable,
     CashVarianceFilters as Filters,
@@ -17,11 +20,12 @@ import { Banknote, ShieldCheck } from 'lucide-react';
  */
 export const CashVariancePage: React.FC = () => {
     const { role, user } = useRouteAccess();
+    const router = useRouter();
 
     // Role-Based Access Control (Strict)
     // EMPLOYEE: NO access - Direct URL access redirects away
     if (role === 'EMPLOYEE') {
-        return <Navigate to="/backoffice/home" replace />;
+        useEffect(() => { router.replace('/backoffice/home'); }, [router]); return null;
     }
 
     // -- State --

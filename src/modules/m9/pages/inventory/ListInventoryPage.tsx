@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -25,7 +28,7 @@ import { mockInventoryItems } from '../../mock/inventory';
  * - Recipes & sales deduct stock from these items only
  */
 export const ListInventoryPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
@@ -50,7 +53,7 @@ export const ListInventoryPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -60,7 +63,7 @@ export const ListInventoryPage: React.FC = () => {
                     <p className="text-sm text-slate-500 font-medium">Canonical list of inventory items (ingredients)</p>
                 </div>
                 <button
-                    onClick={() => navigate('/backoffice/inventory/items/create')}
+                    onClick={() => router.push('/backoffice/inventory/items/create')}
                     className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all active:scale-95"
                 >
                     <Plus size={16} strokeWidth={3} />
@@ -276,21 +279,21 @@ export const ListInventoryPage: React.FC = () => {
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center justify-center gap-2">
                                                     <button
-                                                        onClick={() => navigate(`/backoffice/inventory/items/${item.id}`)}
+                                                        onClick={() => router.push(`/backoffice/inventory/items/${item.id}`)}
                                                         className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                         title="View Item"
                                                     >
                                                         <Eye size={16} />
                                                     </button>
                                                     <button
-                                                        onClick={() => navigate(`/backoffice/inventory/items/${item.id}/edit`)}
+                                                        onClick={() => router.push(`/backoffice/inventory/items/${item.id}/edit`)}
                                                         className="p-2 text-slate-400 hover:text-emerald-600 transition-colors"
                                                         title="Edit Item"
                                                     >
                                                         <Edit3 size={16} />
                                                     </button>
                                                     <button
-                                                        onClick={() => navigate(`/backoffice/inventory/items/${item.id}/ledger`)}
+                                                        onClick={() => router.push(`/backoffice/inventory/items/${item.id}/ledger`)}
                                                         className="p-2 text-slate-400 hover:text-violet-600 transition-colors"
                                                         title="View Ledger"
                                                     >

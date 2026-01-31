@@ -1,11 +1,15 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
     Trash2,
     Loader,
-    Upload
+    Upload,
+    Plus,
 } from 'lucide-react';
 import { InventoryStatus, InventoryEntryProduct, InventoryItem, Vendor } from '../../types/inventory';
 import { inventoryService, inventoryItemService, vendorService } from '../../services/inventoryService';
@@ -16,7 +20,7 @@ import { inventoryService, inventoryItemService, vendorService } from '../../ser
  * Create new stock entry (Purchase)
  */
 export const AddInventoryPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
@@ -35,6 +39,13 @@ export const AddInventoryPage: React.FC = () => {
 
     // Products
     const [products, setProducts] = useState<InventoryEntryProduct[]>([]);
+
+    // Vendor Creation State
+    const [showVendorModal, setShowVendorModal] = useState(false);
+    const [newVendorName, setNewVendorName] = useState('');
+    const [newVendorContact, setNewVendorContact] = useState('');
+    const [newVendorPhone, setNewVendorPhone] = useState('');
+    const [creatingVendor, setCreatingVendor] = useState(false);
 
     // Footer
     // const [purchaseTax, setPurchaseTax] = useState(0);
@@ -137,9 +148,34 @@ export const AddInventoryPage: React.FC = () => {
         }));
     };
 
-    // Remove product
     const removeProduct = (id: string) => {
         setProducts(products.filter(p => p.id !== id));
+    };
+
+    // Create Vendor
+    const handleCreateVendor = async () => {
+        if (!newVendorName) return alert('Vendor Name is required');
+
+        setCreatingVendor(true);
+        try {
+            const newVendor = await vendorService.create({
+                name: newVendorName,
+                contactPerson: newVendorContact,
+                phone: newVendorPhone,
+                status: 'Active'
+            });
+            setVendors([...vendors, newVendor]);
+            setSupplierId(newVendor.id);
+            setShowVendorModal(false);
+            // Reset form
+            setNewVendorName('');
+            setNewVendorContact('');
+            setNewVendorPhone('');
+        } catch (error: any) {
+            alert('Failed to create vendor: ' + error.message);
+        } finally {
+            setCreatingVendor(false);
+        }
     };
 
     // Calculations
@@ -182,7 +218,7 @@ export const AddInventoryPage: React.FC = () => {
             await inventoryService.createEntry(payload as any, 'USER001', 'Admin User');
 
             alert(`Inventory Entry ${status === 'Received' ? 'Received' : 'Saved'} successfully!`);
-            navigate('/backoffice/inventory/entries');
+            router.push('/backoffice/inventory/entries');
         } catch (error: any) {
             console.error('Failed to save:', error);
             alert('Failed to save entry: ' + error.message);
@@ -204,7 +240,7 @@ export const AddInventoryPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -233,6 +269,12 @@ export const AddInventoryPage: React.FC = () => {
                                         <option key={v.id} value={v.id}>{v.name}</option>
                                     ))}
                                 </select>
+                                <button
+                                    onClick={() => setShowVendorModal(true)}
+                                    className="mt-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1"
+                                >
+                                    <Plus size={12} /> Add New Supplier
+                                </button>
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Date</label>
@@ -471,6 +513,65 @@ export const AddInventoryPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+
+            {/* Add Vendor Modal */}
+            {
+                showVendorModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                        <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl animate-in fade-in zoom-in duration-200">
+                            <h2 className="text-xl font-black text-slate-900 mb-6">Add New Supplier</h2>
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Supplier Name *</label>
+                                    <input
+                                        type="text"
+                                        value={newVendorName}
+                                        onChange={(e) => setNewVendorName(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="e.g. Acme Supplies"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Contact Person</label>
+                                    <input
+                                        type="text"
+                                        value={newVendorContact}
+                                        onChange={(e) => setNewVendorContact(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="e.g. John Doe"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone</label>
+                                    <input
+                                        type="text"
+                                        value={newVendorPhone}
+                                        onChange={(e) => setNewVendorPhone(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="e.g. +1 234 567 890"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3 mt-8">
+                                <button
+                                    onClick={() => setShowVendorModal(false)}
+                                    className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleCreateVendor}
+                                    disabled={creatingVendor}
+                                    className="flex-1 py-3 bg-emerald-600 text-white rounded-xl text-sm font-black uppercase tracking-widest hover:bg-emerald-700 disabled:opacity-50"
+                                >
+                                    {creatingVendor ? 'Saving...' : 'Add Supplier'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 };

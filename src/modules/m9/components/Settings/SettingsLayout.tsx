@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { ChevronLeft, Save, ShieldCheck } from 'lucide-react';
 
 interface SettingsLayoutProps {
@@ -17,7 +18,7 @@ export const SettingsLayout: React.FC<SettingsLayoutProps> = ({
     onSave,
     isLoading = false
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <div className="max-w-[1000px] mx-auto pb-24 px-4 space-y-6">
@@ -25,7 +26,7 @@ export const SettingsLayout: React.FC<SettingsLayoutProps> = ({
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6 pt-2">
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => navigate('/backoffice/more')}
+                        onClick={() => router.push('/backoffice/more')}
                         className="p-2 text-slate-400 hover:text-slate-900 transition-colors bg-white rounded-xl border border-slate-100 shadow-sm"
                     >
                         <ChevronLeft className="w-5 h-5" />

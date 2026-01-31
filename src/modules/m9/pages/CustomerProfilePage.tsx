@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 
 import { CustomerStatsHeader, OrderHistoryTable } from '../components/Customers';
 import { CustomerDetails } from '../types/customers';
@@ -8,7 +11,7 @@ import { ChevronLeft, History, AlertCircle, Info } from 'lucide-react';
 
 export const CustomerProfilePage: React.FC = () => {
     const { customerId } = useParams<{ customerId: string }>();
-    const navigate = useNavigate();
+    const router = useRouter();
 
 
     // -- State --
@@ -45,7 +48,7 @@ export const CustomerProfilePage: React.FC = () => {
 
         await new Promise(resolve => setTimeout(resolve, 1500));
         alert('Reorder successful! Redirecting to POS with pre-populated cart (Current pricing applied).');
-        // navigate('/backoffice/pos'); // Mock redirect
+        // router.push('/backoffice/pos'); // Mock redirect
     };
 
     if (isLoading) {
@@ -68,7 +71,7 @@ export const CustomerProfilePage: React.FC = () => {
                     <p className="text-sm text-slate-500 mt-1">Please verify the customer ID and try again.</p>
                 </div>
                 <button
-                    onClick={() => navigate('/backoffice/customers')}
+                    onClick={() => router.push('/backoffice/customers')}
                     className="px-6 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold"
                 >
                     Return to Hub
@@ -81,7 +84,7 @@ export const CustomerProfilePage: React.FC = () => {
         <div className="max-w-[1200px] mx-auto pb-20 px-4 space-y-8">
             {/* Nav */}
             <button
-                onClick={() => navigate('/backoffice/customers')}
+                onClick={() => router.push('/backoffice/customers')}
                 className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest group"
             >
                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

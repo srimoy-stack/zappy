@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { SettingsLayout } from '../components/Settings/SettingsLayout';
 import { User, Mail, Phone, Shield, Fingerprint } from 'lucide-react';

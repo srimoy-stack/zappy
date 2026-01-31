@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+;
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { Header } from '../components/Header/Header';
 
@@ -8,7 +8,7 @@ import { Header } from '../components/Header/Header';
  * Managed / Backoffice application area layout.
  * 3-part fixed layout: Sidebar (fixed) + Header (fixed) + Content (scrollable)
  */
-export const BackofficeLayout: React.FC = () => {
+export const BackofficeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // In a production app, this state might be shared or passed through context
     // For now, we manually sync or simplify the margin
     return (
@@ -25,7 +25,7 @@ export const BackofficeLayout: React.FC = () => {
 
                 <main className="flex-1 p-6 overflow-y-auto">
                     <div className="animate-in fade-in duration-500">
-                        <Outlet />
+                        {children}
                     </div>
                 </main>
             </div>

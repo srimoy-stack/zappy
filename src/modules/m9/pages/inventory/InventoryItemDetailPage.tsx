@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Edit3,
@@ -24,7 +27,7 @@ import { inventoryItemService } from '../../services/inventoryService';
  * - Ledger history
  */
 export const InventoryItemDetailPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
 
     const [item, setItem] = useState<InventoryItem | null>(null);
@@ -104,7 +107,7 @@ export const InventoryItemDetailPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/list')}
+                    onClick={() => router.push('/backoffice/inventory/list')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -122,7 +125,7 @@ export const InventoryItemDetailPage: React.FC = () => {
                         Adjust Stock
                     </button>
                     <button
-                        onClick={() => navigate(`/backoffice/inventory/items/${id}/edit`)}
+                        onClick={() => router.push(`/backoffice/inventory/items/${id}/edit`)}
                         className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all"
                     >
                         <Edit3 size={14} />

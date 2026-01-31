@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/backoffice/layout,_N_T_/backoffice/cash-variance/layout,_N_T_/backoffice/cash-variance/page,_N_T_/backoffice/cash-variance"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/backoffice/cash-variance/__PAGE__",
+    "/backoffice/cash-variance",
+    "/backoffice",
+    "/_index",
+    "/_head"
+  ]
+}

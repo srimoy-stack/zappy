@@ -1,0 +1,322 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/auth/[...nextauth]",
+      "regex": "^/api/auth/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPnextauth": "nxtPnextauth"
+      },
+      "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/customers/[customerId]",
+      "regex": "^/backoffice/customers/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcustomerId": "nxtPcustomerId"
+      },
+      "namedRegex": "^/backoffice/customers/(?<nxtPcustomerId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/entries/[id]",
+      "regex": "^/backoffice/inventory/entries/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/entries/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/entries/[id]/edit",
+      "regex": "^/backoffice/inventory/entries/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/entries/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/items/[id]",
+      "regex": "^/backoffice/inventory/items/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/items/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/items/[id]/edit",
+      "regex": "^/backoffice/inventory/items/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/items/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/recipes/[id]",
+      "regex": "^/backoffice/inventory/recipes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/recipes/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/recipes/[id]/edit",
+      "regex": "^/backoffice/inventory/recipes/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/recipes/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/returns/[id]",
+      "regex": "^/backoffice/inventory/returns/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/returns/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/vendors/[id]",
+      "regex": "^/backoffice/inventory/vendors/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/vendors/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/vendors/[id]/edit",
+      "regex": "^/backoffice/inventory/vendors/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/vendors/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/more/[category]/[subItem]",
+      "regex": "^/backoffice/more/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcategory": "nxtPcategory",
+        "nxtPsubItem": "nxtPsubItem"
+      },
+      "namedRegex": "^/backoffice/more/(?<nxtPcategory>[^/]+?)/(?<nxtPsubItem>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/backoffice/cash-variance",
+      "regex": "^/backoffice/cash\\-variance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/cash\\-variance(?:/)?$"
+    },
+    {
+      "page": "/backoffice/customers",
+      "regex": "^/backoffice/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/customers(?:/)?$"
+    },
+    {
+      "page": "/backoffice/finances",
+      "regex": "^/backoffice/finances(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/finances(?:/)?$"
+    },
+    {
+      "page": "/backoffice/home",
+      "regex": "^/backoffice/home(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/home(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory",
+      "regex": "^/backoffice/inventory(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/add",
+      "regex": "^/backoffice/inventory/add(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/add(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/entries",
+      "regex": "^/backoffice/inventory/entries(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/entries(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/entries/add",
+      "regex": "^/backoffice/inventory/entries/add(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/entries/add(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/items/create",
+      "regex": "^/backoffice/inventory/items/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/items/create(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/list",
+      "regex": "^/backoffice/inventory/list(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/list(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/recipes",
+      "regex": "^/backoffice/inventory/recipes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/recipes(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/recipes/create",
+      "regex": "^/backoffice/inventory/recipes/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/recipes/create(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/returns",
+      "regex": "^/backoffice/inventory/returns(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/returns(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/returns/create",
+      "regex": "^/backoffice/inventory/returns/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/returns/create(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/vendors",
+      "regex": "^/backoffice/inventory/vendors(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/vendors(?:/)?$"
+    },
+    {
+      "page": "/backoffice/inventory/vendors/create",
+      "regex": "^/backoffice/inventory/vendors/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/inventory/vendors/create(?:/)?$"
+    },
+    {
+      "page": "/backoffice/items",
+      "regex": "^/backoffice/items(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/items(?:/)?$"
+    },
+    {
+      "page": "/backoffice/more",
+      "regex": "^/backoffice/more(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/more(?:/)?$"
+    },
+    {
+      "page": "/backoffice/more/profile/edit",
+      "regex": "^/backoffice/more/profile/edit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/more/profile/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/reports",
+      "regex": "^/backoffice/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/reports(?:/)?$"
+    },
+    {
+      "page": "/backoffice/reports/daily-sales",
+      "regex": "^/backoffice/reports/daily\\-sales(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/reports/daily\\-sales(?:/)?$"
+    },
+    {
+      "page": "/backoffice/reports/sales-by-channel",
+      "regex": "^/backoffice/reports/sales\\-by\\-channel(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/reports/sales\\-by\\-channel(?:/)?$"
+    },
+    {
+      "page": "/backoffice/reports/top-selling-items",
+      "regex": "^/backoffice/reports/top\\-selling\\-items(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/reports/top\\-selling\\-items(?:/)?$"
+    },
+    {
+      "page": "/backoffice/roles",
+      "regex": "^/backoffice/roles(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/roles(?:/)?$"
+    },
+    {
+      "page": "/backoffice/sales-activity",
+      "regex": "^/backoffice/sales\\-activity(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/sales\\-activity(?:/)?$"
+    },
+    {
+      "page": "/backoffice/settings/business-operations",
+      "regex": "^/backoffice/settings/business\\-operations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/settings/business\\-operations(?:/)?$"
+    },
+    {
+      "page": "/backoffice/users",
+      "regex": "^/backoffice/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/users(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

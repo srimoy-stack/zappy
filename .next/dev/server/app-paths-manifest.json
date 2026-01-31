@@ -1,0 +1,14 @@
+{
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/backoffice/home/page": "app/backoffice/home/page.js",
+  "/backoffice/inventory/add/page": "app/backoffice/inventory/add/page.js",
+  "/backoffice/inventory/page": "app/backoffice/inventory/page.js",
+  "/backoffice/inventory/recipes/[id]/edit/page": "app/backoffice/inventory/recipes/[id]/edit/page.js",
+  "/backoffice/inventory/recipes/[id]/page": "app/backoffice/inventory/recipes/[id]/page.js",
+  "/backoffice/inventory/recipes/create/page": "app/backoffice/inventory/recipes/create/page.js",
+  "/backoffice/inventory/recipes/page": "app/backoffice/inventory/recipes/page.js",
+  "/backoffice/items/page": "app/backoffice/items/page.js",
+  "/backoffice/sales-activity/page": "app/backoffice/sales-activity/page.js",
+  "/backoffice/users/page": "app/backoffice/users/page.js",
+  "/page": "app/page.js"
+}

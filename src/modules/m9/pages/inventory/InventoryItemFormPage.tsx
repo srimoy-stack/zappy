@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Save,
@@ -16,7 +19,7 @@ import { inventoryItemService } from '../../services/inventoryService';
  * Note: Stock is NOT managed here (use Adjust Stock or Inventory Entries).
  */
 export const InventoryItemFormPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
     const isEditMode = !!id;
 
@@ -49,7 +52,7 @@ export const InventoryItemFormPage: React.FC = () => {
                 setDescription(data.description || '');
             } else {
                 alert('Item not found');
-                navigate('/backoffice/inventory/list');
+                router.push('/backoffice/inventory/list');
             }
         } catch (error) {
             console.error('Failed to load item:', error);
@@ -87,7 +90,7 @@ export const InventoryItemFormPage: React.FC = () => {
                 await inventoryItemService.create(itemData, 'TENANT001');
                 alert('Item created successfully');
             }
-            navigate('/backoffice/inventory/list');
+            router.push('/backoffice/inventory/list');
         } catch (error: any) {
             console.error('Failed to save item:', error);
             alert('Failed to save item: ' + error.message);
@@ -114,7 +117,7 @@ export const InventoryItemFormPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate(isEditMode ? `/backoffice/inventory/items/${id}` : '/backoffice/inventory/list')}
+                    onClick={() => router.push(isEditMode ? `/backoffice/inventory/items/${id}` : '/backoffice/inventory/list')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -230,7 +233,7 @@ export const InventoryItemFormPage: React.FC = () => {
 
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
                     <button
-                        onClick={() => navigate('/backoffice/inventory/list')}
+                        onClick={() => router.push('/backoffice/inventory/list')}
                         className="px-6 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
                     >
                         Cancel

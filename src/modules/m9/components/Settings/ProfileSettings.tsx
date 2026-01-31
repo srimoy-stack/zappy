@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { ShieldCheck, Mail, Phone, UserCircle } from 'lucide-react';
 import { UserProfile } from '../../types/settings';
 
@@ -7,7 +8,7 @@ interface ProfileSettingsProps {
 }
 
 export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     return (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden h-full flex flex-col">
             <div className="p-6 border-b border-slate-50 bg-slate-50/30">
@@ -72,7 +73,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile }) => 
 
             <div className="p-4 bg-slate-50/50 border-t border-slate-50">
                 <button
-                    onClick={() => navigate('/backoffice/more/profile/edit')}
+                    onClick={() => router.push('/backoffice/more/profile/edit')}
                     className="w-full py-2 px-4 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 hover:border-slate-900 transition-all shadow-sm active:scale-95"
                 >
                     Edit Profile Details

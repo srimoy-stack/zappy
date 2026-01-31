@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Phone,
@@ -17,7 +20,7 @@ import { vendorService, returnService } from '../../services/inventoryService';
  * View supplier details, transaction history, and returns.
  */
 export const VendorDetailPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
 
     const [vendor, setVendor] = useState<Vendor | null>(null);
@@ -64,7 +67,7 @@ export const VendorDetailPage: React.FC = () => {
                 <div className="text-center">
                     <p className="text-slate-600 font-medium">Vendor not found</p>
                     <button
-                        onClick={() => navigate('/backoffice/inventory/vendors')}
+                        onClick={() => router.push('/backoffice/inventory/vendors')}
                         className="mt-4 px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-bold"
                     >
                         Back to Vendors
@@ -79,7 +82,7 @@ export const VendorDetailPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/vendors')}
+                    onClick={() => router.push('/backoffice/inventory/vendors')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -98,7 +101,7 @@ export const VendorDetailPage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2">
                     <button
-                        onClick={() => navigate(`/backoffice/inventory/vendors/${id}/edit`)}
+                        onClick={() => router.push(`/backoffice/inventory/vendors/${id}/edit`)}
                         className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-200 transition-all"
                     >
                         <Edit3 size={14} />
@@ -246,7 +249,7 @@ export const VendorDetailPage: React.FC = () => {
                                             <tr
                                                 key={entry.id}
                                                 className="hover:bg-slate-50/50 cursor-pointer transition-colors"
-                                                onClick={() => navigate(`/backoffice/inventory/entries/${entry.id}`)}
+                                                onClick={() => router.push(`/backoffice/inventory/entries/${entry.id}`)}
                                             >
                                                 <td className="px-6 py-4 text-sm font-bold text-slate-900">
                                                     {new Date(entry.inventoryDate).toLocaleDateString()}
@@ -303,7 +306,7 @@ export const VendorDetailPage: React.FC = () => {
                                             <tr
                                                 key={ret.id}
                                                 className="hover:bg-slate-50/50 cursor-pointer transition-colors"
-                                                onClick={() => navigate(`/backoffice/inventory/returns/${ret.id}`)}
+                                                onClick={() => router.push(`/backoffice/inventory/returns/${ret.id}`)}
                                             >
                                                 <td className="px-6 py-4 text-sm font-bold text-slate-900">
                                                     {new Date(ret.returnDate).toLocaleDateString()}

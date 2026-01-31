@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { CustomerOrder } from '../../types/customers';
 import { RefreshCcw, Loader2, CheckCircle2 } from 'lucide-react';

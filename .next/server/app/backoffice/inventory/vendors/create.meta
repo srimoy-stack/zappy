@@ -1,0 +1,18 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/backoffice/layout,_N_T_/backoffice/inventory/layout,_N_T_/backoffice/inventory/vendors/layout,_N_T_/backoffice/inventory/vendors/create/layout,_N_T_/backoffice/inventory/vendors/create/page,_N_T_/backoffice/inventory/vendors/create"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/backoffice/inventory/vendors/create/__PAGE__",
+    "/backoffice/inventory/vendors/create",
+    "/backoffice/inventory/vendors",
+    "/backoffice/inventory",
+    "/backoffice",
+    "/_index",
+    "/_head"
+  ]
+}

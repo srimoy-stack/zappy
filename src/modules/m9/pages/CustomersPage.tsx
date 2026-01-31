@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { useRouteAccess } from '@/hooks/useRouteAccess';
 import { CustomersTable } from '../components/Customers';
 import { Customer, CustomerFilters } from '../types/customers';
@@ -7,7 +10,7 @@ import { mockCustomers } from '../mock/customers';
 import { Users, Search, Filter, Download } from 'lucide-react';
 
 export const CustomersPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { role } = useRouteAccess();
 
     // -- State --
@@ -51,7 +54,7 @@ export const CustomersPage: React.FC = () => {
     }, [filters, data]);
 
     const handleRowClick = (customer: Customer) => {
-        navigate(`/backoffice/customers/${customer.id}`);
+        router.push(`/backoffice/customers/${customer.id}`);
     };
 
     return (

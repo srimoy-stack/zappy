@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -26,7 +29,7 @@ import { mockRecipes } from '../../mock/inventory';
  * - NO discounts or manual cost overrides
  */
 export const RecipesPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
@@ -49,7 +52,7 @@ export const RecipesPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -59,7 +62,7 @@ export const RecipesPage: React.FC = () => {
                     <p className="text-sm text-slate-500 font-medium">Bill of Materials and automatic cost calculation</p>
                 </div>
                 <button
-                    onClick={() => navigate('/backoffice/inventory/recipes/create')}
+                    onClick={() => router.push('/backoffice/inventory/recipes/create')}
                     className="flex items-center gap-2 px-5 py-2.5 bg-orange-600 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-orange-200 hover:bg-orange-700 transition-all active:scale-95"
                 >
                     <Plus size={16} strokeWidth={3} />
@@ -222,14 +225,14 @@ export const RecipesPage: React.FC = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex items-center justify-center gap-2">
                                                 <button
-                                                    onClick={() => navigate(`/backoffice/inventory/recipes/${recipe.id}`)}
+                                                    onClick={() => router.push(`/backoffice/inventory/recipes/${recipe.id}`)}
                                                     className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                     title="View"
                                                 >
                                                     <Eye size={16} />
                                                 </button>
                                                 <button
-                                                    onClick={() => navigate(`/backoffice/inventory/recipes/${recipe.id}/edit`)}
+                                                    onClick={() => router.push(`/backoffice/inventory/recipes/${recipe.id}/edit`)}
                                                     className="p-2 text-slate-400 hover:text-emerald-600 transition-colors"
                                                     title="Edit"
                                                 >

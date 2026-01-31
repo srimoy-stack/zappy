@@ -1,3 +1,5 @@
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+
 /**
  * Base API client configuration
  * All API calls must include tenant_id and store_id
@@ -10,57 +12,54 @@ export interface ApiConfig {
 }
 
 export class ApiClient {
-    private config: ApiConfig;
+    protected axiosInstance: AxiosInstance;
 
     constructor(config: ApiConfig) {
-        this.config = config;
+        this.axiosInstance = axios.create({
+            baseURL: config.baseUrl,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Tenant-ID': config.tenantId,
+                'X-Store-ID': config.storeId,
+            },
+        });
     }
 
     /**
-     * Base fetch wrapper that automatically includes tenant/store context
+     * Base request wrapper
      */
-    protected async fetch<T>(
-        endpoint: string,
-        options: RequestInit = {}
+    protected async request<T>(
+        config: AxiosRequestConfig
     ): Promise<T> {
-        const url = `${this.config.baseUrl}${endpoint}`;
-
-        const headers = new Headers(options.headers);
-        headers.set('Content-Type', 'application/json');
-        headers.set('X-Tenant-ID', this.config.tenantId);
-        headers.set('X-Store-ID', this.config.storeId);
-
-        const response = await fetch(url, {
-            ...options,
-            headers,
-        });
-
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
+        try {
+            const response = await this.axiosInstance.request<T>(config);
+            return response.data;
+        } catch (error: any) {
+            throw new Error(`API Error: ${error.message || 'Unknown Error'}`);
         }
-
-        return response.json() as Promise<T>;
     }
 
     protected async get<T>(endpoint: string): Promise<T> {
-        return this.fetch<T>(endpoint, { method: 'GET' });
+        return this.request<T>({ url: endpoint, method: 'GET' });
     }
 
     protected async post<T>(endpoint: string, data: unknown): Promise<T> {
-        return this.fetch<T>(endpoint, {
+        return this.request<T>({
+            url: endpoint,
             method: 'POST',
-            body: JSON.stringify(data),
+            data: data,
         });
     }
 
     protected async put<T>(endpoint: string, data: unknown): Promise<T> {
-        return this.fetch<T>(endpoint, {
+        return this.request<T>({
+            url: endpoint,
             method: 'PUT',
-            body: JSON.stringify(data),
+            data: data,
         });
     }
 
     protected async delete<T>(endpoint: string): Promise<T> {
-        return this.fetch<T>(endpoint, { method: 'DELETE' });
+        return this.request<T>({ url: endpoint, method: 'DELETE' });
     }
 }

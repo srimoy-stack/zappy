@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -29,7 +32,7 @@ import { mockInventoryReturns } from '../../mock/inventory';
  * - Ledger entry created
  */
 export const ListReturnsPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +69,7 @@ export const ListReturnsPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -76,7 +79,7 @@ export const ListReturnsPage: React.FC = () => {
                     <p className="text-sm text-slate-500 font-medium">View returns, wastage, and adjustments</p>
                 </div>
                 <button
-                    onClick={() => navigate('/backoffice/inventory/returns/create')}
+                    onClick={() => router.push('/backoffice/inventory/returns/create')}
                     className="flex items-center gap-2 px-5 py-2.5 bg-rose-600 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-rose-200 hover:bg-rose-700 transition-all active:scale-95"
                 >
                     <Plus size={16} strokeWidth={3} />
@@ -260,7 +263,7 @@ export const ListReturnsPage: React.FC = () => {
                                         </td>
                                         <td className="px-6 py-4 text-center">
                                             <button
-                                                onClick={() => navigate(`/backoffice/inventory/returns/${ret.id}`)}
+                                                onClick={() => router.push(`/backoffice/inventory/returns/${ret.id}`)}
                                                 className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                 title="View"
                                             >

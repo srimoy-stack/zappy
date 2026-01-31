@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     Package,
     FileText,
@@ -25,7 +26,7 @@ import { mockInventoryItems, mockInventoryEntries } from '../mock/inventory';
  * - Staff: No access
  */
 export const InventoryPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { role } = useRouteAccess();
 
     // Calculate quick stats
@@ -50,11 +51,11 @@ export const InventoryPage: React.FC = () => {
 
                 {canAddInventory && (
                     <button
-                        onClick={() => navigate('/backoffice/inventory/add')}
+                        onClick={() => router.push('/backoffice/inventory/add')}
                         className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all active:scale-95"
                     >
                         <Plus size={16} strokeWidth={3} />
-                        Add Stock Inward
+                        Add Inventory
                     </button>
                 )}
             </div>
@@ -116,7 +117,7 @@ export const InventoryPage: React.FC = () => {
                         title="Add Inventory"
                         description="Create new stock inward entries"
                         color="emerald"
-                        onClick={() => navigate('/backoffice/inventory/add')}
+                        onClick={() => router.push('/backoffice/inventory/add')}
                     />
                 )}
 
@@ -126,7 +127,7 @@ export const InventoryPage: React.FC = () => {
                     title="Entries"
                     description="View all stock inward transactions"
                     color="blue"
-                    onClick={() => navigate('/backoffice/inventory/entries')}
+                    onClick={() => router.push('/backoffice/inventory/entries')}
                 />
 
                 {/* List Inventory */}
@@ -135,7 +136,7 @@ export const InventoryPage: React.FC = () => {
                     title="List Inventory"
                     description="Canonical list of inventory items (ingredients)"
                     color="violet"
-                    onClick={() => navigate('/backoffice/inventory/list')}
+                    onClick={() => router.push('/backoffice/inventory/list')}
                 />
 
                 {/* Recipes */}
@@ -144,7 +145,7 @@ export const InventoryPage: React.FC = () => {
                     title="Recipes"
                     description="Bill of Materials (BOM) and costing"
                     color="orange"
-                    onClick={() => navigate('/backoffice/inventory/recipes')}
+                    onClick={() => router.push('/backoffice/inventory/recipes')}
                 />
 
                 {/* List Returns */}
@@ -153,7 +154,7 @@ export const InventoryPage: React.FC = () => {
                     title="List Returns"
                     description="View returns, wastage, and adjustments"
                     color="rose"
-                    onClick={() => navigate('/backoffice/inventory/returns')}
+                    onClick={() => router.push('/backoffice/inventory/returns')}
                 />
 
                 {/* Vendors */}
@@ -163,7 +164,7 @@ export const InventoryPage: React.FC = () => {
                         title="Vendors"
                         description="Manage suppliers and vendor relationships"
                         color="slate"
-                        onClick={() => navigate('/backoffice/inventory/vendors')}
+                        onClick={() => router.push('/backoffice/inventory/vendors')}
                     />
                 )}
             </div>
@@ -194,7 +195,7 @@ export const InventoryPage: React.FC = () => {
                             </div>
                             {lowStockItems.length > 6 && (
                                 <button
-                                    onClick={() => navigate('/backoffice/inventory/list')}
+                                    onClick={() => router.push('/backoffice/inventory/list')}
                                     className="mt-4 text-xs font-black text-amber-600 uppercase tracking-widest hover:text-amber-700 transition-colors"
                                 >
                                     View All {lowStockItems.length} Items →

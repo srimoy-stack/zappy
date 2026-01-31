@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -25,7 +28,7 @@ import { useRouteAccess } from '@/hooks/useRouteAccess';
  * - Store Manager: View only
  */
 export const VendorsPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { role } = useRouteAccess();
 
     // Filters
@@ -52,7 +55,7 @@ export const VendorsPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory')}
+                    onClick={() => router.push('/backoffice/inventory')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -63,7 +66,7 @@ export const VendorsPage: React.FC = () => {
                 </div>
                 {canAddVendor && (
                     <button
-                        onClick={() => navigate('/backoffice/inventory/vendors/create')}
+                        onClick={() => router.push('/backoffice/inventory/vendors/create')}
                         className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95"
                     >
                         <Plus size={16} strokeWidth={3} />
@@ -211,14 +214,14 @@ export const VendorsPage: React.FC = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex items-center justify-center gap-2">
                                                 <button
-                                                    onClick={() => navigate(`/backoffice/inventory/vendors/${vendor.id}`)}
+                                                    onClick={() => router.push(`/backoffice/inventory/vendors/${vendor.id}`)}
                                                     className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                     title="View Vendor"
                                                 >
                                                     <Eye size={16} />
                                                 </button>
                                                 <button
-                                                    onClick={() => navigate(`/backoffice/inventory/add?vendor=${vendor.id}`)}
+                                                    onClick={() => router.push(`/backoffice/inventory/add?vendor=${vendor.id}`)}
                                                     className="p-2 text-slate-400 hover:text-emerald-600 transition-colors"
                                                     title="Add Inventory"
                                                 >
@@ -226,7 +229,7 @@ export const VendorsPage: React.FC = () => {
                                                 </button>
                                                 {canEditVendor && (
                                                     <button
-                                                        onClick={() => navigate(`/backoffice/inventory/vendors/${vendor.id}/edit`)}
+                                                        onClick={() => router.push(`/backoffice/inventory/vendors/${vendor.id}/edit`)}
                                                         className="p-2 text-slate-400 hover:text-violet-600 transition-colors"
                                                         title="Edit Vendor"
                                                     >

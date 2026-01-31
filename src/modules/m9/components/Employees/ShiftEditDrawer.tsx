@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Shift } from '../../types/employees';
 import { X, DollarSign, FileText, Save, Info } from 'lucide-react';

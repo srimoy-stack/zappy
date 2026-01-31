@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { ChevronRight, LucideIcon } from 'lucide-react';
 import { SettingsItem } from '../../types/settings';
 
@@ -18,7 +19,7 @@ export const SettingsSectionCard: React.FC<SettingsSectionCardProps> = ({
     icon: Icon,
     iconColor = 'text-slate-400'
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-full">
@@ -38,7 +39,7 @@ export const SettingsSectionCard: React.FC<SettingsSectionCardProps> = ({
                 {items.map((item) => (
                     <button
                         key={item.id}
-                        onClick={() => navigate(item.route)}
+                        onClick={() => router.push(item.route)}
                         className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors group text-left"
                     >
                         <div className="flex flex-col gap-0.5">

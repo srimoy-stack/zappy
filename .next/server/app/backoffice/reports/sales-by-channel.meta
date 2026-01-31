@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/backoffice/layout,_N_T_/backoffice/reports/layout,_N_T_/backoffice/reports/sales-by-channel/layout,_N_T_/backoffice/reports/sales-by-channel/page,_N_T_/backoffice/reports/sales-by-channel"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/backoffice/reports/sales-by-channel/__PAGE__",
+    "/backoffice/reports/sales-by-channel",
+    "/backoffice/reports",
+    "/backoffice",
+    "/_index",
+    "/_head"
+  ]
+}

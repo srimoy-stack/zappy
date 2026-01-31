@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Save,
@@ -29,7 +32,7 @@ interface IngredientRow {
  * If recipe is used by products, changes will affect future sales/costing immediately.
  */
 export const EditRecipePage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -60,7 +63,7 @@ export const EditRecipePage: React.FC = () => {
 
                 if (!recipe) {
                     alert('Recipe not found');
-                    navigate('/backoffice/inventory/recipes');
+                    router.push('/backoffice/inventory/recipes');
                     return;
                 }
 
@@ -176,7 +179,7 @@ export const EditRecipePage: React.FC = () => {
 
             await recipeService.update(id, recipeData);
             alert('Recipe updated successfully!');
-            navigate('/backoffice/inventory/recipes');
+            router.push('/backoffice/inventory/recipes');
         } catch (error: any) {
             alert('Failed to update recipe: ' + error.message);
         } finally {
@@ -193,7 +196,7 @@ export const EditRecipePage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/recipes')}
+                    onClick={() => router.push('/backoffice/inventory/recipes')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -204,7 +207,7 @@ export const EditRecipePage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <button
-                        onClick={() => navigate('/backoffice/inventory/recipes')}
+                        onClick={() => router.push('/backoffice/inventory/recipes')}
                         className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
                     >
                         Cancel

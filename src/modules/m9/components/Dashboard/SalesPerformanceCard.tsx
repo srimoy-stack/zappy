@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { SalesChart } from './SalesChart';
 import { cn } from '@/utils';

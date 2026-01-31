@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Edit3,
@@ -17,7 +20,7 @@ import { recipeService } from '../../services/inventoryService';
  * View recipe with ingredients, cost breakdown, and products using it
  */
 export const RecipeDetailPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
 
     const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -48,7 +51,7 @@ export const RecipeDetailPage: React.FC = () => {
         try {
             const newRecipe = await recipeService.duplicate(id);
             alert('Recipe duplicated successfully');
-            navigate(`/backoffice/inventory/recipes/${newRecipe.id}`);
+            router.push(`/backoffice/inventory/recipes/${newRecipe.id}`);
         } catch (error: any) {
             alert(error.message || 'Failed to duplicate recipe');
         } finally {
@@ -62,7 +65,7 @@ export const RecipeDetailPage: React.FC = () => {
         try {
             await recipeService.delete(id);
             alert('Recipe deleted successfully');
-            navigate('/backoffice/inventory/recipes');
+            router.push('/backoffice/inventory/recipes');
         } catch (error: any) {
             alert(error.message || 'Failed to delete recipe');
         } finally {
@@ -89,7 +92,7 @@ export const RecipeDetailPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/recipes')}
+                    onClick={() => router.push('/backoffice/inventory/recipes')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -110,7 +113,7 @@ export const RecipeDetailPage: React.FC = () => {
                         Duplicate
                     </button>
                     <button
-                        onClick={() => navigate(`/backoffice/inventory/recipes/${id}/edit`)}
+                        onClick={() => router.push(`/backoffice/inventory/recipes/${id}/edit`)}
                         className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all"
                     >
                         <Edit3 size={14} />

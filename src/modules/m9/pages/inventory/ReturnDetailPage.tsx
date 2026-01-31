@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Printer,
@@ -18,7 +21,7 @@ import { returnService } from '../../services/inventoryService';
  * Returns are final and cannot be edited.
  */
 export const ReturnDetailPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
 
     const [ret, setRet] = useState<InventoryReturn | null>(null);
@@ -57,7 +60,7 @@ export const ReturnDetailPage: React.FC = () => {
                     <AlertCircle className="w-12 h-12 text-rose-400 mx-auto mb-4" />
                     <p className="text-slate-600 font-medium">Return not found</p>
                     <button
-                        onClick={() => navigate('/backoffice/inventory/returns')}
+                        onClick={() => router.push('/backoffice/inventory/returns')}
                         className="mt-4 px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-bold"
                     >
                         Back to Returns
@@ -82,7 +85,7 @@ export const ReturnDetailPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/returns')}
+                    onClick={() => router.push('/backoffice/inventory/returns')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />

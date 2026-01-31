@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import {
     Save,
@@ -19,7 +21,8 @@ import {
     Power,
     ArrowLeft
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import { useAuth } from '@/app/providers/AuthProvider';
 import { businessOperationsService } from '../../services/businessOperationsService';
 import {
@@ -35,7 +38,7 @@ import {
 } from '../../types/business-operations';
 
 export const BusinessOperationsPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { role } = useAuth();
     const [settings, setSettings] = useState<BusinessOperationsSettings | null>(null);
     const [loading, setLoading] = useState(true);
@@ -90,7 +93,7 @@ export const BusinessOperationsPage: React.FC = () => {
             <div className="flex items-center justify-between sticky top-0 z-20 bg-slate-50/80 backdrop-blur-md py-4 border-b border-slate-200 -mx-6 px-6">
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => navigate(-1)}
+                        onClick={() => router.back()}
                         className="p-2 hover:bg-white rounded-xl transition-all border border-transparent hover:border-slate-200"
                     >
                         <ArrowLeft size={20} className="text-slate-600" />
@@ -331,8 +334,8 @@ const TaxSection = ({ taxes, canEdit, onSave, isSaving }: { taxes: TaxRule[], ca
                                                 }}
                                                 disabled={!canEdit}
                                                 className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-tighter border transition-all ${tax.applicableChannels.includes(ch)
-                                                        ? 'bg-slate-900 text-white border-slate-900'
-                                                        : 'bg-white text-slate-400 border-slate-200'
+                                                    ? 'bg-slate-900 text-white border-slate-900'
+                                                    : 'bg-white text-slate-400 border-slate-200'
                                                     }`}
                                             >
                                                 {ch}
@@ -345,8 +348,8 @@ const TaxSection = ({ taxes, canEdit, onSave, isSaving }: { taxes: TaxRule[], ca
                                         onClick={() => updateTax(tax.id, 'status', tax.status === 'Active' ? 'Inactive' : 'Active')}
                                         disabled={!canEdit}
                                         className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all ${tax.status === 'Active'
-                                                ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                                                : 'bg-slate-100 text-slate-400 border-slate-200'
+                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                            : 'bg-slate-100 text-slate-400 border-slate-200'
                                             }`}
                                     >
                                         {tax.status}

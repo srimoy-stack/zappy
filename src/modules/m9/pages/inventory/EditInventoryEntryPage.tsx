@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
+;
 import {
     ArrowLeft,
     Search,
@@ -19,7 +22,7 @@ import { inventoryService, vendorService, inventoryItemService } from '../../ser
  * Received entries cannot be edited.
  */
 export const EditInventoryEntryPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { id } = useParams<{ id: string }>();
 
     const [loading, setLoading] = useState(true);
@@ -61,13 +64,13 @@ export const EditInventoryEntryPage: React.FC = () => {
 
                 if (!entry) {
                     alert('Entry not found');
-                    navigate('/backoffice/inventory/entries');
+                    router.push('/backoffice/inventory/entries');
                     return;
                 }
 
                 if (entry.inventoryStatus === 'Received' || entry.inventoryStatus === 'Partial') {
                     alert('Cannot edit received inventory');
-                    navigate(`/backoffice/inventory/entries/${id}`);
+                    router.push(`/backoffice/inventory/entries/${id}`);
                     return;
                 }
 
@@ -195,7 +198,7 @@ export const EditInventoryEntryPage: React.FC = () => {
             } else {
                 alert('Entry updated successfully!');
             }
-            navigate('/backoffice/inventory/entries');
+            router.push('/backoffice/inventory/entries');
         } catch (error: any) {
             alert('Failed to update: ' + error.message);
         } finally {
@@ -220,7 +223,7 @@ export const EditInventoryEntryPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <button
-                    onClick={() => navigate('/backoffice/inventory/entries')}
+                    onClick={() => router.push('/backoffice/inventory/entries')}
                     className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                     <ArrowLeft size={20} className="text-slate-600" />
@@ -519,7 +522,7 @@ export const EditInventoryEntryPage: React.FC = () => {
                 {/* Action Buttons */}
                 <div className="p-6 bg-white border-t border-slate-200 flex items-center justify-end gap-4">
                     <button
-                        onClick={() => navigate('/backoffice/inventory/entries')}
+                        onClick={() => router.push('/backoffice/inventory/entries')}
                         className="px-6 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
                     >
                         Cancel

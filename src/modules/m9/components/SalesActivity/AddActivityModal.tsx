@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { X, Save, DollarSign, User, Hash, Tag, CreditCard, Layout, Package } from 'lucide-react';
 import { TransactionEvent } from '../../types/sales-activity';

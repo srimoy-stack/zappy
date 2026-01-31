@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { History, User as UserIcon, Shield } from 'lucide-react';
 import { AuditLog } from '../../types/users';

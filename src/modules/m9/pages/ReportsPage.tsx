@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+;
 import {
     FileText,
     TrendingUp,
@@ -65,7 +66,7 @@ const REPORTS: (ReportConfig & { icon: any })[] = [
 ];
 
 export const ReportsPage: React.FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <div className="max-w-[1600px] mx-auto space-y-8 pb-20 px-4">
@@ -90,7 +91,7 @@ export const ReportsPage: React.FC = () => {
                     <div
                         key={report.id}
                         className="group bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer flex flex-col justify-between"
-                        onClick={() => navigate(report.path)}
+                        onClick={() => router.push(report.path)}
                     >
                         <div className="mb-4">
                             <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-50 transition-colors">
