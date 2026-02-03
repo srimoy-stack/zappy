@@ -9,10 +9,14 @@ import {
     Search,
     Trash2,
     ChefHat,
-    AlertCircle
+    AlertCircle,
+    MapPin,
+    X
 } from 'lucide-react';
 
 import { InventoryItem, RecipeStatus, CreateRecipeDTO } from '../../types/inventory';
+import { Item } from '../../types/items';
+import { mockItems } from '../../mock/items';
 import { inventoryItemService, recipeService } from '../../services/inventoryService';
 
 interface IngredientRow {
@@ -44,6 +48,11 @@ export const EditRecipePage: React.FC = () => {
     const [ingredients, setIngredients] = useState<IngredientRow[]>([]);
     const [usedByCount, setUsedByCount] = useState(0);
 
+    // Product Link State
+    const [linkedProducts, setLinkedProducts] = useState<Item[]>([]);
+    const [productSearchTerm, setProductSearchTerm] = useState('');
+    const [productSearchResults, setProductSearchResults] = useState<Item[]>([]);
+
     // Search State
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearching, setIsSearching] = useState(false);
@@ -74,6 +83,12 @@ export const EditRecipePage: React.FC = () => {
                 setDescription(recipe.description || '');
                 setStatus(recipe.status);
                 setUsedByCount(recipe.usedByProductCount);
+
+                // Populate Linked Products
+                if (recipe.linkedProductIds) {
+                    const linked = mockItems.filter(item => recipe.linkedProductIds!.includes(item.id));
+                    setLinkedProducts(linked);
+                }
 
                 // Map existing ingredients to rows
                 setIngredients(recipe.ingredients.map(ing => ({
@@ -144,6 +159,33 @@ export const EditRecipePage: React.FC = () => {
         }));
     };
 
+    // Product Search Handlers
+    useEffect(() => {
+        if (!productSearchTerm.trim()) {
+            setProductSearchResults([]);
+            return;
+        }
+        const results = mockItems.filter(item =>
+            item.name.toLowerCase().includes(productSearchTerm.toLowerCase())
+        );
+        setProductSearchResults(results);
+    }, [productSearchTerm]);
+
+    const handleAddProduct = (item: Item) => {
+        if (linkedProducts.some(p => p.id === item.id)) {
+            setProductSearchTerm('');
+            setProductSearchResults([]);
+            return;
+        }
+        setLinkedProducts([...linkedProducts, item]);
+        setProductSearchTerm('');
+        setProductSearchResults([]);
+    };
+
+    const handleRemoveProduct = (id: string) => {
+        setLinkedProducts(linkedProducts.filter(p => p.id !== id));
+    };
+
     const calculateLineCost = (ing: IngredientRow) => {
         const effectiveQty = ing.quantityUsed + (ing.quantityUsed * ing.wastagePercentage / 100);
         return effectiveQty * ing.unitCost;
@@ -174,7 +216,8 @@ export const EditRecipePage: React.FC = () => {
                     baseUnit: ing.baseUnit as any,
                     quantityUsed: ing.quantityUsed,
                     wastagePercentage: ing.wastagePercentage
-                }))
+                })),
+                linkedProductIds: linkedProducts.map(p => p.id)
             };
 
             await recipeService.update(id, recipeData);
@@ -377,6 +420,75 @@ export const EditRecipePage: React.FC = () => {
                                     })}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    {/* Usage Locations (Linked Products) */}
+                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
+                                <MapPin size={18} className="text-slate-400" />
+                                Recipe Usage Locations
+                            </h2>
+                        </div>
+
+                        {/* Product Search */}
+                        <div className="relative group">
+                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                            <input
+                                type="text"
+                                placeholder="Search products directly..."
+                                value={productSearchTerm}
+                                onChange={(e) => setProductSearchTerm(e.target.value)}
+                                className="w-full h-10 pl-11 pr-4 bg-slate-50 rounded-xl border-none font-bold text-sm focus:ring-2 focus:ring-blue-500/20 text-slate-900 placeholder:text-slate-400"
+                            />
+                            {/* Dropdown */}
+                            {productSearchTerm && productSearchResults.length > 0 && (
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-20">
+                                    {productSearchResults.map((item) => (
+                                        <button
+                                            key={item.id}
+                                            onClick={() => handleAddProduct(item)}
+                                            className="w-full text-left p-3 hover:bg-blue-50 flex items-center justify-between group/item"
+                                        >
+                                            <div>
+                                                <div className="text-sm font-bold text-slate-900 group-hover/item:text-blue-700">{item.name}</div>
+                                                <div className="text-xs font-medium text-slate-500">{item.productType}</div>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                            <p className="text-xs text-slate-500 font-medium mb-3">Linked menu items:</p>
+
+                            {linkedProducts.length === 0 ? (
+                                <p className="text-xs text-slate-400 italic">No products linked yet.</p>
+                            ) : (
+                                <div className="space-y-2">
+                                    {linkedProducts.map((p) => (
+                                        <div key={p.id} className="flex items-center justify-between p-3 bg-white rounded-xl border border-slate-100 shadow-sm group">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 text-xs font-black">
+                                                    {p.name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-bold text-slate-900">{p.name}</div>
+                                                    <div className="text-[10px] text-slate-500">Type: {p.productType}</div>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => handleRemoveProduct(p.id)}
+                                                className="p-2 text-slate-300 hover:text-rose-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

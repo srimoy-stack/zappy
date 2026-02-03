@@ -206,6 +206,16 @@ const BusinessOperationsPage = ()=>{
                         lineNumber: 124,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LocationsSection, {
+                        locations: settings.locations,
+                        canEdit: canEdit,
+                        onSave: (data)=>handleSave('Locations', ()=>__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$businessOperationsService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["businessOperationsService"].updateLocations(data)),
+                        isSaving: saving === 'Locations'
+                    }, void 0, false, {
+                        fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
+                        lineNumber: 131,
+                        columnNumber: 17
+                    }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TaxSection, {
                         taxes: settings.taxes,
                         canEdit: canEdit,
@@ -213,7 +223,7 @@ const BusinessOperationsPage = ()=>{
                         isSaving: saving === 'Taxes'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
-                        lineNumber: 131,
+                        lineNumber: 138,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SmtpSection, {
@@ -223,7 +233,7 @@ const BusinessOperationsPage = ()=>{
                         isSaving: saving === 'SMTP Settings'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
-                        lineNumber: 138,
+                        lineNumber: 145,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SmsSection, {
@@ -233,7 +243,7 @@ const BusinessOperationsPage = ()=>{
                         isSaving: saving === 'SMS Settings'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
-                        lineNumber: 145,
+                        lineNumber: 152,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LoyaltySection, {
@@ -243,7 +253,7 @@ const BusinessOperationsPage = ()=>{
                         isSaving: saving === 'Loyalty'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
-                        lineNumber: 152,
+                        lineNumber: 159,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModuleSection, {
@@ -251,16 +261,6 @@ const BusinessOperationsPage = ()=>{
                         canEdit: canEdit,
                         onSave: (data)=>handleSave('Modules', ()=>__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$businessOperationsService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["businessOperationsService"].updateModules(data)),
                         isSaving: saving === 'Modules'
-                    }, void 0, false, {
-                        fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
-                        lineNumber: 159,
-                        columnNumber: 17
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(LocationsSection, {
-                        locations: settings.locations,
-                        canEdit: canEdit,
-                        onSave: (data)=>handleSave('Locations', ()=>__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$businessOperationsService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["businessOperationsService"].updateLocations(data)),
-                        isSaving: saving === 'Locations'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/settings/BusinessOperationsPage.tsx",
                         lineNumber: 166,

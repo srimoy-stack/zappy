@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/backoffice/settings/business-operations/page.tsx"],"sourcesContent":["'use client';\n\nimport { BusinessOperationsPage } from '@/modules/m9/pages';\n\nexport default function Page() {\n  return <BusinessOperationsPage />;\n}\n"],"names":[],"mappings":";;;;;AAEA;AAAA;AAFA;;;AAIe,SAAS;IACtB,qBAAO,8OAAC,8LAAsB;;;;;AAChC"}}]
+}

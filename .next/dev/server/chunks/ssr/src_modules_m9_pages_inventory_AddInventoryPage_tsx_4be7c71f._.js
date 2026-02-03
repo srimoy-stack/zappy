@@ -28,7 +28,6 @@ const AddInventoryPage = ()=>{
     const [submitting, setSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // Data lists
     const [vendors, setVendors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [allItems, setAllItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     // Header Fields
     const [supplierId, setSupplierId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [referenceNo, setReferenceNo] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
@@ -37,13 +36,18 @@ const AddInventoryPage = ()=>{
     const storeId = 'STORE001';
     const [payTerm, setPayTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [attachedDocument, setAttachedDocument] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    // Products
+    // Products & Selection
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [selectedProductIds, setSelectedProductIds] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(new Set());
     // Vendor Creation State
     const [showVendorModal, setShowVendorModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [newVendorName, setNewVendorName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [newVendorContact, setNewVendorContact] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [newVendorPhone, setNewVendorPhone] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newVendorMobile, setNewVendorMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newVendorEmail, setNewVendorEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newVendorWebsite, setNewVendorWebsite] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newVendorAddress, setNewVendorAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [creatingVendor, setCreatingVendor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // Footer
     // const [purchaseTax, setPurchaseTax] = useState(0);
@@ -51,8 +55,6 @@ const AddInventoryPage = ()=>{
     const [additionalNotes, setAdditionalNotes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     // Search
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
-    const [showSearchResults, setShowSearchResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [searchResults, setSearchResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         loadData();
     }, []);
@@ -65,26 +67,52 @@ const AddInventoryPage = ()=>{
                 })
             ]);
             setVendors(vData);
-            setAllItems(iData);
+            // Pre-fill products state with all active items (initialized to default values)
+            const initialProducts = iData.map((item)=>({
+                    id: `IEP-${item.id}`,
+                    inventoryItemId: item.id,
+                    inventoryItemName: item.name,
+                    sku: item.sku,
+                    unitCostBeforeTax: item.averageCost,
+                    taxPercentage: 0,
+                    taxAmount: 0,
+                    unitCostAfterTax: item.averageCost,
+                    purchaseQuantity: 1,
+                    subtotal: item.averageCost,
+                    lineTotal: item.averageCost
+                }));
+            setProducts(initialProducts);
         } catch (error) {
             console.error('Failed to load data:', error);
         } finally{
             setLoading(false);
         }
     };
-    // Filter search
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!searchQuery.trim()) {
-            setSearchResults([]);
-            return;
+    // Search just filters what is visible in the table
+    const visibleProducts = products.filter((p)=>{
+        if (!searchQuery.trim()) return true;
+        return p.inventoryItemName.toLowerCase().includes(searchQuery.toLowerCase()) || p.sku.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+    const toggleProductSelection = (id)=>{
+        const newSelected = new Set(selectedProductIds);
+        if (newSelected.has(id)) {
+            newSelected.delete(id);
+        } else {
+            newSelected.add(id);
         }
-        const lower = searchQuery.toLowerCase();
-        const results = allItems.filter((item)=>item.name.toLowerCase().includes(lower) || item.sku.toLowerCase().includes(lower)).slice(0, 5);
-        setSearchResults(results);
-    }, [
-        searchQuery,
-        allItems
-    ]);
+        setSelectedProductIds(newSelected);
+    };
+    const toggleAllVisible = ()=>{
+        const allVisibleIds = visibleProducts.map((p)=>p.id);
+        const allSelected = allVisibleIds.every((id)=>selectedProductIds.has(id));
+        const newSelected = new Set(selectedProductIds);
+        if (allSelected) {
+            allVisibleIds.forEach((id)=>newSelected.delete(id));
+        } else {
+            allVisibleIds.forEach((id)=>newSelected.add(id));
+        }
+        setSelectedProductIds(newSelected);
+    };
     // Auto-generate reference number if empty
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (!referenceNo) {
@@ -94,28 +122,6 @@ const AddInventoryPage = ()=>{
     }, [
         referenceNo
     ]);
-    // Add product to grid
-    const addProduct = (item)=>{
-        const newProduct = {
-            id: `IEP${Date.now()}`,
-            inventoryItemId: item.id,
-            inventoryItemName: item.name,
-            sku: item.sku,
-            unitCostBeforeTax: item.averageCost,
-            taxPercentage: 0,
-            taxAmount: 0,
-            unitCostAfterTax: item.averageCost,
-            purchaseQuantity: 1,
-            subtotal: item.averageCost * 1,
-            lineTotal: item.averageCost * 1
-        };
-        setProducts([
-            ...products,
-            newProduct
-        ]);
-        setSearchQuery('');
-        setShowSearchResults(false);
-    };
     // Update product quantity or cost
     const updateProduct = (id, field, value)=>{
         setProducts(products.map((p)=>{
@@ -141,9 +147,6 @@ const AddInventoryPage = ()=>{
             return updated;
         }));
     };
-    const removeProduct = (id)=>{
-        setProducts(products.filter((p)=>p.id !== id));
-    };
     // Create Vendor
     const handleCreateVendor = async ()=>{
         if (!newVendorName) return alert('Vendor Name is required');
@@ -153,6 +156,10 @@ const AddInventoryPage = ()=>{
                 name: newVendorName,
                 contactPerson: newVendorContact,
                 phone: newVendorPhone,
+                mobileNumber: newVendorMobile,
+                email: newVendorEmail,
+                website: newVendorWebsite,
+                address: newVendorAddress,
                 status: 'Active'
             });
             setVendors([
@@ -165,6 +172,10 @@ const AddInventoryPage = ()=>{
             setNewVendorName('');
             setNewVendorContact('');
             setNewVendorPhone('');
+            setNewVendorMobile('');
+            setNewVendorEmail('');
+            setNewVendorWebsite('');
+            setNewVendorAddress('');
         } catch (error) {
             alert('Failed to create vendor: ' + error.message);
         } finally{
@@ -172,16 +183,18 @@ const AddInventoryPage = ()=>{
         }
     };
     // Calculations
-    const subtotal = products.reduce((sum, p)=>sum + p.subtotal, 0);
-    const totalTax = products.reduce((sum, p)=>sum + p.taxAmount, 0); // Sum of line taxes
+    // Calculations based only on SELECTED products
+    const selectedProductsList = products.filter((p)=>selectedProductIds.has(p.id));
+    const subtotal = selectedProductsList.reduce((sum, p)=>sum + p.subtotal, 0);
+    const totalTax = selectedProductsList.reduce((sum, p)=>sum + p.taxAmount, 0); // Sum of line taxes
     const grandTotal = subtotal + totalTax + shippingCharges;
     const handleSave = async (status = 'Draft')=>{
         if (!supplierId) {
             alert('Please select a supplier');
             return;
         }
-        if (products.length === 0) {
-            alert('Please add at least one product');
+        if (selectedProductsList.length === 0) {
+            alert('Please select at least one product to add');
             return;
         }
         setSubmitting(true);
@@ -194,7 +207,7 @@ const AddInventoryPage = ()=>{
                 expectedDeliveryDate: inventoryDate,
                 referenceNo,
                 inventoryStatus: status,
-                products: products,
+                products: selectedProductsList,
                 additionalNotes,
                 shippingCharges,
                 purchaseTax: totalTax,
@@ -221,12 +234,12 @@ const AddInventoryPage = ()=>{
                 className: "w-8 h-8 text-emerald-600 animate-spin"
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                lineNumber: 233,
+                lineNumber: 259,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-            lineNumber: 232,
+            lineNumber: 258,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -244,12 +257,12 @@ const AddInventoryPage = ()=>{
                             className: "text-slate-600"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                            lineNumber: 246,
+                            lineNumber: 272,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                        lineNumber: 242,
+                        lineNumber: 268,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -260,7 +273,7 @@ const AddInventoryPage = ()=>{
                                 children: "Add Inventory"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                lineNumber: 249,
+                                lineNumber: 275,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -268,19 +281,19 @@ const AddInventoryPage = ()=>{
                                 children: "Create new stock purchase order"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                lineNumber: 250,
+                                lineNumber: 276,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                        lineNumber: 248,
+                        lineNumber: 274,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                lineNumber: 241,
+                lineNumber: 267,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -301,7 +314,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Supplier *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 261,
+                                                    lineNumber: 287,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -314,7 +327,7 @@ const AddInventoryPage = ()=>{
                                                             children: "Select Supplier"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 267,
+                                                            lineNumber: 293,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         vendors.map((v)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -322,13 +335,13 @@ const AddInventoryPage = ()=>{
                                                                 children: v.name
                                                             }, v.id, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 269,
+                                                                lineNumber: 295,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 262,
+                                                    lineNumber: 288,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -339,20 +352,20 @@ const AddInventoryPage = ()=>{
                                                             size: 12
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 276,
+                                                            lineNumber: 302,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         " Add New Supplier"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 272,
+                                                    lineNumber: 298,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 260,
+                                            lineNumber: 286,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -362,7 +375,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Date"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 306,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -372,13 +385,13 @@ const AddInventoryPage = ()=>{
                                                     className: "w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 281,
+                                                    lineNumber: 307,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 279,
+                                            lineNumber: 305,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -388,7 +401,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Ref No."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 289,
+                                                    lineNumber: 315,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -398,13 +411,13 @@ const AddInventoryPage = ()=>{
                                                     className: "w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 290,
+                                                    lineNumber: 316,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 288,
+                                            lineNumber: 314,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -414,7 +427,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Status"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 298,
+                                                    lineNumber: 324,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -427,7 +440,7 @@ const AddInventoryPage = ()=>{
                                                             children: "Draft"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 330,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -435,7 +448,7 @@ const AddInventoryPage = ()=>{
                                                             children: "Ordered"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 305,
+                                                            lineNumber: 331,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -443,7 +456,7 @@ const AddInventoryPage = ()=>{
                                                             children: "Received"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 306,
+                                                            lineNumber: 332,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -451,7 +464,7 @@ const AddInventoryPage = ()=>{
                                                             children: "Partial"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 333,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -459,19 +472,19 @@ const AddInventoryPage = ()=>{
                                                             children: "Cancelled"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 308,
+                                                            lineNumber: 334,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 299,
+                                                    lineNumber: 325,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 297,
+                                            lineNumber: 323,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -481,7 +494,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Pay Term"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 339,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -492,13 +505,13 @@ const AddInventoryPage = ()=>{
                                                     className: "w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 314,
+                                                    lineNumber: 340,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 312,
+                                            lineNumber: 338,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -508,7 +521,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Attach Document"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 323,
+                                                    lineNumber: 349,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -522,14 +535,14 @@ const AddInventoryPage = ()=>{
                                                                     size: 16
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 329,
+                                                                    lineNumber: 355,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 attachedDocument ? 'Document Attached' : 'Upload File'
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 325,
+                                                            lineNumber: 351,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -539,7 +552,7 @@ const AddInventoryPage = ()=>{
                                                             onChange: (e)=>setAttachedDocument(e.target.files?.[0]?.name || null)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 332,
+                                                            lineNumber: 358,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         attachedDocument && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -549,35 +562,35 @@ const AddInventoryPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 340,
+                                                                lineNumber: 366,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 339,
+                                                            lineNumber: 365,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 324,
+                                                    lineNumber: 350,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 322,
+                                            lineNumber: 348,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 285,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                lineNumber: 258,
+                                lineNumber: 284,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -585,93 +598,84 @@ const AddInventoryPage = ()=>{
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "p-4 bg-slate-50 border-b border-slate-200 flex items-center gap-4",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "relative flex-1",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                                                    className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 353,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "text",
-                                                    value: searchQuery,
-                                                    onChange: (e)=>{
-                                                        setSearchQuery(e.target.value);
-                                                        setShowSearchResults(true);
-                                                    },
-                                                    onFocus: ()=>setShowSearchResults(true),
-                                                    placeholder: "Search product to add...",
-                                                    className: "w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 354,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                showSearchResults && searchResults.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto",
-                                                    children: searchResults.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            onClick: ()=>addProduct(item),
-                                                            className: "w-full px-4 py-3 text-left hover:bg-slate-50 border-b border-slate-100 last:border-0",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "text-sm font-bold text-slate-900",
-                                                                    children: item.name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 373,
-                                                                    columnNumber: 49
-                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "text-xs text-slate-500",
-                                                                    children: [
-                                                                        "SKU: ",
-                                                                        item.sku
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 374,
-                                                                    columnNumber: 49
-                                                                }, ("TURBOPACK compile-time value", void 0))
-                                                            ]
-                                                        }, item.id, true, {
-                                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 368,
-                                                            columnNumber: 45
-                                                        }, ("TURBOPACK compile-time value", void 0)))
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 366,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0))
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 352,
-                                            columnNumber: 29
-                                        }, ("TURBOPACK compile-time value", void 0))
-                                    }, void 0, false, {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "relative flex-1",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
+                                                        className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                        lineNumber: 379,
+                                                        columnNumber: 33
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        value: searchQuery,
+                                                        onChange: (e)=>setSearchQuery(e.target.value),
+                                                        placeholder: "Search products in list...",
+                                                        className: "w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                        lineNumber: 380,
+                                                        columnNumber: 33
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                lineNumber: 378,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-xs font-bold text-slate-500",
+                                                children: [
+                                                    selectedProductIds.size,
+                                                    " selected"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                lineNumber: 388,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 377,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "overflow-x-auto",
+                                        className: "overflow-x-auto max-h-[500px] overflow-y-auto",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                            className: "w-full text-left border-collapse",
+                                            className: "w-full text-left border-collapse relative",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                    className: "sticky top-0 z-10 bg-slate-50 border-b border-slate-100 shadow-sm",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "bg-slate-50 border-b border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-widest",
+                                                        className: "text-[10px] font-black text-slate-400 uppercase tracking-widest",
                                                         children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                className: "px-4 py-3 text-center w-12",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                    type: "checkbox",
+                                                                    className: "w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500",
+                                                                    onChange: toggleAllVisible,
+                                                                    checked: visibleProducts.length > 0 && visibleProducts.every((p)=>selectedProductIds.has(p.id))
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                                    lineNumber: 398,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                                lineNumber: 397,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                 className: "px-4 py-3",
                                                                 children: "Product"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 386,
+                                                                lineNumber: 405,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -679,7 +683,7 @@ const AddInventoryPage = ()=>{
                                                                 children: "Qty"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 387,
+                                                                lineNumber: 406,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -687,7 +691,7 @@ const AddInventoryPage = ()=>{
                                                                 children: "Unit Cost"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 388,
+                                                                lineNumber: 407,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -695,7 +699,7 @@ const AddInventoryPage = ()=>{
                                                                 children: "Tax %"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 389,
+                                                                lineNumber: 408,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -703,192 +707,224 @@ const AddInventoryPage = ()=>{
                                                                 children: "Total"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 390,
+                                                                lineNumber: 409,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                 className: "px-4 py-3 text-center"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                lineNumber: 391,
+                                                                lineNumber: 410,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                        lineNumber: 385,
+                                                        lineNumber: 396,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 384,
+                                                    lineNumber: 395,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                                     className: "divide-y divide-slate-50",
-                                                    children: products.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                    children: visibleProducts.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             colSpan: 6,
                                                             className: "px-6 py-12 text-center text-sm text-slate-400 font-medium",
-                                                            children: "No products added. Search above to add items."
+                                                            children: "No products found."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 397,
+                                                            lineNumber: 416,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 415,
                                                         columnNumber: 41
-                                                    }, ("TURBOPACK compile-time value", void 0)) : products.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                            className: "hover:bg-slate-50/50",
+                                                    }, ("TURBOPACK compile-time value", void 0)) : visibleProducts.map((p)=>{
+                                                        const isSelected = selectedProductIds.has(p.id);
+                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            className: `transition-colors ${isSelected ? 'bg-emerald-50/30' : 'hover:bg-slate-50/50'}`,
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-4 py-3",
+                                                                    className: "px-4 py-3 text-center",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                        type: "checkbox",
+                                                                        className: "w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer",
+                                                                        checked: isSelected,
+                                                                        onChange: ()=>toggleProductSelection(p.id)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                                        lineNumber: 426,
+                                                                        columnNumber: 57
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                                                    lineNumber: 425,
+                                                                    columnNumber: 53
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                    className: "px-4 py-3 cursor-pointer",
+                                                                    onClick: ()=>toggleProductSelection(p.id),
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "text-sm font-bold text-slate-900",
+                                                                            className: `text-sm font-bold ${isSelected ? 'text-emerald-900' : 'text-slate-900'}`,
                                                                             children: p.inventoryItemName
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                            lineNumber: 405,
-                                                                            columnNumber: 53
+                                                                            lineNumber: 434,
+                                                                            columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "text-[10px] text-slate-400",
                                                                             children: p.sku
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                            lineNumber: 406,
-                                                                            columnNumber: 53
+                                                                            lineNumber: 435,
+                                                                            columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 404,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 433,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                     className: "px-4 py-3 text-right",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "number",
                                                                         value: p.purchaseQuantity,
+                                                                        disabled: !isSelected,
                                                                         onChange: (e)=>updateProduct(p.id, 'purchaseQuantity', parseFloat(e.target.value) || 0),
-                                                                        className: "w-20 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none",
-                                                                        min: "1"
+                                                                        className: `w-20 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`,
+                                                                        min: "1",
+                                                                        onClick: (e)=>e.stopPropagation()
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                        lineNumber: 409,
-                                                                        columnNumber: 53
+                                                                        lineNumber: 438,
+                                                                        columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 408,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 437,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                     className: "px-4 py-3 text-right",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "number",
                                                                         value: p.unitCostBeforeTax,
+                                                                        disabled: !isSelected,
                                                                         onChange: (e)=>updateProduct(p.id, 'unitCostBeforeTax', parseFloat(e.target.value) || 0),
-                                                                        className: "w-24 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none",
+                                                                        className: `w-24 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`,
                                                                         min: "0",
-                                                                        step: "0.01"
+                                                                        step: "0.01",
+                                                                        onClick: (e)=>e.stopPropagation()
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                        lineNumber: 418,
-                                                                        columnNumber: 53
+                                                                        lineNumber: 449,
+                                                                        columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 417,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 448,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                     className: "px-4 py-3 text-right",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "number",
                                                                         value: p.taxPercentage,
+                                                                        disabled: !isSelected,
                                                                         onChange: (e)=>updateProduct(p.id, 'taxPercentage', parseFloat(e.target.value) || 0),
-                                                                        className: "w-16 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none",
+                                                                        className: `w-16 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`,
                                                                         min: "0",
-                                                                        max: "100"
+                                                                        max: "100",
+                                                                        onClick: (e)=>e.stopPropagation()
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                        lineNumber: 428,
-                                                                        columnNumber: 53
+                                                                        lineNumber: 461,
+                                                                        columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 427,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 460,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-4 py-3 text-right text-sm font-black text-slate-900",
+                                                                    className: `px-4 py-3 text-right text-sm font-black ${isSelected ? 'text-emerald-700' : 'text-slate-400'}`,
                                                                     children: [
                                                                         "$",
                                                                         p.lineTotal.toFixed(2)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 437,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 472,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                     className: "px-4 py-3 text-center",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        onClick: ()=>removeProduct(p.id),
-                                                                        className: "text-slate-400 hover:text-rose-600 transition-colors",
+                                                                        onClick: (e)=>{
+                                                                            e.stopPropagation();
+                                                                            toggleProductSelection(p.id);
+                                                                        },
+                                                                        disabled: !isSelected,
+                                                                        className: `p-2 rounded-lg transition-colors ${isSelected ? 'text-slate-400 hover:text-rose-600 hover:bg-rose-50' : 'text-transparent cursor-default'}`,
+                                                                        title: "Remove from order",
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
                                                                             size: 16
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                            lineNumber: 445,
-                                                                            columnNumber: 57
+                                                                            lineNumber: 485,
+                                                                            columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                        lineNumber: 441,
-                                                                        columnNumber: 53
+                                                                        lineNumber: 476,
+                                                                        columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                                    lineNumber: 440,
-                                                                    columnNumber: 49
+                                                                    lineNumber: 475,
+                                                                    columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, p.id, true, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                            lineNumber: 403,
-                                                            columnNumber: 45
-                                                        }, ("TURBOPACK compile-time value", void 0)))
+                                                            lineNumber: 424,
+                                                            columnNumber: 49
+                                                        }, ("TURBOPACK compile-time value", void 0));
+                                                    })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 394,
+                                                    lineNumber: 413,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 383,
+                                            lineNumber: 394,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                        lineNumber: 382,
+                                        lineNumber: 393,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                lineNumber: 350,
+                                lineNumber: 376,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                        lineNumber: 256,
+                        lineNumber: 282,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -903,7 +939,7 @@ const AddInventoryPage = ()=>{
                                             children: "Shipping Charges"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 461,
+                                            lineNumber: 502,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -913,13 +949,13 @@ const AddInventoryPage = ()=>{
                                             className: "w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 462,
+                                            lineNumber: 503,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 460,
+                                    lineNumber: 501,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -929,7 +965,7 @@ const AddInventoryPage = ()=>{
                                             children: "Additional Notes"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 470,
+                                            lineNumber: 511,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -939,13 +975,13 @@ const AddInventoryPage = ()=>{
                                             className: "w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none resize-none"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 471,
+                                            lineNumber: 512,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 469,
+                                    lineNumber: 510,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -959,7 +995,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Subtotal"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 480,
+                                                    lineNumber: 521,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -970,13 +1006,13 @@ const AddInventoryPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 481,
+                                                    lineNumber: 522,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 479,
+                                            lineNumber: 520,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -987,7 +1023,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Total Tax"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 484,
+                                                    lineNumber: 525,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -998,13 +1034,13 @@ const AddInventoryPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 485,
+                                                    lineNumber: 526,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 483,
+                                            lineNumber: 524,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1015,7 +1051,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Shipping"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 488,
+                                                    lineNumber: 529,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1026,13 +1062,13 @@ const AddInventoryPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 489,
+                                                    lineNumber: 530,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 487,
+                                            lineNumber: 528,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1043,7 +1079,7 @@ const AddInventoryPage = ()=>{
                                                     children: "Grand Total"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 492,
+                                                    lineNumber: 533,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1054,19 +1090,19 @@ const AddInventoryPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                                    lineNumber: 493,
+                                                    lineNumber: 534,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 491,
+                                            lineNumber: 532,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 478,
+                                    lineNumber: 519,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1079,40 +1115,40 @@ const AddInventoryPage = ()=>{
                                             children: "Save Draft"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 498,
+                                            lineNumber: 539,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>handleSave(inventoryStatus === 'Received' ? 'Received' : 'Ordered'),
                                             disabled: submitting,
                                             className: "flex-[2] py-3 bg-emerald-600 text-white rounded-xl text-sm font-black uppercase tracking-widest shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all disabled:opacity-50",
-                                            children: submitting ? 'Saving...' : inventoryStatus === 'Received' ? 'Recieve Now' : 'Create Order'
+                                            children: submitting ? 'Saving...' : inventoryStatus === 'Received' ? 'Recieve Now' : 'Add Inventory'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 505,
+                                            lineNumber: 546,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 497,
+                                    lineNumber: 538,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                            lineNumber: 459,
+                            lineNumber: 500,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                        lineNumber: 458,
+                        lineNumber: 499,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                lineNumber: 254,
+                lineNumber: 280,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             showVendorModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1125,7 +1161,7 @@ const AddInventoryPage = ()=>{
                             children: "Add New Supplier"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                            lineNumber: 523,
+                            lineNumber: 564,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1138,7 +1174,7 @@ const AddInventoryPage = ()=>{
                                             children: "Supplier Name *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 526,
+                                            lineNumber: 567,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1149,13 +1185,13 @@ const AddInventoryPage = ()=>{
                                             placeholder: "e.g. Acme Supplies"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 527,
+                                            lineNumber: 568,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 525,
+                                    lineNumber: 566,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1165,7 +1201,7 @@ const AddInventoryPage = ()=>{
                                             children: "Contact Person"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 536,
+                                            lineNumber: 577,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1176,15 +1212,24 @@ const AddInventoryPage = ()=>{
                                             placeholder: "e.g. John Doe"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 537,
+                                            lineNumber: 578,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 535,
+                                    lineNumber: 576,
                                     columnNumber: 33
-                                }, ("TURBOPACK compile-time value", void 0)),
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                            lineNumber: 565,
+                            columnNumber: 29
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-2 gap-4",
+                            children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1192,7 +1237,7 @@ const AddInventoryPage = ()=>{
                                             children: "Phone"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 546,
+                                            lineNumber: 589,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1200,22 +1245,139 @@ const AddInventoryPage = ()=>{
                                             value: newVendorPhone,
                                             onChange: (e)=>setNewVendorPhone(e.target.value),
                                             className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none",
-                                            placeholder: "e.g. +1 234 567 890"
+                                            placeholder: "Landline"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                            lineNumber: 547,
+                                            lineNumber: 590,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 545,
+                                    lineNumber: 588,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                            className: "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2",
+                                            children: "Mobile Number"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 599,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "text",
+                                            value: newVendorMobile,
+                                            onChange: (e)=>setNewVendorMobile(e.target.value),
+                                            className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none",
+                                            placeholder: "Mobile"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 600,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                    lineNumber: 598,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                            lineNumber: 524,
+                            lineNumber: 587,
+                            columnNumber: 29
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-2 gap-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                            className: "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2",
+                                            children: "Email"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 611,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "email",
+                                            value: newVendorEmail,
+                                            onChange: (e)=>setNewVendorEmail(e.target.value),
+                                            className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none",
+                                            placeholder: "email@example.com"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 612,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                    lineNumber: 610,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                            className: "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2",
+                                            children: "Website"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 621,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "text",
+                                            value: newVendorWebsite,
+                                            onChange: (e)=>setNewVendorWebsite(e.target.value),
+                                            className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none",
+                                            placeholder: "https://..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                            lineNumber: 622,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                    lineNumber: 620,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                            lineNumber: 609,
+                            columnNumber: 29
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2",
+                                    children: "Address"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                    lineNumber: 632,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                    value: newVendorAddress,
+                                    onChange: (e)=>setNewVendorAddress(e.target.value),
+                                    rows: 2,
+                                    className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none resize-none",
+                                    placeholder: "Full address..."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                                    lineNumber: 633,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
+                            lineNumber: 631,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1227,7 +1389,7 @@ const AddInventoryPage = ()=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 557,
+                                    lineNumber: 642,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1237,30 +1399,30 @@ const AddInventoryPage = ()=>{
                                     children: creatingVendor ? 'Saving...' : 'Add Supplier'
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                                    lineNumber: 563,
+                                    lineNumber: 648,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                            lineNumber: 556,
+                            lineNumber: 641,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                    lineNumber: 522,
+                    lineNumber: 563,
                     columnNumber: 25
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-                lineNumber: 521,
+                lineNumber: 562,
                 columnNumber: 21
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/pages/inventory/AddInventoryPage.tsx",
-        lineNumber: 239,
+        lineNumber: 265,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-;
+
 import {
     ArrowLeft,
     Search,
@@ -11,7 +11,7 @@ import {
     Upload,
     Plus,
 } from 'lucide-react';
-import { InventoryStatus, InventoryEntryProduct, InventoryItem, Vendor } from '../../types/inventory';
+import { InventoryStatus, InventoryEntryProduct, Vendor } from '../../types/inventory';
 import { inventoryService, inventoryItemService, vendorService } from '../../services/inventoryService';
 
 /**
@@ -26,7 +26,7 @@ export const AddInventoryPage: React.FC = () => {
 
     // Data lists
     const [vendors, setVendors] = useState<Vendor[]>([]);
-    const [allItems, setAllItems] = useState<InventoryItem[]>([]);
+
 
     // Header Fields
     const [supplierId, setSupplierId] = useState('');
@@ -37,14 +37,19 @@ export const AddInventoryPage: React.FC = () => {
     const [payTerm, setPayTerm] = useState('');
     const [attachedDocument, setAttachedDocument] = useState<string | null>(null);
 
-    // Products
+    // Products & Selection
     const [products, setProducts] = useState<InventoryEntryProduct[]>([]);
+    const [selectedProductIds, setSelectedProductIds] = useState<Set<string>>(new Set());
 
     // Vendor Creation State
     const [showVendorModal, setShowVendorModal] = useState(false);
     const [newVendorName, setNewVendorName] = useState('');
     const [newVendorContact, setNewVendorContact] = useState('');
     const [newVendorPhone, setNewVendorPhone] = useState('');
+    const [newVendorMobile, setNewVendorMobile] = useState('');
+    const [newVendorEmail, setNewVendorEmail] = useState('');
+    const [newVendorWebsite, setNewVendorWebsite] = useState('');
+    const [newVendorAddress, setNewVendorAddress] = useState('');
     const [creatingVendor, setCreatingVendor] = useState(false);
 
     // Footer
@@ -54,8 +59,7 @@ export const AddInventoryPage: React.FC = () => {
 
     // Search
     const [searchQuery, setSearchQuery] = useState('');
-    const [showSearchResults, setShowSearchResults] = useState(false);
-    const [searchResults, setSearchResults] = useState<InventoryItem[]>([]);
+
 
     useEffect(() => {
         loadData();
@@ -68,7 +72,24 @@ export const AddInventoryPage: React.FC = () => {
                 inventoryItemService.getAll({ status: 'Active' })
             ]);
             setVendors(vData);
-            setAllItems(iData);
+
+
+            // Pre-fill products state with all active items (initialized to default values)
+            const initialProducts = iData.map(item => ({
+                id: `IEP-${item.id}`,
+                inventoryItemId: item.id,
+                inventoryItemName: item.name,
+                sku: item.sku,
+                unitCostBeforeTax: item.averageCost,
+                taxPercentage: 0,
+                taxAmount: 0,
+                unitCostAfterTax: item.averageCost,
+                purchaseQuantity: 1,
+                subtotal: item.averageCost,
+                lineTotal: item.averageCost
+            }));
+            setProducts(initialProducts);
+
         } catch (error) {
             console.error('Failed to load data:', error);
         } finally {
@@ -76,19 +97,35 @@ export const AddInventoryPage: React.FC = () => {
         }
     };
 
-    // Filter search
-    useEffect(() => {
-        if (!searchQuery.trim()) {
-            setSearchResults([]);
-            return;
+    // Search just filters what is visible in the table
+    const visibleProducts = products.filter(p => {
+        if (!searchQuery.trim()) return true;
+        return p.inventoryItemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            p.sku.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
+    const toggleProductSelection = (id: string) => {
+        const newSelected = new Set(selectedProductIds);
+        if (newSelected.has(id)) {
+            newSelected.delete(id);
+        } else {
+            newSelected.add(id);
         }
-        const lower = searchQuery.toLowerCase();
-        const results = allItems.filter(item =>
-            item.name.toLowerCase().includes(lower) ||
-            item.sku.toLowerCase().includes(lower)
-        ).slice(0, 5);
-        setSearchResults(results);
-    }, [searchQuery, allItems]);
+        setSelectedProductIds(newSelected);
+    };
+
+    const toggleAllVisible = () => {
+        const allVisibleIds = visibleProducts.map(p => p.id);
+        const allSelected = allVisibleIds.every(id => selectedProductIds.has(id));
+        const newSelected = new Set(selectedProductIds);
+
+        if (allSelected) {
+            allVisibleIds.forEach(id => newSelected.delete(id));
+        } else {
+            allVisibleIds.forEach(id => newSelected.add(id));
+        }
+        setSelectedProductIds(newSelected);
+    };
 
     // Auto-generate reference number if empty
     useEffect(() => {
@@ -98,26 +135,7 @@ export const AddInventoryPage: React.FC = () => {
         }
     }, [referenceNo]);
 
-    // Add product to grid
-    const addProduct = (item: InventoryItem) => {
-        const newProduct: InventoryEntryProduct = {
-            id: `IEP${Date.now()}`,
-            inventoryItemId: item.id,
-            inventoryItemName: item.name,
-            sku: item.sku,
-            unitCostBeforeTax: item.averageCost, // Default to avg cost
-            taxPercentage: 0,
-            taxAmount: 0,
-            unitCostAfterTax: item.averageCost,
-            purchaseQuantity: 1,
-            subtotal: item.averageCost * 1,
-            lineTotal: item.averageCost * 1
-        };
 
-        setProducts([...products, newProduct]);
-        setSearchQuery('');
-        setShowSearchResults(false);
-    };
 
     // Update product quantity or cost
     const updateProduct = (id: string, field: keyof InventoryEntryProduct, value: number) => {
@@ -148,9 +166,7 @@ export const AddInventoryPage: React.FC = () => {
         }));
     };
 
-    const removeProduct = (id: string) => {
-        setProducts(products.filter(p => p.id !== id));
-    };
+
 
     // Create Vendor
     const handleCreateVendor = async () => {
@@ -162,6 +178,10 @@ export const AddInventoryPage: React.FC = () => {
                 name: newVendorName,
                 contactPerson: newVendorContact,
                 phone: newVendorPhone,
+                mobileNumber: newVendorMobile,
+                email: newVendorEmail,
+                website: newVendorWebsite,
+                address: newVendorAddress,
                 status: 'Active'
             });
             setVendors([...vendors, newVendor]);
@@ -171,6 +191,10 @@ export const AddInventoryPage: React.FC = () => {
             setNewVendorName('');
             setNewVendorContact('');
             setNewVendorPhone('');
+            setNewVendorMobile('');
+            setNewVendorEmail('');
+            setNewVendorWebsite('');
+            setNewVendorAddress('');
         } catch (error: any) {
             alert('Failed to create vendor: ' + error.message);
         } finally {
@@ -179,8 +203,10 @@ export const AddInventoryPage: React.FC = () => {
     };
 
     // Calculations
-    const subtotal = products.reduce((sum, p) => sum + p.subtotal, 0);
-    const totalTax = products.reduce((sum, p) => sum + p.taxAmount, 0); // Sum of line taxes
+    // Calculations based only on SELECTED products
+    const selectedProductsList = products.filter(p => selectedProductIds.has(p.id));
+    const subtotal = selectedProductsList.reduce((sum, p) => sum + p.subtotal, 0);
+    const totalTax = selectedProductsList.reduce((sum, p) => sum + p.taxAmount, 0); // Sum of line taxes
     const grandTotal = subtotal + totalTax + shippingCharges;
 
     const handleSave = async (status: InventoryStatus = 'Draft') => {
@@ -188,8 +214,8 @@ export const AddInventoryPage: React.FC = () => {
             alert('Please select a supplier');
             return;
         }
-        if (products.length === 0) {
-            alert('Please add at least one product');
+        if (selectedProductsList.length === 0) {
+            alert('Please select at least one product to add');
             return;
         }
 
@@ -203,7 +229,7 @@ export const AddInventoryPage: React.FC = () => {
                 expectedDeliveryDate: inventoryDate,
                 referenceNo,
                 inventoryStatus: status,
-                products: products, // Pass full products array (DTO likely accepts this or mapped structure)
+                products: selectedProductsList, // Only send selected products
                 additionalNotes,
                 shippingCharges,
                 purchaseTax: totalTax, // Global tax field
@@ -354,35 +380,28 @@ export const AddInventoryPage: React.FC = () => {
                                 <input
                                     type="text"
                                     value={searchQuery}
-                                    onChange={(e) => {
-                                        setSearchQuery(e.target.value);
-                                        setShowSearchResults(true);
-                                    }}
-                                    onFocus={() => setShowSearchResults(true)}
-                                    placeholder="Search product to add..."
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search products in list..."
                                     className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:border-emerald-600 outline-none"
                                 />
-                                {showSearchResults && searchResults.length > 0 && (
-                                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto">
-                                        {searchResults.map(item => (
-                                            <button
-                                                key={item.id}
-                                                onClick={() => addProduct(item)}
-                                                className="w-full px-4 py-3 text-left hover:bg-slate-50 border-b border-slate-100 last:border-0"
-                                            >
-                                                <div className="text-sm font-bold text-slate-900">{item.name}</div>
-                                                <div className="text-xs text-slate-500">SKU: {item.sku}</div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
+                            </div>
+                            <div className="text-xs font-bold text-slate-500">
+                                {selectedProductIds.size} selected
                             </div>
                         </div>
 
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="bg-slate-50 border-b border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+                            <table className="w-full text-left border-collapse relative">
+                                <thead className="sticky top-0 z-10 bg-slate-50 border-b border-slate-100 shadow-sm">
+                                    <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                        <th className="px-4 py-3 text-center w-12">
+                                            <input
+                                                type="checkbox"
+                                                className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                                                onChange={toggleAllVisible}
+                                                checked={visibleProducts.length > 0 && visibleProducts.every(p => selectedProductIds.has(p.id))}
+                                            />
+                                        </th>
                                         <th className="px-4 py-3">Product</th>
                                         <th className="px-4 py-3 text-right">Qty</th>
                                         <th className="px-4 py-3 text-right">Unit Cost</th>
@@ -392,61 +411,83 @@ export const AddInventoryPage: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-50">
-                                    {products.length === 0 ? (
+                                    {visibleProducts.length === 0 ? (
                                         <tr>
                                             <td colSpan={6} className="px-6 py-12 text-center text-sm text-slate-400 font-medium">
-                                                No products added. Search above to add items.
+                                                No products found.
                                             </td>
                                         </tr>
                                     ) : (
-                                        products.map(p => (
-                                            <tr key={p.id} className="hover:bg-slate-50/50">
-                                                <td className="px-4 py-3">
-                                                    <div className="text-sm font-bold text-slate-900">{p.inventoryItemName}</div>
-                                                    <div className="text-[10px] text-slate-400">{p.sku}</div>
-                                                </td>
-                                                <td className="px-4 py-3 text-right">
-                                                    <input
-                                                        type="number"
-                                                        value={p.purchaseQuantity}
-                                                        onChange={(e) => updateProduct(p.id, 'purchaseQuantity', parseFloat(e.target.value) || 0)}
-                                                        className="w-20 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none"
-                                                        min="1"
-                                                    />
-                                                </td>
-                                                <td className="px-4 py-3 text-right">
-                                                    <input
-                                                        type="number"
-                                                        value={p.unitCostBeforeTax}
-                                                        onChange={(e) => updateProduct(p.id, 'unitCostBeforeTax', parseFloat(e.target.value) || 0)}
-                                                        className="w-24 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none"
-                                                        min="0"
-                                                        step="0.01"
-                                                    />
-                                                </td>
-                                                <td className="px-4 py-3 text-right">
-                                                    <input
-                                                        type="number"
-                                                        value={p.taxPercentage}
-                                                        onChange={(e) => updateProduct(p.id, 'taxPercentage', parseFloat(e.target.value) || 0)}
-                                                        className="w-16 px-2 py-1 bg-white border border-slate-200 rounded text-right text-sm focus:border-emerald-600 outline-none"
-                                                        min="0"
-                                                        max="100"
-                                                    />
-                                                </td>
-                                                <td className="px-4 py-3 text-right text-sm font-black text-slate-900">
-                                                    ${p.lineTotal.toFixed(2)}
-                                                </td>
-                                                <td className="px-4 py-3 text-center">
-                                                    <button
-                                                        onClick={() => removeProduct(p.id)}
-                                                        className="text-slate-400 hover:text-rose-600 transition-colors"
-                                                    >
-                                                        <Trash2 size={16} />
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
+                                        visibleProducts.map(p => {
+                                            const isSelected = selectedProductIds.has(p.id);
+                                            return (
+                                                <tr key={p.id} className={`transition-colors ${isSelected ? 'bg-emerald-50/30' : 'hover:bg-slate-50/50'}`}>
+                                                    <td className="px-4 py-3 text-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                                                            checked={isSelected}
+                                                            onChange={() => toggleProductSelection(p.id)}
+                                                        />
+                                                    </td>
+                                                    <td className="px-4 py-3 cursor-pointer" onClick={() => toggleProductSelection(p.id)}>
+                                                        <div className={`text-sm font-bold ${isSelected ? 'text-emerald-900' : 'text-slate-900'}`}>{p.inventoryItemName}</div>
+                                                        <div className="text-[10px] text-slate-400">{p.sku}</div>
+                                                    </td>
+                                                    <td className="px-4 py-3 text-right">
+                                                        <input
+                                                            type="number"
+                                                            value={p.purchaseQuantity}
+                                                            disabled={!isSelected}
+                                                            onChange={(e) => updateProduct(p.id, 'purchaseQuantity', parseFloat(e.target.value) || 0)}
+                                                            className={`w-20 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`}
+                                                            min="1"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        />
+                                                    </td>
+                                                    <td className="px-4 py-3 text-right">
+                                                        <input
+                                                            type="number"
+                                                            value={p.unitCostBeforeTax}
+                                                            disabled={!isSelected}
+                                                            onChange={(e) => updateProduct(p.id, 'unitCostBeforeTax', parseFloat(e.target.value) || 0)}
+                                                            className={`w-24 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`}
+                                                            min="0"
+                                                            step="0.01"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        />
+                                                    </td>
+                                                    <td className="px-4 py-3 text-right">
+                                                        <input
+                                                            type="number"
+                                                            value={p.taxPercentage}
+                                                            disabled={!isSelected}
+                                                            onChange={(e) => updateProduct(p.id, 'taxPercentage', parseFloat(e.target.value) || 0)}
+                                                            className={`w-16 px-2 py-1 border rounded text-right text-sm focus:border-emerald-600 outline-none ${isSelected ? 'bg-white border-slate-200' : 'bg-slate-50 border-transparent text-slate-400'}`}
+                                                            min="0"
+                                                            max="100"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        />
+                                                    </td>
+                                                    <td className={`px-4 py-3 text-right text-sm font-black ${isSelected ? 'text-emerald-700' : 'text-slate-400'}`}>
+                                                        ${p.lineTotal.toFixed(2)}
+                                                    </td>
+                                                    <td className="px-4 py-3 text-center">
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                toggleProductSelection(p.id);
+                                                            }}
+                                                            disabled={!isSelected}
+                                                            className={`p-2 rounded-lg transition-colors ${isSelected ? 'text-slate-400 hover:text-rose-600 hover:bg-rose-50' : 'text-transparent cursor-default'}`}
+                                                            title="Remove from order"
+                                                        >
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
                                     )}
                                 </tbody>
                             </table>
@@ -507,7 +548,7 @@ export const AddInventoryPage: React.FC = () => {
                                 disabled={submitting}
                                 className="flex-[2] py-3 bg-emerald-600 text-white rounded-xl text-sm font-black uppercase tracking-widest shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all disabled:opacity-50"
                             >
-                                {submitting ? 'Saving...' : (inventoryStatus === 'Received' ? 'Recieve Now' : 'Create Order')}
+                                {submitting ? 'Saving...' : (inventoryStatus === 'Received' ? 'Recieve Now' : 'Add Inventory')}
                             </button>
                         </div>
                     </div>
@@ -542,6 +583,8 @@ export const AddInventoryPage: React.FC = () => {
                                         placeholder="e.g. John Doe"
                                     />
                                 </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone</label>
                                     <input
@@ -549,9 +592,51 @@ export const AddInventoryPage: React.FC = () => {
                                         value={newVendorPhone}
                                         onChange={(e) => setNewVendorPhone(e.target.value)}
                                         className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
-                                        placeholder="e.g. +1 234 567 890"
+                                        placeholder="Landline"
                                     />
                                 </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mobile Number</label>
+                                    <input
+                                        type="text"
+                                        value={newVendorMobile}
+                                        onChange={(e) => setNewVendorMobile(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="Mobile"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        value={newVendorEmail}
+                                        onChange={(e) => setNewVendorEmail(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="email@example.com"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Website</label>
+                                    <input
+                                        type="text"
+                                        value={newVendorWebsite}
+                                        onChange={(e) => setNewVendorWebsite(e.target.value)}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none"
+                                        placeholder="https://..."
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Address</label>
+                                <textarea
+                                    value={newVendorAddress}
+                                    onChange={(e) => setNewVendorAddress(e.target.value)}
+                                    rows={2}
+                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:border-emerald-500 outline-none resize-none"
+                                    placeholder="Full address..."
+                                />
                             </div>
                             <div className="flex items-center gap-3 mt-8">
                                 <button
@@ -572,6 +657,6 @@ export const AddInventoryPage: React.FC = () => {
                     </div>
                 )
             }
-        </div>
+        </div >
     );
 };

@@ -6,7 +6,7 @@ import { SettingsItem } from '../../types/settings';
 export const BusinessSettings: React.FC = () => {
     const items: SettingsItem[] = [
         { id: 'business-ops', label: 'Business Operations', description: 'Business info, localization, taxes, and modules', route: '/backoffice/settings/business-operations' },
-        { id: 'merchants', label: 'Merchants', description: 'Payment processor configuration', route: '/backoffice/more/business/merchants' },
+        { id: 'merchants', label: 'Merchants', description: 'Manage brand locations and settings', route: '/backoffice/more/merchants' },
     ];
 
     return (

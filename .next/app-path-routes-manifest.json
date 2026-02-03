@@ -30,6 +30,8 @@
   "/backoffice/inventory/vendors/page": "/backoffice/inventory/vendors",
   "/backoffice/items/page": "/backoffice/items",
   "/backoffice/more/[category]/[subItem]/page": "/backoffice/more/[category]/[subItem]",
+  "/backoffice/more/merchants/[id]/page": "/backoffice/more/merchants/[id]",
+  "/backoffice/more/merchants/page": "/backoffice/more/merchants",
   "/backoffice/more/page": "/backoffice/more",
   "/backoffice/more/profile/edit/page": "/backoffice/more/profile/edit",
   "/backoffice/reports/daily-sales/page": "/backoffice/reports/daily-sales",

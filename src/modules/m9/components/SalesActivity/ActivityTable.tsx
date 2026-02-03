@@ -2,7 +2,20 @@ import React from 'react';
 import { TransactionEvent, PaymentStatus } from '../../types/sales-activity';
 import { formatCurrency } from '@/utils';
 import { cn } from '@/utils';
-import { AlertCircle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import {
+    AlertCircle,
+    ChevronLeft,
+    ChevronRight,
+    ChevronsLeft,
+    ChevronsRight,
+    Eye,
+    Printer,
+    Mail,
+    Undo2,
+    Trash2,
+    FileDown,
+    FileText
+} from 'lucide-react';
 
 interface ActivityTableProps {
     data: TransactionEvent[];
@@ -15,9 +28,9 @@ interface ActivityTableProps {
     onItemsPerPageChange: (items: number) => void;
 }
 
-export const ActivityTable: React.FC<ActivityTableProps> = ({ 
-    data, 
-    isLoading, 
+export const ActivityTable: React.FC<ActivityTableProps> = ({
+    data,
+    isLoading,
     onRowClick,
     currentPage,
     itemsPerPage,
@@ -41,12 +54,12 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
     }
 
     return (
-        <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden flex flex-col">
-            <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-slate-200">
-                <table className="w-full text-left border-collapse table-auto min-w-[1800px]">
+        <div className="bg-white border border-slate-200 rounded shadow-sm flex flex-col overflow-visible">
+            <div className="overflow-x-auto overflow-y-visible scrollbar-thin scrollbar-thumb-slate-200">
+                <table className="w-full text-left border-collapse table-auto min-w-[1800px] mb-24">
                     <thead>
                         <tr className="bg-white border-b border-slate-100">
-                            <TableHead label="Action" />
+                            <TableHead label="Action" sticky={true} />
                             <TableHead label="Date" />
                             <TableHead label="Invoice No." />
                             <TableHead label="Customer name" />
@@ -97,30 +110,30 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
                 </div>
 
                 <div className="flex items-center gap-1">
-                    <PaginationButton 
-                        onClick={() => onPageChange(1)} 
+                    <PaginationButton
+                        onClick={() => onPageChange(1)}
                         disabled={currentPage === 1}
                         icon={ChevronsLeft}
                     />
-                    <PaginationButton 
-                        onClick={() => onPageChange(currentPage - 1)} 
+                    <PaginationButton
+                        onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                         icon={ChevronLeft}
                     />
-                    
+
                     <div className="flex items-center px-2">
                         <span className="text-xs font-black text-slate-900 mx-2">{currentPage}</span>
                         <span className="text-xs font-bold text-slate-300 mx-1">/</span>
                         <span className="text-xs font-bold text-slate-400 mx-2">{Math.ceil(totalItems / itemsPerPage) || 1}</span>
                     </div>
 
-                    <PaginationButton 
-                        onClick={() => onPageChange(currentPage + 1)} 
+                    <PaginationButton
+                        onClick={() => onPageChange(currentPage + 1)}
                         disabled={currentPage >= Math.ceil(totalItems / itemsPerPage)}
                         icon={ChevronRight}
                     />
-                    <PaginationButton 
-                        onClick={() => onPageChange(Math.ceil(totalItems / itemsPerPage))} 
+                    <PaginationButton
+                        onClick={() => onPageChange(Math.ceil(totalItems / itemsPerPage))}
                         disabled={currentPage >= Math.ceil(totalItems / itemsPerPage)}
                         icon={ChevronsRight}
                     />
@@ -136,8 +149,8 @@ const PaginationButton = ({ onClick, disabled, icon: Icon }: { onClick: () => vo
         disabled={disabled}
         className={cn(
             "p-1.5 rounded-md transition-all border",
-            disabled 
-                ? "bg-slate-50 text-slate-200 border-slate-100 cursor-not-allowed" 
+            disabled
+                ? "bg-slate-50 text-slate-200 border-slate-100 cursor-not-allowed"
                 : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300 active:scale-90"
         )}
     >
@@ -146,15 +159,118 @@ const PaginationButton = ({ onClick, disabled, icon: Icon }: { onClick: () => vo
 );
 
 const ActivityRow = ({ row, onClick }: { row: TransactionEvent; onClick: () => void }) => {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const menuRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const dateStr = new Date(row.timestamp).toLocaleDateString() + ' ' + new Date(row.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const handleAction = (e: React.MouseEvent, action: string) => {
+        e.stopPropagation();
+        setIsMenuOpen(false);
+        switch (action) {
+            case 'view':
+                onClick();
+                break;
+            case 'print':
+                alert(`Printing Invoice: ${row.invoiceNo}`);
+                break;
+            case 'email':
+                alert(`Emailing Invoice: ${row.invoiceNo} to customer`);
+                break;
+            case 'export-csv':
+                alert(`Exporting transaction ${row.invoiceNo} as CSV...`);
+                break;
+            case 'export-pdf':
+                alert(`Exporting transaction ${row.invoiceNo} as PDF...`);
+                break;
+            case 'refund':
+                alert(`Initiating Refund for: ${row.invoiceNo}`);
+                break;
+            case 'delete':
+                if (confirm(`Are you sure you want to delete transaction ${row.invoiceNo}?`)) {
+                    alert('Deleted successfully (Simulated)');
+                }
+                break;
+        }
+    };
 
     return (
         <tr className="hover:bg-slate-50 transition-colors group cursor-pointer" onClick={onClick}>
-            <td className="px-4 py-3">
-                <button className="flex items-center gap-1 px-2.5 py-1 bg-sky-50 text-sky-600 rounded text-[10px] font-black uppercase hover:bg-sky-100 transition-colors border border-sky-100">
-                    Actions
-                    <ChevronDownMini className="w-3 h-3" />
-                </button>
+            <td className={cn(
+                "px-4 py-3 sticky left-0 group-hover:bg-slate-50 border-r border-slate-100 shadow-[2px_0_5px_rgba(0,0,0,0.02)] transition-all bg-white",
+                isMenuOpen ? "z-50" : "z-10"
+            )}>
+                <div className="relative" ref={menuRef}>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setIsMenuOpen(!isMenuOpen); }}
+                        className={cn(
+                            "flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-black uppercase transition-all border shadow-sm",
+                            isMenuOpen
+                                ? "bg-slate-900 text-white border-slate-900 scale-95"
+                                : "bg-sky-50 text-sky-600 border-sky-100 hover:bg-sky-100 active:scale-95"
+                        )}
+                    >
+                        Actions
+                        <ChevronDownMini className={cn("w-3 h-3 transition-transform duration-200", isMenuOpen && "rotate-180")} />
+                    </button>
+
+                    {isMenuOpen && (
+                        <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-2xl z-50 overflow-visible animate-in fade-in slide-in-from-top-2 duration-200">
+                            <div className="p-1.5 bg-white rounded-xl">
+                                <ActionItem
+                                    icon={Eye}
+                                    label="View Details"
+                                    onClick={(e) => handleAction(e, 'view')}
+                                    variant="blue"
+                                />
+                                <ActionItem
+                                    icon={Printer}
+                                    label="Print Invoice"
+                                    onClick={(e) => handleAction(e, 'print')}
+                                />
+                                <ActionItem
+                                    icon={Mail}
+                                    label="Email Invoice"
+                                    onClick={(e) => handleAction(e, 'email')}
+                                />
+                                <div className="h-px bg-slate-100 my-1 mx-1" />
+                                <ActionItem
+                                    icon={FileDown}
+                                    label="Export CSV"
+                                    onClick={(e) => handleAction(e, 'export-csv')}
+                                />
+                                <ActionItem
+                                    icon={FileText}
+                                    label="Export PDF"
+                                    onClick={(e) => handleAction(e, 'export-pdf')}
+                                />
+                                <div className="h-px bg-slate-100 my-1 mx-1" />
+                                <ActionItem
+                                    icon={Undo2}
+                                    label="Refund / Return"
+                                    onClick={(e) => handleAction(e, 'refund')}
+                                    variant="amber"
+                                />
+                                <ActionItem
+                                    icon={Trash2}
+                                    label="Delete"
+                                    onClick={(e) => handleAction(e, 'delete')}
+                                    variant="red"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </td>
             <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-600 font-medium">{dateStr}</td>
             <td className="px-4 py-3 text-xs text-blue-600 font-bold hover:underline">{row.invoiceNo}</td>
@@ -166,7 +282,9 @@ const ActivityRow = ({ row, onClick }: { row: TransactionEvent; onClick: () => v
                 </div>
             </td>
             <td className="px-4 py-3">
-                <PaymentStatusBadge status={row.paymentStatus} />
+                <div className="flex justify-center">
+                    <PaymentStatusBadge status={row.paymentStatus} />
+                </div>
             </td>
             <td className="px-4 py-3 text-xs text-slate-600 font-bold">{row.paymentMethod}</td>
             <td className="px-4 py-3 text-right text-xs text-slate-900 font-black">{formatCurrency(row.totalAmount)}</td>
@@ -182,6 +300,39 @@ const ActivityRow = ({ row, onClick }: { row: TransactionEvent; onClick: () => v
         </tr>
     );
 };
+
+const ActionItem = ({
+    icon: Icon,
+    label,
+    onClick,
+    variant = 'default'
+}: {
+    icon: any,
+    label: string,
+    onClick: (e: React.MouseEvent) => void,
+    variant?: 'default' | 'red' | 'blue' | 'amber'
+}) => {
+    const variants = {
+        default: 'text-slate-700 hover:bg-slate-50',
+        red: 'text-rose-600 hover:bg-rose-50',
+        blue: 'text-blue-600 hover:bg-blue-50',
+        amber: 'text-amber-600 hover:bg-amber-50'
+    };
+
+    return (
+        <button
+            onClick={onClick}
+            className={cn(
+                "w-full flex items-center gap-3 px-3 py-2 text-xs font-bold rounded-lg transition-colors group",
+                variants[variant]
+            )}
+        >
+            <Icon className="w-4 h-4" />
+            {label}
+        </button>
+    );
+};
+
 
 const PaymentStatusBadge = ({ status }: { status: PaymentStatus }) => {
     const styles = {
@@ -203,10 +354,19 @@ const ChevronDownMini = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const TableHead = ({ label, align = 'left' }: { label: string; align?: 'left' | 'right' | 'center' }) => (
+const TableHead = ({
+    label,
+    align = 'left',
+    sticky = false
+}: {
+    label: string;
+    align?: 'left' | 'right' | 'center';
+    sticky?: boolean;
+}) => (
     <th className={cn(
         "px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50/50",
-        align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left'
+        align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left',
+        sticky && "sticky left-0 z-20 bg-slate-50 border-r border-slate-100 shadow-[2px_0_5px_rgba(0,0,0,0.02)]"
     )}>
         {label}
     </th>

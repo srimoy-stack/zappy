@@ -23,7 +23,9 @@ export interface Vendor {
     name: string;
     contactPerson?: string;
     phone?: string;
+    mobileNumber?: string;
     email?: string;
+    website?: string;
     address?: string;
     totalPurchases: number;
     totalPaid: number;
@@ -152,6 +154,7 @@ export interface Recipe {
     ingredients: RecipeIngredient[];
     totalRecipeCost: number;
     usedByProductCount: number;
+    linkedProductIds?: string[]; // IDs of products using this recipe
     tenantId: string;
     createdAt: string;
     updatedAt: string;
@@ -208,7 +211,9 @@ export interface CreateVendorDTO {
     name: string;
     contactPerson?: string;
     phone?: string;
+    mobileNumber?: string;
     email?: string;
+    website?: string;
     address?: string;
     status: 'Active' | 'Inactive';
 }
@@ -218,6 +223,7 @@ export interface CreateRecipeDTO {
     description?: string;
     status: RecipeStatus;
     ingredients: Omit<RecipeIngredient, 'id' | 'inventoryItemName' | 'unitCost' | 'effectiveQuantity' | 'lineCost'>[];
+    linkedProductIds?: string[];
 }
 
 export interface CreateInventoryReturnDTO {

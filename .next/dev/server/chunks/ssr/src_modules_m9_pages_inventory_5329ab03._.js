@@ -18,7 +18,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Tag$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/tag.js [app-ssr] (ecmascript) <export default as Tag>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-ssr] (ecmascript) <export default as Calendar>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$inventory$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/mock/inventory.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/loader.js [app-ssr] (ecmascript) <export default as Loader>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$inventoryService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/services/inventoryService.ts [app-ssr] (ecmascript)");
 'use client';
 ;
 ;
@@ -27,6 +28,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock
 ;
 const InventoryEntriesPage = ()=>{
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    // Data State
+    const [entries, setEntries] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [vendors, setVendors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     // Filters
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [selectedStore, setSelectedStore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
@@ -36,8 +41,26 @@ const InventoryEntriesPage = ()=>{
     const [dateFrom, setDateFrom] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [dateTo, setDateTo] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [showFilters, setShowFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].useEffect(()=>{
+        loadData();
+    }, []);
+    const loadData = async ()=>{
+        setLoading(true);
+        try {
+            const [entriesData, vendorsData] = await Promise.all([
+                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$inventoryService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["inventoryService"].getEntries(),
+                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$inventoryService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["vendorService"].getAll()
+            ]);
+            setEntries(entriesData);
+            setVendors(vendorsData);
+        } catch (error) {
+            console.error('Failed to load inventory entries:', error);
+        } finally{
+            setLoading(false);
+        }
+    };
     // Filter entries
-    const filteredEntries = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$inventory$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["mockInventoryEntries"].filter((entry)=>{
+    const filteredEntries = entries.filter((entry)=>{
         if (searchQuery && !entry.referenceNo.toLowerCase().includes(searchQuery.toLowerCase())) return false;
         if (selectedStore && entry.storeId !== selectedStore) return false;
         if (selectedSupplier && entry.supplierId !== selectedSupplier) return false;
@@ -94,12 +117,12 @@ const InventoryEntriesPage = ()=>{
                             className: "text-slate-600"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                            lineNumber: 90,
+                            lineNumber: 117,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                        lineNumber: 86,
+                        lineNumber: 113,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -110,7 +133,7 @@ const InventoryEntriesPage = ()=>{
                                 children: "Inventory Entries"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 93,
+                                lineNumber: 120,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -118,19 +141,19 @@ const InventoryEntriesPage = ()=>{
                                 children: "View all stock inward transactions"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 94,
+                                lineNumber: 121,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                        lineNumber: 92,
+                        lineNumber: 119,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                lineNumber: 85,
+                lineNumber: 112,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -146,7 +169,7 @@ const InventoryEntriesPage = ()=>{
                                         className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 129,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -157,13 +180,13 @@ const InventoryEntriesPage = ()=>{
                                         className: "w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:border-emerald-600 transition-all"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 130,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 101,
+                                lineNumber: 128,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -174,20 +197,20 @@ const InventoryEntriesPage = ()=>{
                                         size: 14
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 118,
+                                        lineNumber: 145,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Filters"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 111,
+                                lineNumber: 138,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                        lineNumber: 100,
+                        lineNumber: 127,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     showFilters && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -200,7 +223,7 @@ const InventoryEntriesPage = ()=>{
                                         children: "Supplier"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 154,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -213,27 +236,27 @@ const InventoryEntriesPage = ()=>{
                                                 children: "All Suppliers"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 135,
+                                                lineNumber: 162,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
-                                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$inventory$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["mockVendors"].map((vendor)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            vendors.map((vendor)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: vendor.id,
                                                     children: vendor.name
                                                 }, vendor.id, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 137,
+                                                    lineNumber: 164,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 157,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 126,
+                                lineNumber: 153,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -243,7 +266,7 @@ const InventoryEntriesPage = ()=>{
                                         children: "Entry Status"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 170,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -256,7 +279,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "All Statuses"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 178,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -264,7 +287,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Draft"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 152,
+                                                lineNumber: 179,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -272,7 +295,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Ordered"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 180,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -280,7 +303,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Received"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 154,
+                                                lineNumber: 181,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -288,7 +311,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Partial"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 155,
+                                                lineNumber: 182,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -296,19 +319,19 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Cancelled"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 156,
+                                                lineNumber: 183,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 173,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 142,
+                                lineNumber: 169,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -318,7 +341,7 @@ const InventoryEntriesPage = ()=>{
                                         children: "Payment Status"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 188,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -331,7 +354,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "All Statuses"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 169,
+                                                lineNumber: 196,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -339,7 +362,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Unpaid"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 197,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -347,7 +370,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Partial"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 171,
+                                                lineNumber: 198,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -355,19 +378,19 @@ const InventoryEntriesPage = ()=>{
                                                 children: "Paid"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 172,
+                                                lineNumber: 199,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 164,
+                                        lineNumber: 191,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 160,
+                                lineNumber: 187,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -381,13 +404,13 @@ const InventoryEntriesPage = ()=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 178,
+                                                lineNumber: 205,
                                                 columnNumber: 43
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 177,
+                                        lineNumber: 204,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -397,13 +420,13 @@ const InventoryEntriesPage = ()=>{
                                         className: "w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 180,
+                                        lineNumber: 207,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 176,
+                                lineNumber: 203,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -417,13 +440,13 @@ const InventoryEntriesPage = ()=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 190,
+                                                lineNumber: 217,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 216,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -433,13 +456,13 @@ const InventoryEntriesPage = ()=>{
                                         className: "w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 192,
+                                        lineNumber: 219,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 188,
+                                lineNumber: 215,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -457,24 +480,24 @@ const InventoryEntriesPage = ()=>{
                                     children: "Clear Filters"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                    lineNumber: 201,
+                                    lineNumber: 228,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 200,
+                                lineNumber: 227,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                        lineNumber: 125,
+                        lineNumber: 152,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                lineNumber: 99,
+                lineNumber: 126,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -488,19 +511,19 @@ const InventoryEntriesPage = ()=>{
                             children: filteredEntries.length
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                            lineNumber: 222,
+                            lineNumber: 249,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0)),
                         " entries"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                    lineNumber: 221,
+                    lineNumber: 248,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                lineNumber: 220,
+                lineNumber: 247,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -519,7 +542,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Action"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 259,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -527,7 +550,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Date"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 233,
+                                            lineNumber: 260,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -535,7 +558,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Reference No"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 234,
+                                            lineNumber: 261,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -543,7 +566,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Location"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 235,
+                                            lineNumber: 262,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -551,7 +574,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Supplier"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 263,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -559,7 +582,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Entry Status"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 237,
+                                            lineNumber: 264,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -567,7 +590,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Payment Status"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 238,
+                                            lineNumber: 265,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -575,7 +598,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Grand Total"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 239,
+                                            lineNumber: 266,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -583,7 +606,7 @@ const InventoryEntriesPage = ()=>{
                                             children: "Payment Due"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 240,
+                                            lineNumber: 267,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -591,23 +614,50 @@ const InventoryEntriesPage = ()=>{
                                             children: "Added By"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 241,
+                                            lineNumber: 268,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 258,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 230,
+                                lineNumber: 257,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                 className: "divide-y divide-slate-50",
-                                children: filteredEntries.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                        colSpan: 10,
+                                        className: "px-6 py-12 text-center",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex justify-center",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader$3e$__["Loader"], {
+                                                className: "w-8 h-8 text-emerald-600 animate-spin"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
+                                                lineNumber: 276,
+                                                columnNumber: 45
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
+                                            lineNumber: 275,
+                                            columnNumber: 41
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
+                                        lineNumber: 274,
+                                        columnNumber: 37
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
+                                    lineNumber: 273,
+                                    columnNumber: 33
+                                }, ("TURBOPACK compile-time value", void 0)) : filteredEntries.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                         colSpan: 10,
                                         className: "px-6 py-12 text-center",
@@ -619,7 +669,7 @@ const InventoryEntriesPage = ()=>{
                                                     className: "text-slate-300"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 249,
+                                                    lineNumber: 284,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -627,23 +677,23 @@ const InventoryEntriesPage = ()=>{
                                                     children: "No entries found. Try adjusting your filters."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 250,
+                                                    lineNumber: 285,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 283,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 247,
+                                        lineNumber: 282,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                    lineNumber: 246,
+                                    lineNumber: 281,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)) : filteredEntries.map((entry)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         className: "group hover:bg-slate-50/50 transition-colors",
@@ -661,12 +711,12 @@ const InventoryEntriesPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                                lineNumber: 264,
+                                                                lineNumber: 299,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                            lineNumber: 259,
+                                                            lineNumber: 294,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -677,12 +727,12 @@ const InventoryEntriesPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                                lineNumber: 271,
+                                                                lineNumber: 306,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                            lineNumber: 266,
+                                                            lineNumber: 301,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         canEdit(entry) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -693,12 +743,12 @@ const InventoryEntriesPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                                lineNumber: 279,
+                                                                lineNumber: 314,
                                                                 columnNumber: 57
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                            lineNumber: 274,
+                                                            lineNumber: 309,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         canDelete(entry) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -714,12 +764,12 @@ const InventoryEntriesPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                                lineNumber: 293,
+                                                                lineNumber: 328,
                                                                 columnNumber: 57
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                            lineNumber: 283,
+                                                            lineNumber: 318,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -730,23 +780,23 @@ const InventoryEntriesPage = ()=>{
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                                lineNumber: 301,
+                                                                lineNumber: 336,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                            lineNumber: 296,
+                                                            lineNumber: 331,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 258,
+                                                    lineNumber: 293,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 257,
+                                                lineNumber: 292,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -754,7 +804,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: new Date(entry.inventoryDate).toLocaleDateString()
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 305,
+                                                lineNumber: 340,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -765,7 +815,7 @@ const InventoryEntriesPage = ()=>{
                                                         children: entry.referenceNo
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                        lineNumber: 309,
+                                                        lineNumber: 344,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,13 +826,13 @@ const InventoryEntriesPage = ()=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 345,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 343,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -790,7 +840,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: entry.storeName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 312,
+                                                lineNumber: 347,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -798,7 +848,7 @@ const InventoryEntriesPage = ()=>{
                                                 children: entry.supplierName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 313,
+                                                lineNumber: 348,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -808,12 +858,12 @@ const InventoryEntriesPage = ()=>{
                                                     children: entry.inventoryStatus
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 315,
+                                                    lineNumber: 350,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 314,
+                                                lineNumber: 349,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -823,12 +873,12 @@ const InventoryEntriesPage = ()=>{
                                                     children: entry.paymentStatus
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 320,
+                                                    lineNumber: 355,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 319,
+                                                lineNumber: 354,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -841,12 +891,12 @@ const InventoryEntriesPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 325,
+                                                    lineNumber: 360,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 324,
+                                                lineNumber: 359,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -859,12 +909,12 @@ const InventoryEntriesPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                    lineNumber: 328,
+                                                    lineNumber: 363,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 327,
+                                                lineNumber: 362,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -875,7 +925,7 @@ const InventoryEntriesPage = ()=>{
                                                         children: entry.createdByName
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 368,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -883,46 +933,46 @@ const InventoryEntriesPage = ()=>{
                                                         children: new Date(entry.createdAt).toLocaleString()
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                        lineNumber: 334,
+                                                        lineNumber: 369,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                                lineNumber: 332,
+                                                lineNumber: 367,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, entry.id, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                        lineNumber: 256,
+                                        lineNumber: 291,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                                lineNumber: 244,
+                                lineNumber: 271,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                        lineNumber: 229,
+                        lineNumber: 256,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                    lineNumber: 228,
+                    lineNumber: 255,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-                lineNumber: 227,
+                lineNumber: 254,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/pages/inventory/InventoryEntriesPage.tsx",
-        lineNumber: 83,
+        lineNumber: 110,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -9381,8 +9431,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chef$2d$hat$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChefHat$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chef-hat.js [app-ssr] (ecmascript) <export default as ChefHat>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-ssr] (ecmascript) <export default as AlertCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$items$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/mock/items.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$inventoryService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/services/inventoryService.ts [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -9399,6 +9452,10 @@ const EditRecipePage = ()=>{
     const [status, setStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('Active');
     const [ingredients, setIngredients] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [usedByCount, setUsedByCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    // Product Link State
+    const [linkedProducts, setLinkedProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [productSearchTerm, setProductSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [productSearchResults, setProductSearchResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     // Search State
     const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [isSearching, setIsSearching] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -9427,6 +9484,11 @@ const EditRecipePage = ()=>{
                 setDescription(recipe.description || '');
                 setStatus(recipe.status);
                 setUsedByCount(recipe.usedByProductCount);
+                // Populate Linked Products
+                if (recipe.linkedProductIds) {
+                    const linked = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$items$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["mockItems"].filter((item)=>recipe.linkedProductIds.includes(item.id));
+                    setLinkedProducts(linked);
+                }
                 // Map existing ingredients to rows
                 setIngredients(recipe.ingredients.map((ing)=>({
                         tempId: ing.id,
@@ -9494,6 +9556,33 @@ const EditRecipePage = ()=>{
             return ing;
         }));
     };
+    // Product Search Handlers
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (!productSearchTerm.trim()) {
+            setProductSearchResults([]);
+            return;
+        }
+        const results = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$mock$2f$items$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["mockItems"].filter((item)=>item.name.toLowerCase().includes(productSearchTerm.toLowerCase()));
+        setProductSearchResults(results);
+    }, [
+        productSearchTerm
+    ]);
+    const handleAddProduct = (item)=>{
+        if (linkedProducts.some((p)=>p.id === item.id)) {
+            setProductSearchTerm('');
+            setProductSearchResults([]);
+            return;
+        }
+        setLinkedProducts([
+            ...linkedProducts,
+            item
+        ]);
+        setProductSearchTerm('');
+        setProductSearchResults([]);
+    };
+    const handleRemoveProduct = (id)=>{
+        setLinkedProducts(linkedProducts.filter((p)=>p.id !== id));
+    };
     const calculateLineCost = (ing)=>{
         const effectiveQty = ing.quantityUsed + ing.quantityUsed * ing.wastagePercentage / 100;
         return effectiveQty * ing.unitCost;
@@ -9521,7 +9610,8 @@ const EditRecipePage = ()=>{
                         baseUnit: ing.baseUnit,
                         quantityUsed: ing.quantityUsed,
                         wastagePercentage: ing.wastagePercentage
-                    }))
+                    })),
+                linkedProductIds: linkedProducts.map((p)=>p.id)
             };
             await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$services$2f$inventoryService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["recipeService"].update(id, recipeData);
             alert('Recipe updated successfully!');
@@ -9538,7 +9628,7 @@ const EditRecipePage = ()=>{
             children: "Loading recipe data..."
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-            lineNumber: 191,
+            lineNumber: 233,
             columnNumber: 16
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -9556,12 +9646,12 @@ const EditRecipePage = ()=>{
                             className: "text-slate-600"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                            lineNumber: 202,
+                            lineNumber: 244,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                        lineNumber: 198,
+                        lineNumber: 240,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9572,7 +9662,7 @@ const EditRecipePage = ()=>{
                                 children: "Edit Recipe"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 205,
+                                lineNumber: 247,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -9580,13 +9670,13 @@ const EditRecipePage = ()=>{
                                 children: usedByCount > 0 ? `Used by ${usedByCount} products - Edits will affect live costs` : 'Not linked to any products'
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 206,
+                                lineNumber: 248,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                        lineNumber: 204,
+                        lineNumber: 246,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9598,7 +9688,7 @@ const EditRecipePage = ()=>{
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 209,
+                                lineNumber: 251,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -9610,26 +9700,26 @@ const EditRecipePage = ()=>{
                                         size: 16
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 262,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     submitting ? 'Saving...' : 'Save Changes'
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 215,
+                                lineNumber: 257,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                        lineNumber: 208,
+                        lineNumber: 250,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                lineNumber: 197,
+                lineNumber: 239,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9651,7 +9741,7 @@ const EditRecipePage = ()=>{
                                                     children: "Recipe Name *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 234,
+                                                    lineNumber: 276,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -9661,13 +9751,13 @@ const EditRecipePage = ()=>{
                                                     className: "w-full h-12 px-4 rounded-xl border border-slate-200 font-bold text-slate-900 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 235,
+                                                    lineNumber: 277,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                            lineNumber: 233,
+                                            lineNumber: 275,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9678,7 +9768,7 @@ const EditRecipePage = ()=>{
                                                     children: "Description"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 243,
+                                                    lineNumber: 285,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -9688,13 +9778,13 @@ const EditRecipePage = ()=>{
                                                     className: "w-full p-4 rounded-xl border border-slate-200 font-medium text-slate-900 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none resize-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 244,
+                                                    lineNumber: 286,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                            lineNumber: 242,
+                                            lineNumber: 284,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9704,7 +9794,7 @@ const EditRecipePage = ()=>{
                                                     children: "Status"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 294,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9718,29 +9808,29 @@ const EditRecipePage = ()=>{
                                                             children: s
                                                         }, s, false, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                            lineNumber: 255,
+                                                            lineNumber: 297,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 253,
+                                                    lineNumber: 295,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                            lineNumber: 251,
+                                            lineNumber: 293,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 274,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 231,
+                                lineNumber: 273,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9757,14 +9847,14 @@ const EditRecipePage = ()=>{
                                                         className: "text-slate-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 317,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     "Ingredients"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 274,
+                                                lineNumber: 316,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9775,7 +9865,7 @@ const EditRecipePage = ()=>{
                                                         className: "absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 321,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -9788,7 +9878,7 @@ const EditRecipePage = ()=>{
                                                         className: "w-full h-10 pl-11 pr-4 bg-slate-50 rounded-xl border-none font-bold text-sm focus:ring-2 focus:ring-blue-500/20 text-slate-900 placeholder:text-slate-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 280,
+                                                        lineNumber: 322,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     isSearching && searchTerm && searchResults.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9804,7 +9894,7 @@ const EditRecipePage = ()=>{
                                                                                 children: item.name
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                                lineNumber: 298,
+                                                                                lineNumber: 340,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9812,13 +9902,13 @@ const EditRecipePage = ()=>{
                                                                                 children: item.sku
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                                lineNumber: 299,
+                                                                                lineNumber: 341,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 297,
+                                                                        lineNumber: 339,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9829,30 +9919,30 @@ const EditRecipePage = ()=>{
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 301,
+                                                                        lineNumber: 343,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, item.id, true, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 292,
+                                                                lineNumber: 334,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 290,
+                                                        lineNumber: 332,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 278,
+                                                lineNumber: 320,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 273,
+                                        lineNumber: 315,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9869,7 +9959,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Ingredient"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 315,
+                                                                lineNumber: 357,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -9877,7 +9967,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Unit Cost"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 316,
+                                                                lineNumber: 358,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -9885,7 +9975,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Qty Used"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 317,
+                                                                lineNumber: 359,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -9893,7 +9983,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Wastage %"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 318,
+                                                                lineNumber: 360,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -9901,7 +9991,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Effective Qty"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 319,
+                                                                lineNumber: 361,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -9909,25 +9999,25 @@ const EditRecipePage = ()=>{
                                                                 children: "Line Cost"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 320,
+                                                                lineNumber: 362,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                 className: "px-4 py-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 321,
+                                                                lineNumber: 363,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 356,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 355,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -9946,7 +10036,7 @@ const EditRecipePage = ()=>{
                                                                             children: ing.inventoryItemName
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                            lineNumber: 332,
+                                                                            lineNumber: 374,
                                                                             columnNumber: 53
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -9954,13 +10044,13 @@ const EditRecipePage = ()=>{
                                                                             children: ing.baseUnit
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                            lineNumber: 333,
+                                                                            lineNumber: 375,
                                                                             columnNumber: 53
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 331,
+                                                                    lineNumber: 373,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -9973,12 +10063,12 @@ const EditRecipePage = ()=>{
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 336,
+                                                                        lineNumber: 378,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 335,
+                                                                    lineNumber: 377,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -9992,12 +10082,12 @@ const EditRecipePage = ()=>{
                                                                         className: "w-24 h-10 px-3 text-center bg-white border border-slate-200 rounded-lg font-bold text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 339,
+                                                                        lineNumber: 381,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 338,
+                                                                    lineNumber: 380,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -10014,7 +10104,7 @@ const EditRecipePage = ()=>{
                                                                                 className: "w-20 h-10 px-3 text-center bg-white border border-slate-200 rounded-lg font-bold text-amber-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                                lineNumber: 350,
+                                                                                lineNumber: 392,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -10022,18 +10112,18 @@ const EditRecipePage = ()=>{
                                                                                 children: "%"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                                lineNumber: 358,
+                                                                                lineNumber: 400,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 349,
+                                                                        lineNumber: 391,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 348,
+                                                                    lineNumber: 390,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -10048,18 +10138,18 @@ const EditRecipePage = ()=>{
                                                                                 children: ing.baseUnit
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                                lineNumber: 362,
+                                                                                lineNumber: 404,
                                                                                 columnNumber: 129
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 362,
+                                                                        lineNumber: 404,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 361,
+                                                                    lineNumber: 403,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -10072,12 +10162,12 @@ const EditRecipePage = ()=>{
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 365,
+                                                                        lineNumber: 407,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 364,
+                                                                    lineNumber: 406,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -10089,52 +10179,252 @@ const EditRecipePage = ()=>{
                                                                             size: 16
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                            lineNumber: 372,
+                                                                            lineNumber: 414,
                                                                             columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                        lineNumber: 368,
+                                                                        lineNumber: 410,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                    lineNumber: 367,
+                                                                    lineNumber: 409,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, ing.tempId, true, {
                                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                            lineNumber: 330,
+                                                            lineNumber: 372,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0));
                                                     })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                    lineNumber: 324,
+                                                    lineNumber: 366,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                            lineNumber: 312,
+                                            lineNumber: 354,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 311,
+                                        lineNumber: 353,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 272,
+                                lineNumber: 314,
+                                columnNumber: 21
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
+                                                    size: 18,
+                                                    className: "text-slate-400"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                    lineNumber: 429,
+                                                    columnNumber: 33
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                "Recipe Usage Locations"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                            lineNumber: 428,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                        lineNumber: 427,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "relative group",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
+                                                size: 16,
+                                                className: "absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 436,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "text",
+                                                placeholder: "Search products directly...",
+                                                value: productSearchTerm,
+                                                onChange: (e)=>setProductSearchTerm(e.target.value),
+                                                className: "w-full h-10 pl-11 pr-4 bg-slate-50 rounded-xl border-none font-bold text-sm focus:ring-2 focus:ring-blue-500/20 text-slate-900 placeholder:text-slate-400"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 437,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            productSearchTerm && productSearchResults.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-20",
+                                                children: productSearchResults.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>handleAddProduct(item),
+                                                        className: "w-full text-left p-3 hover:bg-blue-50 flex items-center justify-between group/item",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "text-sm font-bold text-slate-900 group-hover/item:text-blue-700",
+                                                                    children: item.name
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                    lineNumber: 454,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "text-xs font-medium text-slate-500",
+                                                                    children: item.productType
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                    lineNumber: 455,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                            lineNumber: 453,
+                                                            columnNumber: 45
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    }, item.id, false, {
+                                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                        lineNumber: 448,
+                                                        columnNumber: 41
+                                                    }, ("TURBOPACK compile-time value", void 0)))
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 446,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                        lineNumber: 435,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "bg-slate-50 rounded-2xl p-4 border border-slate-100",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-xs text-slate-500 font-medium mb-3",
+                                                children: "Linked menu items:"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 464,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            linkedProducts.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-xs text-slate-400 italic",
+                                                children: "No products linked yet."
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 467,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "space-y-2",
+                                                children: linkedProducts.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "flex items-center justify-between p-3 bg-white rounded-xl border border-slate-100 shadow-sm group",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-3",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 text-xs font-black",
+                                                                        children: p.name.charAt(0)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                        lineNumber: 473,
+                                                                        columnNumber: 49
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                className: "text-sm font-bold text-slate-900",
+                                                                                children: p.name
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                                lineNumber: 477,
+                                                                                columnNumber: 53
+                                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                className: "text-[10px] text-slate-500",
+                                                                                children: [
+                                                                                    "Type: ",
+                                                                                    p.productType
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                                lineNumber: 478,
+                                                                                columnNumber: 53
+                                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                        lineNumber: 476,
+                                                                        columnNumber: 49
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                lineNumber: 472,
+                                                                columnNumber: 45
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                onClick: ()=>handleRemoveProduct(p.id),
+                                                                className: "p-2 text-slate-300 hover:text-rose-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(X, {
+                                                                    size: 16
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                    lineNumber: 485,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                                lineNumber: 481,
+                                                                columnNumber: 45
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, p.id, true, {
+                                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                        lineNumber: 471,
+                                                        columnNumber: 41
+                                                    }, ("TURBOPACK compile-time value", void 0)))
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                                lineNumber: 469,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                        lineNumber: 463,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
+                                lineNumber: 426,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                        lineNumber: 228,
+                        lineNumber: 270,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10147,7 +10437,7 @@ const EditRecipePage = ()=>{
                                         className: "absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 388,
+                                        lineNumber: 499,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10158,7 +10448,7 @@ const EditRecipePage = ()=>{
                                                 children: "Cost Analysis"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 391,
+                                                lineNumber: 502,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10172,7 +10462,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Ingredient Count"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 397,
+                                                                lineNumber: 508,
                                                                 columnNumber: 37
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -10180,13 +10470,13 @@ const EditRecipePage = ()=>{
                                                                 children: totalIngredients
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 398,
+                                                                lineNumber: 509,
                                                                 columnNumber: 37
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 507,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10197,7 +10487,7 @@ const EditRecipePage = ()=>{
                                                                 children: "Avg Cost / Item"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 401,
+                                                                lineNumber: 512,
                                                                 columnNumber: 37
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -10208,19 +10498,19 @@ const EditRecipePage = ()=>{
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                                lineNumber: 402,
+                                                                lineNumber: 513,
                                                                 columnNumber: 37
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 400,
+                                                        lineNumber: 511,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 506,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10231,7 +10521,7 @@ const EditRecipePage = ()=>{
                                                         children: "Total Recipe Cost"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 409,
+                                                        lineNumber: 520,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10242,25 +10532,25 @@ const EditRecipePage = ()=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                        lineNumber: 410,
+                                                        lineNumber: 521,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 408,
+                                                lineNumber: 519,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 390,
+                                        lineNumber: 501,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 387,
+                                lineNumber: 498,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             usedByCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -10273,14 +10563,14 @@ const EditRecipePage = ()=>{
                                                 size: 16
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 420,
+                                                lineNumber: 531,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Warning"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 419,
+                                        lineNumber: 530,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -10295,38 +10585,38 @@ const EditRecipePage = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                                lineNumber: 424,
+                                                lineNumber: 535,
                                                 columnNumber: 66
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             ". Changes made here will immediately affect cost calculations for future sales of these products."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                        lineNumber: 423,
+                                        lineNumber: 534,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                                lineNumber: 418,
+                                lineNumber: 529,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                        lineNumber: 385,
+                        lineNumber: 496,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-                lineNumber: 226,
+                lineNumber: 268,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/pages/inventory/EditRecipePage.tsx",
-        lineNumber: 195,
+        lineNumber: 237,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

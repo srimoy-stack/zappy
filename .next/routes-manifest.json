@@ -110,6 +110,14 @@
       "namedRegex": "^/backoffice/inventory/vendors/(?<nxtPid>[^/]+?)/edit(?:/)?$"
     },
     {
+      "page": "/backoffice/more/merchants/[id]",
+      "regex": "^/backoffice/more/merchants/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/more/merchants/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/backoffice/more/[category]/[subItem]",
       "regex": "^/backoffice/more/([^/]+?)/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -245,6 +253,12 @@
       "regex": "^/backoffice/more(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/backoffice/more(?:/)?$"
+    },
+    {
+      "page": "/backoffice/more/merchants",
+      "regex": "^/backoffice/more/merchants(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/more/merchants(?:/)?$"
     },
     {
       "page": "/backoffice/more/profile/edit",

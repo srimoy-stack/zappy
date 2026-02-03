@@ -51,6 +51,7 @@ export interface ItemVariantGroup {
     defaultVariantId: string;
     variants: ItemVariant[];
     sortOrder: number;
+    componentName?: string; // For Combo products: e.g. "Pizza 1"
 }
 
 export interface StoreOverride {

@@ -19,7 +19,7 @@ export const SalesPerformanceCard: React.FC = () => {
     ] as const;
 
     return (
-        <div className="bg-white border border-slate-200 rounded overflow-hidden shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm h-full">
             <div className="px-6 pt-6 flex items-center justify-between">
                 <div>
                     <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest">Sales</h3>

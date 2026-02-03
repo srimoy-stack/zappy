@@ -341,7 +341,8 @@ export const recipeService = {
             ...data,
             ingredients: ingredientsWithCosts,
             totalRecipeCost: totalCost,
-            usedByProductCount: 0,
+            usedByProductCount: data.linkedProductIds?.length || 0,
+            linkedProductIds: data.linkedProductIds || [],
             tenantId,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
@@ -379,11 +380,15 @@ export const recipeService = {
                 ...data,
                 ingredients: ingredientsWithCosts,
                 totalRecipeCost: totalCost,
+                linkedProductIds: data.linkedProductIds !== undefined ? data.linkedProductIds : recipe.linkedProductIds,
+                usedByProductCount: data.linkedProductIds !== undefined ? data.linkedProductIds.length : (recipe.linkedProductIds?.length || 0),
                 updatedAt: new Date().toISOString()
             });
         } else {
             Object.assign(recipe, {
                 ...data,
+                linkedProductIds: data.linkedProductIds !== undefined ? data.linkedProductIds : recipe.linkedProductIds,
+                usedByProductCount: data.linkedProductIds !== undefined ? data.linkedProductIds.length : (recipe.linkedProductIds?.length || 0),
                 updatedAt: new Date().toISOString()
             });
         }

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/backoffice/customers/page.tsx"],"sourcesContent":["'use client';\n\nimport { CustomersPage } from '@/modules/m9/pages';\n\nexport default function Page() {\n  return <CustomersPage />;\n}\n"],"names":[],"mappings":";;;;;AAEA;AAAA;AAFA;;;AAIe,SAAS;IACtB,qBAAO,8OAAC,gKAAa;;;;;AACvB"}}]
+}

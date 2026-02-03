@@ -32,7 +32,7 @@ export const Sidebar: React.FC = () => {
                 'flex h-14 shrink-0 items-center px-4',
                 isCollapsed ? 'justify-center border-b border-slate-50' : 'justify-start mb-2'
             )}>
-                <div className="flex items-center gap-2">
+                <a href="/backoffice" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                     <div className="w-7 h-7 bg-emerald-600 rounded-md flex items-center justify-center shadow shadow-emerald-100">
                         <span className="text-white text-[10px] font-bold tracking-tighter">Z</span>
                     </div>
@@ -41,16 +41,19 @@ export const Sidebar: React.FC = () => {
                             zyappy
                         </span>
                     )}
-                </div>
+                </a>
             </div>
 
             {/* Primary Action Button */}
             {showNewSale && (
                 <div className="px-4 mb-4 mt-2">
-                    <button className={cn(
-                        "w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-md flex items-center transition-all duration-200 active:scale-95",
-                        isCollapsed ? "justify-center h-12" : "px-4 py-2 gap-2 h-11"
-                    )}>
+                    <button
+                        onClick={() => alert('Opening POS Terminal for New Sale...')}
+                        className={cn(
+                            "w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-md flex items-center transition-all duration-200 active:scale-95",
+                            isCollapsed ? "justify-center h-12" : "px-4 py-2 gap-2 h-11"
+                        )}
+                    >
                         <Plus className="w-5 h-5 shrink-0" />
                         {!isCollapsed && <span className="text-sm font-bold">New sale</span>}
                     </button>

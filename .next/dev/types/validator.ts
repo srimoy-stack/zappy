@@ -299,6 +299,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/backoffice/more/merchants/[id]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/backoffice/more/merchants/[id]">> = Specific
+  const handler = {} as typeof import("../../../src/app/backoffice/more/merchants/[id]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/backoffice/more/merchants/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/backoffice/more/merchants">> = Specific
+  const handler = {} as typeof import("../../../src/app/backoffice/more/merchants/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/backoffice/more/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/backoffice/more">> = Specific

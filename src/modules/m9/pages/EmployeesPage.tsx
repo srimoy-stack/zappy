@@ -16,13 +16,6 @@ import { BulkSelectionBar } from '../components/Employees/BulkSelectionBar';
 import { MOCK_EMPLOYEES, MOCK_SHIFTS } from '../mock/employeesData';
 import { Employee, Shift } from '../types/employees';
 
-const ITEMS_PER_PAGE = 5;
-
-/**
- * EmployeesPage Component
- * Provides staff management and shift visibility for operational control.
- * Adheres to M9-T6 Product Specifications.
- */
 export const EmployeesPage: React.FC = () => {
     const { role } = useAuth();
     const { store, tenant } = useTenantStore();
@@ -48,6 +41,7 @@ export const EmployeesPage: React.FC = () => {
     // Pagination states
     const [employeePage, setEmployeePage] = useState(1);
     const [shiftPage, setShiftPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
     // Filter & Search states
     const [searchQuery, setSearchQuery] = useState('');
@@ -63,7 +57,7 @@ export const EmployeesPage: React.FC = () => {
     useEffect(() => {
         setEmployeePage(1);
         setShiftPage(1);
-    }, [searchQuery, roleFilter, statusFilter, storeFilter, activeTab, shiftDateFilter, shiftUserFilter]);
+    }, [searchQuery, roleFilter, statusFilter, storeFilter, activeTab, shiftDateFilter, shiftUserFilter, itemsPerPage]);
 
     // Details/Edit states
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
@@ -184,13 +178,13 @@ export const EmployeesPage: React.FC = () => {
 
     // Pagination
     const paginatedEmployees = filteredEmployees.slice(
-        (employeePage - 1) * ITEMS_PER_PAGE,
-        employeePage * ITEMS_PER_PAGE
+        (employeePage - 1) * itemsPerPage,
+        employeePage * itemsPerPage
     );
 
     const paginatedShifts = filteredShifts.slice(
-        (shiftPage - 1) * ITEMS_PER_PAGE,
-        shiftPage * ITEMS_PER_PAGE
+        (shiftPage - 1) * itemsPerPage,
+        shiftPage * itemsPerPage
     );
 
     return (
@@ -307,10 +301,11 @@ export const EmployeesPage: React.FC = () => {
 
                             <Pagination
                                 currentPage={employeePage}
-                                totalPages={Math.ceil(filteredEmployees.length / ITEMS_PER_PAGE)}
+                                totalPages={Math.ceil(filteredEmployees.length / itemsPerPage)}
                                 totalItems={filteredEmployees.length}
-                                itemsPerPage={ITEMS_PER_PAGE}
+                                itemsPerPage={itemsPerPage}
                                 onPageChange={setEmployeePage}
+                                onItemsPerPageChange={setItemsPerPage}
                             />
 
                             {filteredEmployees.length === 0 && (
@@ -398,10 +393,11 @@ export const EmployeesPage: React.FC = () => {
 
                             <Pagination
                                 currentPage={shiftPage}
-                                totalPages={Math.ceil(filteredShifts.length / ITEMS_PER_PAGE)}
+                                totalPages={Math.ceil(filteredShifts.length / itemsPerPage)}
                                 totalItems={filteredShifts.length}
-                                itemsPerPage={ITEMS_PER_PAGE}
+                                itemsPerPage={itemsPerPage}
                                 onPageChange={setShiftPage}
+                                onItemsPerPageChange={setItemsPerPage}
                             />
 
                             {filteredShifts.length === 0 && (

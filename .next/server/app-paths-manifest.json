@@ -30,6 +30,8 @@
   "/backoffice/inventory/vendors/page": "app/backoffice/inventory/vendors/page.js",
   "/backoffice/items/page": "app/backoffice/items/page.js",
   "/backoffice/more/[category]/[subItem]/page": "app/backoffice/more/[category]/[subItem]/page.js",
+  "/backoffice/more/merchants/[id]/page": "app/backoffice/more/merchants/[id]/page.js",
+  "/backoffice/more/merchants/page": "app/backoffice/more/merchants/page.js",
   "/backoffice/more/page": "app/backoffice/more/page.js",
   "/backoffice/more/profile/edit/page": "app/backoffice/more/profile/edit/page.js",
   "/backoffice/reports/daily-sales/page": "app/backoffice/reports/daily-sales/page.js",

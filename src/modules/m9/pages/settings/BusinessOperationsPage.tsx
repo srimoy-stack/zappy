@@ -128,6 +128,13 @@ export const BusinessOperationsPage: React.FC = () => {
                     isSaving={saving === 'Localization'}
                 />
 
+                <LocationsSection
+                    locations={settings.locations}
+                    canEdit={canEdit}
+                    onSave={(data) => handleSave('Locations', () => businessOperationsService.updateLocations(data))}
+                    isSaving={saving === 'Locations'}
+                />
+
                 <TaxSection
                     taxes={settings.taxes}
                     canEdit={canEdit}
@@ -161,13 +168,6 @@ export const BusinessOperationsPage: React.FC = () => {
                     canEdit={canEdit}
                     onSave={(data) => handleSave('Modules', () => businessOperationsService.updateModules(data))}
                     isSaving={saving === 'Modules'}
-                />
-
-                <LocationsSection
-                    locations={settings.locations}
-                    canEdit={canEdit}
-                    onSave={(data) => handleSave('Locations', () => businessOperationsService.updateLocations(data))}
-                    isSaving={saving === 'Locations'}
                 />
             </div>
         </div>

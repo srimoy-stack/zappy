@@ -45,7 +45,7 @@ const HalfIconRight = (props: any) => (
 
 /* --- TAB SECTIONS --- */
 
-const GeneralTab = ({ formData, setFormData, categories, isExisting }: any) => (
+const GeneralTab = ({ formData, setFormData, categories }: any) => (
     <div className="space-y-16 max-w-4xl animate-in fade-in slide-in-from-bottom-8 duration-600">
         <div className="space-y-10">
             <div className="flex items-center gap-4 border-l-[6px] border-slate-900 pl-6 h-10">
@@ -61,14 +61,31 @@ const GeneralTab = ({ formData, setFormData, categories, isExisting }: any) => (
                         {(['SINGLE', 'COMBO'] as ItemType[]).map(type => (
                             <button
                                 key={type}
-                                disabled={isExisting}
-                                onClick={() => setFormData({ ...formData, productType: type })}
+                                onClick={() => {
+                                    // DEMONSTRATION LOGIC: Inject sample structure if switching to COMBO
+                                    let newGroups = [...formData.variantGroups];
+                                    if (type === 'COMBO' && (!newGroups.length || !newGroups[0].componentName)) {
+                                        newGroups = [{
+                                            id: 'demo-1',
+                                            name: 'SIZE',
+                                            componentName: 'PIZZA 1',
+                                            isRequired: true,
+                                            defaultVariantId: 'v1',
+                                            sortOrder: 1,
+                                            variants: [
+                                                { id: 'v1', name: 'Medium (12")', basePrice: 12.99, isAvailable: true },
+                                                { id: 'v2', name: 'Large (14")', basePrice: 15.99, isAvailable: true },
+                                                { id: 'v3', name: 'XL (18")', basePrice: 19.99, isAvailable: true }
+                                            ]
+                                        }];
+                                    }
+                                    setFormData({ ...formData, productType: type, variantGroups: newGroups });
+                                }}
                                 className={cn(
                                     "px-6 py-5 rounded-[22px] border-2 text-[11px] font-black uppercase tracking-widest transition-all",
                                     formData.productType === type
                                         ? "bg-slate-900 text-white border-slate-900 shadow-2xl shadow-slate-200 scale-[1.02]"
-                                        : "bg-white text-slate-400 border-slate-100 hover:border-slate-300",
-                                    isExisting && formData.productType !== type && "opacity-30 cursor-not-allowed"
+                                        : "bg-white text-slate-400 border-slate-100 hover:border-slate-300"
                                 )}
                             >
                                 {type} PRODUCT
@@ -144,7 +161,7 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo }: any) => 
                                 value={group.name}
                                 onChange={(e) => updateGroup({ ...group, name: e.target.value.toUpperCase() })}
                                 className="bg-transparent text-base font-black text-slate-900 uppercase tracking-wide outline-none border-b-2 border-transparent focus:border-slate-900 w-full transition-all placeholder:text-slate-300"
-                                placeholder={isCombo ? "COMPONENT NAME (e.g. PIZZA 1)" : "GROUP NAME (e.g. SIZE)"}
+                                placeholder={isCombo ? "GROUP NAME (e.g. SIZE)" : "GROUP NAME (e.g. SIZE)"}
                             />
                             <span className="shrink-0 px-3 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider shadow-sm">Mandatory</span>
                         </div>
@@ -859,8 +876,8 @@ export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, c
         { id: 'GENERAL', label: 'General', icon: Info },
         { id: 'VARIANTS', label: 'Variants', icon: Layers },
         { id: 'MODIFIERS', label: 'Modifiers', icon: Settings2 },
-        { id: 'PRICING', label: 'Pricing', icon: DollarSign },
-        { id: 'INVENTORY', label: 'Inventory', icon: Package },
+        { id: 'PRICING', label: 'Dynamic Pricing', icon: DollarSign },
+        { id: 'INVENTORY', label: 'Recipe', icon: ChefHat },
         { id: 'AVAILABILITY', label: 'Availability', icon: Clock },
         { id: 'AUDIT', label: 'Audit Log', icon: ShieldCheck },
     ];
@@ -940,23 +957,51 @@ export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, c
                         {activeTab === 'VARIANTS' && (
                             <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                 <div className="flex items-center justify-between border-l-[6px] border-slate-900 pl-6 h-12">
-                                    <h3 className="text-xl font-black text-slate-900 uppercase tracking-[0.15em]">Variant Structure</h3>
-                                    <button
-                                        onClick={() => {
-                                            const newGroup: ItemVariantGroup = { id: 'vg-' + Date.now(), name: 'NEW GROUP', isRequired: true, defaultVariantId: '', variants: [], sortOrder: formData.variantGroups.length + 1 };
-                                            setFormData({ ...formData, variantGroups: [...formData.variantGroups, newGroup] });
-                                        }}
-                                        className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-[20px] text-[11px] font-black uppercase tracking-widest"
-                                    >
-                                        <Plus size={18} strokeWidth={4} /> Add Group
-                                    </button>
+                                    <h3 className="text-xl font-black text-slate-900 uppercase tracking-[0.15em]">
+                                        {formData.productType === 'COMBO' ? 'Components & Choices' : 'Variant Structure'}
+                                    </h3>
+                                    {formData.productType === 'SINGLE' && (
+                                        <button
+                                            onClick={() => {
+                                                const newGroup: ItemVariantGroup = { id: 'vg-' + Date.now(), name: 'NEW GROUP', isRequired: true, defaultVariantId: '', variants: [], sortOrder: formData.variantGroups.length + 1 };
+                                                setFormData({ ...formData, variantGroups: [...formData.variantGroups, newGroup] });
+                                            }}
+                                            className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-[20px] text-[11px] font-black uppercase tracking-widest hover:bg-emerald-600"
+                                        >
+                                            <Plus size={18} strokeWidth={4} /> Add Group
+                                        </button>
+                                    )}
+                                    {formData.productType === 'COMBO' && (
+                                        <button
+                                            onClick={() => {
+                                                const compName = prompt("Enter Component Name (e.g. Pizza 1)");
+                                                if (compName) {
+                                                    const newGroup: ItemVariantGroup = {
+                                                        id: 'vg-' + Date.now(),
+                                                        name: 'SIZE', // Default group
+                                                        componentName: compName,
+                                                        isRequired: true,
+                                                        defaultVariantId: '',
+                                                        variants: [],
+                                                        sortOrder: formData.variantGroups.length + 1
+                                                    };
+                                                    setFormData({ ...formData, variantGroups: [...formData.variantGroups, newGroup] });
+                                                }
+                                            }}
+                                            className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-[20px] text-[11px] font-black uppercase tracking-widest hover:bg-emerald-600"
+                                        >
+                                            <Plus size={18} strokeWidth={4} /> Add Component
+                                        </button>
+                                    )}
                                 </div>
-                                <div className="space-y-8">
-                                    {formData.variantGroups.map((group, idx) => (
+
+                                <div className="space-y-10">
+                                    {/* SINGLE PRODUCT VIEW */}
+                                    {formData.productType === 'SINGLE' && formData.variantGroups.map((group, idx) => (
                                         <VariantGroupCard
                                             key={group.id}
                                             group={group}
-                                            isCombo={formData.productType === 'COMBO'}
+                                            isCombo={false}
                                             updateGroup={(updated: any) => {
                                                 const newGroups = [...formData.variantGroups];
                                                 newGroups[idx] = updated;
@@ -965,8 +1010,64 @@ export const ItemEditScreen: React.FC<ItemEditScreenProps> = ({ item, onClose, c
                                             removeGroup={() => setFormData({ ...formData, variantGroups: formData.variantGroups.filter((_, i) => i !== idx) })}
                                         />
                                     ))}
+
+                                    {/* COMBO PRODUCT VIEW (Grouped by Component) */}
+                                    {formData.productType === 'COMBO' && Object.entries(
+                                        formData.variantGroups.reduce((acc: any, group) => {
+                                            const key = group.componentName || 'Unassigned';
+                                            if (!acc[key]) acc[key] = [];
+                                            acc[key].push(group);
+                                            return acc;
+                                        }, {})
+                                    ).map(([compName, groups]: [string, any]) => (
+                                        <div key={compName} className="space-y-4">
+                                            <div className="flex items-center justify-between px-2">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                                        <Package size={18} />
+                                                    </div>
+                                                    <h4 className="text-lg font-black text-slate-800 uppercase tracking-wide">{compName}</h4>
+                                                </div>
+                                                <button
+                                                    onClick={() => {
+                                                        const newGroup: ItemVariantGroup = {
+                                                            id: 'vg-' + Date.now(),
+                                                            name: 'NEW OPTION GROUP',
+                                                            componentName: compName,
+                                                            isRequired: true,
+                                                            defaultVariantId: '',
+                                                            variants: [],
+                                                            sortOrder: 100
+                                                        };
+                                                        setFormData({ ...formData, variantGroups: [...formData.variantGroups, newGroup] });
+                                                    }}
+                                                    className="text-[10px] font-bold text-emerald-600 hover:text-emerald-700 uppercase tracking-wider flex items-center gap-1 bg-emerald-50 px-3 py-1.5 rounded-lg"
+                                                >
+                                                    <Plus size={12} /> Add Property (e.g. Crust)
+                                                </button>
+                                            </div>
+
+                                            <div className="pl-6 border-l-2 border-slate-100 space-y-6">
+                                                {groups.map((group: any) => (
+                                                    <VariantGroupCard
+                                                        key={group.id}
+                                                        group={group}
+                                                        isCombo={true}
+                                                        updateGroup={(updated: any) => {
+                                                            const idx = formData.variantGroups.findIndex((g: any) => g.id === group.id);
+                                                            const newGroups = [...formData.variantGroups];
+                                                            newGroups[idx] = updated;
+                                                            setFormData({ ...formData, variantGroups: newGroups });
+                                                        }}
+                                                        removeGroup={() => setFormData({ ...formData, variantGroups: formData.variantGroups.filter((g: any) => g.id !== group.id) })}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
+
                         )}
                         {activeTab === 'MODIFIERS' && (
                             <ModifiersTab formData={formData} setFormData={setFormData} />

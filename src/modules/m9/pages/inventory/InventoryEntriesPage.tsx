@@ -12,10 +12,12 @@ import {
     Edit3,
     Trash2,
     Tag,
-    Calendar
+
+    Calendar,
+    Loader
 } from 'lucide-react';
-import { InventoryStatus, PaymentStatus } from '../../types/inventory';
-import { mockInventoryEntries, mockVendors } from '../../mock/inventory';
+import { InventoryStatus, PaymentStatus, InventoryEntry, Vendor } from '../../types/inventory';
+import { inventoryService, vendorService } from '../../services/inventoryService';
 
 /**
  * Inventory Entries (Transactions) Page
@@ -28,6 +30,11 @@ import { mockInventoryEntries, mockVendors } from '../../mock/inventory';
 export const InventoryEntriesPage: React.FC = () => {
     const router = useRouter();
 
+    // Data State
+    const [entries, setEntries] = useState<InventoryEntry[]>([]);
+    const [vendors, setVendors] = useState<Vendor[]>([]);
+    const [loading, setLoading] = useState(true);
+
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStore, setSelectedStore] = useState('');
@@ -38,8 +45,28 @@ export const InventoryEntriesPage: React.FC = () => {
     const [dateTo, setDateTo] = useState('');
     const [showFilters, setShowFilters] = useState(false);
 
+    React.useEffect(() => {
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        setLoading(true);
+        try {
+            const [entriesData, vendorsData] = await Promise.all([
+                inventoryService.getEntries(),
+                vendorService.getAll()
+            ]);
+            setEntries(entriesData);
+            setVendors(vendorsData);
+        } catch (error) {
+            console.error('Failed to load inventory entries:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     // Filter entries
-    const filteredEntries = mockInventoryEntries.filter(entry => {
+    const filteredEntries = entries.filter(entry => {
         if (searchQuery && !entry.referenceNo.toLowerCase().includes(searchQuery.toLowerCase())) return false;
         if (selectedStore && entry.storeId !== selectedStore) return false;
         if (selectedSupplier && entry.supplierId !== selectedSupplier) return false;
@@ -70,11 +97,11 @@ export const InventoryEntriesPage: React.FC = () => {
     };
 
     // Can edit/delete
-    const canEdit = (entry: typeof mockInventoryEntries[0]) => {
+    const canEdit = (entry: InventoryEntry) => {
         return entry.inventoryStatus === 'Draft' || entry.inventoryStatus === 'Ordered';
     };
 
-    const canDelete = (entry: typeof mockInventoryEntries[0]) => {
+    const canDelete = (entry: InventoryEntry) => {
         // Admin only, before stock is received
         return entry.inventoryStatus !== 'Received' && entry.inventoryStatus !== 'Partial';
     };
@@ -133,7 +160,7 @@ export const InventoryEntriesPage: React.FC = () => {
                                 className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-emerald-600"
                             >
                                 <option value="">All Suppliers</option>
-                                {mockVendors.map(vendor => (
+                                {vendors.map(vendor => (
                                     <option key={vendor.id} value={vendor.id}>{vendor.name}</option>
                                 ))}
                             </select>
@@ -242,7 +269,15 @@ export const InventoryEntriesPage: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
-                            {filteredEntries.length === 0 ? (
+                            {loading ? (
+                                <tr>
+                                    <td colSpan={10} className="px-6 py-12 text-center">
+                                        <div className="flex justify-center">
+                                            <Loader className="w-8 h-8 text-emerald-600 animate-spin" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : filteredEntries.length === 0 ? (
                                 <tr>
                                     <td colSpan={10} className="px-6 py-12 text-center">
                                         <div className="flex flex-col items-center gap-3">

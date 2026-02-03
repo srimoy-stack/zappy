@@ -1,16 +1,32 @@
-export type OrderChannel = 'POS' | 'ONLINE' | 'UBER';
+export type OrderChannel = 'POS' | 'ONLINE' | 'UBER' | 'APP';
 export type OrderStatus = 'COMPLETED' | 'CANCELLED' | 'REFUNDED';
+export type LoyaltyTier = 'BRONZE' | 'SILVER' | 'GOLD';
 
 export interface Customer {
-    id: string;
+    id: string; // Internal ID
+    contactId: string; // Display ID (e.g. CO92702)
+    businessName: string;
     name: string;
-    phone: string;
-    email?: string;
-    totalOrders: number;
-    lastOrderDate: string;
-    totalSpend: number;
-    loyaltyTier: 'BRONZE' | 'SILVER' | 'GOLD';
-    loyaltyPoints: number;
+    email: string;
+    taxNumber: string;
+    creditLimit: string; // e.g. "No Limit" or value
+    payTerm: string; // e.g. "0"
+    openingBalance: number;
+    advanceBalance: number;
+    addedOn: string;
+    group: string; // e.g. "Call Center"
+    address: string;
+    mobile: string;
+    totalSaleDue: number;
+    totalSellReturnDue: number;
+    status: 'Active' | 'Inactive'; // Customer Status
+
+    // Legacy/Details View fields (kept for compatibility with profile view)
+    totalOrders?: number;
+    lastOrderDate?: string;
+    totalSpend?: number;
+    loyaltyTier?: LoyaltyTier;
+    loyaltyPoints?: number;
 }
 
 export interface CustomerOrder {
@@ -19,10 +35,10 @@ export interface CustomerOrder {
     storeName: string;
     storeId: string;
     channel: OrderChannel;
-    itemsSummary: string; // e.g., "1 Medium Pizza, 1 Coke"
+    itemsSummary: string;
     totalAmount: number;
     status: OrderStatus;
-    canReorder: boolean; // Only true for most recent completed order
+    isReorderable: boolean;
 }
 
 export interface CustomerDetails extends Customer {
@@ -34,4 +50,24 @@ export interface CustomerFilters {
     channel?: OrderChannel;
     startDate?: string;
     endDate?: string;
+}
+
+export interface ColumnVisibilitySettings {
+    action: boolean;
+    contactId: boolean;
+    businessName: boolean;
+    name: boolean;
+    email: boolean;
+    taxNumber: boolean;
+    creditLimit: boolean;
+    payTerm: boolean;
+    openingBalance: boolean;
+    advanceBalance: boolean;
+    addedOn: boolean;
+    group: boolean;
+    address: boolean;
+    mobile: boolean;
+    totalSaleDue: boolean;
+    totalSellReturnDue: boolean;
+    status: boolean;
 }
