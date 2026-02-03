@@ -42,5 +42,11 @@
   "/backoffice/sales-activity/page": "app/backoffice/sales-activity/page.js",
   "/backoffice/settings/business-operations/page": "app/backoffice/settings/business-operations/page.js",
   "/backoffice/users/page": "app/backoffice/users/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/shop/[category]/[itemId]/page": "app/shop/[category]/[itemId]/page.js",
+  "/shop/[category]/page": "app/shop/[category]/page.js",
+  "/shop/admin/page": "app/shop/admin/page.js",
+  "/shop/checkout/page": "app/shop/checkout/page.js",
+  "/shop/page": "app/shop/page.js",
+  "/shop/success/page": "app/shop/success/page.js"
 }

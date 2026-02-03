@@ -42,5 +42,11 @@
   "/backoffice/sales-activity/page": "/backoffice/sales-activity",
   "/backoffice/settings/business-operations/page": "/backoffice/settings/business-operations",
   "/backoffice/users/page": "/backoffice/users",
-  "/page": "/"
+  "/page": "/",
+  "/shop/[category]/[itemId]/page": "/shop/[category]/[itemId]",
+  "/shop/[category]/page": "/shop/[category]",
+  "/shop/admin/page": "/shop/admin",
+  "/shop/checkout/page": "/shop/checkout",
+  "/shop/page": "/shop",
+  "/shop/success/page": "/shop/success"
 }

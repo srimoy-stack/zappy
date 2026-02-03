@@ -131,6 +131,18 @@ export const navigationConfig: MenuConfig[] = [
         requiresStoreScope: true
     },
     {
+        id: 'web-shop',
+        label: 'Web Shop',
+        route: '/shop',
+        icon: 'LayoutGrid',
+        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        accessMode: {
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
+    },
+    {
         id: 'business-operations',
         label: 'Settings',
         route: '/backoffice/settings/business-operations',

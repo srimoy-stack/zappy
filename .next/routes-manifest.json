@@ -125,6 +125,23 @@
         "nxtPsubItem": "nxtPsubItem"
       },
       "namedRegex": "^/backoffice/more/(?<nxtPcategory>[^/]+?)/(?<nxtPsubItem>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/shop/[category]",
+      "regex": "^/shop/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcategory": "nxtPcategory"
+      },
+      "namedRegex": "^/shop/(?<nxtPcategory>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/shop/[category]/[itemId]",
+      "regex": "^/shop/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcategory": "nxtPcategory",
+        "nxtPitemId": "nxtPitemId"
+      },
+      "namedRegex": "^/shop/(?<nxtPcategory>[^/]+?)/(?<nxtPitemId>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -313,6 +330,30 @@
       "regex": "^/backoffice/users(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/backoffice/users(?:/)?$"
+    },
+    {
+      "page": "/shop",
+      "regex": "^/shop(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shop(?:/)?$"
+    },
+    {
+      "page": "/shop/admin",
+      "regex": "^/shop/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shop/admin(?:/)?$"
+    },
+    {
+      "page": "/shop/checkout",
+      "regex": "^/shop/checkout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shop/checkout(?:/)?$"
+    },
+    {
+      "page": "/shop/success",
+      "regex": "^/shop/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shop/success(?:/)?$"
     }
   ],
   "dataRoutes": [],
