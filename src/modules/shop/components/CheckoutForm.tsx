@@ -183,7 +183,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ items, onSuccess, on
                                     <Info className="text-slate-200" size={32} />
                                 </div>
                                 <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em]">Manifest is Empty</p>
-                                <Link href="/shop" className="inline-block text-emerald-600 text-[10px] font-black uppercase tracking-widest hover:underline">Explore Products</Link>
+                                <Link href="/backoffice/shop" className="inline-block text-emerald-600 text-[10px] font-black uppercase tracking-widest hover:underline">Explore Products</Link>
                             </div>
                         )}
                     </div>

@@ -133,7 +133,7 @@ export const navigationConfig: MenuConfig[] = [
     {
         id: 'web-shop',
         label: 'Web Shop',
-        route: '/shop',
+        route: '/backoffice/shop',
         icon: 'LayoutGrid',
         allowedRoles: ['ADMIN', 'STORE_MANAGER'],
         accessMode: {

@@ -41,12 +41,12 @@
   "/backoffice/roles/page": "/backoffice/roles",
   "/backoffice/sales-activity/page": "/backoffice/sales-activity",
   "/backoffice/settings/business-operations/page": "/backoffice/settings/business-operations",
+  "/backoffice/shop/[category]/[itemId]/page": "/backoffice/shop/[category]/[itemId]",
+  "/backoffice/shop/[category]/page": "/backoffice/shop/[category]",
+  "/backoffice/shop/admin/page": "/backoffice/shop/admin",
+  "/backoffice/shop/checkout/page": "/backoffice/shop/checkout",
+  "/backoffice/shop/page": "/backoffice/shop",
+  "/backoffice/shop/success/page": "/backoffice/shop/success",
   "/backoffice/users/page": "/backoffice/users",
-  "/page": "/",
-  "/shop/[category]/[itemId]/page": "/shop/[category]/[itemId]",
-  "/shop/[category]/page": "/shop/[category]",
-  "/shop/admin/page": "/shop/admin",
-  "/shop/checkout/page": "/shop/checkout",
-  "/shop/page": "/shop",
-  "/shop/success/page": "/shop/success"
+  "/page": "/"
 }

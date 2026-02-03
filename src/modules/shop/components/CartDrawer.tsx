@@ -88,7 +88,7 @@ export const CartDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
                         </div>
 
                         <Link
-                            href="/shop/checkout"
+                            href="/backoffice/shop/checkout"
                             onClick={onClose}
                             className="w-full h-16 bg-emerald-600 text-white rounded-[2rem] flex items-center justify-center gap-3 text-sm font-black uppercase tracking-widest hover:bg-emerald-700 shadow-xl shadow-emerald-100 active:scale-95 transition-all"
                         >

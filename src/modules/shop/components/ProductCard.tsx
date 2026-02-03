@@ -51,7 +51,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
                 </button>
                 <Link
-                    href={`/shop/${item.category}/${item.id}`}
+                    href={`/backoffice/shop/${item.category}/${item.id}`}
                     className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-slate-400 hover:text-emerald-600 shadow-lg transition-all"
                 >
                     <Eye size={18} />
@@ -81,7 +81,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                             {item.stockStatus}
                         </div>
                     </div>
-                    <Link href={`/shop/${item.category}/${item.id}`}>
+                    <Link href={`/backoffice/shop/${item.category}/${item.id}`}>
                         <h3 className="text-xl font-black text-slate-900 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors">
                             {item.name}
                         </h3>
@@ -113,7 +113,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                         {added ? 'Added' : 'Add to Cart'}
                     </button>
                     <Link
-                        href={`/shop/${item.category}/${item.id}`}
+                        href={`/backoffice/shop/${item.category}/${item.id}`}
                         className="flex items-center justify-center h-14 bg-emerald-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:bg-emerald-700 active:scale-95 shadow-xl shadow-emerald-100"
                     >
                         Configure

@@ -25,7 +25,7 @@ export const ShopFooter: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
                     {/* Brand */}
                     <div className="space-y-8">
-                        <Link href="/shop" className="flex items-center gap-2 group">
+                        <Link href="/backoffice/shop" className="flex items-center gap-2 group">
                             <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200 group-hover:scale-105 transition-transform">
                                 <Package className="text-white w-6 h-6" />
                             </div>
@@ -50,7 +50,7 @@ export const ShopFooter: React.FC = () => {
                             {['Packaging', 'Custom Print', 'Software Modules', 'Marketing Services'].map((link) => (
                                 <li key={link}>
                                     <Link
-                                        href={`/shop/${link.toLowerCase().replace(' ', '-')}`}
+                                        href={`/backoffice/shop/${link.toLowerCase().replace(' ', '-')}`}
                                         className="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-colors flex items-center gap-2 group"
                                     >
                                         <div className="w-1 h-1 rounded-full bg-slate-200 group-hover:bg-emerald-500 transition-colors" />

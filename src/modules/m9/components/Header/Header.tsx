@@ -4,6 +4,9 @@ import { DateRangePicker } from './DateRangePicker';
 import { Search, Bell } from 'lucide-react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
 import { cn } from '@/utils';
+import { usePathname } from 'next/navigation';
+import { ShopSearch } from '@/modules/shop/components/ShopSearch';
+import { ShopCartTrigger } from '@/modules/shop/components/ShopCartTrigger';
 
 /**
  * Header Component (Production Grade)
@@ -11,6 +14,9 @@ import { cn } from '@/utils';
  */
 export const Header: React.FC = () => {
     const { user, role } = useRouteAccess();
+    const pathname = usePathname();
+    const isShop = pathname?.startsWith('/backoffice/shop');
+
     const [showNotifications, setShowNotifications] = React.useState(false);
     const [showUserMenu, setShowUserMenu] = React.useState(false);
 
@@ -37,19 +43,24 @@ export const Header: React.FC = () => {
                 </span>
             </div>
 
-            {/* Center: Global Date Filter */}
-            <div className="flex-1 flex justify-center max-w-xl">
-                <DateRangePicker />
+            {/* Center: Top Priority Content */}
+            <div className="flex-1 flex justify-center max-w-xl mx-8">
+                {isShop ? <ShopSearch /> : <DateRangePicker />}
             </div>
 
             {/* Right: User Actions & Profile */}
-            <div className="flex items-center gap-3">
-                <button
-                    onClick={() => alert('Global Search Coming Soon!')}
-                    className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all"
-                >
-                    <Search className="w-4 h-4" />
-                </button>
+            <div className="flex items-center gap-2">
+                {isShop ? (
+                    <ShopCartTrigger />
+                ) : (
+                    <button
+                        onClick={() => alert('Global Search Coming Soon!')}
+                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all"
+                    >
+                        <Search className="w-4 h-4" />
+                    </button>
+                )}
+
                 <div className="relative">
                     <button
                         onClick={() => setShowNotifications(!showNotifications)}
@@ -93,11 +104,11 @@ export const Header: React.FC = () => {
                     <button
                         onClick={() => setShowUserMenu(!showUserMenu)}
                         className={cn(
-                            "flex items-center gap-3 ml-2 pl-2 border-l border-slate-100 hover:bg-slate-50 py-1 rounded-lg transition-all",
+                            "flex items-center gap-3 ml-1 pl-2 border-l border-slate-100 hover:bg-slate-50 py-1 rounded-lg transition-all",
                             showUserMenu && "bg-slate-50"
                         )}
                     >
-                        <div className="flex flex-col items-end">
+                        <div className="flex flex-col items-end hidden md:flex">
                             <span className="text-xs font-bold text-slate-900 leading-none">{user?.name}</span>
                             <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tight mt-0.5">Tenant: {user?.tenantId}</span>
                         </div>

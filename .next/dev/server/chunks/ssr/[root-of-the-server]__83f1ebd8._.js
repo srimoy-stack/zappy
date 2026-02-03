@@ -395,7 +395,8 @@ const CartProvider = ({ children })=>{
                 const newItems = [
                     ...prev
                 ];
-                newItems[existingIndex].quantity += quantity;
+                const item = newItems[existingIndex];
+                if (item) item.quantity += quantity;
                 return newItems;
             }
             return [
@@ -408,8 +409,15 @@ const CartProvider = ({ children })=>{
             ];
         });
     };
-    const removeFromCart = (itemId)=>{
-        setCartItems((prev)=>prev.filter((i)=>i.id !== itemId));
+    const removeFromCart = (itemId, selections)=>{
+        setCartItems((prev)=>{
+            if (selections) {
+                // Remove specific selection
+                return prev.filter((i)=>!(i.id === itemId && JSON.stringify(i.selections) === JSON.stringify(selections)));
+            }
+            // Fallback to removing all matches by ID (legacy or simple items)
+            return prev.filter((i)=>i.id !== itemId);
+        });
     };
     const clearCart = ()=>{
         setCartItems([]);
@@ -428,7 +436,7 @@ const CartProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/modules/shop/context/CartContext.tsx",
-        lineNumber: 66,
+        lineNumber: 76,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -638,7 +646,7 @@ const CartDrawer = ({ isOpen, onClose })=>{
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: ()=>removeFromCart(item.id),
+                                                        onClick: ()=>removeFromCart(item.id, item.selections),
                                                         className: "text-slate-300 hover:text-rose-500 transition-colors",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
                                                             size: 14

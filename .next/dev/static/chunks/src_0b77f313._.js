@@ -152,7 +152,7 @@ const navigationConfig = [
     {
         id: 'web-shop',
         label: 'Web Shop',
-        route: '/shop',
+        route: '/backoffice/shop',
         icon: 'LayoutGrid',
         allowedRoles: [
             'ADMIN',

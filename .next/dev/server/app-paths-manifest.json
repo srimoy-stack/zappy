@@ -1,8 +1,13 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/backoffice/customers/page": "app/backoffice/customers/page.js",
   "/backoffice/home/page": "app/backoffice/home/page.js",
-  "/shop/[category]/[itemId]/page": "app/shop/[category]/[itemId]/page.js",
-  "/shop/[category]/page": "app/shop/[category]/page.js",
-  "/shop/checkout/page": "app/shop/checkout/page.js",
-  "/shop/page": "app/shop/page.js"
+  "/backoffice/reports/page": "app/backoffice/reports/page.js",
+  "/backoffice/shop/[category]/[itemId]/page": "app/backoffice/shop/[category]/[itemId]/page.js",
+  "/backoffice/shop/[category]/page": "app/backoffice/shop/[category]/page.js",
+  "/backoffice/shop/admin/page": "app/backoffice/shop/admin/page.js",
+  "/backoffice/shop/checkout/page": "app/backoffice/shop/checkout/page.js",
+  "/backoffice/shop/page": "app/backoffice/shop/page.js",
+  "/page": "app/page.js"
 }
