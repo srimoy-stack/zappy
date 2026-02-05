@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, Check, Heart, Eye } from 'lucide-react';
+import { ShoppingBag, Check, Heart, Eye } from 'lucide-react';
 import { ShopItem } from '../types';
 import { formatCurrency } from '@/utils';
 import { useCart } from '../context/CartContext';
@@ -59,7 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
             </div>
 
             {/* Image Container */}
-            <div className="h-72 bg-slate-50 relative overflow-hidden group-hover:bg-white transition-colors">
+            <div className="h-80 bg-slate-50 relative overflow-hidden group-hover:bg-white transition-colors">
                 <img
                     src={item.image}
                     alt={item.name}
@@ -69,7 +69,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
             </div>
 
             {/* Content */}
-            <div className="p-8 space-y-6">
+            <div className="p-10 space-y-6">
                 <div className="space-y-3 min-h-[110px]">
                     <div className="flex items-center gap-2">
                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{item.category}</span>
@@ -101,22 +101,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 pt-2">
+                <div className="flex flex-col gap-3 pt-2">
                     <button
                         onClick={handleAddToCart}
-                        className={`flex items-center justify-center gap-2 h-14 rounded-2xl text-xs font-black uppercase tracking-widest transition-all active:scale-95 ${added
+                        className={`flex items-center justify-center gap-2 h-14 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95 ${added
                             ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-100'
                             : 'bg-slate-100 text-slate-900 hover:bg-slate-900 hover:text-white'
                             }`}
                     >
-                        {added ? <Check size={18} /> : <ShoppingCart size={18} />}
-                        {added ? 'Added' : 'Add to Cart'}
+                        {added ? <Check size={16} /> : <ShoppingBag size={16} />}
+                        {added ? 'Added to Cart' : 'Quick Add to Cart'}
                     </button>
                     <Link
                         href={`/backoffice/shop/${item.category}/${item.id}`}
-                        className="flex items-center justify-center h-14 bg-emerald-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:bg-emerald-700 active:scale-95 shadow-xl shadow-emerald-100"
+                        className="flex items-center justify-center h-14 bg-emerald-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all hover:bg-emerald-700 active:scale-95 shadow-xl shadow-emerald-100"
                     >
-                        Configure
+                        View Details & Configure
                     </Link>
                 </div>
             </div>

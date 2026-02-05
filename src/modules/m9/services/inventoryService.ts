@@ -290,6 +290,39 @@ export const inventoryItemService = {
         return Promise.resolve(item);
     },
 
+    selfAdjustStock: (id: string, newQuantity: number, reason: string, userId: string, userName: string) => {
+        const item = inventoryItems.find(i => i.id === id);
+        if (!item) return Promise.reject(new Error('Item not found'));
+
+        const oldQuantity = item.currentStock;
+        const change = newQuantity - oldQuantity;
+
+        // Overwrite quantity (Hard replace)
+        item.currentStock = newQuantity;
+        item.lastAdjustedBy = userId;
+        item.lastAdjustedByName = userName;
+        item.lastAdjustedAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
+
+        // Create ledger entry
+        const ledgerEntry: InventoryLedgerEntry = {
+            id: generateId('LED'),
+            inventoryItemId: item.id,
+            inventoryItemName: item.name,
+            changeQuantity: change,
+            sourceType: 'adjustment',
+            sourceId: userId,
+            sourceReference: `Self Adjust: ${reason || 'Physical count correction'}`,
+            storeId: 'STORE001',
+            storeName: 'Main Store',
+            balanceAfter: item.currentStock,
+            createdAt: new Date().toISOString()
+        };
+        inventoryLedger.push(ledgerEntry);
+
+        return Promise.resolve(item);
+    },
+
     getLedger: (itemId: string) => {
         const entries = inventoryLedger.filter(l => l.inventoryItemId === itemId);
         return Promise.resolve(entries);

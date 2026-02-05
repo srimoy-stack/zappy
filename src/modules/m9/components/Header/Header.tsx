@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Center: Top Priority Content */}
-            <div className="flex-1 flex justify-center max-w-xl mx-8">
+            <div className="flex-1 flex justify-center max-w-2xl mx-8">
                 {isShop ? <ShopSearch /> : <DateRangePicker />}
             </div>
 

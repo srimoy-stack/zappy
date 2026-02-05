@@ -179,6 +179,34 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                                                     isAvailable: true
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            id: 'demo-2',
+                                                            name: 'CRUST',
+                                                            componentName: 'PIZZA 1',
+                                                            isRequired: true,
+                                                            defaultVariantId: 'v4',
+                                                            sortOrder: 2,
+                                                            variants: [
+                                                                {
+                                                                    id: 'v4',
+                                                                    name: 'Thin Crust',
+                                                                    basePrice: 0,
+                                                                    isAvailable: true
+                                                                },
+                                                                {
+                                                                    id: 'v5',
+                                                                    name: 'Pan Pizza',
+                                                                    basePrice: 2.00,
+                                                                    isAvailable: true
+                                                                },
+                                                                {
+                                                                    id: 'v6',
+                                                                    name: 'Gluten Free',
+                                                                    basePrice: 3.50,
+                                                                    isAvailable: true
+                                                                }
+                                                            ]
                                                         }
                                                     ];
                                                 }
@@ -217,7 +245,7 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                     children: "Menu Category"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 113,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -236,7 +264,7 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                                     children: "Select Catalog Pool"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 105,
+                                                    lineNumber: 120,
                                                     columnNumber: 29
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 categories.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -244,13 +272,13 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                                         children: c.name
                                                     }, c.id, false, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 106,
+                                                        lineNumber: 121,
                                                         columnNumber: 57
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 115,
                                             columnNumber: 25
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -258,42 +286,11 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 108,
+                                            lineNumber: 123,
                                             columnNumber: 25
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
-                                    fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 99,
-                                    columnNumber: 21
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 97,
-                            columnNumber: 17
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "md:col-span-2 space-y-4",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1",
-                                    children: "Merchant Display Name"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 113,
-                                    columnNumber: 21
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "text",
-                                    value: formData.name,
-                                    onChange: (e)=>setFormData({
-                                            ...formData,
-                                            name: e.target.value
-                                        }),
-                                    className: "w-full px-10 py-6 bg-slate-50 border-2 border-slate-100 rounded-[30px] text-2xl font-black text-slate-900 focus:border-slate-900 focus:bg-white transition-all outline-none shadow-sm",
-                                    placeholder: "e.g. Traditional Sicilian Pepperoni"
-                                }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
                                     lineNumber: 114,
                                     columnNumber: 21
@@ -309,10 +306,41 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                     className: "text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1",
+                                    children: "Merchant Display Name"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
+                                    lineNumber: 128,
+                                    columnNumber: 21
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    type: "text",
+                                    value: formData.name,
+                                    onChange: (e)=>setFormData({
+                                            ...formData,
+                                            name: e.target.value
+                                        }),
+                                    className: "w-full px-10 py-6 bg-slate-50 border-2 border-slate-100 rounded-[30px] text-2xl font-black text-slate-900 focus:border-slate-900 focus:bg-white transition-all outline-none shadow-sm",
+                                    placeholder: "e.g. Traditional Sicilian Pepperoni"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
+                                    lineNumber: 129,
+                                    columnNumber: 21
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
+                            lineNumber: 127,
+                            columnNumber: 17
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "md:col-span-2 space-y-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1",
                                     children: "Public Story"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 139,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -326,13 +354,13 @@ const HalfIconRight = (props)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__
                                     placeholder: "Public-facing description..."
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 140,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 123,
+                            lineNumber: 138,
                             columnNumber: 17
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
@@ -384,12 +412,12 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 156,
+                                    lineNumber: 171,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 155,
+                                lineNumber: 170,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -407,7 +435,7 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                             placeholder: isCombo ? "GROUP NAME (e.g. SIZE)" : "GROUP NAME (e.g. SIZE)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 160,
+                                            lineNumber: 175,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -415,24 +443,24 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                             children: "Mandatory"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 166,
+                                            lineNumber: 181,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 159,
+                                    lineNumber: 174,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 158,
+                                lineNumber: 173,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 154,
+                        lineNumber: 169,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -446,12 +474,12 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                     className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("transition-transform duration-300", isExpanded && "rotate-180")
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 190,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 171,
+                                lineNumber: 186,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -461,24 +489,24 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 193,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 177,
+                                lineNumber: 192,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 170,
+                        lineNumber: 185,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 153,
+                lineNumber: 168,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             isExpanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -504,12 +532,12 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                                     className: "w-2.5 h-2.5 rounded-full bg-emerald-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 202,
+                                                    lineNumber: 217,
                                                     columnNumber: 59
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 198,
+                                                lineNumber: 213,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -526,18 +554,18 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 215,
+                                                    lineNumber: 230,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 219,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 197,
+                                        lineNumber: 212,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -560,7 +588,7 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                                 placeholder: "Label"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 220,
+                                                lineNumber: 235,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -571,7 +599,7 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                                         children: "$"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 246,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -591,19 +619,19 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                                         className: "w-full bg-transparent text-xs font-bold text-slate-900 outline-none tabular-nums"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 247,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 245,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 219,
+                                        lineNumber: 234,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     isDefault && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -611,13 +639,13 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                         children: "Default"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 246,
+                                        lineNumber: 261,
                                         columnNumber: 41
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, v.id, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 189,
+                                lineNumber: 204,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0));
                         }),
@@ -632,12 +660,12 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                         className: "text-slate-400 group-hover/add:text-slate-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 258,
+                                        lineNumber: 273,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 257,
+                                    lineNumber: 272,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -645,30 +673,30 @@ const VariantGroupCard = ({ group, updateGroup, removeGroup, isCombo })=>{
                                     children: "Add Option"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 275,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 253,
+                            lineNumber: 268,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 185,
+                    lineNumber: 200,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 184,
+                lineNumber: 199,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 152,
+        lineNumber: 167,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -686,12 +714,12 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                             className: "text-slate-300"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 274,
+                            lineNumber: 289,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 273,
+                        lineNumber: 288,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -705,7 +733,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         children: "Option Name"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 280,
+                                        lineNumber: 295,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -718,13 +746,13 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         placeholder: "e.g. Extra Cheese"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 281,
+                                        lineNumber: 296,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 279,
+                                lineNumber: 294,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -735,7 +763,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         children: "Surcharge"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 291,
+                                        lineNumber: 306,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -746,7 +774,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 children: "$"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 293,
+                                                lineNumber: 308,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -759,19 +787,19 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 className: "w-full bg-white border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900/10 tabular-nums"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 294,
+                                                lineNumber: 309,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 292,
+                                        lineNumber: 307,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 290,
+                                lineNumber: 305,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -788,12 +816,12 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 311,
+                                                    lineNumber: 326,
                                                     columnNumber: 55
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 307,
+                                                lineNumber: 322,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -801,7 +829,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 children: "Premium"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 313,
+                                                lineNumber: 328,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -814,13 +842,13 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 className: "hidden"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 314,
+                                                lineNumber: 329,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 321,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -830,30 +858,30 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 318,
+                                            lineNumber: 333,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 317,
+                                        lineNumber: 332,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 304,
+                                lineNumber: 319,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 277,
+                        lineNumber: 292,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 272,
+                lineNumber: 287,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             group.isToppingGroup && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -866,7 +894,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                             children: "Scope"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 328,
+                            lineNumber: 343,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -878,12 +906,12 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 330,
+                                        lineNumber: 345,
                                         columnNumber: 136
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 330,
+                                    lineNumber: 345,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -892,17 +920,17 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         className: "rotate-0",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(HalfIconLeft, {}, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 331,
+                                            lineNumber: 346,
                                             columnNumber: 162
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 331,
+                                        lineNumber: 346,
                                         columnNumber: 136
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 346,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -911,34 +939,34 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         className: "rotate-0",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(HalfIconRight, {}, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 332,
+                                            lineNumber: 347,
                                             columnNumber: 162
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 332,
+                                        lineNumber: 347,
                                         columnNumber: 136
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 332,
+                                    lineNumber: 347,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 329,
+                            lineNumber: 344,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 327,
+                    lineNumber: 342,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 326,
+                lineNumber: 341,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -954,7 +982,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         className: "w-1.5 h-1.5 rounded-full bg-emerald-500"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 342,
+                                        lineNumber: 357,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h5", {
@@ -962,13 +990,13 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         children: "Included Choices / Variations"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 343,
+                                        lineNumber: 358,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 341,
+                                lineNumber: 356,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -992,20 +1020,20 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         size: 14
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 352,
+                                        lineNumber: 367,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Add Choice"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 345,
+                                lineNumber: 360,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 340,
+                        lineNumber: 355,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     opt.subOptions?.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1019,7 +1047,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         strokeWidth: 2.5
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 360,
+                                        lineNumber: 375,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1041,7 +1069,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                         placeholder: "e.g. Lite, Extra"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 361,
+                                        lineNumber: 376,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,7 +1080,7 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 children: "$"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 372,
+                                                lineNumber: 387,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1074,13 +1102,13 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                                 className: "w-12 bg-transparent outline-none tabular-nums text-xs text-slate-600"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 373,
+                                                lineNumber: 388,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 371,
+                                        lineNumber: 386,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1093,35 +1121,35 @@ const ModifierOptionRow = ({ opt, group, updateOption, removeOption })=>{
                                             size: 14
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 388,
+                                            lineNumber: 403,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 384,
+                                        lineNumber: 399,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, sub.id, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 359,
+                                lineNumber: 374,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 357,
+                        lineNumber: 372,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 339,
+                lineNumber: 354,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 271,
+        lineNumber: 286,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1146,12 +1174,12 @@ const ModifierGroupCard = (props)=>{
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 409,
+                                            lineNumber: 424,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 408,
+                                        lineNumber: 423,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1164,13 +1192,13 @@ const ModifierGroupCard = (props)=>{
                                         placeholder: "MODIFIER GROUP NAME (e.g. TOPPINGS)"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 411,
+                                        lineNumber: 426,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 407,
+                                lineNumber: 422,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1184,12 +1212,12 @@ const ModifierGroupCard = (props)=>{
                                             className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("transition-transform duration-300", isExpanded && "rotate-180")
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 420,
+                                            lineNumber: 435,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 419,
+                                        lineNumber: 434,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1199,24 +1227,24 @@ const ModifierGroupCard = (props)=>{
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 423,
+                                            lineNumber: 438,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 422,
+                                        lineNumber: 437,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 418,
+                                lineNumber: 433,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 406,
+                        lineNumber: 421,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1230,7 +1258,7 @@ const ModifierGroupCard = (props)=>{
                                         children: "Required Range"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 430,
+                                        lineNumber: 445,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1247,7 +1275,7 @@ const ModifierGroupCard = (props)=>{
                                                 placeholder: "0"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 432,
+                                                lineNumber: 447,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1255,7 +1283,7 @@ const ModifierGroupCard = (props)=>{
                                                 children: "-"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 439,
+                                                lineNumber: 454,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1269,19 +1297,19 @@ const ModifierGroupCard = (props)=>{
                                                 placeholder: "∞"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 455,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 431,
+                                        lineNumber: 446,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 429,
+                                lineNumber: 444,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             isCombo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1292,7 +1320,7 @@ const ModifierGroupCard = (props)=>{
                                         children: "Link to:"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 452,
+                                        lineNumber: 467,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1308,7 +1336,7 @@ const ModifierGroupCard = (props)=>{
                                                 children: "Select Component..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 458,
+                                                lineNumber: 473,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             variantGroups.map((vg)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1316,31 +1344,31 @@ const ModifierGroupCard = (props)=>{
                                                     children: vg.name
                                                 }, vg.id, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 459,
+                                                    lineNumber: 474,
                                                     columnNumber: 65
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 453,
+                                        lineNumber: 468,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 451,
+                                lineNumber: 466,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 428,
+                        lineNumber: 443,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 405,
+                lineNumber: 420,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             isExpanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1367,12 +1395,12 @@ const ModifierGroupCard = (props)=>{
                                     })
                             }, opt.id, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 470,
+                                lineNumber: 485,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 468,
+                        lineNumber: 483,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1399,7 +1427,7 @@ const ModifierGroupCard = (props)=>{
                                 strokeWidth: 4
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 490,
+                                lineNumber: 505,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1407,25 +1435,25 @@ const ModifierGroupCard = (props)=>{
                                 children: "Add Choice variant"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 491,
+                                lineNumber: 506,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 483,
+                        lineNumber: 498,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 467,
+                lineNumber: 482,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 404,
+        lineNumber: 419,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1445,12 +1473,12 @@ const AvailabilityTab = ({ formData, setFormData })=>{
                     children: "Channel Availability"
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 505,
+                    lineNumber: 520,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 504,
+                lineNumber: 519,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1473,7 +1501,7 @@ const AvailabilityTab = ({ formData, setFormData })=>{
                                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("absolute top-0 right-0 p-32 rounded-full blur-3xl -mr-16 -mt-16 transition-all", formData.availability?.includes(channel) ? "bg-white/10" : "bg-slate-100/50")
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 525,
+                                lineNumber: 540,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1486,27 +1514,27 @@ const AvailabilityTab = ({ formData, setFormData })=>{
                                                 size: 32
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 535,
+                                                lineNumber: 550,
                                                 columnNumber: 55
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             channel === 'Online' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__["Globe"], {
                                                 size: 32
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 536,
+                                                lineNumber: 551,
                                                 columnNumber: 58
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             channel === 'Kiosk' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tablet$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Tablet$3e$__["Tablet"], {
                                                 size: 32
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 537,
+                                                lineNumber: 552,
                                                 columnNumber: 57
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 531,
+                                        lineNumber: 546,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1514,7 +1542,7 @@ const AvailabilityTab = ({ formData, setFormData })=>{
                                         children: channel
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 539,
+                                        lineNumber: 554,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1522,30 +1550,30 @@ const AvailabilityTab = ({ formData, setFormData })=>{
                                         children: formData.availability?.includes(channel) ? 'Active' : 'Disabled'
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 544,
+                                        lineNumber: 559,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 530,
+                                lineNumber: 545,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, channel, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 509,
+                        lineNumber: 524,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 507,
+                lineNumber: 522,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 503,
+        lineNumber: 518,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1559,12 +1587,12 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                     children: "Linked Recipe & BOM"
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 563,
+                    lineNumber: 578,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 562,
+                lineNumber: 577,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1579,12 +1607,12 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                                     size: 32
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 568,
+                                    lineNumber: 583,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 567,
+                                lineNumber: 582,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1594,7 +1622,7 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                                         children: formData.recipeName || 'Standard Recipe v1'
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 571,
+                                        lineNumber: 586,
                                         columnNumber: 21
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1602,19 +1630,19 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                                         children: "Primary Production Recipe"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 572,
+                                        lineNumber: 587,
                                         columnNumber: 21
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 570,
+                                lineNumber: 585,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 566,
+                        lineNumber: 581,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1622,13 +1650,13 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                         children: "View Recipe Details"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 575,
+                        lineNumber: 590,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 565,
+                lineNumber: 580,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1638,18 +1666,18 @@ const RecipeTab = ({ formData })=>/*#__PURE__*/ (0, __TURBOPACK__imported__modul
                     children: "To change the recipe, please go to the Recipes module. Direct association editing is disabled here to maintain integrity."
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 580,
+                    lineNumber: 595,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 579,
+                lineNumber: 594,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 561,
+        lineNumber: 576,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 const PricingTab = ({ formData, setFormData })=>{
@@ -1729,7 +1757,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                 children: "Rule Configurator"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 628,
+                                lineNumber: 643,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1737,13 +1765,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                 children: "Dynamic Pricing Strategy"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 629,
+                                lineNumber: 644,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 627,
+                        lineNumber: 642,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1755,20 +1783,20 @@ const PricingTab = ({ formData, setFormData })=>{
                                 strokeWidth: 4
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 635,
+                                lineNumber: 650,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             " Add Rule"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 631,
+                        lineNumber: 646,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 626,
+                lineNumber: 641,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1783,12 +1811,12 @@ const PricingTab = ({ formData, setFormData })=>{
                                     size: 32
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 642,
+                                    lineNumber: 657,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 641,
+                                lineNumber: 656,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -1796,7 +1824,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                 children: "No Active Rules"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 644,
+                                lineNumber: 659,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1804,13 +1832,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                 children: "Create rules to temporarily adjust prices based on time, channel, or location."
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 645,
+                                lineNumber: 660,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 640,
+                        lineNumber: 655,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     rules.map((rule, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1830,7 +1858,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 653,
+                                                    lineNumber: 668,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1840,13 +1868,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                                     placeholder: "RULE NAME"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 656,
+                                                    lineNumber: 671,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 652,
+                                            lineNumber: 667,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1862,7 +1890,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                             children: "Active"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 672,
+                                                            lineNumber: 687,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1870,13 +1898,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                                             children: "Inactive"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 673,
+                                                            lineNumber: 688,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 664,
+                                                    lineNumber: 679,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1889,24 +1917,24 @@ const PricingTab = ({ formData, setFormData })=>{
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 679,
+                                                        lineNumber: 694,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 675,
+                                                    lineNumber: 690,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 663,
+                                            lineNumber: 678,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 651,
+                                    lineNumber: 666,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1925,7 +1953,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                 children: "Target & Adjust"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 690,
+                                                                lineNumber: 705,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1944,7 +1972,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                         children: "Tenant-Wide"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                        lineNumber: 699,
+                                                                                        lineNumber: 714,
                                                                                         columnNumber: 53
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1952,13 +1980,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                         children: "Store-Specific"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                        lineNumber: 700,
+                                                                                        lineNumber: 715,
                                                                                         columnNumber: 53
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 694,
+                                                                                lineNumber: 709,
                                                                                 columnNumber: 49
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1971,7 +1999,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                         children: "Percentage (%)"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                        lineNumber: 707,
+                                                                                        lineNumber: 722,
                                                                                         columnNumber: 53
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1979,7 +2007,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                         children: "Amount ($)"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                        lineNumber: 708,
+                                                                                        lineNumber: 723,
                                                                                         columnNumber: 53
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1987,19 +2015,19 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                         children: "Override Price"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                        lineNumber: 709,
+                                                                                        lineNumber: 724,
                                                                                         columnNumber: 53
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 702,
+                                                                                lineNumber: 717,
                                                                                 columnNumber: 49
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 693,
+                                                                        lineNumber: 708,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2013,7 +2041,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                 placeholder: "0.00"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 714,
+                                                                                lineNumber: 729,
                                                                                 columnNumber: 49
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2021,25 +2049,25 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                                 children: rule.changeType === 'PERCENTAGE' ? '%' : '$'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 724,
+                                                                                lineNumber: 739,
                                                                                 columnNumber: 49
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 713,
+                                                                        lineNumber: 728,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 691,
+                                                                lineNumber: 706,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 689,
+                                                        lineNumber: 704,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2050,7 +2078,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                 children: "Applies To"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 732,
+                                                                lineNumber: 747,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2065,29 +2093,29 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                         children: t
                                                                     }, t, false, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 735,
+                                                                        lineNumber: 750,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 733,
+                                                                lineNumber: 748,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 731,
+                                                        lineNumber: 746,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                lineNumber: 688,
+                                                lineNumber: 703,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 687,
+                                            lineNumber: 702,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2100,7 +2128,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                             children: "Effective Period"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 754,
+                                                            lineNumber: 769,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2114,7 +2142,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "text-slate-400"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 757,
+                                                                            lineNumber: 772,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2124,13 +2152,13 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "bg-transparent text-[11px] font-bold text-slate-700 outline-none w-full uppercase"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 758,
+                                                                            lineNumber: 773,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 756,
+                                                                    lineNumber: 771,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2138,7 +2166,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                     children: "TO"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 765,
+                                                                    lineNumber: 780,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2149,7 +2177,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "text-slate-400"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 767,
+                                                                            lineNumber: 782,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2159,25 +2187,25 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "bg-transparent text-[11px] font-bold text-slate-700 outline-none w-full uppercase"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 768,
+                                                                            lineNumber: 783,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 766,
+                                                                    lineNumber: 781,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 755,
+                                                            lineNumber: 770,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 753,
+                                                    lineNumber: 768,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2187,7 +2215,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                             children: "Weekly Schedule"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 779,
+                                                            lineNumber: 794,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2214,14 +2242,14 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                         children: day[0]
                                                                     }, day, false, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 782,
+                                                                        lineNumber: 797,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0))),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "w-[1px] bg-slate-100 mx-2 h-9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 799,
+                                                                    lineNumber: 814,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2232,7 +2260,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "text-slate-400"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 801,
+                                                                            lineNumber: 816,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2242,7 +2270,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "bg-transparent border-none text-[10px] font-bold text-slate-700 focus:ring-0 w-16"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 802,
+                                                                            lineNumber: 817,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2250,7 +2278,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             children: "-"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 808,
+                                                                            lineNumber: 823,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2260,25 +2288,25 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                             className: "bg-transparent border-none text-[10px] font-bold text-slate-700 focus:ring-0 w-16"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                            lineNumber: 809,
+                                                                            lineNumber: 824,
                                                                             columnNumber: 45
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 800,
+                                                                    lineNumber: 815,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 780,
+                                                            lineNumber: 795,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 778,
+                                                    lineNumber: 793,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2288,7 +2316,7 @@ const PricingTab = ({ formData, setFormData })=>{
                                                             children: "Sales Channels"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 820,
+                                                            lineNumber: 835,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2311,48 +2339,48 @@ const PricingTab = ({ formData, setFormData })=>{
                                                                     children: ch
                                                                 }, ch, false, {
                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                    lineNumber: 823,
+                                                                    lineNumber: 838,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 821,
+                                                            lineNumber: 836,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 819,
+                                                    lineNumber: 834,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 752,
+                                            lineNumber: 767,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 685,
+                                    lineNumber: 700,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, rule.id, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 649,
+                            lineNumber: 664,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 638,
+                lineNumber: 653,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 625,
+        lineNumber: 640,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2440,12 +2468,12 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     size: 22
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 904,
+                                    lineNumber: 919,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 900,
+                                lineNumber: 915,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2457,7 +2485,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                             children: isExisting ? `Edit: ${formData.name}` : 'Setup Offering'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 908,
+                                            lineNumber: 923,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2468,24 +2496,24 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 911,
+                                            lineNumber: 926,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 907,
+                                    lineNumber: 922,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 906,
+                                lineNumber: 921,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 899,
+                        lineNumber: 914,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2499,25 +2527,25 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     className: "text-emerald-400"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 926,
+                                    lineNumber: 941,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 "Save Product"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 922,
+                            lineNumber: 937,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 921,
+                        lineNumber: 936,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 898,
+                lineNumber: 913,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2534,19 +2562,19 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                         strokeWidth: activeTab === tab.id ? 3 : 2.5
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                        lineNumber: 947,
+                                        lineNumber: 962,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     tab.label
                                 ]
                             }, tab.id, true, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 937,
+                                lineNumber: 952,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 935,
+                        lineNumber: 950,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2561,7 +2589,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     isExisting: isExisting
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 956,
+                                    lineNumber: 971,
                                     columnNumber: 53
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'VARIANTS' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2575,7 +2603,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                     children: formData.productType === 'COMBO' ? 'Components & Choices' : 'Variant Structure'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 960,
+                                                    lineNumber: 975,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 formData.productType === 'SINGLE' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2603,14 +2631,14 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                             strokeWidth: 4
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 971,
+                                                            lineNumber: 986,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         " Add Group"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 964,
+                                                    lineNumber: 979,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 formData.productType === 'COMBO' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2642,20 +2670,20 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                             strokeWidth: 4
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                            lineNumber: 993,
+                                                            lineNumber: 1008,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         " Add Component"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                    lineNumber: 975,
+                                                    lineNumber: 990,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 959,
+                                            lineNumber: 974,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2680,7 +2708,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                             })
                                                     }, group.id, false, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 1001,
+                                                        lineNumber: 1016,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))),
                                                 formData.productType === 'COMBO' && Object.entries(formData.variantGroups.reduce((acc, group)=>{
@@ -2703,12 +2731,12 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                                                     size: 18
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                    lineNumber: 1027,
+                                                                                    lineNumber: 1042,
                                                                                     columnNumber: 57
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 1026,
+                                                                                lineNumber: 1041,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -2716,13 +2744,13 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                                                 children: compName
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 1029,
+                                                                                lineNumber: 1044,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 1025,
+                                                                        lineNumber: 1040,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2750,20 +2778,20 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                                                 size: 12
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                                lineNumber: 1046,
+                                                                                lineNumber: 1061,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             " Add Property (e.g. Crust)"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 1031,
+                                                                        lineNumber: 1046,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 1024,
+                                                                lineNumber: 1039,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2788,30 +2816,30 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                                                             })
                                                                     }, group.id, false, {
                                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                        lineNumber: 1052,
+                                                                        lineNumber: 1067,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                                lineNumber: 1050,
+                                                                lineNumber: 1065,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, compName, true, {
                                                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                                        lineNumber: 1023,
+                                                        lineNumber: 1038,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                            lineNumber: 998,
+                                            lineNumber: 1013,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 958,
+                                    lineNumber: 973,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'MODIFIERS' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ModifiersTab, {
@@ -2819,7 +2847,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     setFormData: setFormData
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 1073,
+                                    lineNumber: 1088,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'PRICING' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingTab, {
@@ -2827,7 +2855,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     setFormData: setFormData
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 1075,
+                                    lineNumber: 1090,
                                     columnNumber: 53
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'INVENTORY' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(RecipeTab, {
@@ -2835,7 +2863,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     setFormData: setFormData
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 1076,
+                                    lineNumber: 1091,
                                     columnNumber: 55
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'AVAILABILITY' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AvailabilityTab, {
@@ -2843,7 +2871,7 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     setFormData: setFormData
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 1077,
+                                    lineNumber: 1092,
                                     columnNumber: 58
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 activeTab === 'AUDIT' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PlaceholderTab, {
@@ -2852,30 +2880,30 @@ const ItemEditScreen = ({ item, onClose, categories })=>{
                                     description: "Track all changes made to this item."
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                    lineNumber: 1078,
+                                    lineNumber: 1093,
                                     columnNumber: 51
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                            lineNumber: 955,
+                            lineNumber: 970,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 954,
+                        lineNumber: 969,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 933,
+                lineNumber: 948,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 896,
+        lineNumber: 911,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2893,7 +2921,7 @@ const ModifiersTab = (props)=>{
                         children: "Modifier Pools"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 1095,
+                        lineNumber: 1110,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2924,20 +2952,20 @@ const ModifiersTab = (props)=>{
                                 strokeWidth: 4
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                                lineNumber: 1103,
+                                lineNumber: 1118,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             " New Pool"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 1096,
+                        lineNumber: 1111,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 1094,
+                lineNumber: 1109,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2962,18 +2990,18 @@ const ModifiersTab = (props)=>{
                         isCombo: isCombo
                     }, group.id, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 1109,
+                        lineNumber: 1124,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 1107,
+                lineNumber: 1122,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 1093,
+        lineNumber: 1108,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2988,12 +3016,12 @@ const PlaceholderTab = ({ icon: Icon, label, description })=>/*#__PURE__*/ (0, _
                     strokeWidth: 1
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                    lineNumber: 1129,
+                    lineNumber: 1144,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 1128,
+                lineNumber: 1143,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3004,7 +3032,7 @@ const PlaceholderTab = ({ icon: Icon, label, description })=>/*#__PURE__*/ (0, _
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 1132,
+                        lineNumber: 1147,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3012,19 +3040,19 @@ const PlaceholderTab = ({ icon: Icon, label, description })=>/*#__PURE__*/ (0, _
                         children: description
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                        lineNumber: 1133,
+                        lineNumber: 1148,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-                lineNumber: 1131,
+                lineNumber: 1146,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Items/ItemEditScreen.tsx",
-        lineNumber: 1127,
+        lineNumber: 1142,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 }),

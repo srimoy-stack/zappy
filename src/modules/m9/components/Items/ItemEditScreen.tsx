@@ -65,19 +65,34 @@ const GeneralTab = ({ formData, setFormData, categories }: any) => (
                                     // DEMONSTRATION LOGIC: Inject sample structure if switching to COMBO
                                     let newGroups = [...formData.variantGroups];
                                     if (type === 'COMBO' && (!newGroups.length || !newGroups[0].componentName)) {
-                                        newGroups = [{
-                                            id: 'demo-1',
-                                            name: 'SIZE',
-                                            componentName: 'PIZZA 1',
-                                            isRequired: true,
-                                            defaultVariantId: 'v1',
-                                            sortOrder: 1,
-                                            variants: [
-                                                { id: 'v1', name: 'Medium (12")', basePrice: 12.99, isAvailable: true },
-                                                { id: 'v2', name: 'Large (14")', basePrice: 15.99, isAvailable: true },
-                                                { id: 'v3', name: 'XL (18")', basePrice: 19.99, isAvailable: true }
-                                            ]
-                                        }];
+                                        newGroups = [
+                                            {
+                                                id: 'demo-1',
+                                                name: 'SIZE',
+                                                componentName: 'PIZZA 1',
+                                                isRequired: true,
+                                                defaultVariantId: 'v1',
+                                                sortOrder: 1,
+                                                variants: [
+                                                    { id: 'v1', name: 'Medium (12")', basePrice: 12.99, isAvailable: true },
+                                                    { id: 'v2', name: 'Large (14")', basePrice: 15.99, isAvailable: true },
+                                                    { id: 'v3', name: 'XL (18")', basePrice: 19.99, isAvailable: true }
+                                                ]
+                                            },
+                                            {
+                                                id: 'demo-2',
+                                                name: 'CRUST',
+                                                componentName: 'PIZZA 1',
+                                                isRequired: true,
+                                                defaultVariantId: 'v4',
+                                                sortOrder: 2,
+                                                variants: [
+                                                    { id: 'v4', name: 'Thin Crust', basePrice: 0, isAvailable: true },
+                                                    { id: 'v5', name: 'Pan Pizza', basePrice: 2.00, isAvailable: true },
+                                                    { id: 'v6', name: 'Gluten Free', basePrice: 3.50, isAvailable: true }
+                                                ]
+                                            }
+                                        ];
                                     }
                                     setFormData({ ...formData, productType: type, variantGroups: newGroups });
                                 }}

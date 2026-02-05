@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 ;
 import {
@@ -13,10 +13,12 @@ import {
     TrendingDown,
     FileText,
     AlertTriangle,
-    Package
+    Package,
+    Scale
 } from 'lucide-react';
-import { ItemStatus } from '../../types/inventory';
-import { mockInventoryItems } from '../../mock/inventory';
+import { ItemStatus, InventoryItem } from '../../types/inventory';
+import { inventoryItemService } from '../../services/inventoryService';
+import { SelfAdjustModal } from './SelfAdjustModal';
 
 /**
  * List Inventory (Inventory Items / Ingredients) Page
@@ -30,14 +32,36 @@ import { mockInventoryItems } from '../../mock/inventory';
 export const ListInventoryPage: React.FC = () => {
     const router = useRouter();
 
+    // Data State
+    const [items, setItems] = useState<InventoryItem[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
+    const [isAdjustModalOpen, setIsAdjustModalOpen] = useState(false);
+
     // Filters
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<ItemStatus | ''>('');
     const [showLowStockOnly, setShowLowStockOnly] = useState(false);
     const [showFilters, setShowFilters] = useState(false);
 
+    const loadItems = async () => {
+        setLoading(true);
+        try {
+            const data = await inventoryItemService.getAll();
+            setItems(data);
+        } catch (error) {
+            console.error('Failed to load inventory items:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        loadItems();
+    }, []);
+
     // Filter items
-    const filteredItems = mockInventoryItems.filter(item => {
+    const filteredItems = items.filter(item => {
         if (searchQuery && !item.name.toLowerCase().includes(searchQuery.toLowerCase()) && !item.sku.toLowerCase().includes(searchQuery.toLowerCase())) return false;
         if (selectedStatus && item.status !== selectedStatus) return false;
         if (showLowStockOnly && item.currentStock > item.lowStockThreshold) return false;
@@ -45,8 +69,8 @@ export const ListInventoryPage: React.FC = () => {
     });
 
     // Stats
-    const lowStockCount = mockInventoryItems.filter(item => item.currentStock <= item.lowStockThreshold).length;
-    const totalValue = mockInventoryItems.reduce((sum, item) => sum + (item.currentStock * item.averageCost), 0);
+    const lowStockCount = items.filter(item => item.currentStock <= item.lowStockThreshold).length;
+    const totalValue = items.reduce((sum, item) => sum + (item.currentStock * item.averageCost), 0);
 
     return (
         <div className="max-w-[1600px] mx-auto space-y-6 pb-24">
@@ -81,7 +105,7 @@ export const ListInventoryPage: React.FC = () => {
                         <span className="text-xs font-black text-emerald-600 uppercase tracking-widest">Total Items</span>
                     </div>
                     <div className="text-3xl font-black text-emerald-900 tracking-tight">
-                        {mockInventoryItems.length}
+                        {loading ? '...' : items.length}
                     </div>
                     <div className="text-xs text-emerald-600 font-bold mt-1">
                         Active Ingredients
@@ -293,8 +317,18 @@ export const ListInventoryPage: React.FC = () => {
                                                         <Edit3 size={16} />
                                                     </button>
                                                     <button
-                                                        onClick={() => router.push(`/backoffice/inventory/items/${item.id}/ledger`)}
+                                                        onClick={() => {
+                                                            setSelectedItem(item);
+                                                            setIsAdjustModalOpen(true);
+                                                        }}
                                                         className="p-2 text-slate-400 hover:text-violet-600 transition-colors"
+                                                        title="Self Adjust"
+                                                    >
+                                                        <Scale size={16} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => router.push(`/backoffice/inventory/items/${item.id}/ledger`)}
+                                                        className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                                                         title="View Ledger"
                                                     >
                                                         <FileText size={16} />
@@ -309,6 +343,18 @@ export const ListInventoryPage: React.FC = () => {
                     </table>
                 </div>
             </div>
+            {/* Self Adjust Modal */}
+            {selectedItem && (
+                <SelfAdjustModal
+                    isOpen={isAdjustModalOpen}
+                    onClose={() => {
+                        setIsAdjustModalOpen(false);
+                        setSelectedItem(null);
+                    }}
+                    onSave={loadItems}
+                    item={selectedItem}
+                />
+            )}
         </div>
     );
 };

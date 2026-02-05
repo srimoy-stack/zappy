@@ -13,6 +13,7 @@
   "/backoffice/inventory/entries/add/page": "app/backoffice/inventory/entries/add/page.js",
   "/backoffice/inventory/entries/page": "app/backoffice/inventory/entries/page.js",
   "/backoffice/inventory/items/[id]/edit/page": "app/backoffice/inventory/items/[id]/edit/page.js",
+  "/backoffice/inventory/items/[id]/ledger/page": "app/backoffice/inventory/items/[id]/ledger/page.js",
   "/backoffice/inventory/items/[id]/page": "app/backoffice/inventory/items/[id]/page.js",
   "/backoffice/inventory/items/create/page": "app/backoffice/inventory/items/create/page.js",
   "/backoffice/inventory/list/page": "app/backoffice/inventory/list/page.js",
@@ -48,5 +49,10 @@
   "/backoffice/shop/page": "app/backoffice/shop/page.js",
   "/backoffice/shop/success/page": "app/backoffice/shop/success/page.js",
   "/backoffice/users/page": "app/backoffice/users/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/pos/channel-selection/page": "app/pos/channel-selection/page.js",
+  "/pos/home/page": "app/pos/home/page.js",
+  "/pos/login/page": "app/pos/login/page.js",
+  "/pos/page": "app/pos/page.js",
+  "/pos/store-selection/page": "app/pos/store-selection/page.js"
 }

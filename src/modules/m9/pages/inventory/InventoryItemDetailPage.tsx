@@ -11,10 +11,13 @@ import {
     AlertTriangle,
     FileText,
     Plus,
-    Minus
+    Minus,
+    Scale,
+    History
 } from 'lucide-react';
 import { InventoryItem, InventoryLedgerEntry } from '../../types/inventory';
 import { inventoryItemService } from '../../services/inventoryService';
+import { SelfAdjustModal } from './SelfAdjustModal';
 
 /**
  * Inventory Item Detail Page
@@ -34,6 +37,7 @@ export const InventoryItemDetailPage: React.FC = () => {
     const [ledger, setLedger] = useState<InventoryLedgerEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAdjustModal, setShowAdjustModal] = useState(false);
+    const [showSelfAdjustModal, setShowSelfAdjustModal] = useState(false);
     const [adjustQuantity, setAdjustQuantity] = useState<number>(0);
     const [adjustReason, setAdjustReason] = useState('');
     const [adjustLoading, setAdjustLoading] = useState(false);
@@ -119,14 +123,21 @@ export const InventoryItemDetailPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setShowAdjustModal(true)}
-                        className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-xl text-xs font-bold hover:bg-violet-700 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-xl text-xs font-bold hover:bg-violet-700 transition-all text-nowrap"
                     >
                         <TrendingUp size={14} />
                         Adjust Stock
                     </button>
                     <button
+                        onClick={() => setShowSelfAdjustModal(true)}
+                        className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-all text-nowrap"
+                    >
+                        <Scale size={14} />
+                        Self Adjust
+                    </button>
+                    <button
                         onClick={() => router.push(`/backoffice/inventory/items/${id}/edit`)}
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all text-nowrap"
                     >
                         <Edit3 size={14} />
                         Edit Item
@@ -233,22 +244,53 @@ export const InventoryItemDetailPage: React.FC = () => {
                             Status
                         </label>
                         <span className={`inline-block px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${item.status === 'Active'
-                                ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                                : 'bg-slate-100 text-slate-400 border-slate-200'
+                            ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
+                            : 'bg-slate-100 text-slate-400 border-slate-200'
                             }`}>
                             {item.status}
                         </span>
                     </div>
                 </div>
+
+                {item.lastAdjustedBy && (
+                    <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                Last Adjusted By
+                            </label>
+                            <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                                <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-[10px]">
+                                    {item.lastAdjustedByName?.charAt(0) || '?'}
+                                </div>
+                                {item.lastAdjustedByName} (ID: {item.lastAdjustedBy})
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                Last Adjusted Date & Time
+                            </label>
+                            <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                                <History size={14} className="text-slate-400" />
+                                {new Date(item.lastAdjustedAt!).toLocaleString()}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Ledger History */}
             <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-slate-200">
+                <div className="p-6 border-b border-slate-200 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <FileText size={20} className="text-slate-600" />
                         <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">Stock Movement History</h2>
                     </div>
+                    <button
+                        onClick={() => router.push(`/backoffice/inventory/items/${id}/ledger`)}
+                        className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors"
+                    >
+                        View Full Ledger →
+                    </button>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
@@ -277,9 +319,9 @@ export const InventoryItemDetailPage: React.FC = () => {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider border ${entry.sourceType === 'inventory' ? 'bg-emerald-50 text-emerald-600 border-emerald-200' :
-                                                    entry.sourceType === 'sale' ? 'bg-blue-50 text-blue-600 border-blue-200' :
-                                                        entry.sourceType === 'return' ? 'bg-rose-50 text-rose-600 border-rose-200' :
-                                                            'bg-violet-50 text-violet-600 border-violet-200'
+                                                entry.sourceType === 'sale' ? 'bg-blue-50 text-blue-600 border-blue-200' :
+                                                    entry.sourceType === 'return' ? 'bg-rose-50 text-rose-600 border-rose-200' :
+                                                        'bg-violet-50 text-violet-600 border-violet-200'
                                                 }`}>
                                                 {entry.sourceType}
                                             </span>
@@ -379,6 +421,19 @@ export const InventoryItemDetailPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {/* Self Adjust Modal */}
+            {item && (
+                <SelfAdjustModal
+                    isOpen={showSelfAdjustModal}
+                    onClose={() => setShowSelfAdjustModal(false)}
+                    onSave={() => {
+                        loadItem();
+                        loadLedger();
+                    }}
+                    item={item}
+                />
             )}
         </div>
     );

@@ -1,13 +1,15 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/backoffice/customers/page": "app/backoffice/customers/page.js",
   "/backoffice/home/page": "app/backoffice/home/page.js",
-  "/backoffice/reports/page": "app/backoffice/reports/page.js",
-  "/backoffice/shop/[category]/[itemId]/page": "app/backoffice/shop/[category]/[itemId]/page.js",
-  "/backoffice/shop/[category]/page": "app/backoffice/shop/[category]/page.js",
-  "/backoffice/shop/admin/page": "app/backoffice/shop/admin/page.js",
-  "/backoffice/shop/checkout/page": "app/backoffice/shop/checkout/page.js",
-  "/backoffice/shop/page": "app/backoffice/shop/page.js",
-  "/page": "app/page.js"
+  "/backoffice/inventory/items/[id]/ledger/page": "app/backoffice/inventory/items/[id]/ledger/page.js",
+  "/backoffice/inventory/items/[id]/page": "app/backoffice/inventory/items/[id]/page.js",
+  "/backoffice/inventory/items/create/page": "app/backoffice/inventory/items/create/page.js",
+  "/backoffice/inventory/list/page": "app/backoffice/inventory/list/page.js",
+  "/backoffice/inventory/page": "app/backoffice/inventory/page.js",
+  "/page": "app/page.js",
+  "/pos/channel-selection/page": "app/pos/channel-selection/page.js",
+  "/pos/home/page": "app/pos/home/page.js",
+  "/pos/login/page": "app/pos/login/page.js",
+  "/pos/store-selection/page": "app/pos/store-selection/page.js"
 }

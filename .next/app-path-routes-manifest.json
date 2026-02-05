@@ -13,6 +13,7 @@
   "/backoffice/inventory/entries/add/page": "/backoffice/inventory/entries/add",
   "/backoffice/inventory/entries/page": "/backoffice/inventory/entries",
   "/backoffice/inventory/items/[id]/edit/page": "/backoffice/inventory/items/[id]/edit",
+  "/backoffice/inventory/items/[id]/ledger/page": "/backoffice/inventory/items/[id]/ledger",
   "/backoffice/inventory/items/[id]/page": "/backoffice/inventory/items/[id]",
   "/backoffice/inventory/items/create/page": "/backoffice/inventory/items/create",
   "/backoffice/inventory/list/page": "/backoffice/inventory/list",
@@ -48,5 +49,10 @@
   "/backoffice/shop/page": "/backoffice/shop",
   "/backoffice/shop/success/page": "/backoffice/shop/success",
   "/backoffice/users/page": "/backoffice/users",
-  "/page": "/"
+  "/page": "/",
+  "/pos/channel-selection/page": "/pos/channel-selection",
+  "/pos/home/page": "/pos/home",
+  "/pos/login/page": "/pos/login",
+  "/pos/page": "/pos",
+  "/pos/store-selection/page": "/pos/store-selection"
 }

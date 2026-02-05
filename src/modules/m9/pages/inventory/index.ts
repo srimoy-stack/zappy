@@ -14,6 +14,7 @@ export { VendorsPage } from './VendorsPage';
 // Detail Pages
 export { InventoryEntryDetailPage } from './InventoryEntryDetailPage';
 export { InventoryItemDetailPage } from './InventoryItemDetailPage';
+export { InventoryItemLedgerPage } from './InventoryItemLedgerPage';
 export { RecipeDetailPage } from './RecipeDetailPage';
 export { ReturnDetailPage } from './ReturnDetailPage';
 export { VendorDetailPage } from './VendorDetailPage';

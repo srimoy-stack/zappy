@@ -51,6 +51,9 @@ export interface InventoryItem {
     status: ItemStatus;
     description?: string;
     tenantId: string;
+    lastAdjustedBy?: string;
+    lastAdjustedByName?: string;
+    lastAdjustedAt?: string;
     createdAt: string;
     updatedAt: string;
 }

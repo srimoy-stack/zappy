@@ -25,17 +25,17 @@ export const ShopSearch: React.FC = () => {
     }, [searchQuery]);
 
     return (
-        <div className="flex-1 max-w-xl relative group">
+        <div className="flex-1 max-w-full relative group">
             <div className="relative z-10">
-                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors ${isSearchFocused ? 'text-emerald-600' : 'text-slate-400'}`} />
+                <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors ${isSearchFocused ? 'text-emerald-600' : 'text-slate-400'}`} />
                 <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setIsSearchFocused(true)}
                     onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                    placeholder="Search restaurant supplies..."
-                    className="w-full h-9 pl-10 pr-10 bg-slate-100 rounded-lg border-none font-medium text-xs text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600/20 focus:bg-white transition-all outline-none"
+                    placeholder="Search restaurant supplies, packaging, or software..."
+                    className="w-full h-11 pl-12 pr-12 bg-slate-100 rounded-xl border-none font-medium text-xs text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600/20 focus:bg-white transition-all outline-none"
                 />
                 {searchQuery && (
                     <button
@@ -59,16 +59,16 @@ export const ShopSearch: React.FC = () => {
                             <Link
                                 key={item.id}
                                 href={`/backoffice/shop/${item.category}/${item.id}`}
-                                className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg transition-all group"
+                                className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-xl transition-all group"
                             >
-                                <div className="w-10 h-10 bg-slate-100 rounded-lg overflow-hidden shrink-0">
+                                <div className="w-14 h-14 bg-slate-100 rounded-xl overflow-hidden shrink-0">
                                     <img src={item.image} alt="" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-bold text-slate-900 truncate group-hover:text-emerald-600 transition-colors">{item.name}</p>
-                                    <p className="text-[9px] font-medium text-slate-400 uppercase tracking-widest">{item.category}</p>
+                                    <p className="text-sm font-bold text-slate-900 truncate group-hover:text-emerald-600 transition-colors">{item.name}</p>
+                                    <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">{item.category}</p>
                                 </div>
-                                <p className="text-xs font-bold text-slate-900">{formatCurrency(item.price)}</p>
+                                <p className="text-sm font-bold text-slate-900">{formatCurrency(item.price)}</p>
                             </Link>
                         ))}
                     </div>

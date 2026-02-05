@@ -70,6 +70,14 @@
       "namedRegex": "^/backoffice/inventory/items/(?<nxtPid>[^/]+?)/edit(?:/)?$"
     },
     {
+      "page": "/backoffice/inventory/items/[id]/ledger",
+      "regex": "^/backoffice/inventory/items/([^/]+?)/ledger(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/inventory/items/(?<nxtPid>[^/]+?)/ledger(?:/)?$"
+    },
+    {
       "page": "/backoffice/inventory/recipes/[id]",
       "regex": "^/backoffice/inventory/recipes/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -354,6 +362,36 @@
       "regex": "^/backoffice/users(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/backoffice/users(?:/)?$"
+    },
+    {
+      "page": "/pos",
+      "regex": "^/pos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos(?:/)?$"
+    },
+    {
+      "page": "/pos/channel-selection",
+      "regex": "^/pos/channel\\-selection(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/channel\\-selection(?:/)?$"
+    },
+    {
+      "page": "/pos/home",
+      "regex": "^/pos/home(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/home(?:/)?$"
+    },
+    {
+      "page": "/pos/login",
+      "regex": "^/pos/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/login(?:/)?$"
+    },
+    {
+      "page": "/pos/store-selection",
+      "regex": "^/pos/store\\-selection(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/store\\-selection(?:/)?$"
     }
   ],
   "dataRoutes": [],

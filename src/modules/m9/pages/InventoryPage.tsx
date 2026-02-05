@@ -10,7 +10,8 @@ import {
     Users,
     Plus,
     TrendingUp,
-    AlertTriangle
+    AlertTriangle,
+    Scale
 } from 'lucide-react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
 import { mockInventoryItems, mockInventoryEntries } from '../mock/inventory';
@@ -139,6 +140,15 @@ export const InventoryPage: React.FC = () => {
                     onClick={() => router.push('/backoffice/inventory/list')}
                 />
 
+                {/* Self Adjust */}
+                <NavigationCard
+                    icon={Scale}
+                    title="Self Adjust"
+                    description="Correct inventory count manually"
+                    color="amber"
+                    onClick={() => router.push('/backoffice/inventory/list')}
+                />
+
                 {/* Recipes */}
                 <NavigationCard
                     icon={ChefHat}
@@ -214,7 +224,7 @@ interface NavigationCardProps {
     icon: React.ElementType;
     title: string;
     description: string;
-    color: 'emerald' | 'blue' | 'violet' | 'orange' | 'rose' | 'slate';
+    color: 'emerald' | 'blue' | 'violet' | 'orange' | 'rose' | 'slate' | 'amber';
     onClick: () => void;
 }
 
@@ -225,7 +235,8 @@ const NavigationCard: React.FC<NavigationCardProps> = ({ icon: Icon, title, desc
         violet: 'from-violet-50 to-violet-100 border-violet-200 hover:border-violet-400',
         orange: 'from-orange-50 to-orange-100 border-orange-200 hover:border-orange-400',
         rose: 'from-rose-50 to-rose-100 border-rose-200 hover:border-rose-400',
-        slate: 'from-slate-50 to-slate-100 border-slate-200 hover:border-slate-400'
+        slate: 'from-slate-50 to-slate-100 border-slate-200 hover:border-slate-400',
+        amber: 'from-amber-50 to-amber-100 border-amber-200 hover:border-amber-400'
     };
 
     const iconColorClasses = {
@@ -234,7 +245,8 @@ const NavigationCard: React.FC<NavigationCardProps> = ({ icon: Icon, title, desc
         violet: 'bg-violet-600 shadow-violet-200',
         orange: 'bg-orange-600 shadow-orange-200',
         rose: 'bg-rose-600 shadow-rose-200',
-        slate: 'bg-slate-600 shadow-slate-200'
+        slate: 'bg-slate-600 shadow-slate-200',
+        amber: 'bg-amber-600 shadow-amber-200'
     };
 
     return (

@@ -1,0 +1,3 @@
+module.exports=[72454,a=>{"use strict";var b=a.i(87924),c=a.i(72131),d=a.i(50944);function e(){let a=(0,d.useRouter)();return(0,c.useEffect)(()=>{a.push("/pos/login")},[a]),(0,b.jsx)("div",{className:"min-h-screen bg-slate-900 flex items-center justify-center",children:(0,b.jsx)("div",{className:"w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"})})}a.s(["default",()=>e])}];
+
+//# sourceMappingURL=src_app_pos_page_tsx_9f84abb0._.js.map
