@@ -150,6 +150,14 @@
         "nxtPitemId": "nxtPitemId"
       },
       "namedRegex": "^/backoffice/shop/(?<nxtPcategory>[^/]+?)/(?<nxtPitemId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/pos/order-details/[id]",
+      "regex": "^/pos/order\\-details/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/pos/order\\-details/(?<nxtPid>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -376,10 +384,34 @@
       "namedRegex": "^/pos/channel\\-selection(?:/)?$"
     },
     {
-      "page": "/pos/home",
-      "regex": "^/pos/home(?:/)?$",
+      "page": "/pos/confirmation",
+      "regex": "^/pos/confirmation(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/pos/home(?:/)?$"
+      "namedRegex": "^/pos/confirmation(?:/)?$"
+    },
+    {
+      "page": "/pos/customer-search",
+      "regex": "^/pos/customer\\-search(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/customer\\-search(?:/)?$"
+    },
+    {
+      "page": "/pos/customers",
+      "regex": "^/pos/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/customers(?:/)?$"
+    },
+    {
+      "page": "/pos/dashboard",
+      "regex": "^/pos/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/dashboard(?:/)?$"
+    },
+    {
+      "page": "/pos/held-orders",
+      "regex": "^/pos/held\\-orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/held\\-orders(?:/)?$"
     },
     {
       "page": "/pos/login",
@@ -388,10 +420,58 @@
       "namedRegex": "^/pos/login(?:/)?$"
     },
     {
+      "page": "/pos/menu",
+      "regex": "^/pos/menu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/menu(?:/)?$"
+    },
+    {
+      "page": "/pos/new-order",
+      "regex": "^/pos/new\\-order(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/new\\-order(?:/)?$"
+    },
+    {
+      "page": "/pos/open-orders",
+      "regex": "^/pos/open\\-orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/open\\-orders(?:/)?$"
+    },
+    {
+      "page": "/pos/orders",
+      "regex": "^/pos/orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/orders(?:/)?$"
+    },
+    {
+      "page": "/pos/payment",
+      "regex": "^/pos/payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/payment(?:/)?$"
+    },
+    {
+      "page": "/pos/reports",
+      "regex": "^/pos/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/reports(?:/)?$"
+    },
+    {
+      "page": "/pos/settings",
+      "regex": "^/pos/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/settings(?:/)?$"
+    },
+    {
       "page": "/pos/store-selection",
       "regex": "^/pos/store\\-selection(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/pos/store\\-selection(?:/)?$"
+    },
+    {
+      "page": "/pos/tables",
+      "regex": "^/pos/tables(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/tables(?:/)?$"
     }
   ],
   "dataRoutes": [],

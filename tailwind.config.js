@@ -7,18 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          DEFAULT: '#4dbe7e',
+          light: '#7edba1',
+          dark: '#3a9b65',
+        },
         primary: {
-            50: '#f0f9ff',
-            100: '#e0f2fe',
-            500: '#0ea5e9',
-            600: '#0284c7',
-            700: '#0369a1',
-            900: '#0c4a6e',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          500: '#4dbe7e',
+          600: '#3a9b65',
+          700: '#2d7a4f',
+          900: '#1e5235',
         },
         success: {
-            50: '#f0fdf4',
-            500: '#22c55e',
-            700: '#15803d',
+          50: '#f0fdf4',
+          500: '#4dbe7e',
+          700: '#3a9b65',
         }
       }
     },

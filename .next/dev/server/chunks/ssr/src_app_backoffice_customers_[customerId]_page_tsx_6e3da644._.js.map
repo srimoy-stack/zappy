@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/backoffice/customers/%5BcustomerId%5D/page.tsx"],"sourcesContent":["'use client';\n\nimport React from 'react';\nimport { CustomerProfilePage } from '@/modules/m9/pages';\n\ninterface PageProps {\n  params: Promise<{\n    customerId: string;\n  }>;\n}\n\nexport default function Page({ params }: PageProps) {\n  const { customerId } = React.use(params);\n  return <CustomerProfilePage customerId={customerId} />;\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AAAA;AAHA;;;;AAWe,SAAS,KAAK,EAAE,MAAM,EAAa;IAChD,MAAM,EAAE,UAAU,EAAE,GAAG,gNAAK,CAAC,GAAG,CAAC;IACjC,qBAAO,8OAAC,4KAAmB;QAAC,YAAY;;;;;;AAC1C"}}]
-}

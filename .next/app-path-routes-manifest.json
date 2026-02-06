@@ -51,8 +51,21 @@
   "/backoffice/users/page": "/backoffice/users",
   "/page": "/",
   "/pos/channel-selection/page": "/pos/channel-selection",
-  "/pos/home/page": "/pos/home",
+  "/pos/confirmation/page": "/pos/confirmation",
+  "/pos/customer-search/page": "/pos/customer-search",
+  "/pos/customers/page": "/pos/customers",
+  "/pos/dashboard/page": "/pos/dashboard",
+  "/pos/held-orders/page": "/pos/held-orders",
   "/pos/login/page": "/pos/login",
+  "/pos/menu/page": "/pos/menu",
+  "/pos/new-order/page": "/pos/new-order",
+  "/pos/open-orders/page": "/pos/open-orders",
+  "/pos/order-details/[id]/page": "/pos/order-details/[id]",
+  "/pos/orders/page": "/pos/orders",
   "/pos/page": "/pos",
-  "/pos/store-selection/page": "/pos/store-selection"
+  "/pos/payment/page": "/pos/payment",
+  "/pos/reports/page": "/pos/reports",
+  "/pos/settings/page": "/pos/settings",
+  "/pos/store-selection/page": "/pos/store-selection",
+  "/pos/tables/page": "/pos/tables"
 }

@@ -51,8 +51,21 @@
   "/backoffice/users/page": "app/backoffice/users/page.js",
   "/page": "app/page.js",
   "/pos/channel-selection/page": "app/pos/channel-selection/page.js",
-  "/pos/home/page": "app/pos/home/page.js",
+  "/pos/confirmation/page": "app/pos/confirmation/page.js",
+  "/pos/customer-search/page": "app/pos/customer-search/page.js",
+  "/pos/customers/page": "app/pos/customers/page.js",
+  "/pos/dashboard/page": "app/pos/dashboard/page.js",
+  "/pos/held-orders/page": "app/pos/held-orders/page.js",
   "/pos/login/page": "app/pos/login/page.js",
+  "/pos/menu/page": "app/pos/menu/page.js",
+  "/pos/new-order/page": "app/pos/new-order/page.js",
+  "/pos/open-orders/page": "app/pos/open-orders/page.js",
+  "/pos/order-details/[id]/page": "app/pos/order-details/[id]/page.js",
+  "/pos/orders/page": "app/pos/orders/page.js",
   "/pos/page": "app/pos/page.js",
-  "/pos/store-selection/page": "app/pos/store-selection/page.js"
+  "/pos/payment/page": "app/pos/payment/page.js",
+  "/pos/reports/page": "app/pos/reports/page.js",
+  "/pos/settings/page": "app/pos/settings/page.js",
+  "/pos/store-selection/page": "app/pos/store-selection/page.js",
+  "/pos/tables/page": "app/pos/tables/page.js"
 }

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/pos/page.tsx"],"sourcesContent":["'use client';\n\nimport { useEffect } from 'react';\nimport { useRouter } from 'next/navigation';\n\nexport default function POSRoot() {\n    const router = useRouter();\n\n    useEffect(() => {\n        router.push('/pos/login');\n    }, [router]);\n\n    return (\n        <div className=\"min-h-screen bg-white flex items-center justify-center\">\n            <div className=\"w-12 h-12 border-4 border-brand border-t-transparent rounded-full animate-spin shadow-lg shadow-brand/20\"></div>\n        </div>\n    );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AAHA;;;;AAKe,SAAS;IACpB,MAAM,SAAS,IAAA,+IAAS;IAExB,IAAA,kNAAS,EAAC;QACN,OAAO,IAAI,CAAC;IAChB,GAAG;QAAC;KAAO;IAEX,qBACI,8OAAC;QAAI,WAAU;kBACX,cAAA,8OAAC;YAAI,WAAU;;;;;;;;;;;AAG3B"}}]
+}

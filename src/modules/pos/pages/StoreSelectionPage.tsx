@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import { useRouter } from 'next/navigation';
 import { mockStores } from '@/modules/pos/mock/posData';
-import { MapPin, ChevronRight, LogOut } from 'lucide-react';
+import { MapPin, ChevronRight, LogOut, Store } from 'lucide-react';
 
 export const StoreSelectionPage: React.FC = () => {
     const { session, setStore, logout } = usePOS();
@@ -30,51 +30,71 @@ export const StoreSelectionPage: React.FC = () => {
     if (!session) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 font-sans">
-            <div className="w-full max-w-2xl bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-                <div className="p-10 border-b border-slate-50 flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Select Store</h1>
-                        <p className="text-slate-500 font-medium mt-1">Which branch are you operating today?</p>
+        <div className="fixed inset-0 bg-white flex flex-col items-center justify-center p-6 font-sans overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div className="w-full max-w-3xl z-10">
+                <div className="mb-10 text-center animate-in fade-in slide-in-from-top-4 duration-700">
+                    <div className="w-20 h-20 bg-brand rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-brand/20 border border-brand/30">
+                        <Store size={40} className="text-white" />
                     </div>
-                    <button
-                        onClick={logout}
-                        className="p-3 bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-2xl transition-all"
-                        title="Logout"
-                    >
-                        <LogOut size={20} />
-                    </button>
+                    <h1 className="text-4xl font-black text-brand tracking-tighter mb-2">Select Operating Store</h1>
+                    <p className="text-brand/50 font-medium tracking-wide">Choose the branch you will be managing for this session</p>
                 </div>
 
-                <div className="p-10 space-y-4">
-                    <div className="grid grid-cols-1 gap-4">
-                        {accessibleStores.map((store) => (
-                            <button
-                                key={store.id}
-                                onClick={() => handleSelectStore(store)}
-                                disabled={loading}
-                                className="group flex items-center justify-between p-6 bg-slate-50 border-2 border-transparent hover:border-emerald-600 hover:bg-white rounded-[2rem] transition-all text-left"
-                            >
-                                <div className="flex items-center gap-5">
-                                    <div className="w-14 h-14 bg-emerald-100/50 rounded-2xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                                        <MapPin size={24} />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-black text-slate-800">{store.name}</h3>
-                                        <p className="text-sm text-slate-500 font-medium">{store.address}</p>
-                                    </div>
-                                </div>
-                                <div className="w-10 h-10 rounded-full bg-slate-200/50 flex items-center justify-center group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
-                                    <ChevronRight size={20} />
-                                </div>
-                            </button>
-                        ))}
+                <div className="bg-white border-4 border-brand/10 rounded-[3rem] shadow-2xl overflow-hidden">
+                    <div className="p-8 border-b border-brand/10 flex items-center justify-between bg-brand/5">
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                                <MapPin size={20} />
+                            </div>
+                            <div>
+                                <p className="text-[10px] font-black text-brand/40 uppercase tracking-widest">Operator Context</p>
+                                <p className="text-sm font-black text-brand">{session.user.name} • {session.user.role}</p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={logout}
+                            className="px-5 py-2.5 bg-rose-500/10 text-rose-600 hover:bg-rose-500 hover:text-white border border-rose-500/20 rounded-xl transition-all text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
+                        >
+                            <LogOut size={14} />
+                            Switch User
+                        </button>
                     </div>
 
-                    <div className="pt-6 text-center">
-                        <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
-                            Authenticated as: <span className="text-slate-900">{session.user.name}</span>
-                        </p>
+                    <div className="p-10">
+                        <div className="grid grid-cols-1 gap-4">
+                            {accessibleStores.map((store, idx) => (
+                                <button
+                                    key={store.id}
+                                    onClick={() => handleSelectStore(store)}
+                                    disabled={loading}
+                                    className="group flex items-center justify-between p-8 bg-white border-2 border-brand/5 hover:border-brand hover:bg-brand/5 rounded-[2.5rem] transition-all text-left animate-in slide-in-from-bottom-4 duration-500"
+                                    style={{ animationDelay: `${idx * 100}ms` }}
+                                >
+                                    <div className="flex items-center gap-6">
+                                        <div className="w-16 h-16 bg-brand/5 rounded-2xl flex items-center justify-center text-brand/40 group-hover:bg-brand group-hover:text-white transition-all shadow-lg border border-brand/10 group-hover:border-brand">
+                                            <MapPin size={28} />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-black text-brand mb-1">{store.name}</h3>
+                                            <p className="text-brand/40 text-sm font-black">{store.address}</p>
+                                        </div>
+                                    </div>
+                                    <div className="w-12 h-12 rounded-2xl bg-brand/5 border border-brand/10 flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white group-hover:translate-x-1 transition-all">
+                                        <ChevronRight size={24} />
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-6 bg-brand/5 border-t border-brand/10 flex justify-center">
+                        <div className="flex items-center gap-2 text-[10px] font-black text-brand/30 uppercase tracking-widest">
+                            System identifying device... <span className="text-brand">POS-8822-X</span>
+                        </div>
                     </div>
                 </div>
             </div>

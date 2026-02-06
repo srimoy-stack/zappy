@@ -10,7 +10,8 @@ import {
     Truck,
     Phone,
     ArrowLeft,
-    Clock
+    Clock,
+    LayoutGrid
 } from 'lucide-react';
 
 export const ChannelSelectionPage: React.FC = () => {
@@ -61,64 +62,50 @@ export const ChannelSelectionPage: React.FC = () => {
 
     const activeChannels = channels.filter(c => !c.hidden);
 
-    // Color maps for Tailwind classes to avoid dynamic string interpolation
-    const borderColors: Record<string, string> = {
-        emerald: 'hover:border-emerald-500',
-        blue: 'hover:border-blue-500',
-        violet: 'hover:border-violet-500',
-        amber: 'hover:border-amber-500',
-    };
-
-    const bgColors: Record<string, string> = {
-        emerald: 'bg-emerald-500/10',
-        blue: 'bg-blue-500/10',
-        violet: 'bg-violet-500/10',
-        amber: 'bg-amber-500/10',
-    };
-
-    const iconBgColors: Record<string, string> = {
-        emerald: 'group-hover:bg-emerald-600 group-hover:shadow-emerald-500/20',
-        blue: 'group-hover:bg-blue-600 group-hover:shadow-blue-500/20',
-        violet: 'group-hover:bg-violet-600 group-hover:shadow-violet-500/20',
-        amber: 'group-hover:bg-amber-600 group-hover:shadow-amber-500/20',
-    };
-
     return (
-        <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-6 font-sans">
+        <div className="fixed inset-0 bg-white flex flex-col items-center justify-center p-6 font-sans overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
+
             {/* Header / Info */}
-            <div className="w-full max-w-4xl text-center mb-10">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 border border-slate-700 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <div className="w-full max-w-4xl text-center mb-12 z-10 animate-in fade-in slide-in-from-top-4 duration-700">
+                <div className="w-20 h-20 bg-brand rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-brand/20 border border-brand/30">
+                    <LayoutGrid size={40} className="text-white" />
+                </div>
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand/5 border border-brand/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-brand/40 mb-6">
+                    <span className="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                     Operational Context Active
                 </div>
-                <h1 className="text-4xl font-black text-white tracking-tight mb-2">Select Order Channel</h1>
-                <p className="text-slate-400 font-medium">Define how this order session will be handled</p>
+                <h1 className="text-5xl font-black text-brand tracking-tighter mb-3">Select Order Channel</h1>
+                <p className="text-brand/40 text-lg font-black">Define how this order session will be handled</p>
             </div>
 
             {/* Channel Grid */}
-            <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
-                {activeChannels.map((channel) => (
+            <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 z-10">
+                {activeChannels.map((channel, idx) => (
                     <button
                         key={channel.id}
                         onClick={() => handleSelectChannel(channel.id)}
-                        className={`group relative p-8 bg-slate-800 border-2 border-slate-700 ${borderColors[channel.color]} hover:bg-slate-800/80 rounded-[2.5rem] transition-all text-left overflow-hidden`}
+                        className={`group relative p-10 bg-white border-2 border-brand/5 hover:border-brand hover:bg-brand/5 rounded-[3rem] transition-all text-left overflow-hidden animate-in zoom-in-95 duration-500 shadow-2xl shadow-brand/5`}
+                        style={{ animationDelay: `${idx * 100}ms` }}
                     >
                         {/* Glow effect on hover */}
-                        <div className={`absolute -right-4 -top-4 w-32 h-32 ${bgColors[channel.color]} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+                        <div className={`absolute -right-4 -top-4 w-40 h-40 bg-brand/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
 
-                        <div className="flex items-start justify-between mb-8">
-                            <div className={`p-5 bg-slate-700 rounded-3xl ${iconBgColors[channel.color]} text-slate-300 transition-all`}>
-                                <channel.icon size={32} />
+                        <div className="flex items-start justify-between mb-10">
+                            <div className={`p-6 bg-brand/5 rounded-[2rem] group-hover:bg-brand text-brand/40 group-hover:text-white transition-all shadow-lg border border-brand/10 group-hover:border-brand`}>
+                                <channel.icon size={36} />
                             </div>
-                            <div className="flex items-center gap-1.5 px-3 py-1 bg-slate-700/50 rounded-lg text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                                <Clock size={12} />
-                                Auto-Timed
+                            <div className="flex items-center gap-2 px-4 py-2 bg-brand/5 rounded-xl text-[10px] font-black text-brand/40 uppercase tracking-widest border border-brand/10">
+                                <Clock size={14} />
+                                Tracking On
                             </div>
                         </div>
 
                         <div>
-                            <h3 className="text-2xl font-black text-white mb-2">{channel.label}</h3>
-                            <p className="text-slate-400 font-medium text-sm leading-relaxed">
+                            <h3 className="text-2xl font-black text-brand mb-3 group-hover:translate-x-1 transition-transform">{channel.label}</h3>
+                            <p className="text-brand/40 font-black text-sm leading-relaxed group-hover:text-brand/60 transition-colors">
                                 {channel.description}
                             </p>
                         </div>
@@ -127,33 +114,43 @@ export const ChannelSelectionPage: React.FC = () => {
             </div>
 
             {/* Footer Navigation */}
-            <div className="w-full max-w-4xl mt-10 flex items-center justify-between">
+            <div className="w-full max-w-5xl mt-16 flex items-center justify-between z-10">
                 <button
                     onClick={() => router.push('/pos/store-selection')}
-                    className="flex items-center gap-2 text-slate-500 hover:text-white font-bold transition-all"
+                    className="flex items-center gap-3 text-brand/40 hover:text-brand font-black text-sm uppercase tracking-widest transition-all px-6 py-3 rounded-2xl hover:bg-brand/5"
                 >
-                    <ArrowLeft size={18} />
-                    Back to Store Selection
+                    <ArrowLeft size={20} />
+                    Back to Selection
                 </button>
 
-                <div className="flex items-center gap-4 text-right">
-                    <div>
-                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Selected Store</div>
-                        <div className="text-white font-bold">{session.store.name}</div>
+                <div className="flex items-center gap-8 bg-white px-8 py-4 rounded-[1.5rem] border-2 border-brand/10 shadow-lg shadow-brand/5">
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-brand/5 flex items-center justify-center text-brand">
+                            <ShoppingBag size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[9px] font-black text-brand/40 uppercase tracking-widest">Active Store</div>
+                            <div className="text-brand font-black text-sm tracking-tight">{session.store.name}</div>
+                        </div>
                     </div>
-                    <div className="w-px h-8 bg-slate-800"></div>
-                    <div>
-                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Operator</div>
-                        <div className="text-white font-bold">{session.user.name}</div>
+                    <div className="w-px h-10 bg-brand/10"></div>
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-brand/5 flex items-center justify-center text-brand">
+                            <LayoutGrid size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[9px] font-black text-brand/40 uppercase tracking-widest">Operator</div>
+                            <div className="text-brand font-black text-sm tracking-tight">{session.user.name}</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <button
                 onClick={logout}
-                className="mt-12 px-6 py-2 bg-slate-800 text-slate-500 hover:text-rose-500 rounded-xl text-xs font-black uppercase tracking-widest transition-all"
+                className="mt-12 px-8 py-3 bg-white border border-brand/10 text-brand/30 hover:bg-rose-500/10 hover:text-rose-600 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] transition-all z-10"
             >
-                End Session
+                Terminate Session
             </button>
         </div>
     );

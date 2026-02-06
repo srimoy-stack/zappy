@@ -1,0 +1,3 @@
+module.exports=[55258,a=>{"use strict";var b=a.i(87924),c=a.i(72131);a.i(95452);var d=a.i(43594),d=d;function e(){return(0,b.jsx)(c.Suspense,{fallback:(0,b.jsx)("div",{className:"h-screen bg-white flex items-center justify-center text-brand/40 font-black uppercase tracking-widest",children:"Initialising Identity Hub..."}),children:(0,b.jsx)(d.POSCustomerScreen,{})})}a.s(["default",()=>e],55258)}];
+
+//# sourceMappingURL=src_app_pos_customers_page_tsx_2a25bf4e._.js.map

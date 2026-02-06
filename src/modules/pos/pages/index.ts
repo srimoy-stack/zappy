@@ -1,4 +1,15 @@
 export { POSLoginPage } from './POSLoginPage';
-export { StoreSelectionPage } from './StoreSelectionPage';
-export { ChannelSelectionPage } from './ChannelSelectionPage';
-export { POSHomePagePlaceholder } from './POSHomePagePlaceholder';
+export { POSSetupPage as StoreSelectionPage } from './POSSetupPage';
+export { POSSetupPage as ChannelSelectionPage } from './POSSetupPage';
+export { POSDashboardPage } from './POSDashboardPage';
+export { POSPlaceholderPage } from './POSPlaceholderPage';
+export { TablesPage } from './TablesPage';
+export { POSCustomerScreen as CustomerLookupPage } from './POSCustomerScreen';
+export { POSFulfillmentPage as OrderInitiationPage } from './POSFulfillmentPage';
+export { POSMenuScreen as MenuPage } from './POSMenuScreen';
+export { POSOrdersScreen } from './POSOrdersScreen';
+export { POSPaymentScreen } from './POSPaymentScreen';
+export { POSConfirmationScreen } from './POSConfirmationScreen';
+export { POSCallCenterScreen } from './POSCallCenterScreen';
+export { POSSettingsScreen } from './POSSettingsScreen';
+export { POSErrorScreen } from './POSErrorScreen';

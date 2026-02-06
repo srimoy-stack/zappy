@@ -1,7 +1,3 @@
 'use client';
-
-import { StoreSelectionPage } from '@/modules/pos/pages/StoreSelectionPage';
-
-export default function Page() {
-    return <StoreSelectionPage />;
-}
+import { StoreSelectionPage } from '@/modules/pos/pages';
+export default function Page() { return <StoreSelectionPage />; }
