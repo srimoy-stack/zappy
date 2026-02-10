@@ -34,7 +34,7 @@ export const POSOrdersScreen: React.FC = () => {
             {/* LEFT: ORDER CATEGORIES (Section 13) */}
             <aside className="w-80 md:w-96 bg-brand/5 border-r border-brand/10 flex flex-col flex-shrink-0 animate-in slide-in-from-left duration-500">
                 <header className="p-8 border-b border-brand/10 bg-white flex items-center gap-4">
-                    <button onClick={() => router.back()} className="p-2 border border-brand/10 rounded-lg text-brand/40 hover:text-brand">
+                    <button onClick={() => router.push('/pos/dashboard')} className="p-2 border border-brand/10 rounded-lg text-brand/40 hover:text-brand">
                         <ArrowLeft size={20} />
                     </button>
                     <h3 className="text-xl font-black text-brand tracking-tight">Order Vault</h3>

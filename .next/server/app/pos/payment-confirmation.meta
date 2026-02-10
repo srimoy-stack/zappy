@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/pos/layout,_N_T_/pos/payment-confirmation/layout,_N_T_/pos/payment-confirmation/page,_N_T_/pos/payment-confirmation"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/pos/payment-confirmation/__PAGE__",
+    "/pos/payment-confirmation",
+    "/pos",
+    "/_index",
+    "/_head"
+  ]
+}

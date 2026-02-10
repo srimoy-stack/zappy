@@ -962,6 +962,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/pos/delivery-details": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/pos/delivery-details",
+      "dataRoute": "/pos/delivery-details.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/pos/fulfillment": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/pos/fulfillment",
+      "dataRoute": "/pos/fulfillment.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/pos/held-orders": {
       "experimentalBypassFor": [
         {
@@ -1130,6 +1178,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/pos/payment-confirmation": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/pos/payment-confirmation",
+      "dataRoute": "/pos/payment-confirmation.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/pos/payment": {
       "experimentalBypassFor": [
         {
@@ -1145,6 +1217,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/pos/payment",
       "dataRoute": "/pos/payment.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/pos/refund": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/pos/refund",
+      "dataRoute": "/pos/refund.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1254,8 +1350,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "d1623e4264300f1b8daa03794af4e5b7",
-    "previewModeSigningKey": "eb6814a4f1225c229532b206c7c360dbdb69ecae60214b8803701c9c8089a2b1",
-    "previewModeEncryptionKey": "1cc8e63eda593e76bc66e4b0ddcfbf31fbe75b26e190fd26ad399af24ce612d2"
+    "previewModeId": "795220adba6de1f2ae86545b5c28e20d",
+    "previewModeSigningKey": "fbe2d24af54d164df1cc74f16da622ba48115a0d0be2a0fbec0a05120ff2d1d9",
+    "previewModeEncryptionKey": "563303fa6c18c1999360862412acbcb68fa86231ab5c6da5f1e8d4b4fa4d7d2b"
   }
 }

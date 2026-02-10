@@ -1,386 +1,646 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { usePOS } from '@/modules/pos/context/POSContext';
-import { useRouter, usePathname } from 'next/navigation';
-// ... other imports
 import {
-    LogOut,
-    Store,
-    LayoutGrid,
-    User,
-    Search,
     Plus,
     Clock,
-    History,
     Pause,
-    RotateCcw,
+    History,
     Printer,
-    BarChart3,
-    ShoppingBag,
-    PhoneIncoming,
-    ShoppingCart,
-    ChevronRight,
-    Globe,
-    Wifi,
-    WifiOff
+    User,
+    Phone,
+    LogOut,
+    Settings,
+    Store,
+    RotateCcw,
+    CheckCircle2,
+    AlertCircle,
+    WifiOff,
+    Wifi
 } from 'lucide-react';
-import { mockRecentOrders, mockIncomingCall } from '../mock/posData';
+import { mockPOSCustomers } from '../mock/posData';
+import '../styles/pos-rush.css';
+
+// Mock data for dashboard
+const mockOpenOrders = [
+    { id: 'ORD-5501', customer: 'John Doe', status: 'PREPARING', time: '5m', amount: 45.50 },
+    { id: 'ORD-5502', customer: 'Sarah Smith', status: 'READY', time: '2m', amount: 32.00 },
+    { id: 'ORD-5503', customer: 'Mike Johnson', status: 'PREPARING', time: '8m', amount: 68.25 },
+];
+
+const mockHeldOrders = [
+    { id: 'ORD-5498', customer: 'Alice Brown', heldAt: '15m', isWarning: false },
+    { id: 'ORD-5497', customer: 'Bob Wilson', heldAt: '1h 20m', isWarning: true },
+];
+
+const mockRecentOrders = [
+    { id: 'ORD-5500', amount: 45.50, time: '11:20 AM', customer: 'Walk-in' },
+    { id: 'ORD-5499', amount: 32.00, time: '11:15 AM', customer: 'Sarah Parker' },
+    { id: 'ORD-5498', amount: 28.75, time: '11:10 AM', customer: 'James Miller' },
+];
 
 export const POSDashboardPage: React.FC = () => {
-    const { session, logout, isOffline } = usePOS();
     const router = useRouter();
-    const pathname = usePathname();
+    const { session, logout, isOffline, setCustomer, setIncomingCall } = usePOS();
+    const [currentTime, setCurrentTime] = useState<string>('');
+    const [showIncomingCall, setShowIncomingCall] = useState(false);
 
-    // Live clock for POS taskbar
-    const [currentTime, setCurrentTime] = React.useState<string>('');
+    const isCallCenter = session?.posType === 'CALL_CENTER';
 
-    React.useEffect(() => {
-        const updateClock = () => {
-            setCurrentTime(new Date().toLocaleString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
-            }));
-        };
-        const interval = setInterval(updateClock, 1000);
-        updateClock();
-        return () => clearInterval(interval);
+    // Clock
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        }, 1000);
+        setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        return () => clearInterval(timer);
     }, []);
 
+    // Simulated incoming call for Call Center demo
+    // Simulated incoming call for Call Center demo
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (isCallCenter) {
+            timer = setTimeout(() => {
+                setShowIncomingCall(true);
+                setIncomingCall({
+                    number: '+1 (555) 012-3456',
+                    caller: 'Jessica Pearson',
+                    location: 'New York, NY',
+                    customerId: 'CUST-001'
+                });
+            }, 3000);
+        }
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [isCallCenter, setIncomingCall]);
+
+    // Keyboard shortcut for New Order (Ctrl+N or F1)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey && e.key === 'n') || e.key === 'F1') {
+                e.preventDefault();
+                router.push('/pos/fulfillment');
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [router]);
+
+    const handleNewOrder = () => {
+        router.push('/pos/fulfillment');
+    };
+
+    const handleAttachCall = () => {
+        // Find existing customer from mock data for full profile
+        const customer = mockPOSCustomers.find(c => c.id === 'CUST-001');
+        if (customer) {
+            setCustomer(customer);
+        } else {
+            setCustomer({
+                id: 'CUST-001',
+                name: 'Jessica Pearson',
+                phone: '+1 (555) 012-3456',
+                email: 'jessica@pearsonhardman.com',
+                loyaltyPoints: 1250,
+                tier: 'GOLD',
+                notes: 'VIP Customer - Incoming call',
+                addresses: [],
+                recentOrders: []
+            });
+        }
+        setShowIncomingCall(false);
+        router.push('/pos/fulfillment');
+    };
+
     if (!session) {
-        if (typeof window !== 'undefined') router.push('/pos/login');
+        router.push('/pos/login');
         return null;
     }
 
-    const navItems = [
-        { icon: ShoppingCart, label: 'SELL', path: '/pos/menu' },
-        { icon: LayoutGrid, label: 'TABLES', path: '/pos/tables' },
-        { icon: Globe, label: 'ONLINE ORDERS', path: '/pos/orders' },
-        { icon: Clock, label: 'ADVANCE ORDERS', path: '/pos/orders' },
-        { icon: History, label: 'SALES', path: '/pos/orders' },
-        { icon: BarChart3, label: 'REPORTS', path: '/pos/reports' },
-    ];
-
     return (
-        <div className="flex h-screen bg-white text-brand font-sans overflow-hidden">
-            {/* LEFT NAVIGATION RAIL */}
-            <aside className="w-20 bg-brand/5 border-r border-brand/10 flex flex-col items-center py-6 gap-6 flex-shrink-0">
-                <div className="w-12 h-12 bg-brand rounded-2xl flex items-center justify-center shadow-lg shadow-brand/20 mb-4">
-                    <span className="text-xl font-black text-white">Z</span>
-                </div>
-
-                <div className="flex-1 flex flex-col gap-2">
-                    {navItems.map((item) => {
-                        const isActive = pathname === item.path || (item.path === '/pos/dashboard' && pathname === '/pos');
-                        return (
-                            <button
-                                key={item.label}
-                                onClick={() => router.push(item.path)}
-                                className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all group relative ${isActive ? 'bg-brand text-white shadow-lg shadow-brand/20' : 'text-brand/40 hover:bg-brand/10 hover:text-brand'
-                                    }`}
-                                title={item.label}
-                            >
-                                <item.icon size={24} />
-                                {isActive && (
-                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-white rounded-r-full"></div>
-                                )}
-                            </button>
-                        );
-                    })}
-                </div>
-
-                <button
-                    onClick={logout}
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-brand/40 hover:bg-rose-50 hover:text-rose-600 transition-all"
-                >
-                    <LogOut size={24} />
-                </button>
-            </aside>
-
-            {/* MAIN CONTENT AREA */}
-            <div className="flex-1 flex flex-col min-w-0">
-                {/* TOP HEADER BAR */}
-                <header className="h-20 bg-white border-b border-brand/10 px-8 flex items-center justify-between flex-shrink-0">
-                    <div className="flex items-center gap-6">
-                        <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest leading-none mb-1">Operating At</span>
-                            <div className="flex items-center gap-2">
-                                <Store size={16} className="text-brand" />
-                                <span className="text-base font-black text-brand tracking-tight">{session.store.name}</span>
-                            </div>
+        <div className="pos-screen" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            {/* HEADER BAR */}
+            <header style={{
+                height: '64px',
+                background: 'var(--pos-bg-surface)',
+                borderBottom: '1px solid var(--pos-border-subtle)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 24px',
+                flexShrink: 0
+            }}>
+                {/* Left: Store Info */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{
+                        width: '40px',
+                        height: '40px',
+                        background: 'var(--pos-action-primary)',
+                        borderRadius: '10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Store size={22} color="white" strokeWidth={2.5} />
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--pos-text-primary)', lineHeight: 1.2 }}>
+                            {session.store?.name || 'POS Dashboard'}
                         </div>
-                        <div className="h-8 w-px bg-brand/10"></div>
-                        <div className="px-4 py-1.5 bg-brand/10 border border-brand/20 rounded-full flex items-center gap-2">
-                            <LayoutGrid size={14} className="text-brand" />
-                            <span className="text-xs font-bold text-brand uppercase tracking-wider">{session.channel}</span>
+                        <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>
+                            {session.channel || 'No Channel'} • {session.user.name}
                         </div>
                     </div>
+                </div>
 
-                    <div className="flex items-center gap-8">
-                        <div className="flex items-center gap-4 text-right">
-                            <div className="flex flex-col">
-                                <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest leading-none mb-1">{session.user.role}</span>
-                                <span className="text-sm font-black text-brand">{session.user.name}</span>
-                            </div>
-                            <div className="w-10 h-10 bg-brand/5 rounded-full flex items-center justify-center text-brand/60 border border-brand/10">
-                                <User size={20} />
-                            </div>
-                        </div>
-                        <div className="h-8 w-px bg-brand/10"></div>
-                        <div className="flex items-center gap-6">
-                            <div className="flex flex-col items-end">
-                                <div className="flex items-center gap-2 text-brand text-[10px] font-black uppercase tracking-widest">
-                                    <div className="w-2 h-2 rounded-full bg-brand animate-pulse"></div>
-                                    Clocked In
-                                </div>
-                                <span className="text-sm font-bold text-brand/60">08:42:15</span>
-                            </div>
-                            <div className="flex items-center gap-2 px-3 py-1.5 bg-brand/5 rounded-xl text-brand/60 hover:bg-brand/10 cursor-pointer transition-all border border-brand/10">
-                                <Globe size={16} />
-                                <span className="text-xs font-bold font-mono">EN</span>
-                            </div>
-                            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all border ${isOffline ? 'bg-amber-500/10 border-amber-500/20 text-amber-600' : 'bg-brand/5 border-brand/10 text-brand'}`}>
-                                {isOffline ? <WifiOff size={16} /> : <Wifi size={16} />}
-                                <span className="text-[10px] font-black uppercase tracking-widest leading-none">
-                                    {isOffline ? 'Offline' : 'Online'}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-                <main className="flex-1 flex min-w-0 overflow-hidden">
-                    {/* CENTER: PRIMARY ACTIONS & RECENT ORDERS */}
-                    <div className="flex-1 flex flex-col p-8 gap-8 overflow-y-auto custom-scrollbar">
-
-                        {/* CALL CENTER banner UI */}
-                        {session.posType === 'CALL_CENTER' && (
-                            <div className="bg-brand rounded-[2rem] p-6 flex items-center justify-between shadow-lg shadow-brand/20 animate-in slide-in-from-top duration-500">
-                                <div className="flex items-center gap-6">
-                                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-white relative">
-                                        <PhoneIncoming size={32} className="animate-bounce" />
-                                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-brand"></div>
-                                    </div>
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-[10px] font-black text-white/80 uppercase tracking-widest">Incoming Call</span>
-                                            <span className="px-2 py-0.5 bg-white text-brand rounded text-[8px] font-black uppercase tracking-widest">LOYALTY MEMBER</span>
-                                        </div>
-                                        <h2 className="text-2xl font-black text-white leading-none">{mockIncomingCall.caller}</h2>
-                                        <p className="text-white/80 text-sm font-medium mt-1">{mockIncomingCall.number} • {mockIncomingCall.location}</p>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={() => router.push(`/pos/customers?query=${encodeURIComponent(mockIncomingCall.number)}`)}
-                                    className="px-8 py-4 bg-white text-brand rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-neutral-50 transition-all shadow-lg"
-                                >
-                                    Attach to Order
-                                </button>
-                            </div>
+                {/* Right: Status, Time, Actions */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                    {/* Online/Offline Status */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {isOffline ? (
+                            <>
+                                <WifiOff size={16} color="var(--pos-state-warning)" />
+                                <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--pos-state-warning)' }}>OFFLINE</span>
+                            </>
+                        ) : (
+                            <>
+                                <Wifi size={16} color="var(--pos-state-success)" />
+                                <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--pos-state-success)' }}>ONLINE</span>
+                            </>
                         )}
+                    </div>
 
-                        {/* PRIMARY GRID */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <button
-                                onClick={() => {
-                                    if (session.channel === 'Dine-In') {
-                                        router.push('/pos/tables');
-                                    } else {
-                                        router.push('/pos/new-order');
-                                    }
-                                }}
-                                className="col-span-1 md:col-span-2 relative h-64 bg-brand rounded-[3rem] p-10 flex flex-col justify-end group overflow-hidden shadow-xl shadow-brand/20 active:scale-[0.98] transition-all"
-                            >
-                                <div className="absolute -right-10 -top-10 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
-                                <div className="absolute right-12 top-12 p-6 bg-white/20 rounded-[2rem] text-white">
-                                    <Plus size={48} />
-                                </div>
-                                <h3 className="text-4xl font-black text-white tracking-tight mb-2">New Order</h3>
-                                <p className="text-white/80 font-medium text-lg">Start a fresh transaction for a guest</p>
-                            </button>
+                    {/* Clock */}
+                    <div style={{
+                        fontSize: '18px',
+                        fontWeight: 800,
+                        color: 'var(--pos-text-primary)',
+                        fontFamily: 'monospace',
+                        background: 'var(--pos-bg-main)',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: '1px solid var(--pos-border-subtle)'
+                    }}>
+                        {currentTime}
+                    </div>
 
-                            <div className="grid grid-rows-2 gap-6">
-                                <button
-                                    onClick={() => router.push('/pos/orders')}
-                                    className="bg-white border-2 border-brand/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-brand transition-all active:scale-[0.98] shadow-sm"
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <div className="p-4 bg-brand/10 text-brand rounded-2xl group-hover:bg-brand group-hover:text-white transition-all">
-                                            <History size={24} />
-                                        </div>
-                                        <span className="text-3xl font-black text-brand">12</span>
-                                    </div>
-                                    <div className="text-lg font-black text-brand">Open Orders</div>
-                                </button>
-                                <button
-                                    onClick={() => router.push('/pos/orders')}
-                                    className="bg-white border-2 border-brand/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-amber-500 transition-all active:scale-[0.98] shadow-sm"
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <div className="p-4 bg-amber-500/10 text-amber-600 rounded-2xl group-hover:bg-amber-500 group-hover:text-white transition-all">
-                                            <Pause size={24} />
-                                        </div>
-                                        <span className="text-3xl font-black text-amber-600">4</span>
-                                    </div>
-                                    <div className="text-lg font-black text-brand">Held Orders</div>
-                                </button>
+                    {/* Settings & Logout */}
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                            onClick={() => router.push('/pos/settings')}
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '8px',
+                                background: 'var(--pos-bg-card)',
+                                border: '1px solid var(--pos-border-subtle)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <Settings size={20} color="var(--pos-text-secondary)" />
+                        </button>
+                        <button
+                            onClick={logout}
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '8px',
+                                background: 'var(--pos-bg-card)',
+                                border: '1px solid var(--pos-border-subtle)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <LogOut size={20} color="var(--pos-text-secondary)" />
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            {/* CALL CENTER INCOMING CALL BANNER (Fixed at top, doesn't block content) */}
+            {isCallCenter && showIncomingCall && (
+                <div style={{
+                    height: '72px',
+                    background: 'linear-gradient(135deg, var(--pos-state-success) 0%, #059669 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 24px',
+                    color: 'white',
+                    flexShrink: 0,
+                    borderBottom: '2px solid #059669',
+                    animation: 'pulse 2s infinite'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div style={{
+                            width: '44px',
+                            height: '44px',
+                            background: 'white',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            animation: 'pulse 1.5s infinite'
+                        }}>
+                            <Phone size={22} color="var(--pos-state-success)" />
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '0.02em' }}>INCOMING CALL</div>
+                            <div style={{ fontSize: '13px', opacity: 0.95, fontWeight: 600 }}>
+                                +1 (555) 012-3456 • Jessica Pearson • VIP Customer
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <button
+                            onClick={handleAttachCall}
+                            className="pos-btn"
+                            style={{
+                                background: 'white',
+                                color: 'var(--pos-state-success)',
+                                border: 'none',
+                                height: '48px',
+                                fontSize: '14px',
+                                fontWeight: 700
+                            }}
+                        >
+                            <Phone size={18} />
+                            ATTACH TO ORDER
+                        </button>
+                        <button
+                            onClick={() => setShowIncomingCall(false)}
+                            className="pos-btn"
+                            style={{
+                                background: 'rgba(255,255,255,0.2)',
+                                color: 'white',
+                                border: 'none',
+                                height: '48px',
+                                fontSize: '14px',
+                                fontWeight: 700
+                            }}
+                        >
+                            IGNORE
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* MAIN CONTENT */}
+            <div style={{
+                flex: 1,
+                padding: '24px',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px'
+            }}>
+                <div style={{ maxWidth: '1600px', margin: '0 auto', width: '100%' }}>
+
+                    {/* PRIMARY ACTION: NEW ORDER (Hero CTA) */}
+                    <button
+                        onClick={handleNewOrder}
+                        className="pos-btn pos-btn-primary"
+                        style={{
+                            width: '100%',
+                            height: '120px',
+                            background: 'linear-gradient(135deg, var(--pos-action-primary) 0%, #178B8F 100%)',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '20px',
+                            marginBottom: '24px',
+                            boxShadow: '0 8px 24px rgba(31, 164, 169, 0.3)',
+                            position: 'relative',
+                            overflow: 'hidden'
+                        }}
+                    >
+                        {/* Decorative element */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '-30%',
+                            right: '-5%',
+                            width: '250px',
+                            height: '250px',
+                            background: 'rgba(255,255,255,0.1)',
+                            borderRadius: '50%'
+                        }} />
+
+                        <div style={{
+                            width: '72px',
+                            height: '72px',
+                            background: 'rgba(255, 255, 255, 0.2)',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <Plus size={40} color="white" strokeWidth={3} />
+                        </div>
+                        <div style={{ textAlign: 'left' }}>
+                            <div style={{ fontSize: '32px', fontWeight: 800, color: 'white', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
+                                NEW ORDER
+                            </div>
+                            <div style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.9)', fontWeight: 600 }}>
+                                Start taking customer order
                             </div>
                         </div>
 
-                        {/* RECENT ORDERS TABLE */}
-                        <div className="bg-white border-2 border-brand/10 rounded-[3rem] p-8 shadow-sm">
-                            <div className="flex items-center justify-between mb-8">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-3 bg-brand/5 rounded-2xl text-brand">
-                                        <RotateCcw size={20} />
-                                    </div>
-                                    <h3 className="text-xl font-black text-brand">Recent Orders</h3>
-                                </div>
-                                <button
-                                    onClick={() => router.push('/pos/orders')}
-                                    className="text-xs font-black text-brand uppercase tracking-widest hover:opacity-70"
-                                >
-                                    View All →
-                                </button>
-                            </div>
+                        {/* Keyboard shortcut hint */}
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '12px',
+                            right: '20px',
+                            background: 'rgba(0, 0, 0, 0.2)',
+                            padding: '6px 12px',
+                            borderRadius: '6px',
+                            fontSize: '11px',
+                            color: 'rgba(255,255,255,0.95)',
+                            fontWeight: 700,
+                            letterSpacing: '0.05em'
+                        }}>
+                            F1 or Ctrl+N
+                        </div>
+                    </button>
 
-                            <div className="space-y-2">
-                                {mockRecentOrders.map((order) => (
-                                    <div
-                                        key={order.id}
-                                        onClick={() => router.push('/pos/orders')}
-                                        className="group grid grid-cols-5 items-center p-5 bg-brand/5 hover:bg-brand text-brand hover:text-white border border-brand/10 hover:border-brand rounded-2xl transition-all cursor-pointer"
-                                    >
-                                        <div className="col-span-1">
-                                            <div className="text-sm font-black mb-0.5">{order.id}</div>
-                                            <div className="text-[10px] font-bold uppercase opacity-60">{order.time}</div>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <span className="text-xs font-bold">{order.customer}</span>
-                                        </div>
-                                        <div className="col-span-1 text-center">
-                                            <span className="px-2 py-1 bg-white/20 text-[8px] font-black uppercase tracking-widest border border-white/30 rounded-lg">
-                                                {order.type}
-                                            </span>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <div className={`text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5`}>
-                                                <div className={`w-1.5 h-1.5 rounded-full ${order.status === 'Completed' ? 'bg-brand group-hover:bg-white' :
-                                                    order.status === 'Pending' ? 'bg-amber-500' : 'bg-brand/30'
-                                                    }`}></div>
-                                                {order.status}
+                    {/* SECONDARY ACTIONS: 3-Column Grid */}
+                    <div className="pos-grid-3" style={{ gap: '20px', marginBottom: '24px' }}>
+
+                        {/* OPEN ORDERS */}
+                        <div style={{
+                            background: 'var(--pos-bg-surface)',
+                            border: '1px solid var(--pos-border-subtle)',
+                            borderRadius: '12px',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={{
+                                padding: '16px 20px',
+                                borderBottom: '1px solid var(--pos-border-subtle)',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                background: 'var(--pos-bg-card)'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <Clock size={20} color="var(--pos-state-error)" />
+                                    <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                        Open Orders
+                                    </h3>
+                                </div>
+                                <div style={{
+                                    background: 'var(--pos-state-error)',
+                                    color: 'white',
+                                    padding: '4px 10px',
+                                    borderRadius: '6px',
+                                    fontSize: '13px',
+                                    fontWeight: 800
+                                }}>
+                                    {mockOpenOrders.length}
+                                </div>
+                            </div>
+                            <div style={{ padding: '8px 0', minHeight: '180px' }}>
+                                {mockOpenOrders.slice(0, 3).map((order, idx) => (
+                                    <div key={idx} style={{
+                                        padding: '12px 20px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        borderBottom: idx < 2 ? '1px solid var(--pos-border-subtle)' : 'none',
+                                        cursor: 'pointer',
+                                        transition: 'background 0.2s'
+                                    }}>
+                                        <div>
+                                            <div style={{ fontWeight: 700, color: 'var(--pos-text-primary)', fontSize: '14px', marginBottom: '4px' }}>
+                                                {order.id}
+                                            </div>
+                                            <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)' }}>
+                                                {order.customer} • {order.time}
                                             </div>
                                         </div>
-                                        <div className="col-span-1 text-right">
-                                            <div className="text-sm font-black">${order.amount.toFixed(2)}</div>
-                                            <div className="text-xs font-bold opacity-60 transition-all flex items-center justify-end gap-1">
-                                                Details <ChevronRight size={14} />
+                                        <span className="pos-badge pos-badge-warning" style={{ fontSize: '10px' }}>
+                                            {order.status}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                            <button
+                                onClick={() => router.push('/pos/open-orders')}
+                                className="pos-btn pos-btn-secondary"
+                                style={{
+                                    width: '100%',
+                                    borderRadius: '0',
+                                    borderTop: '1px solid var(--pos-border-subtle)',
+                                    fontSize: '12px',
+                                    height: '48px'
+                                }}
+                            >
+                                View All →
+                            </button>
+                        </div>
+
+                        {/* HELD ORDERS */}
+                        <div style={{
+                            background: 'var(--pos-bg-surface)',
+                            border: '1px solid var(--pos-border-subtle)',
+                            borderRadius: '12px',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={{
+                                padding: '16px 20px',
+                                borderBottom: '1px solid var(--pos-border-subtle)',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                background: 'var(--pos-bg-card)'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <Pause size={20} color="var(--pos-state-warning)" />
+                                    <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                        Held Orders
+                                    </h3>
+                                </div>
+                                <div style={{
+                                    background: 'var(--pos-state-warning)',
+                                    color: 'white',
+                                    padding: '4px 10px',
+                                    borderRadius: '6px',
+                                    fontSize: '13px',
+                                    fontWeight: 800
+                                }}>
+                                    {mockHeldOrders.length}
+                                </div>
+                            </div>
+                            <div style={{ padding: '8px 0', minHeight: '180px' }}>
+                                {mockHeldOrders.map((order, idx) => (
+                                    <div key={idx} style={{
+                                        padding: '12px 20px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        borderBottom: idx < mockHeldOrders.length - 1 ? '1px solid var(--pos-border-subtle)' : 'none',
+                                        cursor: 'pointer'
+                                    }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <div style={{ fontWeight: 700, color: 'var(--pos-text-primary)', fontSize: '14px' }}>
+                                                {order.id}
                                             </div>
+                                            {order.isWarning && <AlertCircle size={16} color="var(--pos-state-error)" />}
+                                        </div>
+                                        <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>
+                                            {order.heldAt}
                                         </div>
                                     </div>
                                 ))}
                             </div>
+                            <button
+                                onClick={() => router.push('/pos/held-orders')}
+                                className="pos-btn pos-btn-secondary"
+                                style={{
+                                    width: '100%',
+                                    borderRadius: '0',
+                                    borderTop: '1px solid var(--pos-border-subtle)',
+                                    fontSize: '12px',
+                                    height: '48px'
+                                }}
+                            >
+                                View All →
+                            </button>
                         </div>
 
-                        {/* SECONDARY ACTIONS */}
-                        <div className="grid grid-cols-3 gap-6 pt-4">
+                        {/* RECENT ORDERS */}
+                        <div style={{
+                            background: 'var(--pos-bg-surface)',
+                            border: '1px solid var(--pos-border-subtle)',
+                            borderRadius: '12px',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={{
+                                padding: '16px 20px',
+                                borderBottom: '1px solid var(--pos-border-subtle)',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                background: 'var(--pos-bg-card)'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <History size={20} color="var(--pos-text-secondary)" />
+                                    <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                        Recent Orders
+                                    </h3>
+                                </div>
+                            </div>
+                            <div style={{ padding: '8px 0', minHeight: '180px' }}>
+                                {mockRecentOrders.map((order, idx) => (
+                                    <div key={idx} style={{
+                                        padding: '12px 20px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        borderBottom: idx < mockRecentOrders.length - 1 ? '1px solid var(--pos-border-subtle)' : 'none',
+                                        cursor: 'pointer'
+                                    }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <CheckCircle2 size={16} color="var(--pos-state-success)" />
+                                            <div style={{ fontWeight: 700, color: 'var(--pos-text-primary)', fontSize: '14px' }}>
+                                                {order.id}
+                                            </div>
+                                        </div>
+                                        <div style={{ fontWeight: 700, color: 'var(--pos-text-primary)', fontSize: '14px' }}>
+                                            ${order.amount.toFixed(2)}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                             <button
                                 onClick={() => router.push('/pos/orders')}
-                                className="flex items-center justify-center gap-3 p-6 bg-white border-2 border-brand/10 rounded-2xl text-brand/40 hover:text-rose-600 hover:border-rose-500 group transition-all shadow-sm"
+                                className="pos-btn pos-btn-secondary"
+                                style={{
+                                    width: '100%',
+                                    borderRadius: '0',
+                                    borderTop: '1px solid var(--pos-border-subtle)',
+                                    fontSize: '12px',
+                                    height: '48px'
+                                }}
                             >
-                                <RotateCcw size={20} className="group-hover:rotate-[-45deg] transition-all" />
-                                <span className="text-sm font-black uppercase tracking-widest">Process Refund</span>
-                            </button>
-                            <button
-                                onClick={() => router.push('/pos/orders')}
-                                className="flex items-center justify-center gap-3 p-6 bg-white border-2 border-brand/10 rounded-2xl text-brand/40 hover:text-brand hover:border-brand group transition-all shadow-sm"
-                            >
-                                <Printer size={20} />
-                                <span className="text-sm font-black uppercase tracking-widest">Reprint Receipt</span>
-                            </button>
-                            <button
-                                onClick={() => router.push('/pos/customers')}
-                                className="flex items-center justify-center gap-3 p-6 bg-white border-2 border-brand/10 rounded-2xl text-brand/40 hover:text-brand hover:border-brand group transition-all shadow-sm"
-                            >
-                                <Search size={20} />
-                                <span className="text-sm font-black uppercase tracking-widest">Find Customer</span>
+                                View All →
                             </button>
                         </div>
                     </div>
 
-                    {/* RIGHT: CONTEXT / EMPTY CART PLACEHOLDER */}
-                    <div className="w-96 bg-white border-l border-brand/10 flex flex-col flex-shrink-0">
-                        <div className="p-8 border-b border-brand/10 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <ShoppingCart size={20} className="text-brand" />
-                                <h3 className="text-xl font-black text-brand">Current Cart</h3>
-                            </div>
-                            <span className="px-3 py-1 bg-brand/5 rounded-lg text-xs font-black text-brand">0 Items</span>
-                        </div>
-
-                        <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
-                            <div className="w-20 h-20 bg-brand/5 rounded-3xl flex items-center justify-center text-brand/20 mb-6">
-                                <ShoppingBag size={32} />
-                            </div>
-                            <h4 className="text-lg font-black text-brand mb-2">Cart is empty</h4>
-                            <p className="text-brand/40 text-sm font-medium leading-relaxed">
-                                Start a new order to add items and build a transaction.
-                            </p>
-                            <button
-                                onClick={() => router.push('/pos/new-order')}
-                                className="mt-8 px-8 py-4 bg-brand text-white rounded-2xl text-sm font-black uppercase tracking-widest shadow-lg shadow-brand/20 active:scale-95 transition-all"
-                            >
-                                Start New Order
-                            </button>
-                        </div>
-
-                        {/* SESSION INFO FOOTER */}
-                        <div className="p-8 bg-brand/5 border-t border-brand/10">
-                            <div className="space-y-4">
-                                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-brand/30">
-                                    <span>System ID</span>
-                                    <span className="text-brand">TR-8842-X</span>
-                                </div>
-                                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-brand/30">
-                                    <span>Memory Usage</span>
-                                    <span className="text-brand">Normal (24MB)</span>
-                                </div>
-                                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-brand/30">
-                                    <span>Sync Status</span>
-                                    <span className="text-brand">Synced to Cloud</span>
-                                </div>
-                            </div>
-                        </div>
+                    {/* QUICK ACTIONS BAR (Always Visible) */}
+                    <div style={{
+                        background: 'var(--pos-bg-surface)',
+                        border: '1px solid var(--pos-border-subtle)',
+                        borderRadius: '12px',
+                        padding: '20px',
+                        display: 'flex',
+                        gap: '16px',
+                        justifyContent: 'flex-start'
+                    }}>
+                        <button
+                            onClick={() => router.push('/pos/refund')}
+                            className="pos-btn pos-btn-secondary"
+                            style={{
+                                height: '64px',
+                                minWidth: '180px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '12px',
+                                fontSize: '15px'
+                            }}
+                        >
+                            <RotateCcw size={20} />
+                            Refund
+                        </button>
+                        <button
+                            onClick={() => router.push('/pos/orders')}
+                            className="pos-btn pos-btn-secondary"
+                            style={{
+                                height: '64px',
+                                minWidth: '200px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '12px',
+                                fontSize: '15px'
+                            }}
+                        >
+                            <Printer size={20} />
+                            Reprint Receipt
+                        </button>
+                        <button
+                            onClick={() => router.push('/pos/customer-search')}
+                            className="pos-btn pos-btn-secondary"
+                            style={{
+                                height: '64px',
+                                minWidth: '200px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '12px',
+                                fontSize: '15px'
+                            }}
+                        >
+                            <User size={20} />
+                            Customer Search
+                        </button>
                     </div>
-                </main>
-
-                {/* POS FOOTER (TASKBAR) */}
-                <footer className="h-14 bg-white border-t border-brand/10 px-8 flex items-center justify-between flex-shrink-0">
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2 text-[10px] font-black text-brand/30 uppercase tracking-widest">
-                            <span className="w-2 h-2 rounded-full bg-brand"></span>
-                            POS CORE v1.0.0
-                        </div>
-                        <div className="h-4 w-px bg-brand/10"></div>
-                        <div className="text-[10px] font-black text-brand/30 uppercase tracking-widest">
-                            License: Enterprise
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <div className="h-4 w-px bg-brand/10"></div>
-                        <div className="text-[10px] font-black text-brand/40 uppercase tracking-widest flex items-center gap-2">
-                            <Clock size={12} />
-                            {currentTime}
-                        </div>
-                    </div>
-                </footer>
+                </div>
             </div>
         </div>
     );
 };
+
+export default POSDashboardPage;

@@ -1,0 +1,3 @@
+module.exports=[95452,a=>{"use strict";a.i(63778),a.i(4373),a.i(36892),a.i(39497),a.i(6613),a.i(16108),a.i(49663),a.i(55838),a.i(24276),a.i(68164),a.i(66069),a.i(69099),a.i(43145),a.i(53628),a.i(38702),a.i(37593),a.i(29105),a.i(25509),a.i(48303),a.i(20179),a.i(76768),a.s([])},55258,a=>{"use strict";var b=a.i(87924),c=a.i(72131);a.i(95452);var d=a.i(16108);function e(){return(0,b.jsx)(c.Suspense,{fallback:(0,b.jsx)("div",{className:"h-screen bg-white flex items-center justify-center text-brand/40 font-black uppercase tracking-widest",children:"Initialising Identity Hub..."}),children:(0,b.jsx)(d.CustomerLookupPage,{})})}a.s(["default",()=>e])}];
+
+//# sourceMappingURL=src_f6ccb92a._.js.map

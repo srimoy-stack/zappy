@@ -57,7 +57,7 @@ export const ChannelSelectionPage: React.FC = () => {
 
     const handleSelectChannel = (channel: OrderChannel) => {
         setChannel(channel);
-        router.push('/pos/home');
+        router.push('/pos/dashboard');
     };
 
     const activeChannels = channels.filter(c => !c.hidden);

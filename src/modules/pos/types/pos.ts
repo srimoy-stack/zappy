@@ -41,6 +41,7 @@ export interface POSSession {
     channel?: OrderChannel;
     activeTable?: POSTable;
     activeCustomer?: POSCustomer;
+    deliveryAddress?: { id: string; text: string; label: string };
     deviceId: string;
     isOffline?: boolean;
 }
@@ -58,6 +59,18 @@ export interface POSContextType {
     logout: () => void;
     cart: POSCartItem[];
     setCart: React.Dispatch<React.SetStateAction<POSCartItem[]>>;
+    addToCart: (product: any) => void;
+    removeFromCart: (itemId: string) => void;
+    updateQuantity: (itemId: string, quantity: number) => void;
+    updateCartItem: (itemId: string, updates: Partial<POSCartItem>) => void;
+    clearCart: () => void;
+    cartTotal: number;
+    selectedCustomer?: POSCustomer;
+    deliveryAddress?: { id: string; text: string; label: string };
+    setDeliveryAddress: (address: { id: string; text: string; label: string } | null) => void;
+    incomingCall: { number: string; caller: string; location: string; customerId?: string } | null;
+    setIncomingCall: (call: { number: string; caller: string; location: string; customerId?: string } | null) => void;
+    updateCustomer: (customerId: string, data: Partial<POSCustomer>) => void;
 }
 
 export interface POSVariantGroup {
@@ -99,10 +112,15 @@ export interface POSProduct {
     hasVariants: boolean;
     isVeg: boolean;
     isAvailable: boolean;
+    isFavorite?: boolean;
+    isTopItem?: boolean;
     isCombo?: boolean;
+    barcode?: string;
+    isOnHold?: boolean;
     variantGroups?: POSVariantGroup[];
     modifierGroups?: POSModifierGroup[];
     comboSlots?: POSComboSlot[];
+    slots?: any[];
 }
 
 export interface POSCartItem {
@@ -113,5 +131,7 @@ export interface POSCartItem {
     quantity: number;
     variants: { groupId: string; optionId: string; name: string }[];
     modifiers: { optionId: string; name: string; price: number; quantity: number }[];
+    isCombo?: boolean;
+    slots?: any[];
     comboSelections?: { [slotId: string]: POSCartItem };
 }

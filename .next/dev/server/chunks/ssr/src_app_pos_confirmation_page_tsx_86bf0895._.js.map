@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/pos/confirmation/page.tsx"],"sourcesContent":["'use client';\n\nimport { Suspense } from 'react';\nimport { POSConfirmationScreen } from '@/modules/pos/pages';\n\nexport default function Page() {\n    return (\n        <Suspense fallback={<div className=\"h-screen bg-brand/5 flex items-center justify-center font-black text-brand animate-pulse\">GENERATING MANIFEST...</div>}>\n            <POSConfirmationScreen />\n        </Suspense>\n    );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AAAA;AAHA;;;;AAKe,SAAS;IACpB,qBACI,8OAAC,iNAAQ;QAAC,wBAAU,8OAAC;YAAI,WAAU;sBAA2F;;;;;;kBAC1H,cAAA,8OAAC,iLAAqB;;;;;;;;;;AAGlC"}}]
+}

@@ -408,6 +408,18 @@
       "namedRegex": "^/pos/dashboard(?:/)?$"
     },
     {
+      "page": "/pos/delivery-details",
+      "regex": "^/pos/delivery\\-details(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/delivery\\-details(?:/)?$"
+    },
+    {
+      "page": "/pos/fulfillment",
+      "regex": "^/pos/fulfillment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/fulfillment(?:/)?$"
+    },
+    {
       "page": "/pos/held-orders",
       "regex": "^/pos/held\\-orders(?:/)?$",
       "routeKeys": {},
@@ -448,6 +460,18 @@
       "regex": "^/pos/payment(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/pos/payment(?:/)?$"
+    },
+    {
+      "page": "/pos/payment-confirmation",
+      "regex": "^/pos/payment\\-confirmation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/payment\\-confirmation(?:/)?$"
+    },
+    {
+      "page": "/pos/refund",
+      "regex": "^/pos/refund(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/refund(?:/)?$"
     },
     {
       "page": "/pos/reports",

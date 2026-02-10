@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/pos/payment/page.tsx"],"sourcesContent":["'use client';\nimport { POSPaymentScreen } from '@/modules/pos/pages';\nexport default function Page() { return <POSPaymentScreen />; }\n"],"names":[],"mappings":"wDACA,EAAA,CAAA,CAAA,OAAA,IAAA,EAAA,EAAA,CAAA,CAAA,OACe,SAAS,IAAS,MAAO,CAAA,EAAA,EAAA,GAAA,EAAC,EAAA,gBAAgB,CAAA,CAAA,EAAK"}

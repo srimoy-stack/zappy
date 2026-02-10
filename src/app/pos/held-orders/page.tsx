@@ -1,3 +1,5 @@
-'use client';
-import { POSPlaceholderPage } from '@/modules/pos/pages/POSPlaceholderPage';
-export default function Page() { return <POSPlaceholderPage title="Held Orders" />; }
+import { HeldOrdersPage } from '@/modules/pos/pages';
+
+export default function Page() {
+    return <HeldOrdersPage />;
+}

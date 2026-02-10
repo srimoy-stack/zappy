@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/pos/new-order/page.tsx"],"sourcesContent":["'use client';\nimport { OrderInitiationPage } from '@/modules/pos/pages';\nexport default function Page() { return <OrderInitiationPage />; }\n"],"names":[],"mappings":"wDACA,EAAA,CAAA,CAAA,4BACe,SAAS,IAAS,MAAO,CAAA,EAAA,EAAA,GAAA,EAAC,EAAA,kBAAmB,CAAA,CAAA,EAAK"}

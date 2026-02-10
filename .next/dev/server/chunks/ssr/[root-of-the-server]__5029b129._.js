@@ -795,6 +795,75 @@ const POSProvider = ({ children })=>{
         updateSession(null);
         router.push('/pos/login');
     };
+    const addToCart = (product)=>{
+        setCart((prev)=>{
+            const existing = prev.find((item)=>item.productId === product.id);
+            if (existing) {
+                return prev.map((item)=>item.productId === product.id ? {
+                        ...item,
+                        quantity: item.quantity + 1
+                    } : item);
+            }
+            return [
+                ...prev,
+                {
+                    id: Math.random().toString(36).substr(2, 9),
+                    productId: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    variants: [],
+                    modifiers: []
+                }
+            ];
+        });
+    };
+    const removeFromCart = (itemId)=>{
+        setCart((prev)=>prev.filter((item)=>item.id !== itemId));
+    };
+    const updateQuantity = (itemId, quantity)=>{
+        if (quantity <= 0) {
+            removeFromCart(itemId);
+            return;
+        }
+        setCart((prev)=>prev.map((item)=>item.id === itemId ? {
+                    ...item,
+                    quantity
+                } : item));
+    };
+    const updateCartItem = (itemId, updates)=>{
+        setCart((prev)=>prev.map((item)=>item.id === itemId ? {
+                    ...item,
+                    ...updates
+                } : item));
+    };
+    const clearCart = ()=>setCart([]);
+    const cartTotal = cart.reduce((sum, item)=>sum + item.price * item.quantity, 0);
+    const [incomingCall, setIncomingCall] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateCustomer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((customerId, data)=>{
+        if (session?.activeCustomer?.id === customerId) {
+            updateSession({
+                ...session,
+                activeCustomer: {
+                    ...session.activeCustomer,
+                    ...data
+                }
+            });
+        }
+    }, [
+        session,
+        updateSession
+    ]);
+    const setDeliveryAddress = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((address)=>{
+        if (!session) return;
+        updateSession({
+            ...session,
+            deliveryAddress: address || undefined
+        });
+    }, [
+        session,
+        updateSession
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(POSContext.Provider, {
         value: {
             session,
@@ -808,12 +877,24 @@ const POSProvider = ({ children })=>{
             setCustomer,
             logout,
             cart,
-            setCart
+            setCart,
+            addToCart,
+            removeFromCart,
+            updateQuantity,
+            updateCartItem,
+            clearCart,
+            cartTotal,
+            selectedCustomer: session?.activeCustomer,
+            deliveryAddress: session?.deliveryAddress,
+            setDeliveryAddress,
+            incomingCall,
+            setIncomingCall,
+            updateCustomer
         },
         children: children
     }, void 0, false, {
         fileName: "[project]/src/modules/pos/context/POSContext.tsx",
-        lineNumber: 202,
+        lineNumber: 257,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

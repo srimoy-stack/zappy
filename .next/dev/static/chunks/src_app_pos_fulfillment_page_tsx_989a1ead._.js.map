@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/pos/fulfillment/page.tsx"],"sourcesContent":["'use client';\nimport { POSFulfillmentPage } from '@/modules/pos/pages';\nexport default function Page() { return <POSFulfillmentPage />; }\n"],"names":[],"mappings":";;;;;AACA;AAAA;AADA;;;AAEe,SAAS;IAAS,qBAAO,6LAAC,8KAAkB;;;;;AAAK;KAAxC"}}]
+}

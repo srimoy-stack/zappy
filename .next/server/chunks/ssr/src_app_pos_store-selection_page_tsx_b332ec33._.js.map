@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/pos/store-selection/page.tsx"],"sourcesContent":["'use client';\nimport { StoreSelectionPage } from '@/modules/pos/pages';\nexport default function Page() { return <StoreSelectionPage />; }\n"],"names":[],"mappings":"wDACA,EAAA,CAAA,CAAA,2BACe,SAAS,IAAS,MAAO,CAAA,EAAA,EAAA,GAAA,EAAC,EAAA,YAAkB,CAAA,CAAA,EAAK"}

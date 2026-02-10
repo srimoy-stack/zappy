@@ -70,6 +70,7 @@ export interface POSCustomer {
     phone: string;
     email: string;
     loyaltyPoints: number;
+    tier?: string;
     notes: string;
     addresses: {
         id: string;
@@ -84,6 +85,7 @@ export interface POSCustomer {
         date: string;
         amount: number;
         items: string;
+        type?: string;
     }[];
 }
 

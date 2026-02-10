@@ -198,8 +198,70 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         router.push('/pos/login');
     };
 
+    const addToCart = (product: any) => {
+        setCart(prev => {
+            const existing = prev.find(item => item.productId === product.id);
+            if (existing) {
+                return prev.map(item =>
+                    item.productId === product.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            }
+            return [...prev, {
+                id: Math.random().toString(36).substr(2, 9),
+                productId: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: 1,
+                variants: [],
+                modifiers: []
+            }];
+        });
+    };
+
+    const removeFromCart = (itemId: string) => {
+        setCart(prev => prev.filter(item => item.id !== itemId));
+    };
+
+    const updateQuantity = (itemId: string, quantity: number) => {
+        if (quantity <= 0) {
+            removeFromCart(itemId);
+            return;
+        }
+        setCart(prev => prev.map(item => item.id === itemId ? { ...item, quantity } : item));
+    };
+
+    const updateCartItem = (itemId: string, updates: Partial<POSCartItem>) => {
+        setCart(prev => prev.map(item => item.id === itemId ? { ...item, ...updates } : item));
+    };
+
+    const clearCart = () => setCart([]);
+
+    const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    const [incomingCall, setIncomingCall] = useState<{ number: string; caller: string; location: string; customerId?: string } | null>(null);
+
+    const updateCustomer = useCallback((customerId: string, data: Partial<POSCustomer>) => {
+        if (session?.activeCustomer?.id === customerId) {
+            updateSession({ ...session, activeCustomer: { ...session.activeCustomer, ...data } });
+        }
+    }, [session, updateSession]);
+
+    const setDeliveryAddress = useCallback((address: { id: string; text: string; label: string } | null) => {
+        if (!session) return;
+        updateSession({ ...session, deliveryAddress: address || undefined });
+    }, [session, updateSession]);
+
     return (
-        <POSContext.Provider value={{ session, isOffline, deviceId, login, setStore, setChannel, setTable, moveTable, setCustomer, logout, cart, setCart }}>
+        <POSContext.Provider value={{
+            session, isOffline, deviceId, login, setStore, setChannel, setTable, moveTable, setCustomer, logout,
+            cart, setCart, addToCart, removeFromCart, updateQuantity, updateCartItem, clearCart, cartTotal,
+            selectedCustomer: session?.activeCustomer,
+            deliveryAddress: session?.deliveryAddress,
+            setDeliveryAddress,
+            incomingCall, setIncomingCall, updateCustomer
+        }}>
             {children}
         </POSContext.Provider>
     );
