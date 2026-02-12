@@ -8,23 +8,26 @@ import {
     Utensils,
     Truck,
     Tags,
-    ChevronLeft,
-    User
+    User,
+    RotateCcw
 } from 'lucide-react';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import { POSProduct } from '@/modules/pos/types/pos';
 import POSDiscountModal from '../components/POSDiscountModal';
-import { POSVariantModal } from '../components/POSVariantModal';
-import { POSModifierModal } from '../components/POSModifierModal';
-import { POSComboModal } from '../components/POSComboModal';
+import { POSCustomizationModal } from '../components/POSCustomizationModal';
 import { POSCartPanel } from '../components/POSCartPanel';
 import { POSPaymentModal } from '../components/POSPaymentModal';
-import { CustomerProfilePanel } from '../components/CustomerProfilePanel';
+import { POSPizzaModifierModal } from '../components/POSPizzaModifierModal';
+import { ShiftOpeningModal } from '../components/ShiftOpeningModal';
+import { POSCustomerManagementModal } from '../components/POSCustomerManagementModal';
+import { mockStores } from '../mock/posData';
 import '../styles/pos-rush.css';
+import { POSBackButton } from '../components/POSBackButton';
 
 // Enhanced Mock Data with more metadata
 const MOCK_CATEGORIES = [
     { id: 'all', name: 'Trending', icon: <Tags size={20} /> },
+    { id: 'offers', name: 'Discounts & Combos', icon: '🎁' },
     { id: 'pizza', name: 'Pizzas', icon: '🍕' },
     { id: 'burger', name: 'Burgers', icon: '🍔' },
     { id: 'drinks', name: 'Drinks', icon: '🥤' },
@@ -58,6 +61,28 @@ const MOCK_PRODUCTS: POSProduct[] = [
                     { id: 'vo4', name: 'Classic Thin', additionalPrice: 0 },
                     { id: 'vo5', name: 'Cheese Burst', additionalPrice: 2.50 },
                     { id: 'vo6', name: 'Wheat Crust', additionalPrice: 1.50 }
+                ]
+            }
+        ],
+        modifierGroups: [
+            {
+                id: 'mg1',
+                name: 'Premium Toppings',
+                options: [
+                    { id: 'mo1', name: 'Extra Cheese', price: 1.50 },
+                    { id: 'mo2', name: 'Pepperoni', price: 2.00 },
+                    { id: 'mo3', name: 'Mushrooms', price: 1.20 },
+                    { id: 'mo4', name: 'Grilled Chicken', price: 2.50 },
+                    { id: 'mo5', name: 'Black Olives', price: 0.80 }
+                ]
+            },
+            {
+                id: 'mg2',
+                name: 'Add-ons',
+                options: [
+                    { id: 'mo6', name: 'Dipping Sauce', price: 0.50 },
+                    { id: 'mo7', name: 'Coke 330ml', price: 2.50 },
+                    { id: 'mo8', name: 'Garlic Dip', price: 0.75 }
                 ]
             }
         ],
@@ -98,9 +123,75 @@ const MOCK_PRODUCTS: POSProduct[] = [
         image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
         sku: 'PZ-VEG-001',
         hasVariants: true,
+        variantGroups: [
+            {
+                id: 'vg1',
+                name: 'Size',
+                options: [
+                    { id: 'vo1', name: 'Regular 8"', additionalPrice: 0 },
+                    { id: 'vo2', name: 'Medium 10"', additionalPrice: 3.50 },
+                    { id: 'vo3', name: 'Large 12"', additionalPrice: 6.00 }
+                ]
+            },
+            {
+                id: 'vg2',
+                name: 'Crust',
+                options: [
+                    { id: 'vo4', name: 'Classic Thin', additionalPrice: 0 },
+                    { id: 'vo5', name: 'Cheese Burst', additionalPrice: 2.50 }
+                ]
+            }
+        ],
         isVeg: true,
         isAvailable: true,
-        isFavorite: true
+        isFavorite: true,
+        ingredients: ['Tomato Sauce', 'Mozzarella', 'Bell Peppers', 'Onions', 'Olives', 'Mushrooms'],
+        modifierGroups: [
+            {
+                id: 'mg1',
+                name: 'Premium Toppings',
+                options: [
+                    { id: 'mo1', name: 'Extra Cheese', price: 1.50 },
+                    { id: 'mo2', name: 'Bell Peppers', price: 1.20 },
+                    { id: 'mo3', name: 'Baby Corn', price: 1.80 },
+                    { id: 'mo4', name: 'Jalapenos', price: 1.00 }
+                ]
+            },
+            {
+                id: 'mg3',
+                name: 'Crust Extras',
+                options: [
+                    { id: 'mo10', name: 'Garlic Butter Crust', price: 0.75 },
+                    { id: 'mo11', name: 'Sesame Crust', price: 0.50 }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'p10',
+        name: 'Pizza Duo Combo',
+        price: 24.99,
+        categoryId: 'pizza',
+        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+        sku: 'CB-PIZ-002',
+        hasVariants: true,
+        isCombo: true,
+        isVeg: false,
+        isAvailable: true,
+        variantGroups: [
+            {
+                id: 'vg4',
+                name: 'Shared Size',
+                options: [
+                    { id: 'vo10', name: 'Medium Duo', additionalPrice: 0 },
+                    { id: 'vo11', name: 'Large Duo', additionalPrice: 8.00 }
+                ]
+            }
+        ],
+        comboSlots: [
+            { id: 'cs1', name: 'Pizza 1', allowedCategoryIds: ['pizza'] },
+            { id: 'cs2', name: 'Pizza 2', allowedCategoryIds: ['pizza'] }
+        ]
     },
     {
         id: 'p4',
@@ -195,6 +286,7 @@ const MOCK_PRODUCTS: POSProduct[] = [
         isTopItem: true,
         isVeg: true,
         hasVariants: false,
+        ingredients: ['2 Large Pizzas', '1 Side', '1 Beverage'],
         slots: [
             {
                 id: 'SLOT1',
@@ -225,17 +317,32 @@ const MOCK_PRODUCTS: POSProduct[] = [
                     { id: 'FRIES', name: 'French Fries', price: 0, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80' },
                     { id: 'WINGS', name: 'Chicken Wings', price: 2.50, image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80' },
                 ]
-            },
-            {
-                id: 'SLOT3',
-                name: 'Beverage',
-                required: true,
-                options: [
-                    { id: 'COKE', name: 'Coke', price: 0, image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'SPRITE', name: 'Sprite', price: 0, image: 'https://images.unsplash.com/photo-1625772290748-39126d794951?auto=format&fit=crop&w=800&q=80' },
-                ]
             }
         ]
+    },
+    {
+        id: 'o1',
+        name: '10% Off Orders over $50',
+        price: 0,
+        categoryId: 'offers',
+        sku: 'OFFER-10',
+        isAvailable: true,
+        image: '',
+        isVeg: true,
+        ingredients: ['Auto-applied at checkout', 'Minimum value $50'],
+        hasVariants: false
+    },
+    {
+        id: 'o2',
+        name: 'BOGO Pizza (Monday Special)',
+        price: 0,
+        categoryId: 'offers',
+        sku: 'OFFER-BOGO',
+        isAvailable: true,
+        image: '',
+        isVeg: true,
+        ingredients: ['Buy one get one free', 'Select pizzas only'],
+        hasVariants: false
     }
 ];
 
@@ -252,38 +359,35 @@ export const POSMenuScreen: React.FC = () => {
         selectedCustomer,
         isOffline,
         session,
-        setChannel
+        setStore,
+        setChannel,
+        deliveryAddress,
+        setDeliveryAddress,
+        incomingCall
     } = usePOS();
 
+    // UI States
     const [activeCategory, setActiveCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
+    const [activeFilter, setActiveFilter] = useState<'all' | 'favorites' | 'top' | 'hold'>('all');
     const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
     const [customizationProduct, setCustomizationProduct] = useState<POSProduct | null>(null);
-    const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const [activeFilter, setActiveFilter] = useState<'all' | 'favorites' | 'top' | 'hold'>('all');
     const [editingCartItem, setEditingCartItem] = useState<any | null>(null);
-    const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
-    const [isModifierModalOpen, setIsModifierModalOpen] = useState(false);
-    const [isComboModalOpen, setIsComboModalOpen] = useState(false);
-    const [selectedStepVariants, setSelectedStepVariants] = useState<any[]>([]);
+    const [isCustomizationModalOpen, setIsCustomizationModalOpen] = useState(false);
+    const [isPizzaModalOpen, setIsPizzaModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+    const [isCustomerManagementOpen, setIsCustomerManagementOpen] = useState(false);
 
     // Pricing States
     const [discounts, setDiscounts] = useState(0);
-    const [tip, setTip] = useState(0);
+    const [tip] = useState(0);
 
     const searchRef = useRef<HTMLInputElement>(null);
-
-    const {
-        incomingCall,
-        updateCustomer,
-        setDeliveryAddress
-    } = usePOS();
 
     // Auto-open on incoming call for Call Center
     useEffect(() => {
         if (session?.posType === 'CALL_CENTER' && incomingCall && incomingCall.customerId) {
-            setIsProfileOpen(true);
+            // setIsProfileOpen(true);
         }
     }, [incomingCall, session?.posType]);
 
@@ -301,6 +405,7 @@ export const POSMenuScreen: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
+    /* 
     const handleUpdateNotes = (notes: string) => {
         if (selectedCustomer) {
             updateCustomer(selectedCustomer.id, { notes });
@@ -315,6 +420,7 @@ export const POSMenuScreen: React.FC = () => {
             }
         }
     };
+    */
 
     // Optimized filtering
     const filteredProducts = useMemo(() => {
@@ -336,54 +442,40 @@ export const POSMenuScreen: React.FC = () => {
     const handleProductClick = (product: any) => {
         if (!product.isAvailable) return;
 
-        if (product.isCombo) {
+        if (product.isCombo ||
+            (product.variantGroups && product.variantGroups.length > 0) ||
+            (product.modifierGroups && product.modifierGroups.length > 0)) {
             setCustomizationProduct(product);
-            setIsComboModalOpen(true);
+            setEditingCartItem(null);
+
+            if (product.categoryId === 'pizza' && !product.isCombo) {
+                setIsPizzaModalOpen(true);
+            } else {
+                setIsCustomizationModalOpen(true);
+            }
             return;
         }
 
-        if (product.variantGroups && product.variantGroups.length > 0) {
-            setCustomizationProduct(product);
-            setIsVariantModalOpen(true);
-            setIsModifierModalOpen(false);
-        } else if (product.modifierGroups && product.modifierGroups.length > 0) {
-            setCustomizationProduct(product);
-            setIsVariantModalOpen(false);
-            setIsModifierModalOpen(true);
-        } else {
-            addToCart({
-                ...product,
-                productId: product.id,
-                quantity: 1,
-                variants: [],
-                modifiers: [],
-                notes: ''
-            });
-        }
+        addToCart({
+            ...product,
+            productId: product.id,
+            quantity: 1,
+            variants: [],
+            modifiers: [],
+            notes: ''
+        });
     };
 
     const handleCustomizedAddToCart = (cartItem: any) => {
-        if (isVariantModalOpen) {
-            // This came from Variant Modal
-            if (customizationProduct?.modifierGroups && customizationProduct.modifierGroups.length > 0) {
-                // Product has modifiers too, move to next step
-                setSelectedStepVariants(cartItem.variants);
-                setIsVariantModalOpen(false);
-                setIsModifierModalOpen(true);
-                return;
-            }
-        }
-
         if (editingCartItem) {
-            updateCartItem(editingCartItem.id, cartItem);
+            const updatedItem = { ...cartItem, id: editingCartItem.id };
+            updateCartItem(editingCartItem.id, updatedItem);
             setEditingCartItem(null);
         } else {
             addToCart(cartItem);
         }
         setCustomizationProduct(null);
-        setIsVariantModalOpen(false);
-        setIsModifierModalOpen(false);
-        setSelectedStepVariants([]);
+        setIsCustomizationModalOpen(false);
     };
 
     const handleEditItem = (item: any) => {
@@ -391,15 +483,10 @@ export const POSMenuScreen: React.FC = () => {
         if (product) {
             setEditingCartItem(item);
             setCustomizationProduct(product);
-            if (product.variantGroups && product.variantGroups.length > 0) {
-                setIsVariantModalOpen(true);
-                setIsModifierModalOpen(false);
-            } else if (product.modifierGroups && product.modifierGroups.length > 0) {
-                setIsVariantModalOpen(false);
-                setIsModifierModalOpen(true);
+            if (product.categoryId === 'pizza' && !product.isCombo) {
+                setIsPizzaModalOpen(true);
             } else {
-                setIsVariantModalOpen(false);
-                setIsModifierModalOpen(false);
+                setIsCustomizationModalOpen(true);
             }
         }
     };
@@ -438,29 +525,12 @@ export const POSMenuScreen: React.FC = () => {
                 height: '100%',
                 flexShrink: 0
             }}>
-                {/* Back Action */}
                 <div style={{ padding: '16px', borderBottom: '1px solid var(--pos-border-subtle)' }}>
-                    <button
+                    <POSBackButton
+                        label="EXIT"
                         onClick={() => router.push('/pos/dashboard')}
-                        style={{
-                            width: '100%',
-                            height: '56px',
-                            background: 'var(--pos-bg-card)',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '12px',
-                            border: '1px solid var(--pos-border-subtle)',
-                            color: 'var(--pos-text-primary)',
-                            fontWeight: 800,
-                            fontSize: '13px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        <ChevronLeft size={20} />
-                        EXIT TO DASH
-                    </button>
+                        style={{ width: '100%', height: '60px', justifyContent: 'center' }}
+                    />
                 </div>
 
                 {/* Category List */}
@@ -535,60 +605,79 @@ export const POSMenuScreen: React.FC = () => {
                     background: 'var(--pos-bg-surface)'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div style={{
-                            padding: '10px 16px',
-                            background: 'var(--pos-bg-card)',
-                            borderRadius: '10px',
-                            border: '1px solid var(--pos-border-subtle)',
+                        <button style={{
+                            width: '200px',
+                            height: '60px',
+                            padding: '0 16px',
+                            background: 'var(--pos-action-primary)',
+                            borderRadius: '14px',
+                            border: 'none',
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             gap: '12px',
-                            cursor: 'pointer'
-                        }} onClick={() => {
-                            if (selectedCustomer) {
-                                setIsProfileOpen(true);
-                            } else {
-                                router.push('/pos/customer-lookup');
-                            }
-                        }}>
-                            <User size={20} color="var(--pos-action-primary)" />
-                            <div>
-                                <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--pos-text-muted)', textTransform: 'uppercase' }}>Customer</div>
-                                <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)' }}>
-                                    {selectedCustomer?.name || 'Walk-in Guest'}
-                                </div>
+                            cursor: 'pointer',
+                            color: 'white',
+                            transition: 'all 0.2s',
+                            boxShadow: '0 4px 12px rgba(31, 164, 169, 0.2)'
+                        }}
+                            className="hover-scale"
+                            onClick={() => setIsCustomerManagementOpen(true)}>
+                            <User size={20} color="white" strokeWidth={2.5} />
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                                    Current Order
+                                </span>
+                                <span style={{
+                                    fontSize: '14px',
+                                    fontWeight: 900,
+                                    color: 'white',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    maxWidth: '130px'
+                                }}>
+                                    {selectedCustomer?.name || 'SELECT CUSTOMER'}
+                                </span>
                             </div>
-                        </div>
+                        </button>
                         {isOffline && (
                             <div className="pos-badge pos-badge-warning">OFFLINE MODE</div>
                         )}
                         {/* Fulfillment Indicator */}
                         <div style={{
-                            padding: '10px 16px',
+                            width: '200px',
+                            height: '60px',
+                            padding: '0 16px',
                             background: 'var(--pos-bg-card)',
-                            borderRadius: '10px',
+                            borderRadius: '14px',
                             border: '1px solid var(--pos-border-subtle)',
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             gap: '12px',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            boxShadow: 'var(--pos-shadow-sm)'
                         }} onClick={() => router.push('/pos/fulfillment')}>
                             {session?.channel === 'Dine-In' && <Utensils size={20} color="#22C55E" />}
                             {session?.channel === 'Pickup' && <ShoppingBag size={20} color="var(--pos-action-primary)" />}
                             {session?.channel === 'Delivery' && <Truck size={20} color="#F59E0B" />}
-                            <div>
-                                <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--pos-text-muted)', textTransform: 'uppercase' }}>Fulfillment</div>
-                                <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)' }}>
-                                    {session?.channel || 'Select...'}
-                                </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                                    Fulfillment
+                                </span>
+                                <span style={{ fontSize: '14px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>
+                                    {session?.channel || 'SELECT...'}
+                                </span>
                             </div>
                         </div>
 
                         {session?.deliveryAddress && (
                             <div style={{
-                                padding: '10px 16px',
+                                height: '60px',
+                                padding: '0 20px',
                                 background: 'rgba(16, 185, 129, 0.1)',
-                                borderRadius: '10px',
+                                borderRadius: '14px',
                                 border: '1px solid rgba(16, 185, 129, 0.2)',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -603,31 +692,68 @@ export const POSMenuScreen: React.FC = () => {
                         )}
                     </div>
 
-                    <div style={{ flex: 1, maxWidth: '600px', position: 'relative' }}>
-                        <Search size={22} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)' }} />
-                        <input
-                            ref={searchRef}
-                            type="text"
-                            placeholder="Search by Name / SKU / Barcode"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            onKeyDown={handleSearchKeyDown}
-                            className="pos-input"
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, maxWidth: '800px' }}>
+                        <button
+                            onClick={() => router.push('/pos/refund-management')}
                             style={{
+                                width: '200px',
                                 height: '60px',
-                                width: '100%',
-                                paddingLeft: '56px',
-                                background: 'var(--pos-bg-card)',
+                                padding: '0 16px',
+                                background: 'var(--pos-state-error)',
+                                color: 'white',
                                 borderRadius: '14px',
-                                border: '1px solid var(--pos-border-subtle)',
-                                fontSize: '18px',
-                                fontWeight: 600,
-                                boxShadow: 'var(--pos-shadow-sm)'
+                                border: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '10px',
+                                fontSize: '15px',
+                                fontWeight: 900,
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.2)',
+                                whiteSpace: 'nowrap'
                             }}
-                        />
+                            className="hover-scale"
+                        >
+                            <RotateCcw size={20} color="white" strokeWidth={2.5} />
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                                    Terminal
+                                </span>
+                                <span style={{ fontSize: '14px', fontWeight: 900, color: 'white' }}>
+                                    REFUNDS
+                                </span>
+                            </div>
+                        </button>
+
+                        <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
+                            <Search size={22} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '20px' }} />
+                            <input
+                                ref={searchRef}
+                                type="text"
+                                placeholder="Search by Name / SKU / Barcode"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={handleSearchKeyDown}
+                                className="pos-input"
+                                style={{
+                                    height: '60px',
+                                    width: '100%',
+                                    paddingLeft: '56px',
+                                    paddingRight: '20px',
+                                    background: 'var(--pos-bg-card)',
+                                    borderRadius: '14px',
+                                    border: '1px solid var(--pos-border-subtle)',
+                                    fontSize: '18px',
+                                    fontWeight: 700,
+                                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)',
+                                    color: 'var(--pos-text-primary)'
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
-
                 {/* Top-level Filter Tabs */}
                 <div style={{
                     padding: '0 24px 20px',
@@ -637,34 +763,36 @@ export const POSMenuScreen: React.FC = () => {
                     background: 'var(--pos-bg-surface)',
                     borderBottom: '1px solid var(--pos-border-subtle)'
                 }}>
-                    {[
-                        { id: 'all', label: 'All Items' },
-                        { id: 'favorites', label: 'Favorites' },
-                        { id: 'top', label: 'Top Items' },
-                        { id: 'hold', label: 'On Hold' }
-                    ].map(tab => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveFilter(tab.id as any)}
-                            style={{
-                                padding: '12px 24px',
-                                borderRadius: '12px',
-                                background: activeFilter === tab.id ? 'var(--pos-action-primary)' : 'var(--pos-bg-card)',
-                                color: activeFilter === tab.id ? 'white' : 'var(--pos-text-secondary)',
-                                border: '1px solid var(--pos-border-subtle)',
-                                fontWeight: 800,
-                                fontSize: '14px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.02em',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s',
-                                minWidth: '120px'
-                            }}
-                            className={activeFilter === tab.id ? '' : 'hover-scale'}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
+                    {
+                        [
+                            { id: 'all', label: 'All Items' },
+                            { id: 'favorites', label: 'Favorites' },
+                            { id: 'top', label: 'Top Items' },
+                            { id: 'hold', label: 'On Hold' }
+                        ].map(tab => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveFilter(tab.id as any)}
+                                style={{
+                                    padding: '12px 24px',
+                                    borderRadius: '12px',
+                                    background: activeFilter === tab.id ? 'var(--pos-action-primary)' : 'var(--pos-bg-card)',
+                                    color: activeFilter === tab.id ? 'white' : 'var(--pos-text-secondary)',
+                                    border: '1px solid var(--pos-border-subtle)',
+                                    fontWeight: 800,
+                                    fontSize: '14px',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.02em',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    minWidth: '120px'
+                                }}
+                                className={activeFilter === tab.id ? '' : 'hover-scale'}
+                            >
+                                {tab.label}
+                            </button>
+                        ))
+                    }
                 </div>
 
                 {/* Product Grid */}
@@ -697,144 +825,57 @@ export const POSMenuScreen: React.FC = () => {
                                         padding: 0
                                     }}
                                 >
-                                    {/* Product Image */}
-                                    <div style={{
-                                        width: '100%',
-                                        height: '140px',
-                                        background: 'var(--pos-bg-card)',
-                                        position: 'relative',
-                                        overflow: 'hidden'
-                                    }}>
-                                        <img
-                                            src={product.image}
-                                            alt={product.name}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                filter: isOutOfStock ? 'grayscale(100%)' : 'none'
-                                            }}
-                                        />
-                                        <div style={{
-                                            position: 'absolute',
-                                            top: '12px',
-                                            right: '12px',
-                                            padding: '6px 10px',
-                                            background: 'rgba(0,0,0,0.6)',
-                                            backdropFilter: 'blur(8px)',
-                                            borderRadius: '10px',
-                                            color: 'white',
-                                            fontSize: '15px',
-                                            fontWeight: 800
-                                        }}>
-                                            ${product.price.toFixed(2)}
+                                    {/* Detailed Text Info */}
+                                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                            <h3 style={{ fontSize: '18px', fontWeight: 900, color: isOutOfStock ? 'var(--pos-text-muted)' : 'var(--pos-text-primary)', margin: 0 }}>{product.name}</h3>
+                                            <span style={{ fontSize: '18px', fontWeight: 900, color: isOutOfStock ? 'var(--pos-text-muted)' : 'var(--pos-action-primary)' }}>${product.price.toFixed(2)}</span>
+                                        </div>
+
+                                        <div style={{ fontSize: '12px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>
+                                            <span style={{ color: 'var(--pos-text-muted)', fontWeight: 900, textTransform: 'uppercase', fontSize: '10px', display: 'block', marginBottom: '2px' }}>Description:</span>
+                                            {product.ingredients?.join(', ') || 'Standard recipe with high-quality ingredients'}
+                                        </div>
+
+                                        <div style={{ fontSize: '12px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>
+                                            <span style={{ color: 'var(--pos-text-muted)', fontWeight: 900, textTransform: 'uppercase', fontSize: '10px', display: 'block', marginBottom: '2px' }}>Available Sizes:</span>
+                                            {product.variantGroups?.find(g => g.name === 'Size')?.options.map(o => o.name).join(', ') || 'Regular'}
+                                        </div>
+
+                                        <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px' }}>
+                                            <span style={{
+                                                fontSize: '10px',
+                                                fontWeight: 900,
+                                                color: product.hasVariants ? 'var(--pos-action-primary)' : 'var(--pos-text-muted)',
+                                                textTransform: 'uppercase',
+                                                background: product.hasVariants ? 'rgba(31,164,169,0.1)' : 'transparent',
+                                                padding: '4px 8px',
+                                                borderRadius: '6px'
+                                            }}>
+                                                {product.hasVariants ? 'Customizable' : 'Standard Item'}
+                                            </span>
+                                            <span style={{ fontSize: '11px', color: 'var(--pos-text-muted)', fontWeight: 700 }}>{product.sku}</span>
                                         </div>
                                         {isOutOfStock && (
                                             <div style={{
-                                                position: 'absolute',
-                                                inset: 0,
-                                                background: 'rgba(0,0,0,0.4)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                color: 'white',
+                                                marginTop: '8px',
+                                                padding: '8px',
+                                                background: 'rgba(239, 68, 68, 0.1)',
+                                                color: '#EF4444',
+                                                borderRadius: '8px',
+                                                fontSize: '11px',
                                                 fontWeight: 900,
-                                                fontSize: '14px',
+                                                textAlign: 'center',
                                                 textTransform: 'uppercase'
                                             }}>
-                                                Out of Stock
+                                                Temporarily Unavailable
                                             </div>
                                         )}
-                                    </div>
-
-                                    {/* Product Info */}
-                                    <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                        <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
-                                            <div style={{
-                                                width: '10px',
-                                                height: '10px',
-                                                borderRadius: '3px',
-                                                border: `2px solid ${product.isVeg ? '#10B981' : '#EF4444'}`,
-                                                marginTop: '4px'
-                                            }} />
-                                            <div style={{
-                                                fontSize: '16px',
-                                                fontWeight: 800,
-                                                color: 'var(--pos-text-primary)',
-                                                lineHeight: 1.2
-                                            }}>
-                                                {product.name}
-                                            </div>
-                                        </div>
-                                        <div style={{
-                                            fontSize: '11px',
-                                            color: 'var(--pos-text-muted)',
-                                            fontWeight: 700,
-                                            marginTop: 'auto',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center'
-                                        }}>
-                                            <span>{product.sku}</span>
-                                            {product.hasVariants && (
-                                                <span style={{ color: 'var(--pos-action-primary)', fontSize: '10px' }}>
-                                                    OPTIONS+
-                                                </span>
-                                            )}
-                                        </div>
                                     </div>
                                 </button>
                             );
                         })}
                     </div>
-                </div>
-
-                {/* 2.4 ORDER TYPE TOGGLE BAR */}
-                <div style={{
-                    padding: '16px 24px',
-                    background: 'var(--pos-bg-surface)',
-                    borderTop: '1px solid var(--pos-border-subtle)',
-                    display: 'flex',
-                    gap: '16px',
-                    boxShadow: '0 -4px 20px rgba(0,0,0,0.1)'
-                }}>
-                    {[
-                        { id: 'Dine-In', label: 'Dine-In', icon: <Utensils size={20} /> },
-                        { id: 'Pickup', label: 'Takeaway', icon: <ShoppingBag size={20} /> },
-                        { id: 'Delivery', label: 'Delivery', icon: <Truck size={20} /> }
-                    ].map(type => (
-                        <button
-                            key={type.id}
-                            onClick={() => {
-                                setChannel(type.id as any);
-                                // If delivery selected and no address, we'll handle re-validation in a real flow
-                                // For now, we update the state instantly as requested
-                            }}
-                            style={{
-                                flex: 1,
-                                height: '64px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '12px',
-                                borderRadius: '18px',
-                                background: session?.channel === type.id ? 'var(--pos-action-primary)' : 'var(--pos-bg-card)',
-                                color: session?.channel === type.id ? 'white' : 'var(--pos-text-secondary)',
-                                border: '1px solid var(--pos-border-subtle)',
-                                fontWeight: 800,
-                                fontSize: '15px',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.04em',
-                                boxShadow: session?.channel === type.id ? '0 8px 25px rgba(31, 164, 169, 0.3)' : 'none'
-                            }}
-                            className={session?.channel === type.id ? '' : 'hover-scale'}
-                        >
-                            {type.icon}
-                            {type.label}
-                        </button>
-                    ))}
                 </div>
             </div>
 
@@ -850,20 +891,16 @@ export const POSMenuScreen: React.FC = () => {
                     clearCart();
                     router.push('/pos/dashboard');
                 }}
-                onAddDiscount={() => setIsDiscountModalOpen(true)}
-                onRemoveDiscount={() => setDiscounts(0)}
-                activeRules={[
-                    'Happy Hour Pricing active (2 PM - 5 PM)',
-                    session?.channel === 'Delivery' ? 'Standard Delivery Surcharge applied' : ''
-                ].filter(Boolean)}
-                subtotal={cartTotal}
-                tax={taxAmount}
-                discounts={discounts}
-                deliveryFee={deliveryFee}
-                tip={tip}
-                onUpdateTip={setTip}
-                total={finalTotal}
+                total={cartTotal}
                 onCheckout={handleCheckout}
+                onUpdateItem={updateCartItem}
+                channel={session?.channel}
+                onChannelChange={setChannel}
+                deliveryAddress={deliveryAddress}
+                onAddressChange={setDeliveryAddress}
+                selectedStore={session?.store}
+                onStoreChange={setStore}
+                availableStores={mockStores}
             />
 
             {/* Modals */}
@@ -878,52 +915,61 @@ export const POSMenuScreen: React.FC = () => {
                 }}
             />
 
-            <POSVariantModal
-                isOpen={!!customizationProduct && isVariantModalOpen}
+            <POSCustomizationModal
+                isOpen={isCustomizationModalOpen && !!customizationProduct}
                 product={customizationProduct}
                 initialItem={editingCartItem}
                 onClose={() => {
+                    setIsCustomizationModalOpen(false);
                     setCustomizationProduct(null);
                     setEditingCartItem(null);
-                    setIsVariantModalOpen(false);
                 }}
-                onAddToCart={handleCustomizedAddToCart}
+                onAddToCart={(item) => {
+                    handleCustomizedAddToCart(item);
+                }}
             />
-            <POSModifierModal
-                isOpen={!!customizationProduct && isModifierModalOpen}
+
+            <POSPizzaModifierModal
+                isOpen={isPizzaModalOpen && !!customizationProduct}
                 product={customizationProduct}
-                variants={selectedStepVariants}
                 initialItem={editingCartItem}
+                allProducts={MOCK_PRODUCTS}
                 onClose={() => {
+                    setIsPizzaModalOpen(false);
                     setCustomizationProduct(null);
                     setEditingCartItem(null);
-                    setIsModifierModalOpen(false);
-                    setSelectedStepVariants([]);
                 }}
-                onAddToCart={handleCustomizedAddToCart}
-            />
-            <POSComboModal
-                isOpen={!!customizationProduct && isComboModalOpen}
-                product={customizationProduct}
-                onClose={() => {
+                onAddToCart={(item) => {
+                    if (editingCartItem) {
+                        updateCartItem(editingCartItem.id, { ...item, id: editingCartItem.id });
+                    } else {
+                        addToCart(item);
+                    }
+                    setIsPizzaModalOpen(false);
                     setCustomizationProduct(null);
                     setEditingCartItem(null);
-                    setIsComboModalOpen(false);
                 }}
-                onAddToCart={handleCustomizedAddToCart}
             />
-            <CustomerProfilePanel
-                isOpen={isProfileOpen}
-                onClose={() => setIsProfileOpen(false)}
-                customer={selectedCustomer || null}
-                onUpdateNotes={handleUpdateNotes}
-                onSelectAddress={handleSelectAddress}
+
+            <POSCustomerManagementModal
+                isOpen={isCustomerManagementOpen}
+                onClose={() => setIsCustomerManagementOpen(false)}
             />
+
+            <ShiftOpeningModal />
+
 
             <POSPaymentModal
                 isOpen={isPaymentModalOpen}
                 onClose={() => setIsPaymentModalOpen(false)}
                 total={finalTotal}
+                breakdown={{
+                    subtotal: cartTotal,
+                    tax: taxAmount,
+                    deliveryFee: deliveryFee,
+                    discounts: discounts,
+                    tip: tip
+                }}
                 onSelectMethod={handlePaymentComplete}
                 disabledMethods={session?.channel === 'Delivery' ? ['cash'] : []}
             />

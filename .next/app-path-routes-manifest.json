@@ -67,6 +67,7 @@
   "/pos/page": "/pos",
   "/pos/payment-confirmation/page": "/pos/payment-confirmation",
   "/pos/payment/page": "/pos/payment",
+  "/pos/refund-management/page": "/pos/refund-management",
   "/pos/refund/page": "/pos/refund",
   "/pos/reports/page": "/pos/reports",
   "/pos/settings/page": "/pos/settings",

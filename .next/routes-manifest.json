@@ -474,6 +474,12 @@
       "namedRegex": "^/pos/refund(?:/)?$"
     },
     {
+      "page": "/pos/refund-management",
+      "regex": "^/pos/refund\\-management(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pos/refund\\-management(?:/)?$"
+    },
+    {
       "page": "/pos/reports",
       "regex": "^/pos/reports(?:/)?$",
       "routeKeys": {},

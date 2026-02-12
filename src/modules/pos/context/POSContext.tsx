@@ -12,6 +12,7 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [tables, setTables] = useState<POSTable[]>([]);
     const [cart, setCart] = useState<POSCartItem[]>([]);
     const [isOffline, setIsOffline] = useState(false);
+    const [isSyncing, setIsSyncing] = useState(false);
     const [deviceId, setDeviceId] = useState('');
     const router = useRouter();
 
@@ -139,7 +140,17 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             isOffline: false
         };
 
-        updateSession(initialSession);
+        setIsSyncing(true);
+        setTimeout(() => {
+            updateSession(initialSession);
+            setIsSyncing(false);
+        }, 1500);
+
+        // Return sync info for the caller to handle immediate redirection
+        return {
+            requiresStoreSelection: accessibleStores.length > 1 || accessibleStores.length === 0,
+            hasSingleStore: accessibleStores.length === 1
+        };
     };
 
     const setStore = (store: POSStore) => {
@@ -198,24 +209,37 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         router.push('/pos/login');
     };
 
-    const addToCart = (product: any) => {
+    const addToCart = (item: any) => {
         setCart(prev => {
-            const existing = prev.find(item => item.productId === product.id);
-            if (existing) {
-                return prev.map(item =>
-                    item.productId === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
+            // Check if it's a simple product add or a full customized item
+            const isFullItem = !!item.variants || !!item.pizzaModifiers || !!item.modifiers || !!item.isCombo;
+
+            // Merging logic: Only merge simple items with no customizations
+            if (!isFullItem) {
+                const existing = prev.find(i => i.productId === item.id && !i.variants?.length && !i.modifiers?.length && !i.pizzaModifiers);
+                if (existing) {
+                    return prev.map(i =>
+                        i.id === existing.id
+                            ? { ...i, quantity: i.quantity + 1 }
+                            : i
+                    );
+                }
             }
+
+            // Otherwise add as new item (or if it's already a full item with its own ID)
             return [...prev, {
-                id: Math.random().toString(36).substr(2, 9),
-                productId: product.id,
-                name: product.name,
-                price: product.price,
-                quantity: 1,
-                variants: [],
-                modifiers: []
+                id: item.id || Math.random().toString(36).substr(2, 9),
+                productId: item.productId || item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity || 1,
+                variants: item.variants || [],
+                modifiers: item.modifiers || [],
+                pizzaModifiers: item.pizzaModifiers,
+                slots: item.slots,
+                isCombo: item.isCombo,
+                isPizza: item.isPizza,
+                notes: item.notes || ''
             }];
         });
     };
@@ -253,6 +277,22 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateSession({ ...session, deliveryAddress: address || undefined });
     }, [session, updateSession]);
 
+    const startShift = useCallback((openingCash: number, notes?: string) => {
+        if (!session) return;
+        setIsSyncing(true);
+        const shift = {
+            startTime: new Date().toISOString(),
+            openingCash,
+            notes
+        };
+
+        // Simulate sync delay
+        setTimeout(() => {
+            updateSession({ ...session, shift });
+            setIsSyncing(false);
+        }, 2000);
+    }, [session, updateSession]);
+
     return (
         <POSContext.Provider value={{
             session, isOffline, deviceId, login, setStore, setChannel, setTable, moveTable, setCustomer, logout,
@@ -260,7 +300,10 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             selectedCustomer: session?.activeCustomer,
             deliveryAddress: session?.deliveryAddress,
             setDeliveryAddress,
-            incomingCall, setIncomingCall, updateCustomer
+            incomingCall, setIncomingCall, updateCustomer,
+            startShift,
+            isSyncing,
+            setSyncing: setIsSyncing
         }}>
             {children}
         </POSContext.Provider>

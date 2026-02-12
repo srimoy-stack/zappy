@@ -28,6 +28,12 @@ export interface POSUser {
     accessibleStores: string[]; // Store IDs
 }
 
+export interface POSShift {
+    startTime: string;
+    openingCash: number;
+    notes?: string;
+}
+
 export interface POSStore {
     id: string;
     name: string;
@@ -44,13 +50,14 @@ export interface POSSession {
     deliveryAddress?: { id: string; text: string; label: string };
     deviceId: string;
     isOffline?: boolean;
+    shift?: POSShift;
 }
 
 export interface POSContextType {
     session: POSSession | null;
     isOffline: boolean;
     deviceId: string;
-    login: (type: POSType, credentials: { pin?: string; email?: string; password?: string; deviceId: string }) => Promise<void>;
+    login: (type: POSType, credentials: { pin?: string; email?: string; password?: string; deviceId: string }) => Promise<{ requiresStoreSelection: boolean } | undefined>;
     setStore: (store: POSStore) => void;
     setChannel: (channel: OrderChannel) => void;
     setTable: (table: POSTable | null) => void;
@@ -71,6 +78,9 @@ export interface POSContextType {
     incomingCall: { number: string; caller: string; location: string; customerId?: string } | null;
     setIncomingCall: (call: { number: string; caller: string; location: string; customerId?: string } | null) => void;
     updateCustomer: (customerId: string, data: Partial<POSCustomer>) => void;
+    startShift: (openingCash: number, notes?: string) => void;
+    isSyncing: boolean;
+    setSyncing: (syncing: boolean) => void;
 }
 
 export interface POSVariantGroup {
@@ -120,6 +130,7 @@ export interface POSProduct {
     variantGroups?: POSVariantGroup[];
     modifierGroups?: POSModifierGroup[];
     comboSlots?: POSComboSlot[];
+    ingredients?: string[];
     slots?: any[];
 }
 
@@ -129,9 +140,27 @@ export interface POSCartItem {
     name: string;
     price: number;
     quantity: number;
-    variants: { groupId: string; optionId: string; name: string }[];
+    variants: { groupId: string; optionId: string; name: string; price: number }[];
     modifiers: { optionId: string; name: string; price: number; quantity: number }[];
     isCombo?: boolean;
     slots?: any[];
-    comboSelections?: { [slotId: string]: POSCartItem };
+    comboSelections?: { [slotId: string]: any };
+    pizzaModifiers?: {
+        toppings: {
+            optionId: string;
+            name: string;
+            basePrice: number;
+            portion: 'WHOLE' | 'LEFT' | 'RIGHT';
+            level: 'NORMAL' | 'EXTRA' | 'DOUBLE';
+        }[];
+        addOns: {
+            optionId: string;
+            name: string;
+            price: number;
+            quantity: number;
+        }[];
+        removals: string[];
+    };
+    isPizza?: boolean;
+    notes?: string;
 }

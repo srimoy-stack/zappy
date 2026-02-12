@@ -5,21 +5,21 @@
    ======================================== */
 
 :root {
-  /* BACKGROUND COLORS */
-  --pos-bg-main: #1E1F23;
-  --pos-bg-surface: #2A2C31;
-  --pos-bg-card: #31343A;
-  --pos-border-subtle: #3A3D44;
+  /* BACKGROUND COLORS - CLEAN LIGHT THEME */
+  --pos-bg-main: #F4F5F7;
+  --pos-bg-surface: #FFFFFF;
+  --pos-bg-card: #FFFFFF;
+  --pos-border-subtle: #E2E8F0;
   
-  /* TEXT COLORS */
-  --pos-text-primary: #F5F6F7;
-  --pos-text-secondary: #B9BCC3;
-  --pos-text-muted: #7A7E87;
+  /* TEXT COLORS - HIGH VISIBILITY */
+  --pos-text-primary: #1A1C1E;
+  --pos-text-secondary: #475569;
+  --pos-text-muted: #94A3B8;
   
-  /* ACTION COLORS */
+  /* ACTION COLORS - BRAND CONSISTENCY */
   --pos-action-primary: #1FA4A9;
-  --pos-action-secondary: #4B5563;
-  --pos-state-success: #22C55E;
+  --pos-action-secondary: #F1F5F9;
+  --pos-state-success: #10B981;
   --pos-state-warning: #F59E0B;
   --pos-state-error: #EF4444;
   
@@ -30,13 +30,13 @@
   --pos-spacing: 12px;
   
   /* TYPOGRAPHY */
-  --pos-font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --pos-title-lg: 22px;
+  --pos-font-family: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --pos-title-lg: 24px;
   --pos-title-md: 18px;
   --pos-body-md: 16px;
   --pos-body-sm: 14px;
   --pos-helper: 12px;
-  --pos-price-total: 22px;
+  --pos-price-total: 24px;
 }
 
 /* ========================================
@@ -406,23 +406,23 @@
 .pos-btn {
   min-height: var(--pos-touch-primary);
   padding: 0 24px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
   font-size: var(--pos-body-md);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   white-space: nowrap;
 }
 
 .pos-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .pos-btn-primary {
@@ -430,33 +430,48 @@
   color: white;
   min-height: var(--pos-touch-large);
   font-size: var(--pos-title-md);
+  box-shadow: 0 10px 20px -5px rgba(31, 164, 169, 0.3);
+}
+
+.pos-btn-primary:hover {
+  filter: brightness(1.1);
 }
 
 .pos-btn-primary:disabled {
-  background: var(--pos-action-secondary);
+  background: var(--pos-bg-main);
   color: var(--pos-text-muted);
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .pos-btn-secondary {
-  background: var(--pos-bg-card);
+  background: white;
   color: var(--pos-text-primary);
   border: 1px solid var(--pos-border-subtle);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.pos-btn-secondary:hover {
+  background: var(--pos-bg-main);
+  border-color: var(--pos-text-muted);
 }
 
 .pos-btn-success {
   background: var(--pos-state-success);
   color: white;
+  box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
 }
 
 .pos-btn-danger {
   background: var(--pos-state-error);
   color: white;
+  box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.3);
 }
 
 .pos-btn-warning {
   background: var(--pos-state-warning);
   color: white;
+  box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.3);
 }
 
 /* ========================================
@@ -466,22 +481,25 @@
 .pos-input {
   width: 100%;
   min-height: var(--pos-touch-min);
-  padding: 0 16px;
-  background: var(--pos-bg-card);
-  border: 1px solid var(--pos-border-subtle);
-  border-radius: 8px;
+  padding: 0 20px;
+  background: white;
+  border: 2px solid var(--pos-border-subtle);
+  border-radius: 12px;
   color: var(--pos-text-primary);
   font-size: var(--pos-body-md);
   font-weight: 600;
   outline: none;
-}
-
-.pos-input::placeholder {
-  color: var(--pos-text-muted);
+  transition: all 0.2s;
 }
 
 .pos-input:focus {
   border-color: var(--pos-action-primary);
+  box-shadow: 0 0 0 4px rgba(31, 164, 169, 0.1);
+}
+
+.pos-input::placeholder {
+  color: var(--pos-text-muted);
+  font-weight: 500;
 }
 
 /* ========================================
@@ -725,6 +743,24 @@
   from {
     opacity: 0;
     transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes posShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+}
+
+@keyframes posFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;

@@ -117,10 +117,13 @@ export const StoreSelectionPage: React.FC = () => {
     const selectedStore = userStores.find(s => s.id === selectedStoreId);
     const isFormValid = selectedStoreId && selectedChannelId;
 
-    if (!session) {
-        router.push('/pos/login');
-        return null;
-    }
+    useEffect(() => {
+        if (!session) {
+            router.push('/pos/login');
+        }
+    }, [session, router]);
+
+    if (!session) return null;
 
     return (
         <div className="pos-screen" style={{

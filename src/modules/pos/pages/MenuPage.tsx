@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import { useRouter } from 'next/navigation';
 import {
@@ -100,10 +100,13 @@ export const MenuPage: React.FC = () => {
         router.push('/pos/checkout');
     };
 
-    if (!session) {
-        router.push('/pos/login');
-        return null;
-    }
+    useEffect(() => {
+        if (!session) {
+            router.push('/pos/login');
+        }
+    }, [session, router]);
+
+    if (!session) return null;
 
     return (
         <div className="flex h-screen bg-[#050505] text-neutral-100 font-sans overflow-hidden">

@@ -43,7 +43,7 @@ const mockRecentOrders = [
 
 export const POSDashboardPage: React.FC = () => {
     const router = useRouter();
-    const { session, logout, isOffline, setCustomer, setIncomingCall } = usePOS();
+    const { session, logout, isOffline, setCustomer, setIncomingCall, setChannel } = usePOS();
     const [currentTime, setCurrentTime] = useState<string>('');
     const [showIncomingCall, setShowIncomingCall] = useState(false);
 
@@ -83,7 +83,8 @@ export const POSDashboardPage: React.FC = () => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.ctrlKey && e.key === 'n') || e.key === 'F1') {
                 e.preventDefault();
-                router.push('/pos/fulfillment');
+                setChannel('Pickup');
+                router.push('/pos/menu');
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -91,7 +92,8 @@ export const POSDashboardPage: React.FC = () => {
     }, [router]);
 
     const handleNewOrder = () => {
-        router.push('/pos/fulfillment');
+        setChannel('Pickup');
+        router.push('/pos/menu');
     };
 
     const handleAttachCall = () => {
@@ -113,13 +115,17 @@ export const POSDashboardPage: React.FC = () => {
             });
         }
         setShowIncomingCall(false);
-        router.push('/pos/fulfillment');
+        setChannel('Pickup');
+        router.push('/pos/menu');
     };
 
-    if (!session) {
-        router.push('/pos/login');
-        return null;
-    }
+    useEffect(() => {
+        if (!session) {
+            router.push('/pos/login');
+        }
+    }, [session, router]);
+
+    if (!session) return null;
 
     return (
         <div className="pos-screen" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -299,13 +305,14 @@ export const POSDashboardPage: React.FC = () => {
             {/* MAIN CONTENT */}
             <div style={{
                 flex: 1,
-                padding: '24px',
+                padding: '16px',
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '24px'
+                gap: '16px',
+                background: 'var(--pos-bg-main)'
             }}>
-                <div style={{ maxWidth: '1600px', margin: '0 auto', width: '100%' }}>
+                <div style={{ maxWidth: '100%', margin: '0', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
                     {/* PRIMARY ACTION: NEW ORDER (Hero CTA) */}
                     <button
@@ -313,46 +320,48 @@ export const POSDashboardPage: React.FC = () => {
                         className="pos-btn pos-btn-primary"
                         style={{
                             width: '100%',
-                            height: '120px',
-                            background: 'linear-gradient(135deg, var(--pos-action-primary) 0%, #178B8F 100%)',
-                            borderRadius: '12px',
+                            height: '140px',
+                            background: 'var(--pos-action-primary)',
+                            borderRadius: '24px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '20px',
-                            marginBottom: '24px',
-                            boxShadow: '0 8px 24px rgba(31, 164, 169, 0.3)',
+                            gap: '32px',
+                            boxShadow: '0 20px 40px rgba(31, 164, 169, 0.2)',
                             position: 'relative',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            border: 'none',
+                            color: 'white'
                         }}
                     >
                         {/* Decorative element */}
                         <div style={{
                             position: 'absolute',
-                            top: '-30%',
+                            top: '-50%',
                             right: '-5%',
-                            width: '250px',
-                            height: '250px',
-                            background: 'rgba(255,255,255,0.1)',
+                            width: '400px',
+                            height: '400px',
+                            background: 'rgba(255,255,255,0.08)',
                             borderRadius: '50%'
                         }} />
 
                         <div style={{
-                            width: '72px',
-                            height: '72px',
+                            width: '84px',
+                            height: '84px',
                             background: 'rgba(255, 255, 255, 0.2)',
-                            borderRadius: '50%',
+                            borderRadius: '24px',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
                         }}>
-                            <Plus size={40} color="white" strokeWidth={3} />
+                            <Plus size={48} color="white" strokeWidth={3} />
                         </div>
                         <div style={{ textAlign: 'left' }}>
-                            <div style={{ fontSize: '32px', fontWeight: 800, color: 'white', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
+                            <div style={{ fontSize: '40px', color: 'white', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 900 }}>
                                 NEW ORDER
                             </div>
-                            <div style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.9)', fontWeight: 600 }}>
+                            <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.8)', fontWeight: 700, marginTop: '4px' }}>
                                 Start taking customer order
                             </div>
                         </div>
@@ -360,59 +369,59 @@ export const POSDashboardPage: React.FC = () => {
                         {/* Keyboard shortcut hint */}
                         <div style={{
                             position: 'absolute',
-                            bottom: '12px',
-                            right: '20px',
-                            background: 'rgba(0, 0, 0, 0.2)',
-                            padding: '6px 12px',
-                            borderRadius: '6px',
-                            fontSize: '11px',
-                            color: 'rgba(255,255,255,0.95)',
-                            fontWeight: 700,
-                            letterSpacing: '0.05em'
+                            bottom: '20px',
+                            right: '32px',
+                            background: 'rgba(0, 0, 0, 0.1)',
+                            padding: '8px 16px',
+                            borderRadius: '12px',
+                            fontSize: '12px',
+                            color: 'white',
+                            fontWeight: 800,
+                            letterSpacing: '0.1em'
                         }}>
                             F1 or Ctrl+N
                         </div>
                     </button>
 
                     {/* SECONDARY ACTIONS: 3-Column Grid */}
-                    <div className="pos-grid-3" style={{ gap: '20px', marginBottom: '24px' }}>
+                    <div className="pos-grid-3" style={{ gap: '20px' }}>
 
                         {/* OPEN ORDERS */}
                         <div style={{
-                            background: 'var(--pos-bg-surface)',
+                            background: 'white',
                             border: '1px solid var(--pos-border-subtle)',
-                            borderRadius: '12px',
-                            overflow: 'hidden'
+                            borderRadius: '24px',
+                            overflow: 'hidden',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
                         }}>
                             <div style={{
-                                padding: '16px 20px',
+                                padding: '24px',
                                 borderBottom: '1px solid var(--pos-border-subtle)',
                                 display: 'flex',
                                 justifyContent: 'space-between',
-                                alignItems: 'center',
-                                background: 'var(--pos-bg-card)'
+                                alignItems: 'center'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <Clock size={20} color="var(--pos-state-error)" />
-                                    <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--pos-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    <Clock size={24} color="var(--pos-state-error)" />
+                                    <h3 style={{ fontSize: '15px', fontWeight: 900, color: 'var(--pos-text-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                                         Open Orders
                                     </h3>
                                 </div>
                                 <div style={{
                                     background: 'var(--pos-state-error)',
                                     color: 'white',
-                                    padding: '4px 10px',
-                                    borderRadius: '6px',
-                                    fontSize: '13px',
-                                    fontWeight: 800
+                                    padding: '6px 12px',
+                                    borderRadius: '10px',
+                                    fontSize: '14px',
+                                    fontWeight: 900
                                 }}>
                                     {mockOpenOrders.length}
                                 </div>
                             </div>
-                            <div style={{ padding: '8px 0', minHeight: '180px' }}>
+                            <div style={{ padding: '0', minHeight: '180px' }}>
                                 {mockOpenOrders.slice(0, 3).map((order, idx) => (
                                     <div key={idx} style={{
-                                        padding: '12px 20px',
+                                        padding: '16px 24px',
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center',
@@ -421,14 +430,21 @@ export const POSDashboardPage: React.FC = () => {
                                         transition: 'background 0.2s'
                                     }}>
                                         <div>
-                                            <div style={{ fontWeight: 700, color: 'var(--pos-text-primary)', fontSize: '14px', marginBottom: '4px' }}>
+                                            <div style={{ fontWeight: 800, color: 'var(--pos-text-primary)', fontSize: '15px', marginBottom: '4px' }}>
                                                 {order.id}
                                             </div>
-                                            <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)' }}>
+                                            <div style={{ fontSize: '13px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>
                                                 {order.customer} • {order.time}
                                             </div>
                                         </div>
-                                        <span className="pos-badge pos-badge-warning" style={{ fontSize: '10px' }}>
+                                        <span style={{
+                                            padding: '4px 10px',
+                                            borderRadius: '6px',
+                                            background: 'var(--pos-state-warning)',
+                                            color: 'white',
+                                            fontSize: '11px',
+                                            fontWeight: 900
+                                        }}>
                                             {order.status}
                                         </span>
                                     </div>
@@ -436,13 +452,16 @@ export const POSDashboardPage: React.FC = () => {
                             </div>
                             <button
                                 onClick={() => router.push('/pos/open-orders')}
-                                className="pos-btn pos-btn-secondary"
+                                className="pos-btn"
                                 style={{
                                     width: '100%',
                                     borderRadius: '0',
                                     borderTop: '1px solid var(--pos-border-subtle)',
-                                    fontSize: '12px',
-                                    height: '48px'
+                                    fontSize: '13px',
+                                    height: '56px',
+                                    background: 'var(--pos-bg-main)',
+                                    color: 'var(--pos-text-secondary)',
+                                    fontWeight: 800
                                 }}
                             >
                                 View All →

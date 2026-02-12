@@ -632,6 +632,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/pos/refund-management/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/pos/refund-management">> = Specific
+  const handler = {} as typeof import("../../src/app/pos/refund-management/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/pos/refund/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/pos/refund">> = Specific

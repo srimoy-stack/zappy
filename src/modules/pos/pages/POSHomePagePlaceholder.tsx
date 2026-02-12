@@ -30,10 +30,13 @@ export const POSHomePagePlaceholder: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    if (!session) {
-        if (typeof window !== 'undefined') router.push('/pos/login');
-        return null;
-    }
+    React.useEffect(() => {
+        if (!session) {
+            router.push('/pos/login');
+        }
+    }, [session, router]);
+
+    if (!session) return null;
 
     return (
         <div className="min-h-screen bg-white flex flex-col font-sans">

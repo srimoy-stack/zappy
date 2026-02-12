@@ -67,6 +67,7 @@
   "/pos/page": "app/pos/page.js",
   "/pos/payment-confirmation/page": "app/pos/payment-confirmation/page.js",
   "/pos/payment/page": "app/pos/payment/page.js",
+  "/pos/refund-management/page": "app/pos/refund-management/page.js",
   "/pos/refund/page": "app/pos/refund/page.js",
   "/pos/reports/page": "app/pos/reports/page.js",
   "/pos/settings/page": "app/pos/settings/page.js",

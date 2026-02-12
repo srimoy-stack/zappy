@@ -27,8 +27,9 @@ export const CustomerLookupPage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState(incomingPhone);
     const [results, setResults] = useState(mockPOSCustomers);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isRegistering, setIsRegistering] = useState(false);
+    const [newCustomer, setNewCustomer] = useState({ name: '', phone: '', email: '' });
 
-    const isCallCenter = session?.posType === 'CALL_CENTER';
     const isStorePOS = session?.posType === 'STORE';
 
     // Focus input on load
@@ -82,6 +83,29 @@ export const CustomerLookupPage: React.FC = () => {
 
     const handleClear = () => {
         setSearchQuery('');
+    };
+
+    const handleRegister = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newCustomer.name || !newCustomer.phone) {
+            alert('Name and Phone are required');
+            return;
+        }
+
+        const customer = {
+            id: `C${Math.floor(Math.random() * 90000) + 10000}`,
+            name: newCustomer.name,
+            phone: newCustomer.phone,
+            email: newCustomer.email,
+            loyaltyPoints: 0,
+            notes: 'New Customer registered via POS',
+            addresses: [],
+            recentOrders: [],
+            isNew: true
+        } as any;
+
+        setCustomer(customer);
+        router.push('/pos/menu');
     };
 
     return (
@@ -253,7 +277,14 @@ export const CustomerLookupPage: React.FC = () => {
                                 <UserPlus size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
                                 <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--pos-text-secondary)' }}>No matches found</div>
                                 <div style={{ fontSize: '14px', marginBottom: '24px' }}>Would you like to register a new customer?</div>
-                                <button className="pos-btn pos-btn-primary" style={{ width: 'auto', padding: '0 32px' }}>
+                                <button
+                                    onClick={() => {
+                                        setNewCustomer(prev => ({ ...prev, phone: searchQuery }));
+                                        setIsRegistering(true);
+                                    }}
+                                    className="pos-btn pos-btn-primary"
+                                    style={{ width: 'auto', padding: '0 32px' }}
+                                >
                                     REGISTER NEW CUSTOMER
                                 </button>
                             </div>
@@ -308,7 +339,14 @@ export const CustomerLookupPage: React.FC = () => {
                             </button>
                         </div>
 
-                        <button className="pos-btn" style={{ height: '64px', background: 'var(--pos-bg-surface)', border: '1px solid var(--pos-border-subtle)' }}>
+                        <button
+                            onClick={() => {
+                                setNewCustomer(prev => ({ ...prev, phone: searchQuery }));
+                                setIsRegistering(true);
+                            }}
+                            className="pos-btn"
+                            style={{ height: '64px', background: 'var(--pos-bg-surface)', border: '1px solid var(--pos-border-subtle)' }}
+                        >
                             <UserPlus size={20} />
                             NEW CUSTOMER
                         </button>
@@ -317,19 +355,63 @@ export const CustomerLookupPage: React.FC = () => {
             </div>
 
             {/* CALL CENTER INDICATOR */}
-            {isCallCenter && incomingPhone && (
-                <div style={{
-                    padding: '16px 24px',
-                    background: 'var(--pos-state-success)',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '12px',
-                    fontWeight: 700
-                }}>
-                    <Phone size={18} />
-                    AUTOMATIC LOOKUP: {incomingPhone}
+            {/* REGISTRATION MODAL */}
+            {isRegistering && (
+                <div className="pos-modal-overlay" style={{ zIndex: 1100 }}>
+                    <div className="pos-modal" style={{ width: '450px', padding: '32px', animation: 'posFadeInUp 0.3s ease-out' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
+                            <div>
+                                <h3 style={{ fontSize: '24px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0 }}>New Customer</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--pos-text-muted)', fontWeight: 600, margin: 0 }}>Register and attach to current order</p>
+                            </div>
+                            <button onClick={() => setIsRegistering(false)} className="pos-icon-btn"><X size={20} /></button>
+                        </div>
+                        <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            <div>
+                                <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '8px', display: 'block' }}>Full Name *</label>
+                                <input
+                                    autoFocus
+                                    required
+                                    className="pos-input"
+                                    placeholder="e.g. Harvey Specter"
+                                    value={newCustomer.name}
+                                    onChange={e => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                                />
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '8px', display: 'block' }}>Phone Number *</label>
+                                <input
+                                    required
+                                    className="pos-input"
+                                    placeholder="+1 (###) ###-####"
+                                    value={newCustomer.phone}
+                                    onChange={e => setNewCustomer({ ...newCustomer, phone: e.target.value })}
+                                />
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '8px', display: 'block' }}>Email Address</label>
+                                <input
+                                    type="email"
+                                    className="pos-input"
+                                    placeholder="name@email.com"
+                                    value={newCustomer.email}
+                                    onChange={e => setNewCustomer({ ...newCustomer, email: e.target.value })}
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="pos-btn pos-btn-primary"
+                                style={{
+                                    marginTop: '12px',
+                                    height: '64px',
+                                    fontSize: '16px',
+                                    letterSpacing: '0.02em'
+                                }}
+                            >
+                                <UserPlus size={20} /> REGISTER & ATTACH TO ORDER
+                            </button>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>

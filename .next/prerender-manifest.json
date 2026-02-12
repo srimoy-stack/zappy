@@ -1226,6 +1226,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/pos/refund-management": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/pos/refund-management",
+      "dataRoute": "/pos/refund-management.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/pos/refund": {
       "experimentalBypassFor": [
         {
@@ -1350,8 +1374,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "795220adba6de1f2ae86545b5c28e20d",
-    "previewModeSigningKey": "fbe2d24af54d164df1cc74f16da622ba48115a0d0be2a0fbec0a05120ff2d1d9",
-    "previewModeEncryptionKey": "563303fa6c18c1999360862412acbcb68fa86231ab5c6da5f1e8d4b4fa4d7d2b"
+    "previewModeId": "6ec854a083d77bfd71d535dceb219d95",
+    "previewModeSigningKey": "9229034486a1a468631c1ed851855f58e12b26a0a8449074d3fb6923b407a3dd",
+    "previewModeEncryptionKey": "30aef70f6d5fc3e17e999c516bcbbb39b4ceb722127797b9c1656e5556fd673f"
   }
 }
