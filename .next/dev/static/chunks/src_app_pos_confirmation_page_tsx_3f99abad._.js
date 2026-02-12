@@ -6,7 +6,7 @@
   "static/chunks/src_modules_pos_pages_e74560ca._.js",
   "static/chunks/src_modules_pos_components_8be9d6fc._.js",
   "static/chunks/src_app_pos_confirmation_page_tsx_bb354327._.js",
-  "static/chunks/node_modules_lucide-react_dist_esm_icons_702eee45._.js",
+  "static/chunks/node_modules_lucide-react_dist_esm_icons_9c8a2626._.js",
   "static/chunks/src_modules_pos_styles_pos-rush_d6b2a6c0.css"
 ],
     source: "dynamic"

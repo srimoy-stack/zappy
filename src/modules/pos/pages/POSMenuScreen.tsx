@@ -16,7 +16,7 @@ import { POSProduct } from '@/modules/pos/types/pos';
 import POSDiscountModal from '../components/POSDiscountModal';
 import { POSCustomizationModal } from '../components/POSCustomizationModal';
 import { POSCartPanel } from '../components/POSCartPanel';
-import { POSPaymentModal } from '../components/POSPaymentModal';
+
 import { POSPizzaModifierModal } from '../components/POSPizzaModifierModal';
 import { ShiftOpeningModal } from '../components/ShiftOpeningModal';
 import { POSCustomerManagementModal } from '../components/POSCustomerManagementModal';
@@ -375,12 +375,11 @@ export const POSMenuScreen: React.FC = () => {
     const [editingCartItem, setEditingCartItem] = useState<any | null>(null);
     const [isCustomizationModalOpen, setIsCustomizationModalOpen] = useState(false);
     const [isPizzaModalOpen, setIsPizzaModalOpen] = useState(false);
-    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
     const [isCustomerManagementOpen, setIsCustomerManagementOpen] = useState(false);
 
     // Pricing States
-    const [discounts, setDiscounts] = useState(0);
-    const [tip] = useState(0);
+
 
     const searchRef = useRef<HTMLInputElement>(null);
 
@@ -492,14 +491,10 @@ export const POSMenuScreen: React.FC = () => {
     };
 
     const handleCheckout = () => {
-        setIsPaymentModalOpen(true);
-    };
-
-    const handlePaymentComplete = () => {
-        setIsPaymentModalOpen(false);
-        // Navigate to the processing screen
         router.push('/pos/payment');
     };
+
+
 
     const handleSearchKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && filteredProducts.length > 0) {
@@ -508,9 +503,8 @@ export const POSMenuScreen: React.FC = () => {
         }
     };
 
-    const taxAmount = cartTotal * 0.1;
-    const deliveryFee = session?.channel === 'Delivery' ? 5.00 : 0;
-    const finalTotal = cartTotal + taxAmount + deliveryFee + tip - discounts;
+
+
 
     return (
         <div className="pos-screen" style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
@@ -908,9 +902,8 @@ export const POSMenuScreen: React.FC = () => {
                 isOpen={isDiscountModalOpen}
                 onClose={() => setIsDiscountModalOpen(false)}
                 subtotal={cartTotal}
-                onApplyDiscount={(type, value) => {
-                    const discountAmt = type === 'percentage' ? (cartTotal * value / 100) : value;
-                    setDiscounts(discountAmt);
+                onApplyDiscount={(_type, _value) => {
+                    // Discount logic would be handled in the payment page
                     setIsDiscountModalOpen(false);
                 }}
             />
@@ -959,20 +952,7 @@ export const POSMenuScreen: React.FC = () => {
             <ShiftOpeningModal />
 
 
-            <POSPaymentModal
-                isOpen={isPaymentModalOpen}
-                onClose={() => setIsPaymentModalOpen(false)}
-                total={finalTotal}
-                breakdown={{
-                    subtotal: cartTotal,
-                    tax: taxAmount,
-                    deliveryFee: deliveryFee,
-                    discounts: discounts,
-                    tip: tip
-                }}
-                onSelectMethod={handlePaymentComplete}
-                disabledMethods={session?.channel === 'Delivery' ? ['cash'] : []}
-            />
+
         </div>
     );
 };

@@ -2594,7 +2594,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClearCart, onHoldOrder, total, onCheckout, onUpdateItem, channel, onChannelChange, deliveryAddress, onAddressChange, selectedStore, onStoreChange, availableStores = [] })=>{
+const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClearCart, onHoldOrder, total, onCheckout, onUpdateItem })=>{
     _s();
     const [isConfirmingClear, setIsConfirmingClear] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(false);
     const handleRemoveCustomization = (item, type, id)=>{
@@ -2716,12 +2716,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                             strokeWidth: 2.5
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                            lineNumber: 149,
+                                            lineNumber: 142,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 139,
+                                        lineNumber: 132,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2735,7 +2735,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                 children: "Order Cart"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 152,
+                                                lineNumber: 145,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2751,19 +2751,19 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 146,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 144,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 138,
+                                lineNumber: 131,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2795,14 +2795,14 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                 size: 14
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 179,
+                                                lineNumber: 172,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             " Hold"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 153,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2832,14 +2832,14 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     size: 14
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 203,
+                                                    lineNumber: 196,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " Clear"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 177,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             style: {
@@ -2866,7 +2866,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     children: "Sure?"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 207,
+                                                    lineNumber: 200,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2885,30 +2885,30 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     children: "No"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 213,
+                                                    lineNumber: 206,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 199,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 175,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 159,
+                                lineNumber: 152,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                        lineNumber: 137,
+                        lineNumber: 130,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2937,7 +2937,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                 size: 18
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 247,
+                                lineNumber: 240,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             " PROCEED TO PAY - $",
@@ -2945,13 +2945,13 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                        lineNumber: 225,
+                        lineNumber: 218,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                lineNumber: 132,
+                lineNumber: 125,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2993,12 +2993,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                 strokeWidth: 1
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 282,
+                                lineNumber: 275,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                            lineNumber: 271,
+                            lineNumber: 264,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3015,7 +3015,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                     children: "Empty Cart"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                    lineNumber: 285,
+                                    lineNumber: 278,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3027,19 +3027,19 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                     children: "No items added yet"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                    lineNumber: 286,
+                                    lineNumber: 279,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                            lineNumber: 284,
+                            lineNumber: 277,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                    lineNumber: 261,
+                    lineNumber: 254,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0)) : cart.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         style: {
@@ -3084,14 +3084,14 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                        lineNumber: 306,
+                                                        lineNumber: 299,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     item.name
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 305,
+                                                lineNumber: 298,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3131,7 +3131,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                        lineNumber: 317,
+                                                                        lineNumber: 310,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     v.name,
@@ -3147,7 +3147,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                        lineNumber: 321,
+                                                                        lineNumber: 314,
                                                                         columnNumber: 82
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3160,23 +3160,23 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                             strokeWidth: 3
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 328,
+                                                                            lineNumber: 321,
                                                                             columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                        lineNumber: 322,
+                                                                        lineNumber: 315,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, v.groupId, true, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                lineNumber: 316,
+                                                                lineNumber: 309,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 307,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     item.pizzaModifiers && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3213,7 +3213,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 345,
+                                                                            lineNumber: 338,
                                                                             columnNumber: 65
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         toppings.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3242,7 +3242,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 352,
+                                                                                        lineNumber: 345,
                                                                                         columnNumber: 89
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3255,24 +3255,24 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                             strokeWidth: 3
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                            lineNumber: 359,
+                                                                                            lineNumber: 352,
                                                                                             columnNumber: 73
                                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 353,
+                                                                                        lineNumber: 346,
                                                                                         columnNumber: 69
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, t.optionId, true, {
                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                lineNumber: 350,
+                                                                                lineNumber: 343,
                                                                                 columnNumber: 65
                                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                                     ]
                                                                 }, portion, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                    lineNumber: 343,
+                                                                    lineNumber: 336,
                                                                     columnNumber: 57
                                                                 }, ("TURBOPACK compile-time value", void 0));
                                                             }),
@@ -3301,7 +3301,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 371,
+                                                                            lineNumber: 364,
                                                                             columnNumber: 73
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3314,18 +3314,18 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                 strokeWidth: 3
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                lineNumber: 378,
+                                                                                lineNumber: 371,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 372,
+                                                                            lineNumber: 365,
                                                                             columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, a.optionId, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                    lineNumber: 369,
+                                                                    lineNumber: 362,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0))),
                                                             item.pizzaModifiers.removals.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3351,24 +3351,24 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                 strokeWidth: 3
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                lineNumber: 393,
+                                                                                lineNumber: 386,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 387,
+                                                                            lineNumber: 380,
                                                                             columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, r, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                    lineNumber: 385,
+                                                                    lineNumber: 378,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 330,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     !item.pizzaModifiers && !item.isCombo && item.modifiers && item.modifiers.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3402,7 +3402,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                        lineNumber: 406,
+                                                                        lineNumber: 399,
                                                                         columnNumber: 73
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3415,23 +3415,23 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                             strokeWidth: 3
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 413,
+                                                                            lineNumber: 406,
                                                                             columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                        lineNumber: 407,
+                                                                        lineNumber: 400,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, m.optionId, true, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                lineNumber: 404,
+                                                                lineNumber: 397,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 395,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     item.isCombo && item.slots?.map((slot)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3452,7 +3452,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                    lineNumber: 423,
+                                                                    lineNumber: 416,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3473,7 +3473,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 427,
+                                                                            lineNumber: 420,
                                                                             columnNumber: 53
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         slot.variants?.map((v)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3501,7 +3501,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 435,
+                                                                                        lineNumber: 428,
                                                                                         columnNumber: 77
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3519,18 +3519,18 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                             strokeWidth: 3
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                            lineNumber: 441,
+                                                                                            lineNumber: 434,
                                                                                             columnNumber: 65
                                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 436,
+                                                                                        lineNumber: 429,
                                                                                         columnNumber: 61
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, v.groupId, true, {
                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                lineNumber: 433,
+                                                                                lineNumber: 426,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0))),
                                                                         slot.pizzaModifiers && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3564,7 +3564,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                                lineNumber: 452,
+                                                                                                lineNumber: 445,
                                                                                                 columnNumber: 89
                                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3582,18 +3582,18 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                                     strokeWidth: 3
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                                    lineNumber: 458,
+                                                                                                    lineNumber: 451,
                                                                                                     columnNumber: 73
                                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                                lineNumber: 453,
+                                                                                                lineNumber: 446,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                                         ]
                                                                                     }, t.optionId, true, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 450,
+                                                                                        lineNumber: 443,
                                                                                         columnNumber: 65
                                                                                     }, ("TURBOPACK compile-time value", void 0))),
                                                                                 slot.pizzaModifiers.removals?.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3624,24 +3624,24 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                                     strokeWidth: 3
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                                    lineNumber: 470,
+                                                                                                    lineNumber: 463,
                                                                                                     columnNumber: 73
                                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                                lineNumber: 465,
+                                                                                                lineNumber: 458,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                                         ]
                                                                                     }, r, true, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 463,
+                                                                                        lineNumber: 456,
                                                                                         columnNumber: 65
                                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                            lineNumber: 448,
+                                                                            lineNumber: 441,
                                                                             columnNumber: 57
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         slot.modifiers?.map((m)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3671,7 +3671,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 481,
+                                                                                        lineNumber: 474,
                                                                                         columnNumber: 77
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3689,30 +3689,30 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                                                             strokeWidth: 3
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                            lineNumber: 487,
+                                                                                            lineNumber: 480,
                                                                                             columnNumber: 65
                                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                        lineNumber: 482,
+                                                                                        lineNumber: 475,
                                                                                         columnNumber: 61
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, m.optionId, true, {
                                                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                                lineNumber: 479,
+                                                                                lineNumber: 472,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                                    lineNumber: 426,
+                                                                    lineNumber: 419,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, slot.slotId || slot.id, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                            lineNumber: 422,
+                                                            lineNumber: 415,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))),
                                                     item.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3728,19 +3728,19 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                        lineNumber: 497,
+                                                        lineNumber: 490,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 311,
+                                                lineNumber: 304,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 304,
+                                        lineNumber: 297,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3755,13 +3755,13 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 503,
+                                        lineNumber: 496,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 303,
+                                lineNumber: 296,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3797,12 +3797,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 516,
+                                                    lineNumber: 509,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 511,
+                                                lineNumber: 504,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3824,18 +3824,18 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 523,
+                                                    lineNumber: 516,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 518,
+                                                lineNumber: 511,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 510,
+                                        lineNumber: 503,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3867,12 +3867,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 533,
+                                                    lineNumber: 526,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 528,
+                                                lineNumber: 521,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3885,7 +3885,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                 children: item.quantity
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 535,
+                                                lineNumber: 528,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3907,35 +3907,35 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 543,
+                                                    lineNumber: 536,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 538,
+                                                lineNumber: 531,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 527,
+                                        lineNumber: 520,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 509,
+                                lineNumber: 502,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, `${item.id}-${idx}`, true, {
                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                        lineNumber: 291,
+                        lineNumber: 284,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                lineNumber: 252,
+                lineNumber: 245,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
@@ -3947,13 +3947,13 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
             `
             }, void 0, false, {
                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                lineNumber: 552,
+                lineNumber: 545,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-        lineNumber: 121,
+        lineNumber: 114,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -5843,7 +5843,7 @@ const POSCustomerManagementModal = ({ isOpen, onClose })=>{
         });
         onClose();
     };
-    const handleRefund = (order)=>{
+    const handleRefund = (_order)=>{
         if (selectedCustomer) {
             router.push(`/pos/refund-management?customerId=${selectedCustomer.id}&customerName=${encodeURIComponent(selectedCustomer.name)}`);
         } else {
@@ -5871,7 +5871,7 @@ const POSCustomerManagementModal = ({ isOpen, onClose })=>{
             setLocalDeliveryAddress(session.deliveryAddress.text);
         } else if (customer.addresses && customer.addresses.length > 0) {
             const primaryAddress = customer.addresses.find((addr)=>addr.isDefault) || customer.addresses[0];
-            setLocalDeliveryAddress(primaryAddress.text);
+            setLocalDeliveryAddress(primaryAddress?.text || '');
         } else {
             setLocalDeliveryAddress('');
         }
