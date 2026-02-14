@@ -876,7 +876,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-client] (ecmascript) <export default as ShoppingCart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-client] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/minus.js [app-client] (ecmascript) <export default as Minus>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$utensils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Utensils$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/utensils.js [app-client] (ecmascript) <export default as Utensils>");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
@@ -948,9 +947,35 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                         setNotes(initialItem.notes || '');
                         setQuantity(initialItem.quantity || 1);
                     } else {
-                        // Reset
-                        setSelectedVariants({});
-                        setSelectedModifiers({});
+                        // Reset with Defaults
+                        const defaultVariants = {};
+                        product.variantGroups?.forEach({
+                            "POSCustomizationModal.useEffect": (g)=>{
+                                const def = g.options.find({
+                                    "POSCustomizationModal.useEffect": (o)=>o.isDefault
+                                }["POSCustomizationModal.useEffect"]) || g.options[0];
+                                if (def) defaultVariants[g.id] = def.id;
+                            }
+                        }["POSCustomizationModal.useEffect"]);
+                        const defaultMods = {};
+                        product.modifierGroups?.forEach({
+                            "POSCustomizationModal.useEffect": (g)=>{
+                                g.options.forEach({
+                                    "POSCustomizationModal.useEffect": (opt)=>{
+                                        if (opt.isDefault) {
+                                            defaultMods[opt.id] = {
+                                                optionId: opt.id,
+                                                quantity: 1,
+                                                price: opt.price,
+                                                name: opt.name
+                                            };
+                                        }
+                                    }
+                                }["POSCustomizationModal.useEffect"]);
+                            }
+                        }["POSCustomizationModal.useEffect"]);
+                        setSelectedVariants(defaultVariants);
+                        setSelectedModifiers(defaultMods);
                         setNotes('');
                         setQuantity(1);
                     }
@@ -1334,7 +1359,8 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
             price: totalPrice / quantity,
             quantity: quantity,
             isCombo,
-            notes,
+            kitchenNote: notes.trim(),
+            notes: notes.trim(),
             // Standard Fields
             variants: Object.entries(selectedVariants).map(([gId, oId])=>{
                 const group = product.variantGroups?.find((g)=>g.id === gId);
@@ -1395,12 +1421,12 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                         strokeWidth: 3
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                        lineNumber: 478,
+                        lineNumber: 498,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 477,
+                    lineNumber: 497,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1411,7 +1437,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                     children: count
                 }, void 0, false, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 480,
+                    lineNumber: 500,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1425,18 +1451,18 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                         strokeWidth: 3
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                        lineNumber: 482,
+                        lineNumber: 502,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 481,
+                    lineNumber: 501,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-            lineNumber: 476,
+            lineNumber: 496,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0));
     // ------------------------------------------------------------------
@@ -1502,7 +1528,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                             children: isCombo ? 'COMBO BUILDER' : 'CUSTOMIZE'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                            lineNumber: 532,
+                                            lineNumber: 552,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         product.isFavorite && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1510,13 +1536,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                             children: "FAVORITE"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                            lineNumber: 535,
+                                            lineNumber: 555,
                                             columnNumber: 52
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                    lineNumber: 531,
+                                    lineNumber: 551,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1529,7 +1555,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                     children: product.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                    lineNumber: 537,
+                                    lineNumber: 557,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1551,19 +1577,19 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                            lineNumber: 541,
+                                            lineNumber: 561,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                    lineNumber: 540,
+                                    lineNumber: 560,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                            lineNumber: 530,
+                            lineNumber: 550,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1579,18 +1605,18 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 545,
+                                lineNumber: 565,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                            lineNumber: 544,
+                            lineNumber: 564,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 529,
+                    lineNumber: 549,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1626,7 +1652,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                         children: "Combo Slots"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 556,
+                                        lineNumber: 576,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1664,7 +1690,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                 children: "COMBO OPTIONS"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 595,
                                                                 columnNumber: 49
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             !validation.missingGlobal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
@@ -1673,13 +1699,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                 strokeWidth: 3
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                lineNumber: 578,
+                                                                lineNumber: 598,
                                                                 columnNumber: 79
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                        lineNumber: 574,
+                                                        lineNumber: 594,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1691,13 +1717,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                         children: "Shared Settings"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                        lineNumber: 580,
+                                                        lineNumber: 600,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 562,
+                                                lineNumber: 582,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             slots.map((slot, idx)=>{
@@ -1737,7 +1763,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 606,
+                                                                    lineNumber: 626,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 complete && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
@@ -1746,13 +1772,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     strokeWidth: 3
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 609,
+                                                                    lineNumber: 629,
                                                                     columnNumber: 66
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 605,
+                                                            lineNumber: 625,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1764,7 +1790,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                             children: slot.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 611,
+                                                            lineNumber: 631,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         sel?.option && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1776,31 +1802,31 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                             children: sel.option.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 613,
+                                                            lineNumber: 633,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, slot.id, true, {
                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                    lineNumber: 591,
+                                                    lineNumber: 611,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0));
                                             })
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 559,
+                                        lineNumber: 579,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 555,
+                                lineNumber: 575,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                            lineNumber: 554,
+                            lineNumber: 574,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1818,6 +1844,308 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                     margin: '0 auto'
                                 },
                                 children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "pos-preselected-container",
+                                        style: {
+                                            marginBottom: '24px',
+                                            padding: '16px 20px',
+                                            background: 'rgba(31, 164, 169, 0.02)',
+                                            borderRadius: '16px',
+                                            border: '1px solid var(--pos-border-subtle)',
+                                            boxShadow: '0 2px 8px -2px rgba(0,0,0,0.05)'
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                style: {
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center',
+                                                    marginBottom: '16px'
+                                                },
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        style: {
+                                                            fontSize: '13px',
+                                                            fontWeight: 900,
+                                                            color: 'var(--pos-action-primary)',
+                                                            margin: 0,
+                                                            textTransform: 'uppercase',
+                                                            letterSpacing: '0.1em'
+                                                        },
+                                                        children: "Pre-Selected"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                        lineNumber: 657,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        style: {
+                                                            fontSize: '10px',
+                                                            fontWeight: 800,
+                                                            color: 'var(--pos-text-muted)',
+                                                            background: 'var(--pos-bg-main)',
+                                                            padding: '2px 8px',
+                                                            borderRadius: '4px',
+                                                            border: '1px solid var(--pos-border-subtle)'
+                                                        },
+                                                        children: "ACTIVE CONFIGURATION"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                        lineNumber: 658,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                lineNumber: 656,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                style: {
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    gap: '8px'
+                                                },
+                                                children: [
+                                                    product.variantGroups?.map((group)=>{
+                                                        const selectedId = selectedVariants[group.id];
+                                                        const option = group.options.find((o)=>o.id === selectedId);
+                                                        if (!option) return null;
+                                                        const isOriginalDefault = option.isDefault;
+                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                padding: '6px 12px',
+                                                                background: isOriginalDefault ? 'white' : 'rgba(245, 158, 11, 0.05)',
+                                                                borderRadius: '8px',
+                                                                border: isOriginalDefault ? '1px solid var(--pos-border-subtle)' : '1px solid rgba(245, 158, 11, 0.2)',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '6px',
+                                                                transition: 'all 0.2s'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        display: 'flex',
+                                                                        flexDirection: 'column'
+                                                                    },
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '8px',
+                                                                                fontWeight: 800,
+                                                                                color: 'var(--pos-text-muted)',
+                                                                                textTransform: 'uppercase'
+                                                                            },
+                                                                            children: group.name
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 687,
+                                                                            columnNumber: 53
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '12px',
+                                                                                fontWeight: 800,
+                                                                                color: 'var(--pos-text-primary)'
+                                                                            },
+                                                                            children: option.name
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 688,
+                                                                            columnNumber: 53
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 686,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                isOriginalDefault ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                                    size: 10,
+                                                                    color: "var(--pos-action-primary)",
+                                                                    strokeWidth: 4
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 690,
+                                                                    columnNumber: 70
+                                                                }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        width: '6px',
+                                                                        height: '6px',
+                                                                        borderRadius: '50%',
+                                                                        background: '#d97706'
+                                                                    }
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 690,
+                                                                    columnNumber: 142
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, group.id, true, {
+                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                            lineNumber: 676,
+                                                            columnNumber: 45
+                                                        }, ("TURBOPACK compile-time value", void 0));
+                                                    }),
+                                                    product.modifierGroups?.flatMap((g)=>g.options.filter((o)=>o.isDefault && selectedModifiers[o.id])).map((mod)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                padding: '6px 12px',
+                                                                background: 'white',
+                                                                borderRadius: '8px',
+                                                                border: '1px solid var(--pos-border-subtle)',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '6px'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        display: 'flex',
+                                                                        flexDirection: 'column'
+                                                                    },
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '8px',
+                                                                                fontWeight: 800,
+                                                                                color: 'var(--pos-action-primary)',
+                                                                                textTransform: 'uppercase'
+                                                                            },
+                                                                            children: "PRESET"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 707,
+                                                                            columnNumber: 49
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '12px',
+                                                                                fontWeight: 800,
+                                                                                color: 'var(--pos-text-primary)'
+                                                                            },
+                                                                            children: [
+                                                                                mod.name,
+                                                                                selectedModifiers[mod.id].quantity > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    style: {
+                                                                                        color: 'var(--pos-action-primary)',
+                                                                                        marginLeft: '4px'
+                                                                                    },
+                                                                                    children: [
+                                                                                        "x",
+                                                                                        selectedModifiers[mod.id].quantity
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                                    lineNumber: 710,
+                                                                                    columnNumber: 96
+                                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 708,
+                                                                            columnNumber: 49
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 706,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                                    size: 10,
+                                                                    color: "var(--pos-action-primary)",
+                                                                    strokeWidth: 4
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 713,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, mod.id, true, {
+                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                            lineNumber: 697,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))),
+                                                    product.modifierGroups?.flatMap((g)=>g.options.filter((o)=>o.isDefault && !selectedModifiers[o.id])).map((mod)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                padding: '6px 12px',
+                                                                background: 'rgba(239, 68, 68, 0.02)',
+                                                                borderRadius: '8px',
+                                                                border: '1px dashed rgba(239, 68, 68, 0.2)',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '6px',
+                                                                opacity: 0.8
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    style: {
+                                                                        display: 'flex',
+                                                                        flexDirection: 'column'
+                                                                    },
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '8px',
+                                                                                fontWeight: 800,
+                                                                                color: '#ef4444',
+                                                                                textTransform: 'uppercase'
+                                                                            },
+                                                                            children: "REMOVED"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 730,
+                                                                            columnNumber: 49
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            style: {
+                                                                                fontSize: '12px',
+                                                                                fontWeight: 800,
+                                                                                color: '#ef4444'
+                                                                            },
+                                                                            children: [
+                                                                                "NO ",
+                                                                                mod.name.toUpperCase()
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                            lineNumber: 731,
+                                                                            columnNumber: 49
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 729,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                                                    size: 10,
+                                                                    color: "#ef4444",
+                                                                    strokeWidth: 4
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                                    lineNumber: 733,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, mod.id, true, {
+                                                            fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                            lineNumber: 719,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                lineNumber: 663,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                        lineNumber: 648,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
                                     (!isCombo || activeSlotId === GLOBAL_SETTINGS_ID) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                         children: [
                                             product.variantGroups?.map((group)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1841,7 +2169,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: group.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 634,
+                                                                    lineNumber: 746,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1849,13 +2177,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: "REQUIRED"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 635,
+                                                                    lineNumber: 747,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 633,
+                                                            lineNumber: 745,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1883,7 +2211,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                             children: option.name
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 654,
+                                                                            lineNumber: 766,
                                                                             columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1894,25 +2222,25 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                             children: option.additionalPrice > 0 ? `+$${option.additionalPrice.toFixed(2)}` : 'Included'
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 655,
+                                                                            lineNumber: 767,
                                                                             columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, option.id, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 641,
+                                                                    lineNumber: 753,
                                                                     columnNumber: 57
                                                                 }, ("TURBOPACK compile-time value", void 0));
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 637,
+                                                            lineNumber: 749,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, group.id, true, {
                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                    lineNumber: 632,
+                                                    lineNumber: 744,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1923,7 +2251,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 665,
+                                                lineNumber: 777,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             product.modifierGroups?.map((group)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1947,7 +2275,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: group.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 671,
+                                                                    lineNumber: 783,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1959,13 +2287,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: group.maxSelection ? `Max ${group.maxSelection}` : 'Optional'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 672,
+                                                                    lineNumber: 784,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 670,
+                                                            lineNumber: 782,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1999,7 +2327,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                                     children: option.name
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                                    lineNumber: 696,
+                                                                                    lineNumber: 808,
                                                                                     columnNumber: 65
                                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2013,13 +2341,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                                    lineNumber: 697,
+                                                                                    lineNumber: 809,
                                                                                     columnNumber: 65
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 695,
+                                                                            lineNumber: 807,
                                                                             columnNumber: 61
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         isSelected ? renderCounter(selection.quantity, ()=>handleStandardModifierQty(option.id, -1), ()=>handleStandardModifierQty(option.id, 1)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2032,25 +2360,25 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                             }
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 706,
+                                                                            lineNumber: 818,
                                                                             columnNumber: 65
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, option.id, true, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 681,
+                                                                    lineNumber: 793,
                                                                     columnNumber: 57
                                                                 }, ("TURBOPACK compile-time value", void 0));
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 676,
+                                                            lineNumber: 788,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, group.id, true, {
                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                    lineNumber: 669,
+                                                    lineNumber: 781,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         ]
@@ -2075,7 +2403,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 720,
+                                                lineNumber: 832,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2118,12 +2446,12 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 744,
+                                                                    lineNumber: 856,
                                                                     columnNumber: 71
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                lineNumber: 743,
+                                                                lineNumber: 855,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2134,7 +2462,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                 children: opt.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                lineNumber: 746,
+                                                                lineNumber: 858,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             opt.price > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2149,19 +2477,19 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                lineNumber: 747,
+                                                                lineNumber: 859,
                                                                 columnNumber: 71
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, opt.id, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                        lineNumber: 729,
+                                                        lineNumber: 841,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0));
                                                 })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 725,
+                                                lineNumber: 837,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             slotSelections[activeSlot.id]?.option && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2187,7 +2515,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: group.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 759,
+                                                                    lineNumber: 871,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2213,19 +2541,19 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                             children: v.name
                                                                         }, v.id, false, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 764,
+                                                                            lineNumber: 876,
                                                                             columnNumber: 65
                                                                         }, ("TURBOPACK compile-time value", void 0));
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 760,
+                                                                    lineNumber: 872,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, group.id, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 758,
+                                                            lineNumber: 870,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0))),
                                                     activeSlot.modifierGroups?.map((group)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2243,7 +2571,7 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                     children: group.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 789,
+                                                                    lineNumber: 901,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2285,129 +2613,67 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                                                             ]
                                                                                         }, void 0, true, {
                                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                                            lineNumber: 797,
+                                                                                            lineNumber: 909,
                                                                                             columnNumber: 129
                                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                                    lineNumber: 797,
+                                                                                    lineNumber: 909,
                                                                                     columnNumber: 69
                                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                                 sel ? renderCounter(sel.quantity, ()=>handleSlotModifierQty(m.id, -1), ()=>handleSlotModifierQty(m.id, 1)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
                                                                                     size: 16
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                                    lineNumber: 800,
+                                                                                    lineNumber: 912,
                                                                                     columnNumber: 73
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             ]
                                                                         }, m.id, true, {
                                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                            lineNumber: 794,
+                                                                            lineNumber: 906,
                                                                             columnNumber: 65
                                                                         }, ("TURBOPACK compile-time value", void 0));
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                                    lineNumber: 790,
+                                                                    lineNumber: 902,
                                                                     columnNumber: 53
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, group.id, true, {
                                                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                            lineNumber: 788,
+                                                            lineNumber: 900,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 755,
+                                                lineNumber: 867,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 719,
+                                        lineNumber: 831,
                                         columnNumber: 33
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            marginTop: '40px',
-                                            paddingTop: '32px',
-                                            borderTop: '1px solid var(--pos-border-subtle)'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '8px',
-                                                    marginBottom: '12px',
-                                                    color: 'var(--pos-text-muted)'
-                                                },
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$utensils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Utensils$3e$__["Utensils"], {
-                                                        size: 16
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                        lineNumber: 815,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        style: {
-                                                            fontSize: '12px',
-                                                            fontWeight: 800,
-                                                            textTransform: 'uppercase',
-                                                            letterSpacing: '0.05em'
-                                                        },
-                                                        children: "Special Instructions"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                        lineNumber: 816,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 814,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                                className: "pos-input",
-                                                style: {
-                                                    height: '80px',
-                                                    paddingTop: '12px'
-                                                },
-                                                placeholder: "Add notes for the kitchen...",
-                                                value: notes,
-                                                onChange: (e)=>setNotes(e.target.value)
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 818,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 813,
-                                        columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 625,
+                                lineNumber: 645,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                            lineNumber: 624,
+                            lineNumber: 644,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 550,
+                    lineNumber: 570,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2440,14 +2706,176 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                         children: "Quantity"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 836,
+                                        lineNumber: 935,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     renderCounter(quantity, ()=>setQuantity(Math.max(1, quantity - 1)), ()=>setQuantity(quantity + 1), 'lg')
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 835,
+                                lineNumber: 934,
+                                columnNumber: 25
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                style: {
+                                    flex: 1,
+                                    margin: '0 32px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '8px',
+                                    maxWidth: '400px'
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        style: {
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center'
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                style: {
+                                                    fontSize: '12px',
+                                                    fontWeight: 900,
+                                                    color: 'var(--pos-text-muted)',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.05em'
+                                                },
+                                                children: [
+                                                    "Kitchen Notes ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        style: {
+                                                            color: 'var(--pos-action-primary)'
+                                                        },
+                                                        children: "(Internal)"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                        lineNumber: 943,
+                                                        columnNumber: 51
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                lineNumber: 942,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                style: {
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '10px'
+                                                },
+                                                children: [
+                                                    notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>setNotes(''),
+                                                        style: {
+                                                            background: 'none',
+                                                            border: 'none',
+                                                            color: '#EF4444',
+                                                            fontSize: '10px',
+                                                            fontWeight: 800,
+                                                            cursor: 'pointer'
+                                                        },
+                                                        children: "CLEAR"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                        lineNumber: 947,
+                                                        columnNumber: 41
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        style: {
+                                                            fontSize: '10px',
+                                                            color: notes.length >= 150 ? '#ef4444' : 'var(--pos-text-muted)',
+                                                            fontWeight: 800
+                                                        },
+                                                        children: [
+                                                            notes.length,
+                                                            "/150"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                        lineNumber: 954,
+                                                        columnNumber: 37
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                lineNumber: 945,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                        lineNumber: 941,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                        value: notes,
+                                        onChange: (e)=>setNotes(e.target.value.slice(0, 150)),
+                                        placeholder: "prepare instructions...",
+                                        style: {
+                                            width: '100%',
+                                            height: '42px',
+                                            padding: '10px 14px',
+                                            background: 'var(--pos-bg-main)',
+                                            border: '1.5px solid var(--pos-border-subtle)',
+                                            borderRadius: '12px',
+                                            fontSize: '14px',
+                                            fontWeight: 700,
+                                            resize: 'none',
+                                            color: 'var(--pos-text-primary)'
+                                        }
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                        lineNumber: 959,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        style: {
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: '6px'
+                                        },
+                                        children: [
+                                            'Extra Crispy',
+                                            'Light Bake',
+                                            'Well Done',
+                                            'Cut into 4',
+                                            'Cut into 6'
+                                        ].map((chip)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setNotes((prev)=>{
+                                                        const clean = prev.trim();
+                                                        if (clean.includes(chip)) return prev;
+                                                        return (clean ? `${clean}, ${chip}` : chip).slice(0, 150);
+                                                    }),
+                                                style: {
+                                                    height: '34px',
+                                                    padding: '0 12px',
+                                                    borderRadius: '8px',
+                                                    background: notes.includes(chip) ? 'var(--pos-action-primary)' : 'rgba(31, 164, 169, 0.05)',
+                                                    border: '1px solid rgba(31, 164, 169, 0.15)',
+                                                    fontSize: '11px',
+                                                    fontWeight: 800,
+                                                    color: notes.includes(chip) ? 'white' : 'var(--pos-action-primary)',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.15s'
+                                                },
+                                                className: "hover-scale",
+                                                children: chip
+                                            }, chip, false, {
+                                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                                lineNumber: 978,
+                                                columnNumber: 37
+                                            }, ("TURBOPACK compile-time value", void 0)))
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                        lineNumber: 976,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
+                                lineNumber: 940,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2476,13 +2904,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                                lineNumber: 843,
+                                                lineNumber: 1008,
                                                 columnNumber: 44
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 842,
+                                        lineNumber: 1007,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2497,13 +2925,13 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 845,
+                                        lineNumber: 1010,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 841,
+                                lineNumber: 1006,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2531,36 +2959,36 @@ const POSCustomizationModal = ({ isOpen, product, initialItem, onClose, onAddToC
                                         strokeWidth: 3
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                        lineNumber: 871,
+                                        lineNumber: 1036,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     validation.isValid ? 'ADD TO ORDER' : 'COMPLETE SELECTIONS'
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                                lineNumber: 851,
+                                lineNumber: 1016,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                        lineNumber: 832,
+                        lineNumber: 931,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-                    lineNumber: 831,
+                    lineNumber: 930,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-            lineNumber: 507,
+            lineNumber: 527,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/modules/pos/components/POSCustomizationModal.tsx",
-        lineNumber: 495,
+        lineNumber: 515,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2589,6 +3017,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pause$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Pause$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pause.js [app-client] (ecmascript) <export default as Pause>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$credit$2d$card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CreditCard$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/credit-card.js [app-client] (ecmascript) <export default as CreditCard>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$utensils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Utensils$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/utensils.js [app-client] (ecmascript) <export default as Utensils>");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
@@ -3715,16 +4144,38 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                             lineNumber: 415,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))),
-                                                    item.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    (item.kitchenNote || item.notes) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         style: {
-                                                            marginTop: '4px',
+                                                            marginTop: '6px',
                                                             fontSize: '11px',
-                                                            color: 'var(--pos-text-muted)',
-                                                            fontWeight: 800
+                                                            color: 'var(--pos-action-primary)',
+                                                            fontWeight: 900,
+                                                            background: 'rgba(31, 164, 169, 0.08)',
+                                                            padding: '6px 10px',
+                                                            borderRadius: '6px',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: '6px'
                                                         },
                                                         children: [
-                                                            "Note: ",
-                                                            item.notes
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$utensils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Utensils$3e$__["Utensils"], {
+                                                                size: 12,
+                                                                strokeWidth: 2.5
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
+                                                                lineNumber: 502,
+                                                                columnNumber: 49
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                children: [
+                                                                    "KITCHEN: ",
+                                                                    item.kitchenNote || item.notes
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
+                                                                lineNumber: 503,
+                                                                columnNumber: 49
+                                                            }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
@@ -3755,7 +4206,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 496,
+                                        lineNumber: 508,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
@@ -3797,12 +4248,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 509,
+                                                    lineNumber: 521,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 504,
+                                                lineNumber: 516,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3824,18 +4275,18 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 516,
+                                                    lineNumber: 528,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 511,
+                                                lineNumber: 523,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 503,
+                                        lineNumber: 515,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3867,12 +4318,12 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 526,
+                                                    lineNumber: 538,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 521,
+                                                lineNumber: 533,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3885,7 +4336,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                 children: item.quantity
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 528,
+                                                lineNumber: 540,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3907,24 +4358,24 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                    lineNumber: 536,
+                                                    lineNumber: 548,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                                lineNumber: 531,
+                                                lineNumber: 543,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                        lineNumber: 520,
+                                        lineNumber: 532,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                                lineNumber: 502,
+                                lineNumber: 514,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
@@ -3947,7 +4398,7 @@ const POSCartPanel = ({ cart, onUpdateQuantity, onRemoveItem, onEditItem, onClea
             `
             }, void 0, false, {
                 fileName: "[project]/src/modules/pos/components/POSCartPanel.tsx",
-                lineNumber: 545,
+                lineNumber: 557,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
@@ -3978,7 +4429,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-client] (ecmascript) <export default as ShoppingCart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-client] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/minus.js [app-client] (ecmascript) <export default as Minus>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-client] (ecmascript) <export default as ArrowLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings.js [app-client] (ecmascript) <export default as Settings>");
@@ -4000,9 +4450,10 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
     const [selectedAddOns, setSelectedAddOns] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
     const [removedIngredients, setRemovedIngredients] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(new Set());
     const [selectedVariants, setSelectedVariants] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({}); // groupId -> optionId
-    const [activeCategory, setActiveCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('BASE');
+    const [activeCategory, setActiveCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('PRESELECTED');
     const [activeSlotId, setActiveSlotId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [slotSelections, setSlotSelections] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
+    const [kitchenNotes, setKitchenNotes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     // ------------------------------------------------------------------
     // INITIALIZATION
     // ------------------------------------------------------------------
@@ -4037,6 +4488,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                     } else {
                         setSlotSelections({});
                     }
+                    setKitchenNotes(initialItem.kitchenNote || initialItem.notes || '');
                 } else {
                     // RUSH MODE: Auto-select first variants as defaults
                     const defaultVariants = {};
@@ -4055,12 +4507,9 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                     setSelectedAddOns({});
                     setRemovedIngredients(new Set());
                     setSlotSelections({});
+                    setKitchenNotes('');
                     // Set best starting category
-                    if (product.isCombo) {
-                        setActiveCategory('BASE');
-                    } else {
-                        setActiveCategory('BASE');
-                    }
+                    setActiveCategory('PRESELECTED');
                     setActiveSlotId(null);
                 }
             }
@@ -4297,7 +4746,8 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
         setSelectedAddOns({});
         setRemovedIngredients(new Set());
         setSelectedVariants({});
-        setActiveCategory('BASE');
+        setActiveCategory('PRESELECTED');
+        setKitchenNotes('');
     };
     const handleConfirm = ()=>{
         if (!product || !isValid) return;
@@ -4335,7 +4785,8 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                     }
                 };
             }) : undefined,
-            notes: initialItem?.notes || '',
+            kitchenNote: kitchenNotes.trim(),
+            notes: kitchenNotes.trim(),
             isPizza: true
         };
         onAddToCart(cartItem);
@@ -4694,13 +5145,25 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                     },
                                     children: [
                                         {
+                                            id: 'PRESELECTED',
+                                            label: 'Pre-Selected',
+                                            icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                size: 22
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                lineNumber: 463,
+                                                columnNumber: 83
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            count: Object.keys(selectedVariants).length + Object.keys(selectedToppings).length + removedIngredients.size
+                                        },
+                                        {
                                             id: 'BASE',
                                             label: 'Size & Crust',
                                             icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"], {
                                                 size: 22
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                lineNumber: 463,
+                                                lineNumber: 464,
                                                 columnNumber: 76
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             count: Object.keys(selectedVariants).length
@@ -4712,7 +5175,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                     size: 22
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                    lineNumber: 467,
+                                                    lineNumber: 468,
                                                     columnNumber: 43
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 count: slotSelections[slot.id] ? 1 : 0,
@@ -4726,7 +5189,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                 size: 22
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                lineNumber: 472,
+                                                lineNumber: 473,
                                                 columnNumber: 111
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             count: Object.keys(selectedToppings).length,
@@ -4739,23 +5202,11 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                 size: 22
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                lineNumber: 473,
+                                                lineNumber: 474,
                                                 columnNumber: 73
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             count: Object.keys(selectedAddOns).length,
                                             visible: addOnOptions.length > 0
-                                        },
-                                        {
-                                            id: 'REMOVALS',
-                                            label: 'Removals',
-                                            icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                size: 22
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                lineNumber: 474,
-                                                columnNumber: 76
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            count: removedIngredients.size
                                         }
                                     ].filter((c)=>c.visible !== false).map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>{
@@ -5467,63 +5918,296 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                     lineNumber: 656,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
-                                activeCategory === 'REMOVALS' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                activeCategory === 'PRESELECTED' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     style: {
                                         animation: 'posFadeInUp 0.3s'
                                     },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-                                            gap: '16px'
-                                        },
-                                        children: removalIngredients.map((ing)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>handleRemovalToggle(ing),
-                                                style: {
-                                                    padding: '24px',
-                                                    borderRadius: '20px',
-                                                    background: removedIngredients.has(ing) ? 'rgba(239, 68, 68, 0.05)' : 'var(--pos-bg-surface)',
-                                                    border: removedIngredients.has(ing) ? '2px solid #EF4444' : '1px solid var(--pos-border-subtle)',
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                    cursor: 'pointer',
-                                                    boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
-                                                },
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        style: {
-                                                            fontSize: '18px',
-                                                            fontWeight: 900,
-                                                            color: removedIngredients.has(ing) ? '#EF4444' : 'var(--pos-text-primary)'
-                                                        },
-                                                        children: ing
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                        lineNumber: 683,
-                                                        columnNumber: 45
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    removedIngredients.has(ing) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                                        size: 20,
-                                                        color: "#EF4444",
-                                                        strokeWidth: 3
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                        lineNumber: 684,
-                                                        columnNumber: 77
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, ing, true, {
-                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                lineNumber: 682,
-                                                columnNumber: 41
-                                            }, ("TURBOPACK compile-time value", void 0)))
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                        lineNumber: 680,
-                                        columnNumber: 33
-                                    }, ("TURBOPACK compile-time value", void 0))
-                                }, void 0, false, {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                marginBottom: '40px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                    style: {
+                                                        fontSize: '14px',
+                                                        fontWeight: 900,
+                                                        color: 'var(--pos-action-primary)',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.2em',
+                                                        marginBottom: '24px',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '10px'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                width: '30px',
+                                                                height: '2px',
+                                                                background: 'var(--pos-action-primary)'
+                                                            }
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                            lineNumber: 683,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        " Configuration Summary"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 682,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        display: 'grid',
+                                                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                                        gap: '12px'
+                                                    },
+                                                    children: [
+                                                        product.variantGroups?.map((group)=>{
+                                                            const selectedId = selectedVariants[group.id];
+                                                            const option = group.options.find((o)=>o.id === selectedId);
+                                                            if (!option) return null;
+                                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                style: {
+                                                                    padding: '16px 20px',
+                                                                    background: 'var(--pos-bg-surface)',
+                                                                    borderRadius: '16px',
+                                                                    border: '1px solid var(--pos-border-subtle)',
+                                                                    display: 'flex',
+                                                                    justifyContent: 'space-between',
+                                                                    alignItems: 'center'
+                                                                },
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontSize: '10px',
+                                                                                    fontWeight: 800,
+                                                                                    color: 'var(--pos-text-muted)',
+                                                                                    textTransform: 'uppercase'
+                                                                                },
+                                                                                children: group.name
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                                lineNumber: 694,
+                                                                                columnNumber: 57
+                                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontSize: '18px',
+                                                                                    fontWeight: 900,
+                                                                                    color: 'var(--pos-text-primary)'
+                                                                                },
+                                                                                children: option.name
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                                lineNumber: 695,
+                                                                                columnNumber: 57
+                                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                        lineNumber: 693,
+                                                                        columnNumber: 53
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                                        size: 20,
+                                                                        color: "var(--pos-action-primary)",
+                                                                        strokeWidth: 3
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                        lineNumber: 697,
+                                                                        columnNumber: 53
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, group.id, true, {
+                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                lineNumber: 692,
+                                                                columnNumber: 49
+                                                            }, ("TURBOPACK compile-time value", void 0));
+                                                        }),
+                                                        Object.values(selectedToppings).map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                style: {
+                                                                    padding: '16px 20px',
+                                                                    background: 'rgba(31, 164, 169, 0.05)',
+                                                                    borderRadius: '16px',
+                                                                    border: '1px solid rgba(31, 164, 169, 0.2)',
+                                                                    display: 'flex',
+                                                                    justifyContent: 'space-between',
+                                                                    alignItems: 'center'
+                                                                },
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontSize: '10px',
+                                                                                    fontWeight: 800,
+                                                                                    color: 'var(--pos-action-primary)',
+                                                                                    textTransform: 'uppercase'
+                                                                                },
+                                                                                children: "TOPPING"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                                lineNumber: 706,
+                                                                                columnNumber: 53
+                                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontSize: '18px',
+                                                                                    fontWeight: 900,
+                                                                                    color: 'var(--pos-text-primary)'
+                                                                                },
+                                                                                children: t.name
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                                lineNumber: 707,
+                                                                                columnNumber: 53
+                                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                        lineNumber: 705,
+                                                                        columnNumber: 49
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        style: {
+                                                                            fontSize: '12px',
+                                                                            fontWeight: 800,
+                                                                            color: 'var(--pos-action-primary)'
+                                                                        },
+                                                                        children: [
+                                                                            t.level !== 'NORMAL' ? t.level : '',
+                                                                            " ",
+                                                                            t.portion !== 'WHOLE' ? t.portion : ''
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                        lineNumber: 709,
+                                                                        columnNumber: 49
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, t.optionId, true, {
+                                                                fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                lineNumber: 704,
+                                                                columnNumber: 45
+                                                            }, ("TURBOPACK compile-time value", void 0)))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 685,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                            lineNumber: 681,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                    style: {
+                                                        fontSize: '14px',
+                                                        fontWeight: 900,
+                                                        color: '#EF4444',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.2em',
+                                                        marginBottom: '24px',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '10px'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                width: '30px',
+                                                                height: '2px',
+                                                                background: '#EF4444'
+                                                            }
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                            lineNumber: 718,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        " Modifications (Removed Defaults)"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 717,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        display: 'grid',
+                                                        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                                                        gap: '12px'
+                                                    },
+                                                    children: removalIngredients.map((ing)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            onClick: ()=>handleRemovalToggle(ing),
+                                                            style: {
+                                                                padding: '24px',
+                                                                borderRadius: '20px',
+                                                                background: removedIngredients.has(ing) ? 'rgba(239, 68, 68, 0.05)' : 'var(--pos-bg-surface)',
+                                                                border: removedIngredients.has(ing) ? '2px solid #EF4444' : '1px solid var(--pos-border-subtle)',
+                                                                display: 'flex',
+                                                                justifyContent: 'space-between',
+                                                                alignItems: 'center',
+                                                                cursor: 'pointer',
+                                                                transition: 'all 0.2s'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    style: {
+                                                                        fontSize: '18px',
+                                                                        fontWeight: 900,
+                                                                        color: removedIngredients.has(ing) ? '#EF4444' : 'var(--pos-text-primary)'
+                                                                    },
+                                                                    children: ing
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                    lineNumber: 737,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                removedIngredients.has(ing) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                                                    size: 20,
+                                                                    color: "#EF4444",
+                                                                    strokeWidth: 3
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                    lineNumber: 738,
+                                                                    columnNumber: 80
+                                                                }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                                                    size: 16,
+                                                                    color: "var(--pos-text-muted)"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                                    lineNumber: 738,
+                                                                    columnNumber: 130
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, ing, true, {
+                                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                            lineNumber: 722,
+                                                            columnNumber: 45
+                                                        }, ("TURBOPACK compile-time value", void 0)))
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 720,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                            lineNumber: 716,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
                                     lineNumber: 679,
                                     columnNumber: 29
@@ -5573,7 +6257,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                             children: "Configuration Value"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                            lineNumber: 706,
+                                            lineNumber: 761,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5589,13 +6273,13 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                            lineNumber: 707,
+                                            lineNumber: 762,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                    lineNumber: 705,
+                                    lineNumber: 760,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5606,7 +6290,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                    lineNumber: 709,
+                                    lineNumber: 764,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5626,7 +6310,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                     children: "CORE"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                    lineNumber: 712,
+                                                    lineNumber: 767,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5641,13 +6325,13 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                    lineNumber: 713,
+                                                    lineNumber: 768,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                            lineNumber: 711,
+                                            lineNumber: 766,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5661,7 +6345,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                     children: "MODS"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                    lineNumber: 716,
+                                                    lineNumber: 771,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5676,25 +6360,195 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                                    lineNumber: 717,
+                                                    lineNumber: 772,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                            lineNumber: 715,
+                                            lineNumber: 770,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                    lineNumber: 710,
+                                    lineNumber: 765,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                            lineNumber: 704,
+                            lineNumber: 759,
+                            columnNumber: 21
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                flex: 1,
+                                margin: '0 40px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px',
+                                maxWidth: '450px'
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                            style: {
+                                                fontSize: '13px',
+                                                fontWeight: 900,
+                                                color: 'var(--pos-text-muted)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.05em',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '8px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$utensils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Utensils$3e$__["Utensils"], {
+                                                    size: 14,
+                                                    color: "var(--pos-action-primary)"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 781,
+                                                    columnNumber: 33
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                "Kitchen Notes"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                            lineNumber: 780,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '12px'
+                                            },
+                                            children: [
+                                                kitchenNotes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>setKitchenNotes(''),
+                                                    style: {
+                                                        background: 'none',
+                                                        border: 'none',
+                                                        color: '#EF4444',
+                                                        fontSize: '11px',
+                                                        fontWeight: 800,
+                                                        cursor: 'pointer',
+                                                        textTransform: 'uppercase'
+                                                    },
+                                                    children: "Clear"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 786,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontSize: '11px',
+                                                        color: kitchenNotes.length >= 150 ? '#ef4444' : 'var(--pos-text-muted)',
+                                                        fontWeight: 800
+                                                    },
+                                                    children: [
+                                                        kitchenNotes.length,
+                                                        "/150"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                                    lineNumber: 793,
+                                                    columnNumber: 33
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                            lineNumber: 784,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                    lineNumber: 779,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                    value: kitchenNotes,
+                                    onChange: (e)=>setKitchenNotes(e.target.value.slice(0, 150)),
+                                    placeholder: "Tap instructions below or type here...",
+                                    style: {
+                                        width: '100%',
+                                        height: '56px',
+                                        padding: '12px 16px',
+                                        background: 'white',
+                                        border: '2px solid var(--pos-border-subtle)',
+                                        borderRadius: '14px',
+                                        fontSize: '15px',
+                                        fontWeight: 700,
+                                        resize: 'none',
+                                        color: 'var(--pos-text-primary)',
+                                        outline: 'none',
+                                        transition: 'border-color 0.2s'
+                                    },
+                                    onFocus: (e)=>e.target.style.borderColor = 'var(--pos-action-primary)',
+                                    onBlur: (e)=>e.target.style.borderColor = 'var(--pos-border-subtle)'
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                    lineNumber: 798,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        gap: '8px'
+                                    },
+                                    children: [
+                                        'Extra Crispy',
+                                        'Light Bake',
+                                        'Well Done',
+                                        'Cut into 4',
+                                        'Cut into 6',
+                                        'No Oregano'
+                                    ].map((chip)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setKitchenNotes((prev)=>{
+                                                    const clean = prev.trim();
+                                                    if (clean.includes(chip)) return prev;
+                                                    return (clean ? `${clean}, ${chip}` : chip).slice(0, 150);
+                                                }),
+                                            style: {
+                                                height: '42px',
+                                                padding: '0 16px',
+                                                borderRadius: '10px',
+                                                background: kitchenNotes.includes(chip) ? 'var(--pos-action-primary)' : 'rgba(31, 164, 169, 0.05)',
+                                                border: '1.5px solid rgba(31, 164, 169, 0.15)',
+                                                fontSize: '13px',
+                                                fontWeight: 800,
+                                                color: kitchenNotes.includes(chip) ? 'white' : 'var(--pos-action-primary)',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+                                            },
+                                            className: "hover-scale active-pop",
+                                            children: chip
+                                        }, chip, false, {
+                                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                            lineNumber: 821,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)))
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                                    lineNumber: 819,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
+                            lineNumber: 778,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5723,20 +6577,20 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
                                     strokeWidth: 3
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                                    lineNumber: 743,
+                                    lineNumber: 870,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 isValid ? initialItem ? 'UPDATE CONFIG' : 'DEPLOY TO BASKET' : 'SELECT CRUST/SIZE'
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                            lineNumber: 722,
+                            lineNumber: 849,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/components/POSPizzaModifierModal.tsx",
-                    lineNumber: 694,
+                    lineNumber: 749,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
@@ -5751,7 +6605,7 @@ const POSPizzaModifierModal = ({ isOpen, product, initialItem, allProducts = [],
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(POSPizzaModifierModal, "A5um8D5Gxx2B4tjUQOkESibgYi8=");
+_s(POSPizzaModifierModal, "zXGe0j3ho3eumzuj1l1Ks0eR5aw=");
 _c = POSPizzaModifierModal;
 var _c;
 __turbopack_context__.k.register(_c, "POSPizzaModifierModal");

@@ -26,7 +26,7 @@ export const POSPaymentConfirmationScreen: React.FC = () => {
         if (!isSuccess) return;
 
         const timer = setTimeout(() => {
-            router.push(`/pos/confirmation${orderId ? `?orderId=${orderId}` : ''}`);
+            router.push(`/pos/order-success/${orderId || 'last'}`);
         }, 3000);
         return () => clearTimeout(timer);
     }, [isSuccess, router, orderId]);
@@ -129,7 +129,7 @@ export const POSPaymentConfirmationScreen: React.FC = () => {
                 {isSuccess ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <button
-                            onClick={() => router.push(`/pos/confirmation${orderId ? `?orderId=${orderId}` : ''}`)}
+                            onClick={() => router.push(`/pos/order-success/${orderId || 'last'}`)}
                             className="pos-btn-primary"
                             style={{ width: '100%', height: '72px', borderRadius: '18px', fontSize: '18px', fontWeight: 900 }}
                         >

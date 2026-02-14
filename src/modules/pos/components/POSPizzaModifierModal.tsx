@@ -4,7 +4,6 @@ import {
     ShoppingCart,
     Plus,
     Minus,
-    Trash2,
     ArrowLeft,
     Check,
     Settings,
@@ -67,9 +66,10 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
     const [selectedAddOns, setSelectedAddOns] = useState<Record<string, AddOnSelection>>({});
     const [removedIngredients, setRemovedIngredients] = useState<Set<string>>(new Set());
     const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({}); // groupId -> optionId
-    const [activeCategory, setActiveCategory] = useState<'BASE' | 'TOPPINGS' | 'ADDONS' | 'REMOVALS' | 'SLOTS'>('BASE');
+    const [activeCategory, setActiveCategory] = useState<'PRESELECTED' | 'BASE' | 'TOPPINGS' | 'ADDONS' | 'SLOTS'>('PRESELECTED');
     const [activeSlotId, setActiveSlotId] = useState<string | null>(null);
     const [slotSelections, setSlotSelections] = useState<Record<string, { productId: string; toppings: Record<string, ToppingSelection>; removals: Set<string> }>>({});
+    const [kitchenNotes, setKitchenNotes] = useState('');
 
     // ------------------------------------------------------------------
     // INITIALIZATION
@@ -103,6 +103,7 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                 } else {
                     setSlotSelections({});
                 }
+                setKitchenNotes(initialItem.kitchenNote || initialItem.notes || '');
             } else {
                 // RUSH MODE: Auto-select first variants as defaults
                 const defaultVariants: Record<string, string> = {};
@@ -120,13 +121,10 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                 setSelectedAddOns({});
                 setRemovedIngredients(new Set());
                 setSlotSelections({});
+                setKitchenNotes('');
 
                 // Set best starting category
-                if (product.isCombo) {
-                    setActiveCategory('BASE');
-                } else {
-                    setActiveCategory('BASE');
-                }
+                setActiveCategory('PRESELECTED');
                 setActiveSlotId(null);
             }
         }
@@ -288,7 +286,8 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
         setSelectedAddOns({});
         setRemovedIngredients(new Set());
         setSelectedVariants({});
-        setActiveCategory('BASE');
+        setActiveCategory('PRESELECTED');
+        setKitchenNotes('');
     };
 
     const handleConfirm = () => {
@@ -327,7 +326,8 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                     }
                 };
             }) : undefined,
-            notes: initialItem?.notes || '',
+            kitchenNote: kitchenNotes.trim(),
+            notes: kitchenNotes.trim(),
             isPizza: true
         };
         onAddToCart(cartItem);
@@ -460,6 +460,7 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
 
                         <div className="pos-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
                             {[
+                                { id: 'PRESELECTED', label: 'Pre-Selected', icon: <Check size={22} />, count: Object.keys(selectedVariants).length + Object.keys(selectedToppings).length + removedIngredients.size },
                                 { id: 'BASE', label: 'Size & Crust', icon: <Settings size={22} />, count: Object.keys(selectedVariants).length },
                                 ...(product.isCombo ? (product.comboSlots || []).map(slot => ({
                                     id: `SLOT_${slot.id}`,
@@ -471,7 +472,6 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                                 })) : []),
                                 { id: 'TOPPINGS', label: activeSlotId ? 'Toppings (Slot)' : 'Toppings', icon: <Plus size={22} />, count: Object.keys(selectedToppings).length, visible: toppingOptions.length > 0 },
                                 { id: 'ADDONS', label: 'Add-ons', icon: <Layers size={22} />, count: Object.keys(selectedAddOns).length, visible: addOnOptions.length > 0 },
-                                { id: 'REMOVALS', label: 'Removals', icon: <Trash2 size={22} />, count: removedIngredients.size }
                             ].filter((c: any) => c.visible !== false).map((cat: any) => (
                                 <button
                                     key={cat.id}
@@ -675,15 +675,70 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                             </div>
                         )}
 
-                        {activeCategory === 'REMOVALS' && (
+                        {activeCategory === 'PRESELECTED' && (
                             <div style={{ animation: 'posFadeInUp 0.3s' }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
-                                    {removalIngredients.map((ing: string) => (
-                                        <button key={ing} onClick={() => handleRemovalToggle(ing)} style={{ padding: '24px', borderRadius: '20px', background: removedIngredients.has(ing) ? 'rgba(239, 68, 68, 0.05)' : 'var(--pos-bg-surface)', border: removedIngredients.has(ing) ? '2px solid #EF4444' : '1px solid var(--pos-border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
-                                            <span style={{ fontSize: '18px', fontWeight: 900, color: removedIngredients.has(ing) ? '#EF4444' : 'var(--pos-text-primary)' }}>{ing}</span>
-                                            {removedIngredients.has(ing) && <X size={20} color="#EF4444" strokeWidth={3} />}
-                                        </button>
-                                    ))}
+                                {/* 1. CONFIGURATION SUMMARY (DEFAULTS) */}
+                                <div style={{ marginBottom: '40px' }}>
+                                    <h4 style={{ fontSize: '14px', fontWeight: 900, color: 'var(--pos-action-primary)', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ width: '30px', height: '2px', background: 'var(--pos-action-primary)' }} /> Configuration Summary
+                                    </h4>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
+                                        {/* Variants (Size & Crust) */}
+                                        {product.variantGroups?.map(group => {
+                                            const selectedId = selectedVariants[group.id];
+                                            const option = group.options.find(o => o.id === selectedId);
+                                            if (!option) return null;
+                                            return (
+                                                <div key={group.id} style={{ padding: '16px 20px', background: 'var(--pos-bg-surface)', borderRadius: '16px', border: '1px solid var(--pos-border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                    <div>
+                                                        <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--pos-text-muted)', textTransform: 'uppercase' }}>{group.name}</div>
+                                                        <div style={{ fontSize: '18px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>{option.name}</div>
+                                                    </div>
+                                                    <Check size={20} color="var(--pos-action-primary)" strokeWidth={3} />
+                                                </div>
+                                            );
+                                        })}
+
+                                        {/* Active Toppings */}
+                                        {Object.values(selectedToppings).map(t => (
+                                            <div key={t.optionId} style={{ padding: '16px 20px', background: 'rgba(31, 164, 169, 0.05)', borderRadius: '16px', border: '1px solid rgba(31, 164, 169, 0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <div>
+                                                    <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--pos-action-primary)', textTransform: 'uppercase' }}>TOPPING</div>
+                                                    <div style={{ fontSize: '18px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>{t.name}</div>
+                                                </div>
+                                                <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--pos-action-primary)' }}>{t.level !== 'NORMAL' ? t.level : ''} {t.portion !== 'WHOLE' ? t.portion : ''}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* 2. MODIFICATIONS (REMOVED DEFAULTS) */}
+                                <div>
+                                    <h4 style={{ fontSize: '14px', fontWeight: 900, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ width: '30px', height: '2px', background: '#EF4444' }} /> Modifications (Removed Defaults)
+                                    </h4>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '12px' }}>
+                                        {removalIngredients.map((ing: string) => (
+                                            <button
+                                                key={ing}
+                                                onClick={() => handleRemovalToggle(ing)}
+                                                style={{
+                                                    padding: '24px',
+                                                    borderRadius: '20px',
+                                                    background: removedIngredients.has(ing) ? 'rgba(239, 68, 68, 0.05)' : 'var(--pos-bg-surface)',
+                                                    border: removedIngredients.has(ing) ? '2px solid #EF4444' : '1px solid var(--pos-border-subtle)',
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                            >
+                                                <span style={{ fontSize: '18px', fontWeight: 900, color: removedIngredients.has(ing) ? '#EF4444' : 'var(--pos-text-primary)' }}>{ing}</span>
+                                                {removedIngredients.has(ing) ? <X size={20} color="#EF4444" strokeWidth={3} /> : <Plus size={16} color="var(--pos-text-muted)" />}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -716,6 +771,78 @@ export const POSPizzaModifierModal: React.FC<POSPizzaModifierModalProps> = ({
                                 <div style={{ fontSize: '10px', color: 'var(--pos-action-primary)', fontWeight: 800 }}>MODS</div>
                                 <div style={{ fontSize: '16px', fontWeight: 900, color: '#10B981' }}>+${(pricing.toppings + pricing.addOns).toFixed(2)}</div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* --- KITCHEN NOTES SECTION (TOUCH OPTIMIZED) --- */}
+                    <div style={{ flex: 1, margin: '0 40px', display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '450px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <label style={{ fontSize: '13px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Utensils size={14} color="var(--pos-action-primary)" />
+                                Kitchen Notes
+                            </label>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                {kitchenNotes && (
+                                    <button
+                                        onClick={() => setKitchenNotes('')}
+                                        style={{ background: 'none', border: 'none', color: '#EF4444', fontSize: '11px', fontWeight: 800, cursor: 'pointer', textTransform: 'uppercase' }}
+                                    >
+                                        Clear
+                                    </button>
+                                )}
+                                <span style={{ fontSize: '11px', color: kitchenNotes.length >= 150 ? '#ef4444' : 'var(--pos-text-muted)', fontWeight: 800 }}>
+                                    {kitchenNotes.length}/150
+                                </span>
+                            </div>
+                        </div>
+                        <textarea
+                            value={kitchenNotes}
+                            onChange={(e) => setKitchenNotes(e.target.value.slice(0, 150))}
+                            placeholder="Tap instructions below or type here..."
+                            style={{
+                                width: '100%',
+                                height: '56px',
+                                padding: '12px 16px',
+                                background: 'white',
+                                border: '2px solid var(--pos-border-subtle)',
+                                borderRadius: '14px',
+                                fontSize: '15px',
+                                fontWeight: 700,
+                                resize: 'none',
+                                color: 'var(--pos-text-primary)',
+                                outline: 'none',
+                                transition: 'border-color 0.2s'
+                            }}
+                            onFocus={(e) => (e.target.style.borderColor = 'var(--pos-action-primary)')}
+                            onBlur={(e) => (e.target.style.borderColor = 'var(--pos-border-subtle)')}
+                        />
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                            {['Extra Crispy', 'Light Bake', 'Well Done', 'Cut into 4', 'Cut into 6', 'No Oregano'].map(chip => (
+                                <button
+                                    key={chip}
+                                    onClick={() => setKitchenNotes(prev => {
+                                        const clean = prev.trim();
+                                        if (clean.includes(chip)) return prev;
+                                        return (clean ? `${clean}, ${chip}` : chip).slice(0, 150);
+                                    })}
+                                    style={{
+                                        height: '42px',
+                                        padding: '0 16px',
+                                        borderRadius: '10px',
+                                        background: kitchenNotes.includes(chip) ? 'var(--pos-action-primary)' : 'rgba(31, 164, 169, 0.05)',
+                                        border: '1.5px solid rgba(31, 164, 169, 0.15)',
+                                        fontSize: '13px',
+                                        fontWeight: 800,
+                                        color: kitchenNotes.includes(chip) ? 'white' : 'var(--pos-action-primary)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+                                    }}
+                                    className="hover-scale active-pop"
+                                >
+                                    {chip}
+                                </button>
+                            ))}
                         </div>
                     </div>
 

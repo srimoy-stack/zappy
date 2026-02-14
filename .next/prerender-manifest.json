@@ -818,6 +818,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/callcenter/dashboard": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/callcenter/dashboard",
+      "dataRoute": "/callcenter/dashboard.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/callcenter/login": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/callcenter/login",
+      "dataRoute": "/callcenter/login.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/": {
       "experimentalBypassFor": [
         {
@@ -1322,7 +1370,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/pos/store-selection": {
+    "/pos/table-selection": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1335,8 +1383,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/pos/store-selection",
-      "dataRoute": "/pos/store-selection.rsc",
+      "srcRoute": "/pos/table-selection",
+      "dataRoute": "/pos/table-selection.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1374,8 +1422,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "3a365f06b642ff60d98a91a2f2da0a63",
-    "previewModeSigningKey": "de18d4d8c296dcdf5bd90e4d314c59831afd2fdca7cef4e53fab682207a08c97",
-    "previewModeEncryptionKey": "d5f5814c923596753072c4faa060c4df7d1808f970b81a32111f4ab1b810e13f"
+    "previewModeId": "786b41a62aacf939ab239aad5777a0b1",
+    "previewModeSigningKey": "c3f4b6c3c2bfdedb40383c0d09132e6487db7c95a8cac86802325d8d3002f341",
+    "previewModeEncryptionKey": "c5d5649d4949cb60d2f98eb2e1a38e58984cd2b76a2abb8144588723451def48"
   }
 }

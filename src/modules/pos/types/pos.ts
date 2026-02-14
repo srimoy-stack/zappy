@@ -5,15 +5,27 @@ export type POSType = 'STORE' | 'CALL_CENTER';
 
 export type OrderChannel = 'Dine-In' | 'Pickup' | 'Delivery' | 'Phone Order';
 
-export type TableStatus = 'FREE' | 'OCCUPIED' | 'RESERVED';
+export type TableStatus = 'FREE' | 'OCCUPIED' | 'RESERVED' | 'CLEANING';
 
 export interface POSTable {
     id: string;
     name: string;
     seats: number;
     status: TableStatus;
-    orderId?: string; // ID of the active order on this table
+    orderId?: string;
     areaId: string;
+    // Floor map positioning (percentage based for responsiveness)
+    x: number;
+    y: number;
+    width?: number;
+    height?: number;
+    shape?: 'rectangle' | 'circle';
+    // Live data
+    orderCount?: number;
+    durationMinutes?: number;
+    customerName?: string;
+    totalAmount?: number;
+    mergedWith?: string[]; // IDs of tables merged with this one
 }
 
 export interface POSArea {
@@ -64,6 +76,8 @@ export interface POSContextType {
     moveTable: (sourceTableId: string, targetTableId: string) => void;
     setCustomer: (customer: POSCustomer | null) => void;
     logout: () => void;
+    tables: POSTable[];
+    updateTables: (newTables: POSTable[]) => void;
     cart: POSCartItem[];
     setCart: React.Dispatch<React.SetStateAction<POSCartItem[]>>;
     addToCart: (product: any) => void;
@@ -78,9 +92,13 @@ export interface POSContextType {
     incomingCall: { number: string; caller: string; location: string; customerId?: string } | null;
     setIncomingCall: (call: { number: string; caller: string; location: string; customerId?: string } | null) => void;
     updateCustomer: (customerId: string, data: Partial<POSCustomer>) => void;
+    addOrderToCustomerHistory: (customerId: string, order: any) => void;
+    customers: POSCustomer[];
     startShift: (openingCash: number, notes?: string) => void;
     isSyncing: boolean;
     setSyncing: (syncing: boolean) => void;
+    mergeTables: (tableIds: string[]) => void;
+    unmergeTable: (tableId: string) => void;
 }
 
 export interface POSVariantGroup {
@@ -90,6 +108,7 @@ export interface POSVariantGroup {
         id: string;
         name: string;
         additionalPrice: number;
+        isDefault?: boolean;
     }[];
 }
 
@@ -163,4 +182,5 @@ export interface POSCartItem {
     };
     isPizza?: boolean;
     notes?: string;
+    kitchenNote?: string;
 }

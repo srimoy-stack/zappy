@@ -4,8 +4,7 @@ import {
     Check,
     ShoppingCart,
     Plus,
-    Minus,
-    Utensils
+    Minus
 } from 'lucide-react';
 import { POSProduct, POSModifierGroup } from '../types/pos';
 import '../styles/pos-rush.css';
@@ -105,9 +104,29 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
                     setNotes(initialItem.notes || '');
                     setQuantity(initialItem.quantity || 1);
                 } else {
-                    // Reset
-                    setSelectedVariants({});
-                    setSelectedModifiers({});
+                    // Reset with Defaults
+                    const defaultVariants: Record<string, string> = {};
+                    product.variantGroups?.forEach(g => {
+                        const def = g.options.find((o: any) => o.isDefault) || g.options[0];
+                        if (def) defaultVariants[g.id] = def.id;
+                    });
+
+                    const defaultMods: Record<string, ModifierSelection> = {};
+                    product.modifierGroups?.forEach(g => {
+                        g.options.forEach(opt => {
+                            if ((opt as any).isDefault) {
+                                defaultMods[opt.id] = {
+                                    optionId: opt.id,
+                                    quantity: 1,
+                                    price: opt.price,
+                                    name: opt.name
+                                };
+                            }
+                        });
+                    });
+
+                    setSelectedVariants(defaultVariants);
+                    setSelectedModifiers(defaultMods);
                     setNotes('');
                     setQuantity(1);
                 }
@@ -425,7 +444,8 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
             price: totalPrice / quantity,
             quantity: quantity,
             isCombo,
-            notes,
+            kitchenNote: notes.trim(),
+            notes: notes.trim(),
             // Standard Fields
             variants: Object.entries(selectedVariants).map(([gId, oId]) => {
                 const group = product.variantGroups?.find(g => g.id === gId);
@@ -624,6 +644,102 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
                     <div style={{ flex: 1, padding: '0', overflowY: 'auto', background: 'var(--pos-bg-surface)' }} className="pos-scroll">
                         <div style={{ padding: '32px', maxWidth: '800px', margin: '0 auto' }}>
 
+                            {/* --- PRE-SELECTED SECTION (Configuration Summary) --- */}
+                            <div className="pos-preselected-container" style={{
+                                marginBottom: '24px',
+                                padding: '16px 20px',
+                                background: 'rgba(31, 164, 169, 0.02)',
+                                borderRadius: '16px',
+                                border: '1px solid var(--pos-border-subtle)',
+                                boxShadow: '0 2px 8px -2px rgba(0,0,0,0.05)'
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                                    <h3 style={{ fontSize: '13px', fontWeight: 900, color: 'var(--pos-action-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Pre-Selected</h3>
+                                    <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--pos-text-muted)', background: 'var(--pos-bg-main)', padding: '2px 8px', borderRadius: '4px', border: '1px solid var(--pos-border-subtle)' }}>
+                                        ACTIVE CONFIGURATION
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    gap: '8px'
+                                }}>
+                                    {/* All Variants */}
+                                    {product.variantGroups?.map(group => {
+                                        const selectedId = selectedVariants[group.id];
+                                        const option = group.options.find(o => o.id === selectedId);
+                                        if (!option) return null;
+                                        const isOriginalDefault = option.isDefault;
+
+                                        return (
+                                            <div key={group.id} style={{
+                                                padding: '6px 12px',
+                                                background: isOriginalDefault ? 'white' : 'rgba(245, 158, 11, 0.05)',
+                                                borderRadius: '8px',
+                                                border: isOriginalDefault ? '1px solid var(--pos-border-subtle)' : '1px solid rgba(245, 158, 11, 0.2)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                transition: 'all 0.2s'
+                                            }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <span style={{ fontSize: '8px', fontWeight: 800, color: 'var(--pos-text-muted)', textTransform: 'uppercase' }}>{group.name}</span>
+                                                    <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--pos-text-primary)' }}>{option.name}</span>
+                                                </div>
+                                                {isOriginalDefault ? <Check size={10} color="var(--pos-action-primary)" strokeWidth={4} /> : <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#d97706' }} />}
+                                            </div>
+                                        );
+                                    })}
+
+                                    {/* Selected Preset Modifiers */}
+                                    {product.modifierGroups?.flatMap(g => g.options.filter(o => (o as any).isDefault && selectedModifiers[o.id])).map(mod => {
+                                        const selection = selectedModifiers[mod.id];
+                                        if (!selection) return null;
+                                        return (
+                                            <div key={mod.id} style={{
+                                                padding: '6px 12px',
+                                                background: 'white',
+                                                borderRadius: '8px',
+                                                border: '1px solid var(--pos-border-subtle)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px'
+                                            }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <span style={{ fontSize: '8px', fontWeight: 800, color: 'var(--pos-action-primary)', textTransform: 'uppercase' }}>PRESET</span>
+                                                    <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--pos-text-primary)' }}>
+                                                        {mod.name}
+                                                        {selection.quantity > 1 && <span style={{ color: 'var(--pos-action-primary)', marginLeft: '4px' }}>x{selection.quantity}</span>}
+                                                    </span>
+                                                </div>
+                                                <Check size={10} color="var(--pos-action-primary)" strokeWidth={4} />
+                                            </div>
+                                        );
+                                    })}
+
+                                    {/* Excluded Defaults */}
+                                    {product.modifierGroups?.flatMap(g => g.options.filter(o => (o as any).isDefault && !selectedModifiers[o.id])).map(mod => (
+                                        <div key={mod.id} style={{
+                                            padding: '6px 12px',
+                                            background: 'rgba(239, 68, 68, 0.02)',
+                                            borderRadius: '8px',
+                                            border: '1px dashed rgba(239, 68, 68, 0.2)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px',
+                                            opacity: 0.8
+                                        }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <span style={{ fontSize: '8px', fontWeight: 800, color: '#ef4444', textTransform: 'uppercase' }}>REMOVED</span>
+                                                <span style={{ fontSize: '12px', fontWeight: 800, color: '#ef4444' }}>NO {mod.name.toUpperCase()}</span>
+                                            </div>
+                                            <X size={10} color="#ef4444" strokeWidth={4} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
                             {/* --- SCENARIO A: STANDARD PRODUCT OR GLOBAL SETTINGS --- */}
                             {(!isCombo || activeSlotId === GLOBAL_SETTINGS_ID) && (
                                 <>
@@ -810,19 +926,6 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
                             )}
 
                             {/* Notes Field (Always visible at bottom) */}
-                            <div style={{ marginTop: '40px', paddingTop: '32px', borderTop: '1px solid var(--pos-border-subtle)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--pos-text-muted)' }}>
-                                    <Utensils size={16} />
-                                    <span style={{ fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Special Instructions</span>
-                                </div>
-                                <textarea
-                                    className="pos-input"
-                                    style={{ height: '80px', paddingTop: '12px' }}
-                                    placeholder="Add notes for the kitchen..."
-                                    value={notes}
-                                    onChange={(e) => setNotes(e.target.value)}
-                                />
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -835,6 +938,72 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                             <span style={{ fontSize: '11px', textTransform: 'uppercase', fontWeight: 700, color: 'var(--pos-text-muted)' }}>Quantity</span>
                             {renderCounter(quantity, () => setQuantity(Math.max(1, quantity - 1)), () => setQuantity(quantity + 1), 'lg')}
+                        </div>
+
+                        {/* Kitchen Notes (Touch Optimized) */}
+                        <div style={{ flex: 1, margin: '0 32px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '400px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <label style={{ fontSize: '12px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    Kitchen Notes <span style={{ color: 'var(--pos-action-primary)' }}>(Internal)</span>
+                                </label>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    {notes && (
+                                        <button
+                                            onClick={() => setNotes('')}
+                                            style={{ background: 'none', border: 'none', color: '#EF4444', fontSize: '10px', fontWeight: 800, cursor: 'pointer' }}
+                                        >
+                                            CLEAR
+                                        </button>
+                                    )}
+                                    <span style={{ fontSize: '10px', color: notes.length >= 150 ? '#ef4444' : 'var(--pos-text-muted)', fontWeight: 800 }}>
+                                        {notes.length}/150
+                                    </span>
+                                </div>
+                            </div>
+                            <textarea
+                                value={notes}
+                                onChange={(e) => setNotes(e.target.value.slice(0, 150))}
+                                placeholder="prepare instructions..."
+                                style={{
+                                    width: '100%',
+                                    height: '42px',
+                                    padding: '10px 14px',
+                                    background: 'var(--pos-bg-main)',
+                                    border: '1.5px solid var(--pos-border-subtle)',
+                                    borderRadius: '12px',
+                                    fontSize: '14px',
+                                    fontWeight: 700,
+                                    resize: 'none',
+                                    color: 'var(--pos-text-primary)'
+                                }}
+                            />
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                                {['Extra Crispy', 'Light Bake', 'Well Done', 'Cut into 4', 'Cut into 6'].map(chip => (
+                                    <button
+                                        key={chip}
+                                        onClick={() => setNotes(prev => {
+                                            const clean = prev.trim();
+                                            if (clean.includes(chip)) return prev;
+                                            return (clean ? `${clean}, ${chip}` : chip).slice(0, 150);
+                                        })}
+                                        style={{
+                                            height: '34px',
+                                            padding: '0 12px',
+                                            borderRadius: '8px',
+                                            background: notes.includes(chip) ? 'var(--pos-action-primary)' : 'rgba(31, 164, 169, 0.05)',
+                                            border: '1px solid rgba(31, 164, 169, 0.15)',
+                                            fontSize: '11px',
+                                            fontWeight: 800,
+                                            color: notes.includes(chip) ? 'white' : 'var(--pos-action-primary)',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.15s'
+                                        }}
+                                        className="hover-scale"
+                                    >
+                                        {chip}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Totals Breakdown */}
@@ -873,7 +1042,6 @@ export const POSCustomizationModal: React.FC<POSCustomizationModalProps> = ({
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     );

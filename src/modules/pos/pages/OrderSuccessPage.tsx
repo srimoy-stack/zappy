@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CheckCircle2, Printer, Mail, MessageSquare, Clock, Package, Utensils } from 'lucide-react';
+import { usePOS } from '@/modules/pos/context/POSContext';
 import '../styles/pos-rush.css';
 
 export const OrderSuccessPage: React.FC = () => {
     const router = useRouter();
+    const { clearCart, setCustomer, setChannel, setTable } = usePOS();
     const [printing, setPrinting] = useState(false);
     const [sendingSMS, setSendingSMS] = useState(false);
     const [sendingEmail, setSendingEmail] = useState(false);
@@ -54,7 +56,11 @@ export const OrderSuccessPage: React.FC = () => {
     };
 
     const handleNewOrder = () => {
-        router.push('/pos/menu');
+        clearCart();
+        setCustomer(null);
+        setTable(null);
+        setChannel('Pickup');
+        router.push('/pos/dashboard');
     };
 
     const handleBackToDashboard = () => {

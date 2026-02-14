@@ -14,18 +14,17 @@ import {
     Delete,
     SkipForward
 } from 'lucide-react';
-import { mockPOSCustomers } from '../mock/posData';
 import '../styles/pos-rush.css';
 
 export const CustomerLookupPage: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { session, setCustomer } = usePOS();
+    const { session, setCustomer, customers } = usePOS();
 
     // Auto-detect incoming call from search params
     const incomingPhone = searchParams.get('phone') || '';
     const [searchQuery, setSearchQuery] = useState(incomingPhone);
-    const [results, setResults] = useState(mockPOSCustomers);
+    const [results, setResults] = useState(customers);
     const inputRef = useRef<HTMLInputElement>(null);
     const [isRegistering, setIsRegistering] = useState(false);
     const [newCustomer, setNewCustomer] = useState({ name: '', phone: '', email: '' });
@@ -43,17 +42,17 @@ export const CustomerLookupPage: React.FC = () => {
     useEffect(() => {
         const cleanQuery = searchQuery.toLowerCase().replace(/[^a-z0-9]/g, '');
         if (!cleanQuery) {
-            setResults(mockPOSCustomers.slice(0, 5)); // Show recent if empty
+            setResults(customers.slice(0, 5)); // Show recent if empty
             return;
         }
 
-        const filtered = mockPOSCustomers.filter(c => {
+        const filtered = customers.filter(c => {
             const cleanName = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');
             const cleanPhone = c.phone.replace(/[^0-9]/g, '');
             return cleanName.includes(cleanQuery) || cleanPhone.includes(cleanQuery);
         });
         setResults(filtered);
-    }, [searchQuery]);
+    }, [searchQuery, customers]);
 
     const handleSelect = (customer: any) => {
         setCustomer(customer);

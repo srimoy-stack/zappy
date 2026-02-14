@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Trash, Minus, Plus, Edit2, Pause, CreditCard, X } from 'lucide-react';
+import { ShoppingBag, Trash, Minus, Plus, Edit2, Pause, CreditCard, X, Utensils } from 'lucide-react';
 import { POSCartItem, OrderChannel, POSStore } from '../types/pos';
 import '../styles/pos-rush.css';
 
@@ -485,10 +485,22 @@ export const POSCartPanel: React.FC<POSCartPanelProps> = ({
                                             </div>
                                         ))}
 
-                                        {/* Notes */}
-                                        {item.notes && (
-                                            <div style={{ marginTop: '4px', fontSize: '11px', color: 'var(--pos-text-muted)', fontWeight: 800 }}>
-                                                Note: {item.notes}
+                                        {/* Kitchen Notes */}
+                                        {(item.kitchenNote || item.notes) && (
+                                            <div style={{
+                                                marginTop: '6px',
+                                                fontSize: '11px',
+                                                color: 'var(--pos-action-primary)',
+                                                fontWeight: 900,
+                                                background: 'rgba(31, 164, 169, 0.08)',
+                                                padding: '6px 10px',
+                                                borderRadius: '6px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px'
+                                            }}>
+                                                <Utensils size={12} strokeWidth={2.5} />
+                                                <span>KITCHEN: {item.kitchenNote || item.notes}</span>
                                             </div>
                                         )}
                                     </div>

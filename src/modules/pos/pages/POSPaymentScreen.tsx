@@ -67,7 +67,7 @@ const validateLuhn = (num: string) => {
 
 export const POSPaymentScreen: React.FC = () => {
     const router = useRouter();
-    const { cartTotal, clearCart, session } = usePOS();
+    const { cartTotal, clearCart, session, selectedCustomer, addOrderToCustomerHistory, cart } = usePOS();
 
     // --- State ---
     const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -103,6 +103,13 @@ export const POSPaymentScreen: React.FC = () => {
     const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
     const [giftCardData, setGiftCardData] = useState({ number: '', pin: '', balance: null as number | null });
     const [walletData, setWalletData] = useState({ mobile: '', otp: '', type: 'Store Wallet' });
+    const [loyaltyPointsToRedeem, setLoyaltyPointsToRedeem] = useState(0);
+    const [showCustomerHistory, setShowCustomerHistory] = useState(false);
+
+    // Get customer data - use selectedCustomer from context as primary source
+    const customer = selectedCustomer || session?.activeCustomer;
+    const availableLoyaltyPoints = customer?.loyaltyPoints || 0;
+    const POINTS_TO_DOLLAR_RATE = 100; // 100 points = $1
 
     // --- Calculations ---
     const subtotal = cartTotal;
@@ -125,6 +132,17 @@ export const POSPaymentScreen: React.FC = () => {
 
     const remainingBalance = Math.max(0, totalAmountDue - amountPaid);
     const isFullyPaid = remainingBalance <= 0.005;
+
+    // Debug: Log customer data
+    useEffect(() => {
+        console.log('🔍 Payment Screen - Customer Data:', {
+            customer,
+            selectedCustomer,
+            sessionActiveCustomer: session?.activeCustomer,
+            availableLoyaltyPoints,
+            customerName: customer?.name
+        });
+    }, [customer, selectedCustomer, session?.activeCustomer, availableLoyaltyPoints]);
 
     // --- Effects ---
     useEffect(() => {
@@ -250,6 +268,22 @@ export const POSPaymentScreen: React.FC = () => {
             }
         }
 
+        if (currentMethod === 'loyalty_points') {
+            if (loyaltyPointsToRedeem <= 0) {
+                setPaymentError('Please select points to redeem');
+                return;
+            }
+            const maxPointsValue = availableLoyaltyPoints / POINTS_TO_DOLLAR_RATE;
+            if (amountToTender > maxPointsValue) {
+                setPaymentError(`Insufficient Points (max $${maxPointsValue.toFixed(2)})`);
+                return;
+            }
+            if (loyaltyPointsToRedeem > availableLoyaltyPoints) {
+                setPaymentError('Insufficient loyalty points');
+                return;
+            }
+        }
+
         if (currentMethod !== 'cash' && amountToTender > remainingBalance + 0.01) {
             setPaymentError('Amount exceeds remaining balance');
             return;
@@ -298,6 +332,7 @@ export const POSPaymentScreen: React.FC = () => {
             setTipAmount(0);
             setCardData({ number: '', expiry: '', cvv: '', name: '' });
             setGiftCardData({ number: '', pin: '', balance: null });
+            setLoyaltyPointsToRedeem(0);
 
         } catch (err) {
             setPaymentError('Transaction Failed: Communication Error');
@@ -319,8 +354,20 @@ export const POSPaymentScreen: React.FC = () => {
         if (!isFullyPaid) return;
         const orderId = session?.activeTable?.orderId || `ORD-${Date.now().toString().slice(-6)}`;
         const fulfillment = session?.channel || 'Takeaway';
+
+        // Add to customer order history if customer is selected
+        if (customer) {
+            const newOrder = {
+                id: orderId,
+                date: new Date().toISOString().split('T')[0],
+                amount: totalAmountDue,
+                items: cart.map(item => `${item.quantity}x ${item.name}`).join(', ')
+            };
+            addOrderToCustomerHistory(customer.id, newOrder);
+        }
+
         clearCart();
-        router.push(`/pos/confirmation?orderId=${orderId}&fulfillment=${fulfillment}`);
+        router.push(`/pos/order-success/${orderId}?fulfillment=${fulfillment}${changeDue > 0 ? `&change=${changeDue}` : ''}`);
     };
 
     // --- Sub-Components ---
@@ -426,8 +473,8 @@ export const POSPaymentScreen: React.FC = () => {
                         </div>
                         <label style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', marginBottom: '12px', display: 'block' }}>Quick Amount</label>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
-                            {[Math.ceil(remainingBalance), 10, 20, 50].map(amt => (
-                                <button key={amt} onClick={() => setInputValue(amt.toFixed(2))} style={{ height: '60px', borderRadius: '12px', background: 'var(--pos-bg-card)', border: '2px solid var(--pos-border-subtle)', fontWeight: 900, fontSize: '18px', cursor: 'pointer' }}>${amt}</button>
+                            {Array.from(new Set([Math.ceil(remainingBalance), 10, 20, 50])).slice(0, 4).map((amt, idx) => (
+                                <button key={`amt-${idx}-${amt}`} onClick={() => setInputValue(amt.toFixed(2))} style={{ height: '60px', borderRadius: '12px', background: 'var(--pos-bg-card)', border: '2px solid var(--pos-border-subtle)', fontWeight: 900, fontSize: '18px', cursor: 'pointer' }}>${amt}</button>
                             ))}
                         </div>
                         <InputRow label="Amount Tendered" value={inputValue} onChange={setInputValue} placeholder="0.00" />
@@ -480,6 +527,36 @@ export const POSPaymentScreen: React.FC = () => {
                         {walletData.type === 'Store Wallet' && <InputRow label="Authorization OTP" value={walletData.otp} onChange={(v: string) => setWalletData({ ...walletData, otp: v })} placeholder="6-digit code" />}
                     </div>
                 );
+            case 'loyalty_points':
+                const maxPointsValue = availableLoyaltyPoints / POINTS_TO_DOLLAR_RATE;
+                const maxRedeemable = Math.min(maxPointsValue, remainingBalance);
+                return (
+                    <div style={{ animation: 'posFadeInUp 0.3s' }}>
+                        <h2 style={{ fontSize: '24px', fontWeight: 900, marginBottom: '24px' }}>Redeem Loyalty Points</h2>
+                        <div style={{ background: 'var(--pos-bg-surface)', padding: '24px', borderRadius: '20px', marginBottom: '24px', border: '1px solid var(--pos-border-subtle)' }}>
+                            <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--pos-text-muted)', marginBottom: '4px' }}>AVAILABLE POINTS</div>
+                            <div style={{ fontSize: '42px', fontWeight: 900, color: '#F97316' }}>{availableLoyaltyPoints.toLocaleString()}</div>
+                            <div style={{ fontSize: '14px', color: 'var(--pos-text-muted)', marginTop: '8px' }}>= ${maxPointsValue.toFixed(2)} ({POINTS_TO_DOLLAR_RATE} points = $1)</div>
+                        </div>
+                        <label style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', marginBottom: '12px', display: 'block' }}>Points to Redeem</label>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
+                            {[25, 50, 75, 100].map(pct => {
+                                const points = Math.floor((maxRedeemable * pct / 100) * POINTS_TO_DOLLAR_RATE);
+                                const value = points / POINTS_TO_DOLLAR_RATE;
+                                return (
+                                    <button key={pct} onClick={() => { setLoyaltyPointsToRedeem(points); setInputValue(value.toFixed(2)); }} style={{ height: '60px', borderRadius: '12px', background: loyaltyPointsToRedeem === points ? 'var(--pos-action-primary)' : 'var(--pos-bg-card)', color: loyaltyPointsToRedeem === points ? 'white' : 'var(--pos-text-primary)', border: '2px solid var(--pos-border-subtle)', fontWeight: 900, fontSize: '14px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                        <div>{pct}%</div>
+                                        <div style={{ fontSize: '11px', opacity: 0.7 }}>{points} pts</div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <input type="number" placeholder="Enter points" value={loyaltyPointsToRedeem || ''} onChange={e => { const pts = parseInt(e.target.value) || 0; const capped = Math.min(pts, Math.floor(maxRedeemable * POINTS_TO_DOLLAR_RATE)); setLoyaltyPointsToRedeem(capped); setInputValue((capped / POINTS_TO_DOLLAR_RATE).toFixed(2)); }} style={{ width: '100%', height: '56px', background: 'var(--pos-bg-surface)', border: '2px solid var(--pos-border-subtle)', borderRadius: '12px', padding: '0 16px', fontSize: '18px', fontWeight: 700, color: 'var(--pos-text-primary)', marginBottom: '16px' }} />
+                        <div style={{ padding: '16px', borderRadius: '12px', background: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.2)', color: '#F97316', fontWeight: 700, textAlign: 'center' }}>
+                            Redeeming {loyaltyPointsToRedeem} points = ${(loyaltyPointsToRedeem / POINTS_TO_DOLLAR_RATE).toFixed(2)}
+                        </div>
+                    </div>
+                );
             default:
                 return null;
         }
@@ -501,11 +578,9 @@ export const POSPaymentScreen: React.FC = () => {
                         </span>
                     </div>
                 </div>
-                {isFullyPaid && (
-                    <button onClick={handleCompleteOrder} className="pos-btn-primary" style={{ height: '56px', padding: '0 32px', borderRadius: '12px', background: '#10B981', border: 'none', fontWeight: 900, boxShadow: '0 8px 16px rgba(16,185,129,0.3)' }}>
-                        COMPLETE ORDER & PRINT
-                    </button>
-                )}
+                <button disabled={!isFullyPaid} onClick={handleCompleteOrder} className="pos-btn-primary" style={{ height: '56px', padding: '0 32px', borderRadius: '12px', background: isFullyPaid ? '#10B981' : 'var(--pos-bg-surface)', border: 'none', fontWeight: 900, boxShadow: isFullyPaid ? '0 8px 16px rgba(16,185,129,0.3)' : 'none', opacity: isFullyPaid ? 1 : 0.5, cursor: isFullyPaid ? 'pointer' : 'not-allowed' }}>
+                    COMPLETE SESSION
+                </button>
             </header>
 
             <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
@@ -530,11 +605,19 @@ export const POSPaymentScreen: React.FC = () => {
                                     { id: 'terminal', label: 'INTEGRATED Terminal', icon: Terminal, color: '#8B5CF6' },
                                     { id: 'wallet', label: 'E-WALLET / APP', icon: Wallet, color: '#F59E0B' },
                                     { id: 'gift_card', label: 'GIFT VOUCHER', icon: Gift, color: '#EC4899' },
+                                    { id: 'loyalty_points', label: 'LOYALTY POINTS', icon: Gift, color: '#F97316', disabled: !customer || availableLoyaltyPoints === 0 },
                                     { id: 'split', label: 'SPLIT PAYMENT', icon: Split, color: '#64748B' },
                                 ].map(m => (
-                                    <button key={m.id} onClick={() => handleMethodSelect(m.id)} className="pos-card hover-glow" style={{ padding: '32px', borderRadius: '24px', border: '2px solid var(--pos-border-subtle)', background: 'var(--pos-bg-card)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '24px', cursor: 'pointer' }}>
+                                    <button key={m.id} onClick={() => !m.disabled && handleMethodSelect(m.id)} className="pos-card hover-glow" style={{ padding: '32px', borderRadius: '24px', border: '2px solid var(--pos-border-subtle)', background: 'var(--pos-bg-card)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '24px', cursor: m.disabled ? 'not-allowed' : 'pointer', opacity: m.disabled ? 0.5 : 1 }}>
                                         <div style={{ width: '64px', height: '64px', borderRadius: '18px', background: `${m.color}15`, color: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><m.icon size={36} /></div>
-                                        <div style={{ fontSize: '20px', fontWeight: 900 }}>{m.label}</div>
+                                        <div>
+                                            <div style={{ fontSize: '20px', fontWeight: 900 }}>{m.label}</div>
+                                            {m.id === 'loyalty_points' && (
+                                                <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', marginTop: '4px' }}>
+                                                    {customer ? `${availableLoyaltyPoints} pts available` : 'No customer selected'}
+                                                </div>
+                                            )}
+                                        </div>
                                     </button>
                                 ))}
                             </div>
@@ -554,8 +637,9 @@ export const POSPaymentScreen: React.FC = () => {
                                         { id: 'terminal', icon: Terminal, label: 'TERMINAL' },
                                         { id: 'wallet', icon: Wallet, label: 'WALLET' },
                                         { id: 'gift_card', icon: Gift, label: 'GIFT' },
+                                        { id: 'loyalty_points', icon: Gift, label: 'LOYALTY', disabled: !customer || availableLoyaltyPoints === 0 },
                                     ].map(m => (
-                                        <button key={m.id} onClick={() => handleMethodSelect(m.id)} style={{ height: '100px', borderRadius: '20px', border: '2px solid var(--pos-border-subtle)', background: 'var(--pos-bg-card)', color: 'var(--pos-text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer', fontWeight: 800 }}>
+                                        <button key={m.id} onClick={() => !m.disabled && handleMethodSelect(m.id)} style={{ height: '100px', borderRadius: '20px', border: '2px solid var(--pos-border-subtle)', background: 'var(--pos-bg-card)', color: 'var(--pos-text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: m.disabled ? 'not-allowed' : 'pointer', fontWeight: 800, opacity: m.disabled ? 0.5 : 1 }}>
                                             <m.icon size={32} />
                                             <span style={{ fontSize: '12px' }}>{m.label}</span>
                                         </button>
@@ -596,6 +680,53 @@ export const POSPaymentScreen: React.FC = () => {
                 {/* RIGHT: Summary */}
                 <div style={{ width: '500px', background: 'var(--pos-bg-surface)', borderLeft: '1px solid var(--pos-border-subtle)', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+                        {/* Total Paid and Remaining Section - Moved to Top */}
+                        <div style={{ padding: '24px', background: 'var(--pos-bg-card)', borderRadius: '16px', border: '1px solid var(--pos-border-subtle)', marginBottom: '24px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}><span style={{ fontWeight: 800, color: 'var(--pos-text-muted)' }}>TOTAL PAID</span><span style={{ fontWeight: 900, fontSize: '20px', color: '#10B981' }}>${amountPaid.toFixed(2)}</span></div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ fontWeight: 800, color: 'var(--pos-text-muted)' }}>REMAINING</span><span style={{ fontWeight: 900, fontSize: '32px', color: remainingBalance > 0 ? 'var(--pos-action-primary)' : '#10B981' }}>${remainingBalance.toFixed(2)}</span></div>
+                            {changeDue > 0 && (
+                                <div style={{ padding: '16px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
+                                    <span style={{ fontWeight: 800 }}>CHANGE DUE</span>
+                                    <span style={{ fontWeight: 950, fontSize: '24px' }}>${changeDue.toFixed(2)}</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Customer Info & Loyalty Points */}
+                        {customer && (
+                            <div className="pos-card" style={{ padding: '20px', borderRadius: '16px', background: 'var(--pos-bg-card)', border: '1px solid var(--pos-border-subtle)', marginBottom: '24px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                                    <div>
+                                        <div style={{ fontSize: '16px', fontWeight: 900 }}>{customer.name}</div>
+                                        <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>{customer.phone}</div>
+                                    </div>
+                                    <div style={{ textAlign: 'right' }}>
+                                        <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 800 }}>LOYALTY</div>
+                                        <div style={{ fontSize: '20px', fontWeight: 900, color: '#F97316' }}>{availableLoyaltyPoints}</div>
+                                    </div>
+                                </div>
+                                {customer.recentOrders && customer.recentOrders.length > 0 && (
+                                    <button onClick={() => setShowCustomerHistory(!showCustomerHistory)} style={{ width: '100%', padding: '8px', background: 'var(--pos-bg-surface)', border: '1px solid var(--pos-border-subtle)', borderRadius: '8px', fontSize: '12px', fontWeight: 800, color: 'var(--pos-action-primary)', cursor: 'pointer', marginTop: '12px' }}>
+                                        {showCustomerHistory ? 'HIDE' : 'VIEW'} ORDER HISTORY ({customer.recentOrders.length})
+                                    </button>
+                                )}
+                                {showCustomerHistory && customer.recentOrders && (
+                                    <div style={{ marginTop: '12px', maxHeight: '200px', overflowY: 'auto' }}>
+                                        {customer.recentOrders.map((order, idx) => (
+                                            <div key={idx} style={{ padding: '12px', background: 'var(--pos-bg-surface)', borderRadius: '8px', marginBottom: '8px', border: '1px solid var(--pos-border-subtle)' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                                    <span style={{ fontSize: '12px', fontWeight: 900, color: 'var(--pos-action-primary)' }}>{order.id}</span>
+                                                    <span style={{ fontSize: '12px', fontWeight: 900 }}>${order.amount.toFixed(2)}</span>
+                                                </div>
+                                                <div style={{ fontSize: '11px', color: 'var(--pos-text-muted)', marginBottom: '4px' }}>{order.date}</div>
+                                                <div style={{ fontSize: '11px', color: 'var(--pos-text-primary)' }}>{order.items}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                             <h3 style={{ fontSize: '18px', fontWeight: 900 }}>Payment Breakdown</h3>
                             <button onClick={() => setShowDiscountPanel(!showDiscountPanel)} className="pos-btn-secondary" style={{ height: '36px', padding: '0 12px', borderRadius: '8px', color: 'var(--pos-action-primary)', fontSize: '12px', fontWeight: 800 }}>+ DISCOUNT</button>
@@ -657,17 +788,7 @@ export const POSPaymentScreen: React.FC = () => {
                         </div>
                     </div>
 
-                    <div style={{ padding: '32px', background: 'var(--pos-bg-card)', borderTop: '1px solid var(--pos-border-subtle)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}><span style={{ fontWeight: 800, color: 'var(--pos-text-muted)' }}>TOTAL PAID</span><span style={{ fontWeight: 900, fontSize: '20px', color: '#10B981' }}>${amountPaid.toFixed(2)}</span></div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}><span style={{ fontWeight: 800, color: 'var(--pos-text-muted)' }}>REMAINING</span><span style={{ fontWeight: 900, fontSize: '32px', color: remainingBalance > 0 ? 'var(--pos-action-primary)' : '#10B981' }}>${remainingBalance.toFixed(2)}</span></div>
-                        {changeDue > 0 && (
-                            <div style={{ padding: '16px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                                <span style={{ fontWeight: 800 }}>CHANGE DUE</span>
-                                <span style={{ fontWeight: 950, fontSize: '24px' }}>${changeDue.toFixed(2)}</span>
-                            </div>
-                        )}
-                        <button disabled={!isFullyPaid} onClick={handleCompleteOrder} className="pos-btn-primary" style={{ width: '100%', height: '72px', borderRadius: '18px', fontSize: '20px', fontWeight: 900, opacity: isFullyPaid ? 1 : 0.5, cursor: isFullyPaid ? 'pointer' : 'not-allowed' }}>COMPLETE SESSION</button>
-                    </div>
+
                 </div>
             </div>
 

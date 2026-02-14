@@ -1,93 +1,162 @@
 'use client';
 
-// Enterprise POS Order Confirmation - v2.0
-import React, { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Printer, Mail, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
+import { Printer, Mail, MessageSquare, CheckCircle2, MapPin, Utensils, ShoppingBag, ArrowRight } from 'lucide-react';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import '../styles/pos-rush.css';
 
+interface OrderData {
+    order_id: string;
+    order_number: string;
+    fulfillment_type: 'Dine-In' | 'Pickup' | 'Delivery';
+    table_id?: string;
+    delivery_address?: string;
+    eta: string;
+    customer: {
+        name: string;
+        phone?: string;
+        email?: string;
+    };
+    change_due: number;
+}
+
 export const POSConfirmationScreen: React.FC = () => {
     const router = useRouter();
+    const params = useParams();
     const searchParams = useSearchParams();
-    const { session, clearCart, setCustomer, setTable } = usePOS();
+    const { session, clearCart, setCustomer, setTable, setChannel } = usePOS();
 
-    // Recovery of order details from URL
-    const orderId = searchParams.get('orderId') || `${Math.floor(Math.random() * 900000) + 100000}`;
-    const fulfillment = searchParams.get('fulfillment') || session?.channel || 'Pickup';
-    const customerName = session?.activeCustomer?.name || searchParams.get('customerName') || null;
-    const hasCustomerContact = !!(session?.activeCustomer?.phone || session?.activeCustomer?.email);
+    const [printing, setPrinting] = useState(false);
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-    const [isPrinting, setIsPrinting] = useState(false);
-    const [sentStatus, setSentStatus] = useState<{ sms: boolean; email: boolean }>({ sms: false, email: false });
+    // Order recovery (Priority: Context -> URL -> Mock)
+    const orderId = (params?.orderId as string) || searchParams.get('orderId') || '10452';
 
-    // Calculate ETA based on fulfillment
-    const getETA = () => {
+    const [order] = useState<OrderData>(() => {
+        const fulfillment = (session?.channel as any) || searchParams.get('fulfillment') || 'Pickup';
+
+        // Calculate ETA
         const now = new Date();
         let mins = 18;
         if (fulfillment === 'Dine-In') mins = 15;
         if (fulfillment === 'Delivery') mins = 35;
+        const etaTime = new Date(now.getTime() + mins * 60000).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        }).toUpperCase();
 
-        const etaDate = new Date(now.getTime() + mins * 60000);
         return {
-            time: etaDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }).toUpperCase(),
-            mins: mins
+            order_id: orderId,
+            order_number: orderId,
+            fulfillment_type: fulfillment,
+            table_id: session?.activeTable?.name || 'GENERIC',
+            delivery_address: session?.deliveryAddress?.text || '',
+            eta: etaTime,
+            customer: {
+                name: session?.activeCustomer?.name || 'Guest Customer',
+                phone: session?.activeCustomer?.phone,
+                email: session?.activeCustomer?.email,
+            },
+            change_due: parseFloat(searchParams?.get('change') || '0')
         };
-    };
+    });
 
-    const eta = getETA();
+    // Toast handler
+    useEffect(() => {
+        if (!toast) return;
+        const timer = setTimeout(() => setToast(null), 3000);
+        return () => clearTimeout(timer);
+    }, [toast]);
+
+    // Auto-print effect & Security
+    useEffect(() => {
+        window.history.pushState(null, '', window.location.href);
+        const handlePopState = () => {
+            window.history.pushState(null, '', window.location.href);
+            setToast({ message: 'Navigation locked during order completion', type: 'error' });
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
 
     const handlePrint = () => {
-        setIsPrinting(true);
+        setPrinting(true);
+        const timestamp = new Date().toISOString();
+        console.log(`[PRINT_LOG] Order #${order.order_number} | Action: REPRINT | Cashier: ${session?.user?.name || 'SYSTEM'} | Time: ${timestamp}`);
+
         setTimeout(() => {
-            setIsPrinting(false);
-            console.log(`[REPRINT] Order #${orderId} - Receipt reprinted at ${new Date().toISOString()}`);
-        }, 1500);
+            setPrinting(false);
+            setToast({ message: 'Receipt printed successfully', type: 'success' });
+        }, 1200);
     };
 
     const handleSendSMS = () => {
-        if (!hasCustomerContact) return;
-        setSentStatus(prev => ({ ...prev, sms: true }));
-        console.log(`[SMS] Order #${orderId} - ETA: ${eta.mins} mins`);
-        setTimeout(() => setSentStatus(prev => ({ ...prev, sms: false })), 3000);
+        if (!order.customer.phone) return;
+        setToast({ message: `SMS sent to ${order.customer.phone}`, type: 'success' });
+        console.log(`[SMS_LOG] Sent to: ${order.customer.phone} | Content: Order #${order.order_number} confirmed. ETA: ${order.eta}.`);
     };
 
     const handleSendEmail = () => {
-        if (!hasCustomerContact) return;
-        setSentStatus(prev => ({ ...prev, email: true }));
-        console.log(`[EMAIL] Order #${orderId} - Receipt sent`);
-        setTimeout(() => setSentStatus(prev => ({ ...prev, email: false })), 3000);
+        if (!order.customer.email) return;
+        setToast({ message: `Receipt emailed to ${order.customer.email}`, type: 'success' });
+        console.log(`[EMAIL_LOG] Sent to: ${order.customer.email} | Action: Receipt Copy`);
     };
 
     const handleStartNewOrder = () => {
-        // Reset all order state
         clearCart();
         setCustomer(null);
         setTable(null);
-
-        // Navigate directly to menu (no dashboard redirect)
-        router.push('/pos/menu');
+        setChannel('Pickup');
+        router.replace('/pos/dashboard');
     };
 
-    // Debug logging
-    console.log('[POSConfirmationScreen] Rendering with:', {
-        orderId,
-        fulfillment,
-        customerName,
-        hasCustomerContact,
-        eta: eta.time
-    });
+    const getFulfillmentIcon = () => {
+        switch (order.fulfillment_type) {
+            case 'Dine-In': return <Utensils size={20} />;
+            case 'Delivery': return <MapPin size={20} />;
+            case 'Pickup': return <ShoppingBag size={20} />;
+            default: return <ShoppingBag size={20} />;
+        }
+    };
 
     return (
         <div className="pos-screen" style={{
-            background: 'var(--pos-bg-main)',
+            background: '#0F172A',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '24px',
-            minHeight: '100vh'
+            padding: '20px',
+            minHeight: '100vh',
+            overflow: 'hidden',
+            color: 'white'
         }}>
+            {/* Toast Notification */}
+            {toast && (
+                <div style={{
+                    position: 'fixed',
+                    top: '24px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1000,
+                    background: toast.type === 'success' ? '#10B981' : '#EF4444',
+                    color: 'white',
+                    padding: '12px 24px',
+                    borderRadius: '12px',
+                    fontWeight: 800,
+                    fontSize: '14px',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                }}>
+                    <CheckCircle2 size={18} />
+                    {toast.message}
+                </div>
+            )}
+
             <div style={{
                 width: '100%',
                 maxWidth: '680px',
@@ -95,184 +164,104 @@ export const POSConfirmationScreen: React.FC = () => {
                 flexDirection: 'column',
                 gap: '24px'
             }}>
-                {/* ===== TOP SECTION: Order Confirmed + Order Number ===== */}
+                {/* 1. HEADER SECTION */}
                 <div style={{ textAlign: 'center' }}>
                     <h1 style={{
-                        fontSize: '24px',
+                        fontSize: '18px',
                         fontWeight: 900,
                         color: '#10B981',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
-                        marginBottom: '16px'
+                        letterSpacing: '0.15em',
+                        marginBottom: '12px'
                     }}>
                         ORDER CONFIRMED
                     </h1>
 
-                    {/* Large Order Number - Highest Visual Priority */}
                     <div style={{
-                        fontSize: '72px',
-                        fontWeight: 900,
-                        color: 'var(--pos-text-primary)',
-                        letterSpacing: '0.02em',
-                        marginBottom: '24px',
-                        lineHeight: 1,
-                        padding: '16px',
-                        background: 'var(--pos-bg-card)',
-                        borderRadius: '16px',
-                        border: '2px solid var(--pos-border-subtle)'
+                        padding: '48px 24px',
+                        background: '#1E293B',
+                        borderRadius: '32px',
+                        border: '2px solid rgba(255,255,255,0.05)',
+                        textAlign: 'center',
+                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)'
                     }}>
-                        ORDER # {orderId}
-                    </div>
-
-                    {/* Fulfillment Type & ETA */}
-                    <div style={{
-                        fontSize: '18px',
-                        fontWeight: 700,
-                        color: 'var(--pos-text-secondary)',
-                        marginBottom: '8px'
-                    }}>
-                        {fulfillment.toUpperCase()}
-                    </div>
-
-                    {/* ETA - Improved Formatting */}
-                    <div style={{
-                        fontSize: '20px',
-                        fontWeight: 900,
-                        color: '#3B82F6',
-                        marginBottom: customerName ? '12px' : '0'
-                    }}>
-                        Ready at {eta.time}
-                    </div>
-
-                    {/* Customer Name */}
-                    {customerName && (
                         <div style={{
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            color: 'var(--pos-text-muted)'
+                            fontSize: '64px',
+                            fontWeight: 950,
+                            color: 'white',
+                            lineHeight: 1,
+                            letterSpacing: '0.02em',
+                            textTransform: 'uppercase'
                         }}>
-                            {customerName}
+                            ORDER # {order.order_number}
                         </div>
-                    )}
+                    </div>
                 </div>
 
-                {/* ===== MIDDLE SECTION: Communication Actions ===== */}
-                {hasCustomerContact ? (
+                {/* 2. CHANGE DUE - CRITICAL VISIBILITY */}
+                {order.change_due > 0 && (
                     <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(3, 1fr)',
-                        gap: '12px'
+                        background: 'rgba(16, 185, 129, 0.15)',
+                        padding: '32px',
+                        borderRadius: '28px',
+                        border: '2px solid #10B981',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        boxShadow: '0 0 40px rgba(16, 185, 129, 0.1)'
                     }}>
-                        <button
-                            onClick={handlePrint}
-                            disabled={isPrinting}
-                            className="pos-btn-secondary"
-                            style={{
-                                height: '68px',
-                                borderRadius: '14px',
-                                fontWeight: 900,
-                                fontSize: '13px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '6px',
-                                padding: '10px',
-                                opacity: isPrinting ? 0.5 : 1,
-                                boxShadow: 'none'
-                            }}
-                        >
-                            <Printer size={22} />
-                            {isPrinting ? 'PRINTING...' : 'PRINT RECEIPT'}
-                        </button>
-
-                        <button
-                            onClick={handleSendSMS}
-                            disabled={sentStatus.sms}
-                            className="pos-btn-secondary"
-                            style={{
-                                height: '68px',
-                                borderRadius: '14px',
-                                fontWeight: 900,
-                                fontSize: '13px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '6px',
-                                padding: '10px',
-                                opacity: sentStatus.sms ? 0.5 : 1,
-                                background: sentStatus.sms ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                                color: sentStatus.sms ? '#10B981' : 'white',
-                                borderColor: sentStatus.sms ? '#10B981' : 'rgba(255, 255, 255, 0.1)',
-                                boxShadow: 'none'
-                            }}
-                        >
-                            <MessageSquare size={22} />
-                            {sentStatus.sms ? 'SMS SENT ✓' : 'SEND SMS'}
-                        </button>
-
-                        <button
-                            onClick={handleSendEmail}
-                            disabled={sentStatus.email}
-                            className="pos-btn-secondary"
-                            style={{
-                                height: '68px',
-                                borderRadius: '14px',
-                                fontWeight: 900,
-                                fontSize: '13px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '6px',
-                                padding: '10px',
-                                opacity: sentStatus.email ? 0.5 : 1,
-                                background: sentStatus.email ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                                color: sentStatus.email ? '#10B981' : 'white',
-                                borderColor: sentStatus.email ? '#10B981' : 'rgba(255, 255, 255, 0.1)',
-                                boxShadow: 'none'
-                            }}
-                        >
-                            <Mail size={22} />
-                            {sentStatus.email ? 'EMAIL SENT ✓' : 'SEND EMAIL'}
-                        </button>
-                    </div>
-                ) : (
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <button
-                            onClick={handlePrint}
-                            disabled={isPrinting}
-                            className="pos-btn-secondary"
-                            style={{
-                                height: '68px',
-                                borderRadius: '14px',
-                                fontWeight: 900,
-                                fontSize: '13px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                padding: '0 32px',
-                                opacity: isPrinting ? 0.5 : 1,
-                                boxShadow: 'none'
-                            }}
-                        >
-                            <Printer size={22} />
-                            {isPrinting ? 'PRINTING...' : 'PRINT RECEIPT'}
-                        </button>
+                        <div style={{ fontSize: '16px', fontWeight: 900, color: '#10B981', textTransform: 'uppercase' }}>Change Due</div>
+                        <div style={{ fontSize: '48px', fontWeight: 950, color: '#10B981' }}>${order.change_due.toFixed(2)}</div>
                     </div>
                 )}
 
-                {/* ===== BOTTOM SECTION: Primary CTA ===== */}
-                <button
-                    onClick={handleStartNewOrder}
-                    className="pos-btn-primary"
-                    style={{
-                        height: '88px',
-                        borderRadius: '18px',
-                        fontSize: '22px',
-                        fontWeight: 900,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        boxShadow: '0 16px 32px rgba(0, 0, 0, 0.4)',
-                        marginTop: '8px'
-                    }}
-                >
-                    START NEW ORDER
+                {/* 3. ORDER DETAILS */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '20px'
+                }}>
+                    <div style={{ background: '#1E293B', padding: '24px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '13px', fontWeight: 900, color: '#94A3B8', textTransform: 'uppercase', marginBottom: '16px' }}>Fulfillment</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            <div style={{ color: '#3B82F6' }}>{getFulfillmentIcon()}</div>
+                            <div>
+                                <div style={{ fontSize: '20px', fontWeight: 900 }}>{order.fulfillment_type}</div>
+                                <div style={{ fontSize: '14px', fontWeight: 700, color: '#64748B' }}>
+                                    {order.fulfillment_type === 'Dine-In' ? order.table_id : (order.delivery_address || 'Takeaway')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{ background: '#1E293B', padding: '24px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '13px', fontWeight: 900, color: '#94A3B8', textTransform: 'uppercase', marginBottom: '16px' }}>Target Time</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            <div style={{ color: '#F59E0B' }}><Utensils size={20} /></div>
+                            <div>
+                                <div style={{ fontSize: '20px', fontWeight: 900, color: '#F59E0B' }}>{order.eta}</div>
+                                <div style={{ fontSize: '14px', fontWeight: 700, color: '#64748B' }}>Approx 15-20 mins</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 4. ACTIONS */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+                    <button onClick={handlePrint} disabled={printing} className="pos-btn-secondary" style={{ height: '80px', background: '#1E293B', borderRadius: '20px', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', fontWeight: 900, fontSize: '13px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <Printer size={24} /> {printing ? 'PRINTING...' : 'RECEIPT'}
+                    </button>
+                    <button onClick={handleSendSMS} disabled={!order.customer.phone} className="pos-btn-secondary" style={{ height: '80px', background: '#1E293B', borderRadius: '20px', color: order.customer.phone ? 'white' : '#475569', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', fontWeight: 900, fontSize: '13px', border: '1px solid rgba(255,255,255,0.1)', opacity: order.customer.phone ? 1 : 0.5 }}>
+                        <MessageSquare size={24} /> SMS
+                    </button>
+                    <button onClick={handleSendEmail} disabled={!order.customer.email} className="pos-btn-secondary" style={{ height: '80px', background: '#1E293B', borderRadius: '20px', color: order.customer.email ? 'white' : '#475569', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', fontWeight: 900, fontSize: '13px', border: '1px solid rgba(255,255,255,0.1)', opacity: order.customer.email ? 1 : 0.5 }}>
+                        <Mail size={24} /> EMAIL
+                    </button>
+                </div>
+
+                {/* 5. START NEW ORDER */}
+                <button onClick={handleStartNewOrder} className="pos-btn-primary" style={{ height: '90px', background: '#3B82F6', borderRadius: '28px', fontSize: '26px', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 15px 30px rgba(59, 130, 246, 0.4)', marginTop: '20px', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                    START NEW ORDER <ArrowRight size={28} />
                 </button>
             </div>
         </div>

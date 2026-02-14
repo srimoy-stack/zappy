@@ -1,217 +1,840 @@
 'use client';
 
-import React, { useState } from 'react';
-import { usePOS } from '@/modules/pos/context/POSContext';
-import { useRouter } from 'next/navigation';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
+    X,
     Search,
     UserPlus,
-    ChevronRight,
-    History,
-    MapPin,
-    ArrowLeft,
     Phone,
-    Mail,
-    FileText,
+    History,
+    RotateCcw,
+    ArrowLeftRight,
     Star,
-    ArrowRight
+    ChevronRight,
+    MapPin,
+    User,
+    UtensilsCrossed,
+    ShoppingBag,
+    Truck,
+    Store,
+    Calendar,
+    Clock as ClockIcon,
+    Table,
 } from 'lucide-react';
-import { mockPOSCustomers } from '../mock/posData';
-
+import { usePOS } from '../context/POSContext';
+import { POSCustomer, mockPOSCustomers } from '../mock/posData';
+import { OrderChannel } from '../types/pos';
+import { mockStores } from '../mock/posData';
+import '../styles/pos-rush.css';
+import { POSBackButton } from '../components/POSBackButton';
 
 export const POSCustomerScreen: React.FC = () => {
-    const { setCustomer } = usePOS();
     const router = useRouter();
+    const { setCustomer, addToCart, selectedCustomer: currentSelected, updateCustomer, setChannel, setStore, setDeliveryAddress: setContextDeliveryAddress, session } = usePOS();
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [selectedCustomer, setSelectedCustomer] = useState<POSCustomer | null>(currentSelected || null);
+    const [isAddingNew, setIsAddingNew] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [newCustomer, setNewCustomer] = useState({ name: '', phone: '', email: '' });
+    const [orderType, setOrderType] = useState<OrderChannel>('Pickup');
+    const [selectedStore, setSelectedStore] = useState<string>('');
+    const [deliveryAddress, setLocalDeliveryAddress] = useState<string>('');
+    const [isAdvanceOrder, setIsAdvanceOrder] = useState(false);
+    const [advanceDate, setAdvanceDate] = useState('');
+    const [advanceTime, setAdvanceTime] = useState('');
 
-    const filtered = mockPOSCustomers.filter(c =>
-        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        c.phone.includes(searchQuery)
-    );
+    const searchParams = useSearchParams();
+    const openModalParam = searchParams.get('openModal');
 
-    const selectedCustomer = mockPOSCustomers.find(c => c.id === selectedId);
+    // Persistence Effect: Restore state if returning from table selection or other redirects
+    useEffect(() => {
+        if (openModalParam === 'true') {
+            setIsAddingNew(true);
+            const savedForm = sessionStorage.getItem('pending_customer_form');
+            if (savedForm) {
+                try {
+                    const data = JSON.parse(savedForm);
+                    setNewCustomer(data.newCustomer);
+                    setOrderType(data.orderType);
+                    setLocalDeliveryAddress(data.deliveryAddress);
+                    setSelectedStore(data.selectedStore);
+                    setIsAdvanceOrder(data.isAdvanceOrder);
+                    setAdvanceDate(data.advanceDate);
+                    setAdvanceTime(data.advanceTime);
+                    setIsEditing(data.isEditing);
+                } catch (e) {
+                    console.error('Failed to restore customer form state', e);
+                }
+                // Clean up after restoration
+                sessionStorage.removeItem('pending_customer_form');
+            }
+        }
+    }, [openModalParam]);
+
+    const filteredCustomers = useMemo(() => {
+        if (!searchQuery) return mockPOSCustomers;
+        const q = searchQuery.toLowerCase();
+        return mockPOSCustomers.filter(c =>
+            c.name.toLowerCase().includes(q) ||
+            c.phone.includes(q) ||
+            c.email.toLowerCase().includes(q)
+        );
+    }, [searchQuery]);
+
+    const handleSelectCustomer = (customer: POSCustomer) => {
+        setSelectedCustomer(customer);
+        setCustomer(customer);
+    };
+
+    const handleReorder = (order: any) => {
+        alert(`Reordering items from ${order.id}. Cart will be updated with current prices.`);
+        addToCart({
+            id: 'p1',
+            name: 'Margherita Dream',
+            price: 18.00,
+            quantity: 1,
+            variants: [],
+            modifiers: []
+        });
+        router.push('/pos/menu');
+    };
+
+    const handleRefund = (_order: any) => {
+        if (selectedCustomer) {
+            router.push(`/pos/refund-management?customerId=${selectedCustomer.id}&customerName=${encodeURIComponent(selectedCustomer.name)}`);
+        } else {
+            router.push('/pos/refund-management');
+        }
+    };
+
+    const handleEdit = (customer: POSCustomer) => {
+        setNewCustomer({
+            name: customer.name,
+            phone: customer.phone,
+            email: customer.email || ''
+        });
+
+        if (session?.channel) {
+            setOrderType(session.channel);
+        }
+
+        if (session?.store && session?.channel === 'Pickup') {
+            setSelectedStore(session.store.id);
+        } else {
+            setSelectedStore('');
+        }
+
+        if (session?.deliveryAddress?.text) {
+            setLocalDeliveryAddress(session.deliveryAddress.text);
+        } else if (customer.addresses && customer.addresses.length > 0) {
+            const primaryAddress = customer.addresses.find(addr => addr.isDefault) || customer.addresses[0];
+            setLocalDeliveryAddress(primaryAddress?.text || '');
+        } else {
+            setLocalDeliveryAddress('');
+        }
+
+        setIsEditing(true);
+        setIsAddingNew(true);
+    };
+
+    const handleRegister = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newCustomer.name || !newCustomer.phone) {
+            alert('Name and Phone are required');
+            return;
+        }
+
+        if (orderType === 'Pickup' && !selectedStore) {
+            alert('Please select a pickup store');
+            return;
+        }
+
+        if (!deliveryAddress.trim()) {
+            alert('Please enter an address');
+            return;
+        }
+
+        if (isEditing && selectedCustomer) {
+            const updatedData = {
+                name: newCustomer.name,
+                phone: newCustomer.phone,
+                email: newCustomer.email
+            };
+
+            const updatedCustomer = {
+                ...selectedCustomer,
+                ...updatedData,
+                addresses: [{
+                    id: selectedCustomer.addresses[0]?.id || `addr-${Date.now()}`,
+                    label: orderType === 'Delivery' ? 'Delivery' : 'Primary',
+                    type: orderType === 'Delivery' ? 'HOME' : 'OTHER',
+                    street: deliveryAddress,
+                    text: deliveryAddress,
+                    isDefault: true
+                }],
+                notes: `${selectedCustomer.notes} - Updated: ${orderType}`
+            };
+            setSelectedCustomer(updatedCustomer);
+            updateCustomer(selectedCustomer.id, updatedData);
+            setChannel(orderType);
+
+            if (orderType === 'Pickup' && selectedStore) {
+                const store = mockStores.find(s => s.id === selectedStore);
+                if (store) setStore(store);
+            }
+
+            setContextDeliveryAddress({
+                id: `addr-${Date.now()}`,
+                text: deliveryAddress,
+                label: orderType === 'Delivery' ? 'Delivery' : 'Primary'
+            });
+
+            setIsEditing(false);
+            setIsAddingNew(false);
+            return;
+        }
+
+        const customer: POSCustomer = {
+            id: `C${Math.floor(Math.random() * 90000) + 10000}`,
+            name: newCustomer.name,
+            phone: newCustomer.phone,
+            email: newCustomer.email,
+            loyaltyPoints: 0,
+            notes: `New Customer registered via POS - ${orderType}${isAdvanceOrder ? ` (ADVANCE: ${advanceDate} ${advanceTime})` : ''}`,
+            addresses: [{
+                id: `addr-${Date.now()}`,
+                label: orderType === 'Delivery' ? 'Delivery' : 'Primary',
+                type: orderType === 'Delivery' ? 'HOME' : 'OTHER',
+                street: deliveryAddress,
+                text: deliveryAddress,
+                isDefault: true
+            }],
+            recentOrders: [],
+        };
+
+        setCustomer(customer);
+        setSelectedCustomer(customer);
+        setChannel(orderType);
+
+        if (orderType === 'Pickup' && selectedStore) {
+            const store = mockStores.find(s => s.id === selectedStore);
+            if (store) setStore(store);
+        }
+
+        if (orderType === 'Delivery' && deliveryAddress) {
+            setContextDeliveryAddress({
+                id: `addr-${Date.now()}`,
+                text: deliveryAddress,
+                label: 'Primary'
+            });
+        }
+
+        setIsAddingNew(false);
+        setIsAdvanceOrder(false);
+        setAdvanceDate('');
+        setAdvanceTime('');
+        router.push('/pos/menu');
+    };
+
+    const handleSelectTable = () => {
+        // Persist current form state before navigating
+        const formData = {
+            newCustomer,
+            orderType,
+            deliveryAddress,
+            selectedStore,
+            isAdvanceOrder,
+            advanceDate,
+            advanceTime,
+            isEditing
+        };
+        sessionStorage.setItem('pending_customer_form', JSON.stringify(formData));
+
+        // Navigate with a flag to return and re-open modal
+        router.push('/pos/table-selection?redirect=/pos/customers&openModal=true');
+    };
 
     return (
-        <div className="flex h-screen bg-white text-brand font-sans overflow-hidden">
-            {/* LEFT: RECENT/SEARCH FILTERS (Section 4) */}
-            <aside className="w-80 md:w-96 bg-brand/5 border-r border-brand/10 flex flex-col flex-shrink-0 animate-in slide-in-from-left duration-500">
-                <header className="p-8 border-b border-brand/10 bg-white flex items-center gap-4">
-                    <button onClick={() => router.back()} className="p-2 border border-brand/10 rounded-lg text-brand/40 hover:text-brand">
-                        <ArrowLeft size={20} />
-                    </button>
-                    <h3 className="text-xl font-black text-brand tracking-tight">Identity Hub</h3>
-                </header>
-                <div className="p-6 space-y-2">
-                    <button className="w-full py-4 px-6 bg-brand text-white rounded-2xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand/20">
-                        <UserPlus size={18} />
-                        Register New Profile
-                    </button>
-                    <div className="h-4"></div>
-                    <div className="px-4 text-[10px] font-black text-brand/30 uppercase tracking-[0.2em] mb-4">Quick Filters</div>
-                    <button className="w-full py-3 px-6 bg-white border border-brand/10 rounded-xl flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-brand hover:border-brand transition-all">
-                        <span>Recent Active</span>
-                        <span className="bg-brand/10 text-brand px-2 py-0.5 rounded-lg">12</span>
-                    </button>
-                    <button className="w-full py-3 px-6 bg-white border border-brand/10 rounded-xl flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-brand hover:border-brand transition-all">
-                        <span>Loyalty Tiers</span>
-                        <Star size={14} className="text-brand/40" />
-                    </button>
-                </div>
-            </aside>
-
-            {/* CENTER: CUSTOMER LIST (Section 4) */}
-            <main className="flex-1 flex flex-col bg-white">
-                <header className="h-20 bg-white border-b border-brand/10 px-8 flex items-center">
-                    <div className="flex-1 relative">
-                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-brand/20" size={24} />
-                        <input
-                            type="text"
-                            placeholder="Identify by Phone, Name, or Email..."
-                            className="w-full h-14 bg-brand/5 border-none rounded-2xl pl-16 pr-8 text-xl font-black text-brand placeholder:text-brand/20 focus:ring-4 focus:ring-brand/5 transition-all outline-none"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            autoFocus
-                        />
+        <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--pos-bg-main)' }}>
+            {/* Header */}
+            <div className="pos-modal-header" style={{ padding: '24px 32px', background: 'white', borderBottom: '1px solid var(--pos-border-subtle)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+                        <POSBackButton onClick={() => router.push('/pos/menu')} label="BACK TO MENU" />
+                        <div style={{
+                            width: '48px',
+                            height: '48px',
+                            background: 'var(--pos-action-primary)',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <User size={24} color="white" />
+                        </div>
+                        <div>
+                            <h2 style={{ fontSize: '24px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0 }}>Customer Management</h2>
+                            <p style={{ fontSize: '13px', color: 'var(--pos-text-muted)', fontWeight: 600, margin: 0 }}>Search, Track, and Manage Customer Relationships</p>
+                        </div>
                     </div>
-                </header>
 
-                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-                    <div className="grid grid-cols-1 gap-2">
-                        {filtered.map(c => (
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <button
+                            onClick={() => {
+                                setCustomer(null);
+                                router.push('/pos/menu');
+                            }}
+                            className="pos-btn pos-btn-secondary"
+                            style={{ width: 'auto', padding: '0 24px', height: '52px', fontWeight: 800 }}
+                        >
+                            SKIP TO GUEST
+                        </button>
+                        <button
+                            onClick={() => setIsAddingNew(true)}
+                            className="pos-btn pos-btn-primary"
+                            style={{ width: 'auto', padding: '0 24px', height: '52px' }}
+                        >
+                            <UserPlus size={18} /> REGISTER NEW CUSTOMER
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+                {/* LEFT PANEL: Search & List */}
+                <div style={{
+                    width: '400px',
+                    borderRight: '1px solid var(--pos-border-subtle)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: 'white'
+                }}>
+                    <div style={{ padding: '24px', borderBottom: '1px solid var(--pos-border-subtle)' }}>
+                        <div style={{ position: 'relative' }}>
+                            <Search size={18} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                            <input
+                                type="text"
+                                placeholder="Name, Phone, or ID..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pos-input"
+                                style={{ paddingLeft: '48px', height: '52px', borderRadius: '12px' }}
+                                autoFocus
+                            />
+                        </div>
+                    </div>
+
+                    <div style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
+                        {filteredCustomers.map(customer => (
                             <button
-                                key={c.id}
-                                onClick={() => setSelectedId(c.id)}
-                                className={`p-6 rounded-3xl flex items-center justify-between transition-all border-2 ${selectedId === c.id ? 'bg-brand/5 border-brand' : 'bg-white border-transparent hover:bg-brand/5 hover:border-brand/10'}`}
+                                key={customer.id}
+                                onClick={() => handleSelectCustomer(customer)}
+                                style={{
+                                    width: '100%',
+                                    padding: '16px',
+                                    borderRadius: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                    background: selectedCustomer?.id === customer.id ? 'var(--pos-bg-card)' : 'transparent',
+                                    border: selectedCustomer?.id === customer.id ? '1.5px solid var(--pos-action-primary)' : '1.5px solid transparent',
+                                    textAlign: 'left',
+                                    marginBottom: '8px',
+                                    transition: 'all 0.2s',
+                                    cursor: 'pointer'
+                                }}
                             >
-                                <div className="flex items-center gap-6 text-left">
-                                    <div className="w-16 h-16 bg-brand rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-brand/20">
-                                        {c.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xl font-black text-brand leading-none mb-1">{c.name}</h4>
-                                        <p className="text-sm font-bold text-brand/40">{c.phone}</p>
-                                    </div>
+                                <div style={{
+                                    width: '44px',
+                                    height: '44px',
+                                    background: selectedCustomer?.id === customer.id ? 'var(--pos-action-primary)' : 'var(--pos-bg-surface)',
+                                    borderRadius: '10px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '18px',
+                                    fontWeight: 800,
+                                    color: selectedCustomer?.id === customer.id ? 'white' : 'var(--pos-action-primary)'
+                                }}>
+                                    {customer.name.charAt(0)}
                                 </div>
-                                <div className="flex items-center gap-6">
-                                    <div className="text-right hidden md:block">
-                                        <div className="text-[10px] font-black text-brand/30 uppercase tracking-widest mb-1">Total Spent</div>
-                                        <div className="text-sm font-black text-brand">$1,482.50</div>
-                                    </div>
-                                    <ChevronRight className={selectedId === c.id ? 'text-brand' : 'text-brand/20'} />
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--pos-text-primary)' }}>{customer.name}</div>
+                                    <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>{customer.phone}</div>
                                 </div>
+                                {selectedCustomer?.id === customer.id && <ChevronRight size={18} color="var(--pos-action-primary)" />}
                             </button>
                         ))}
                     </div>
+
+
                 </div>
-            </main>
 
-            {/* RIGHT: PROFILE PANEL (Section 4) */}
-            <aside className="w-96 md:w-[450px] bg-white border-l border-brand/10 flex flex-col flex-shrink-0">
-                {selectedCustomer ? (
-                    <div className="flex-1 flex flex-col animate-in slide-in-from-right duration-500">
-                        <header className="h-64 bg-brand p-10 flex flex-col justify-end relative overflow-hidden">
-                            <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-                            <h2 className="text-4xl font-black text-white tracking-tighter mb-1 relative z-10">{selectedCustomer.name}</h2>
-                            <div className="flex items-center gap-4 relative z-10">
-                                <span className="px-3 py-1 bg-white/20 text-white rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/30">
-                                    Elite Member
-                                </span>
-                                <span className="text-white/60 text-xs font-bold">Joined May 2023</span>
-                            </div>
-                        </header>
-
-                        <div className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar">
-                            {/* Contact Details */}
-                            <section className="grid grid-cols-2 gap-6">
-                                <div className="space-y-1">
-                                    <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest">Primary Contact</span>
-                                    <div className="flex items-center gap-2 text-brand font-bold text-sm">
-                                        <Phone size={14} className="text-brand/40" />
-                                        {selectedCustomer.phone}
-                                    </div>
-                                </div>
-                                <div className="space-y-1">
-                                    <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest">Email Address</span>
-                                    <div className="flex items-center gap-2 text-brand font-bold text-sm">
-                                        <Mail size={14} className="text-brand/40" />
-                                        sarah@google.com
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* Addresses (Section 4) */}
-                            <section>
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Saved Addresses</h4>
-                                <div className="space-y-3">
-                                    {selectedCustomer.addresses.map(addr => (
-                                        <button key={addr.id} className="w-full p-4 bg-brand/5 border border-brand/10 rounded-2xl flex items-center gap-4 text-left hover:border-brand transition-all">
-                                            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-brand shadow-sm border border-brand/10 group-hover:bg-brand group-hover:text-white transition-all">
-                                                <MapPin size={18} />
-                                            </div>
-                                            <div className="flex-1">
-                                                <div className="text-[10px] font-black text-brand uppercase tracking-widest">{addr.type}</div>
-                                                <div className="text-sm font-bold text-brand leading-tight">{addr.street}</div>
-                                            </div>
+                {/* RIGHT PANEL: Details & History */}
+                <div style={{ flex: 1, overflowY: 'auto', background: 'var(--pos-bg-main)' }}>
+                    {selectedCustomer ? (
+                        <div style={{ padding: '40px' }}>
+                            {/* Profile Summary */}
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start',
+                                marginBottom: '40px',
+                                background: 'white',
+                                padding: '32px',
+                                borderRadius: '24px',
+                                border: '1px solid var(--pos-border-subtle)'
+                            }}>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px' }}>
+                                        <h2 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0 }}>{selectedCustomer.name}</h2>
+                                        <button
+                                            onClick={() => handleEdit(selectedCustomer)}
+                                            style={{ padding: '6px 12px', background: 'var(--pos-bg-card)', border: '1px solid var(--pos-border-subtle)', borderRadius: '8px', fontSize: '11px', fontWeight: 800, color: 'var(--pos-action-primary)', cursor: 'pointer' }}
+                                            className="hover-scale"
+                                        >
+                                            EDIT PROFILE
                                         </button>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* Recent Activity (Section 4) */}
-                            <section>
-                                <div className="flex items-center justify-between mb-4">
-                                    <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em]">Order History</h4>
-                                    <button className="text-[10px] font-black text-brand/40 uppercase tracking-widest hover:text-brand">View Vault</button>
-                                </div>
-                                <div className="space-y-2">
-                                    {[1, 2].map(i => (
-                                        <div key={i} className="p-4 bg-white border border-brand/10 rounded-2xl flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-8 h-8 bg-brand/5 rounded-lg flex items-center justify-center text-brand">
-                                                    <History size={14} />
-                                                </div>
-                                                <div>
-                                                    <div className="text-xs font-black text-brand">ORD-2291-{i}</div>
-                                                    <div className="text-[10px] font-bold text-brand/40">Feb 1{i}, 2026</div>
-                                                </div>
-                                            </div>
-                                            <span className="text-sm font-black text-brand">$42.50</span>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '20px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>
+                                            <Phone size={16} className="text-brand" /> {selectedCustomer.phone}
                                         </div>
-                                    ))}
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>
+                                            <MapPin size={16} className="text-brand" /> {selectedCustomer.addresses[0]?.label || 'No Address'}
+                                        </div>
+                                    </div>
                                 </div>
-                            </section>
+                                <div style={{ textAlign: 'right' }}>
+                                    <div style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-state-warning)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Loyalty Member</div>
+                                    <div style={{ fontSize: '24px', fontWeight: 900, color: 'var(--pos-state-warning)', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end' }}>
+                                        <Star size={24} fill="currentColor" /> {selectedCustomer.loyaltyPoints} PTS
+                                    </div>
+                                </div>
+                            </div>
 
-                            {/* Notes (Section 4) */}
-                            <section>
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Operator Notes</h4>
-                                <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex gap-3">
-                                    <FileText className="text-amber-500 flex-shrink-0" size={18} />
-                                    <p className="text-xs font-medium text-amber-900 leading-relaxed italic">
-                                        "Allergic to olives. Prefers no contact delivery at the main gate. Frequent late night orderer."
-                                    </p>
+                            {/* Order History Section */}
+                            <div style={{ marginBottom: '32px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                                    <History size={20} className="text-brand" />
+                                    <h3 style={{ fontSize: '18px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recent Purchases</h3>
                                 </div>
-                            </section>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    {selectedCustomer.recentOrders.length > 0 ? selectedCustomer.recentOrders.map(order => (
+                                        <div
+                                            key={order.id}
+                                            style={{
+                                                background: 'white',
+                                                borderRadius: '20px',
+                                                padding: '24px',
+                                                border: '1px solid var(--pos-border-subtle)',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                                                    <span style={{ fontSize: '16px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>{order.id}</span>
+                                                    <span style={{ padding: '4px 8px', background: 'var(--pos-bg-main)', borderRadius: '6px', fontSize: '11px', fontWeight: 700, color: 'var(--pos-text-muted)' }}>{order.date}</span>
+                                                </div>
+                                                <div style={{ fontSize: '14px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>{order.items}</div>
+                                                <div style={{ fontSize: '20px', fontWeight: 900, color: 'var(--pos-action-primary)', marginTop: '8px' }}>${order.amount.toFixed(2)}</div>
+                                            </div>
+
+                                            <div style={{ display: 'flex', gap: '12px' }}>
+                                                <button
+                                                    onClick={() => handleReorder(order)}
+                                                    className="pos-btn"
+                                                    style={{
+                                                        background: 'var(--pos-state-success)',
+                                                        color: 'white',
+                                                        height: '52px',
+                                                        fontSize: '13px',
+                                                        padding: '0 20px'
+                                                    }}
+                                                >
+                                                    <RotateCcw size={16} /> REORDER
+                                                </button>
+                                                <button
+                                                    onClick={() => handleRefund(order)}
+                                                    className="pos-btn"
+                                                    style={{
+                                                        background: 'rgba(239, 68, 68, 0.1)',
+                                                        color: '#EF4444',
+                                                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                                                        height: '52px',
+                                                        fontSize: '13px',
+                                                        padding: '0 20px'
+                                                    }}
+                                                >
+                                                    <ArrowLeftRight size={16} /> REFUND
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )) : (
+                                        <div style={{ padding: '60px', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '2px dashed var(--pos-border-subtle)' }}>
+                                            <History size={48} style={{ marginBottom: '16px', opacity: 0.2 }} />
+                                            <p style={{ color: 'var(--pos-text-muted)', fontWeight: 600 }}>No order history found for this customer.</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
+                            <User size={80} color="var(--pos-text-muted)" />
+                            <h3 style={{ fontSize: '20px', fontWeight: 900, color: 'var(--pos-text-muted)', marginTop: '24px' }}>Select a Customer to Manage</h3>
+                            <p style={{ fontSize: '14px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>Choose from the left panel or search by identifier</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="pos-modal-footer" style={{ padding: '24px 32px', background: 'white', borderTop: '1px solid var(--pos-border-subtle)' }}>
+                <button
+                    disabled={!selectedCustomer}
+                    onClick={() => router.push('/pos/menu')}
+                    className="pos-btn pos-btn-primary"
+                    style={{ width: '100%', height: '64px', fontSize: '18px' }}
+                >
+                    {selectedCustomer ? `CONFIRM ${selectedCustomer.name.toUpperCase()} & CLOSE` : 'SELECT CUSTOMER TO CONTINUE'}
+                </button>
+            </div>
+
+            {/* ENHANCED FULL-PAGE ADD NEW CUSTOMER MODAL */}
+            {isAddingNew && (
+                <div className="pos-modal-overlay" style={{ zIndex: 1100, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(10px)', padding: '40px' }}>
+                    <div className="pos-modal" style={{
+                        width: '100%',
+                        maxWidth: '1200px',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        padding: 0,
+                        overflow: 'hidden',
+                        borderRadius: '32px',
+                        boxShadow: '0 30px 60px -12px rgba(0,0,0,0.5)'
+                    }}>
+                        {/* Modal Header */}
+                        <div style={{
+                            padding: '32px 48px',
+                            background: 'white',
+                            borderBottom: '1px solid var(--pos-border-subtle)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                        }}>
+                            <div>
+                                <h3 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0 }}>
+                                    {isEditing ? 'Update Customer Profile' : 'New Customer Registration'}
+                                </h3>
+                                <p style={{ fontSize: '15px', color: 'var(--pos-text-muted)', fontWeight: 600, margin: '8px 0 0 0' }}> Complete the profile to link with active session </p>
+                            </div>
+                            <button
+                                onClick={() => { setIsAddingNew(false); setIsEditing(false); }}
+                                style={{
+                                    width: '64px',
+                                    height: '64px',
+                                    borderRadius: '50%',
+                                    background: 'var(--pos-bg-main)',
+                                    border: '1px solid var(--pos-border-subtle)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                                className="hover-scale"
+                            >
+                                <X size={32} color="var(--pos-text-primary)" />
+                            </button>
                         </div>
 
-                        <footer className="p-8 bg-brand/5 border-t border-brand/10">
+                        {/* Modal Body - 2 Column Layout */}
+                        <div style={{ flex: 1, overflowY: 'auto', padding: '48px', background: 'var(--pos-bg-main)' }}>
+                            <form onSubmit={handleRegister} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+
+                                {/* LEFT COLUMN: Basic Info */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                                    <div style={{ background: 'white', padding: '32px', borderRadius: '24px', border: '1px solid var(--pos-border-subtle)', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                        <h4 style={{ fontSize: '13px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--pos-action-primary)', margin: 0 }}>Basic Information</h4>
+                                        <div>
+                                            <label style={{ fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '12px', display: 'block' }}>Full Name *</label>
+                                            <input
+                                                required
+                                                className="pos-input"
+                                                style={{ height: '64px', fontSize: '18px', fontWeight: 700 }}
+                                                placeholder="e.g. Harvey Specter"
+                                                value={newCustomer.name}
+                                                onChange={e => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label style={{ fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '12px', display: 'block' }}>Phone Number *</label>
+                                            <input
+                                                required
+                                                className="pos-input"
+                                                style={{ height: '64px', fontSize: '18px', fontWeight: 700 }}
+                                                placeholder="+1 (###) ###-####"
+                                                value={newCustomer.phone}
+                                                onChange={e => setNewCustomer({ ...newCustomer, phone: e.target.value })}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label style={{ fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '12px', display: 'block' }}>Email Address (Optional)</label>
+                                            <input
+                                                type="email"
+                                                className="pos-input"
+                                                style={{ height: '64px', fontSize: '18px', fontWeight: 700 }}
+                                                placeholder="name@email.com"
+                                                value={newCustomer.email}
+                                                onChange={e => setNewCustomer({ ...newCustomer, email: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Advance Ordering Section */}
+                                    <div style={{
+                                        background: isAdvanceOrder ? 'rgba(31, 164, 169, 0.05)' : 'white',
+                                        padding: '32px',
+                                        borderRadius: '24px',
+                                        border: isAdvanceOrder ? '2px solid var(--pos-action-primary)' : '1px solid var(--pos-border-subtle)',
+                                        transition: 'all 0.3s'
+                                    }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: isAdvanceOrder ? '32px' : 0 }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                                <div style={{ width: '40px', height: '40px', background: isAdvanceOrder ? 'var(--pos-action-primary)' : 'var(--pos-bg-surface)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Calendar size={20} color={isAdvanceOrder ? 'white' : 'var(--pos-text-muted)'} />
+                                                </div>
+                                                <div>
+                                                    <h4 style={{ fontSize: '16px', fontWeight: 900, color: 'var(--pos-text-primary)', margin: 0 }}>Advance Ordering</h4>
+                                                    <p style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 600, margin: 0 }}>Schedule this order for a future date</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsAdvanceOrder(!isAdvanceOrder)}
+                                                style={{
+                                                    width: '64px',
+                                                    height: '32px',
+                                                    borderRadius: '16px',
+                                                    background: isAdvanceOrder ? 'var(--pos-action-primary)' : '#E2E8F0',
+                                                    position: 'relative',
+                                                    border: 'none',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s'
+                                                }}
+                                            >
+                                                <div style={{
+                                                    width: '24px',
+                                                    height: '24px',
+                                                    borderRadius: '50%',
+                                                    background: 'white',
+                                                    position: 'absolute',
+                                                    top: '4px',
+                                                    left: isAdvanceOrder ? '36px' : '4px',
+                                                    transition: 'all 0.3s',
+                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                                                }} />
+                                            </button>
+                                        </div>
+
+                                        {isAdvanceOrder && (
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', animation: 'posFadeInUp 0.3s ease-out' }}>
+                                                <div>
+                                                    <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '8px', display: 'block' }}>Execution Date</label>
+                                                    <div style={{ position: 'relative' }}>
+                                                        <Calendar size={18} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                                                        <input
+                                                            type="date"
+                                                            className="pos-input"
+                                                            style={{ paddingLeft: '48px', height: '56px' }}
+                                                            value={advanceDate}
+                                                            onChange={e => setAdvanceDate(e.target.value)}
+                                                            required={isAdvanceOrder}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '8px', display: 'block' }}>Execution Time</label>
+                                                    <div style={{ position: 'relative' }}>
+                                                        <ClockIcon size={18} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                                                        <input
+                                                            type="time"
+                                                            className="pos-input"
+                                                            style={{ paddingLeft: '48px', height: '56px' }}
+                                                            value={advanceTime}
+                                                            onChange={e => setAdvanceTime(e.target.value)}
+                                                            required={isAdvanceOrder}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* RIGHT COLUMN: Fulfillment & Address */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+
+                                    {/* Order Mode Selection */}
+                                    <div style={{ background: 'white', padding: '32px', borderRadius: '24px', border: '1px solid var(--pos-border-subtle)', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                        <h4 style={{ fontSize: '13px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--pos-action-primary)', margin: 0 }}>Fulfillment Details</h4>
+
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+                                            {(['Dine-In', 'Pickup', 'Delivery'] as const).map(mode => (
+                                                <button
+                                                    key={mode}
+                                                    type="button"
+                                                    onClick={() => setOrderType(mode)}
+                                                    style={{
+                                                        padding: '24px 16px',
+                                                        borderRadius: '20px',
+                                                        border: orderType === mode ? '2.5px solid var(--pos-action-primary)' : '2.5px solid var(--pos-border-subtle)',
+                                                        background: orderType === mode ? 'rgba(31, 164, 169, 0.05)' : 'transparent',
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center',
+                                                        gap: '12px',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s',
+                                                        color: orderType === mode ? 'var(--pos-action-primary)' : 'var(--pos-text-secondary)'
+                                                    }}
+                                                    className="hover-scale"
+                                                >
+                                                    {mode === 'Dine-In' ? <UtensilsCrossed size={28} /> : mode === 'Pickup' ? <ShoppingBag size={28} /> : <Truck size={28} />}
+                                                    <span style={{ fontSize: '14px', fontWeight: 900, textTransform: 'uppercase' }}>{mode === 'Pickup' ? 'Takeaway' : mode}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        {/* Context Specific Actions */}
+                                        {orderType === 'Dine-In' ? (
+                                            <div style={{ animation: 'posFadeInUp 0.3s ease-out' }}>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleSelectTable}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '80px',
+                                                        background: 'var(--pos-action-primary)',
+                                                        color: 'white',
+                                                        borderRadius: '16px',
+                                                        border: 'none',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        gap: '16px',
+                                                        fontSize: '18px',
+                                                        fontWeight: 900,
+                                                        cursor: 'pointer',
+                                                        boxShadow: '0 8px 16px -4px rgba(31, 164, 169, 0.5)'
+                                                    }}
+                                                    className="hover-scale"
+                                                >
+                                                    <Table size={24} strokeWidth={2.5} />
+                                                    {session?.activeTable ? `TABLE: ${session.activeTable.name} (Change)` : 'SELECT DINING TABLE'}
+                                                </button>
+                                            </div>
+                                        ) : orderType === 'Pickup' ? (
+                                            <div style={{ animation: 'posFadeInUp 0.3s ease-out' }}>
+                                                <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '12px', display: 'block' }}>Pickup Store Location *</label>
+                                                <div style={{ position: 'relative' }}>
+                                                    <Store size={20} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)' }} />
+                                                    <select
+                                                        required={orderType === 'Pickup'}
+                                                        className="pos-input"
+                                                        value={selectedStore}
+                                                        onChange={e => setSelectedStore(e.target.value)}
+                                                        style={{ height: '64px', paddingLeft: '56px', fontSize: '16px', fontWeight: 700, appearance: 'none' }}
+                                                    >
+                                                        <option value="">Choose nearest branch...</option>
+                                                        {mockStores.map(store => (
+                                                            <option key={store.id} value={store.id}>{store.name} - {store.address}</option>
+                                                        ))}
+                                                    </select>
+                                                    <ChevronRight size={20} color="var(--pos-text-muted)" style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%) rotate(90deg)', pointerEvents: 'none' }} />
+                                                </div>
+                                            </div>
+                                        ) : null}
+                                    </div>
+
+                                    {/* Address & Notes */}
+                                    <div style={{ background: 'white', padding: '32px', borderRadius: '24px', border: '1px solid var(--pos-border-subtle)', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                        <h4 style={{ fontSize: '13px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--pos-action-primary)', margin: 0 }}>Location & Logistics</h4>
+                                        <div>
+                                            <label style={{ fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--pos-text-muted)', marginBottom: '12px', display: 'block' }}>
+                                                {orderType === 'Delivery' ? 'Full Delivery Address *' : 'Primary Contact Address'}
+                                            </label>
+                                            <div style={{ position: 'relative' }}>
+                                                <MapPin size={20} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '20px', top: '24px' }} />
+                                                <textarea
+                                                    required
+                                                    className="pos-input"
+                                                    style={{ minHeight: '140px', padding: '24px 24px 24px 56px', fontSize: '16px', fontWeight: 600, lineHeight: 1.6 }}
+                                                    placeholder={orderType === 'Delivery' ? 'Enter street, building, and landmarks...' : 'Enter customer residence info...'}
+                                                    value={deliveryAddress}
+                                                    onChange={e => setLocalDeliveryAddress(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div style={{
+                            padding: '32px 48px',
+                            background: 'white',
+                            borderTop: '1px solid var(--pos-border-subtle)',
+                            display: 'flex',
+                            gap: '24px'
+                        }}>
                             <button
-                                onClick={() => { setCustomer(selectedCustomer); router.push('/pos/menu'); }}
-                                className="w-full h-16 bg-brand text-white rounded-2xl flex items-center justify-center gap-3 text-sm font-black uppercase tracking-widest shadow-xl shadow-brand/20 hover:bg-brand-dark transition-all"
+                                onClick={() => { setIsAddingNew(false); setIsEditing(false); }}
+                                type="button"
+                                style={{
+                                    flex: 1,
+                                    height: '72px',
+                                    borderRadius: '16px',
+                                    background: 'var(--pos-bg-main)',
+                                    border: '1px solid var(--pos-border-subtle)',
+                                    fontSize: '18px',
+                                    fontWeight: 900,
+                                    color: 'var(--pos-text-secondary)',
+                                    cursor: 'pointer'
+                                }}
                             >
-                                Assign to Transaction
-                                <ArrowRight size={20} />
+                                ABANDON REGISTRATION
                             </button>
-                        </footer>
+                            <button
+                                onClick={() => (document.querySelector('form') as any)?.requestSubmit()}
+                                type="button"
+                                style={{
+                                    flex: 2,
+                                    height: '72px',
+                                    borderRadius: '16px',
+                                    background: 'var(--pos-action-primary)',
+                                    color: 'white',
+                                    border: 'none',
+                                    fontSize: '20px',
+                                    fontWeight: 900,
+                                    boxShadow: '0 12px 24px -6px rgba(31, 164, 169, 0.4)',
+                                    cursor: 'pointer'
+                                }}
+                                className="hover-scale"
+                            >
+                                {isEditing ? 'COMMIT UPDATES' : 'FINALIZE & LINK TO ORDER'}
+                            </button>
+                        </div>
                     </div>
-                ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-20 text-center opacity-30">
-                        <UserPlus size={64} className="mb-6" />
-                        <h4 className="text-xl font-black text-brand mb-2">No Profile Identified</h4>
-                        <p className="text-sm font-medium text-brand/60">Search for an existing account or create a new guest profile to access detailed insights.</p>
-                    </div>
-                )}
-            </aside>
+                </div>
+            )}
         </div>
     );
 };

@@ -63,12 +63,11 @@ export const POSLoginPage: React.FC = () => {
         setLoading(true);
 
         try {
-            let result;
             if (loginType === 'STORE') {
                 if (!pin || pin.length < 4) {
                     throw new Error('Enter valid PIN');
                 }
-                result = await login('STORE', { pin, deviceId });
+                await login('STORE', { pin, deviceId });
 
                 if (rememberDevice) {
                     localStorage.setItem(`pos_remembered_${deviceId}`, JSON.stringify({
@@ -80,7 +79,7 @@ export const POSLoginPage: React.FC = () => {
                 if (!email || !password) {
                     throw new Error('Email and password required');
                 }
-                result = await login('CALL_CENTER', { email, password, deviceId });
+                await login('CALL_CENTER', { email, password, deviceId });
 
                 if (rememberDevice) {
                     localStorage.setItem(`pos_remembered_${deviceId}`, JSON.stringify({
@@ -93,11 +92,7 @@ export const POSLoginPage: React.FC = () => {
             // Sync animation duration is 1.5s in Context.
             // We wait just enough time for context to commit to localStorage and state
             setTimeout(() => {
-                if (result?.requiresStoreSelection) {
-                    router.push('/pos/store-selection');
-                } else {
-                    router.push('/pos/dashboard');
-                }
+                router.push('/pos/dashboard');
             }, 1600);
 
         } catch (err: any) {

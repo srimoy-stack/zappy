@@ -49,6 +49,8 @@
   "/backoffice/shop/page": "/backoffice/shop",
   "/backoffice/shop/success/page": "/backoffice/shop/success",
   "/backoffice/users/page": "/backoffice/users",
+  "/callcenter/dashboard/page": "/callcenter/dashboard",
+  "/callcenter/login/page": "/callcenter/login",
   "/page": "/",
   "/pos/channel-selection/page": "/pos/channel-selection",
   "/pos/confirmation/page": "/pos/confirmation",
@@ -63,6 +65,7 @@
   "/pos/new-order/page": "/pos/new-order",
   "/pos/open-orders/page": "/pos/open-orders",
   "/pos/order-details/[id]/page": "/pos/order-details/[id]",
+  "/pos/order-success/[orderId]/page": "/pos/order-success/[orderId]",
   "/pos/orders/page": "/pos/orders",
   "/pos/page": "/pos",
   "/pos/payment-confirmation/page": "/pos/payment-confirmation",
@@ -71,6 +74,6 @@
   "/pos/refund/page": "/pos/refund",
   "/pos/reports/page": "/pos/reports",
   "/pos/settings/page": "/pos/settings",
-  "/pos/store-selection/page": "/pos/store-selection",
+  "/pos/table-selection/page": "/pos/table-selection",
   "/pos/tables/page": "/pos/tables"
 }

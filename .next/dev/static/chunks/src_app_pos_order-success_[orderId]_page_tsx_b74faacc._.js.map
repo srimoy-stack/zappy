@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/pos/order-success/%5BorderId%5D/page.tsx"],"sourcesContent":["'use client';\n\nimport { Suspense } from 'react';\nimport { POSOrderSuccessScreen } from '@/modules/pos/pages';\n\nexport default function Page() {\n    return (\n        <Suspense fallback={\n            <div className=\"h-screen bg-[#0F172A] flex items-center justify-center\">\n                <div className=\"animate-pulse text-[#10B981] font-black text-2xl\">\n                    FINALIZING ORDER...\n                </div>\n            </div>\n        }>\n            <POSOrderSuccessScreen />\n        </Suspense>\n    );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AAAA;AAHA;;;;AAKe,SAAS;IACpB,qBACI,6LAAC,yKAAQ;QAAC,wBACN,6LAAC;YAAI,WAAU;sBACX,cAAA,6LAAC;gBAAI,WAAU;0BAAmD;;;;;;;;;;;kBAKtE,cAAA,6LAAC,oLAAqB;;;;;;;;;;AAGlC;KAZwB"}}]
+}

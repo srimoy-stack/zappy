@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
     Search,
@@ -10,256 +10,467 @@ import {
     RotateCcw,
     Printer,
     XCircle,
-    Flame,
     ChevronRight,
-    Clock,
     ShoppingBag,
-    Filter,
-    CheckCircle2,
-    Users,
-    MapPin,
-    Phone
+    CheckCircle2
 } from 'lucide-react';
 import { mockRecentOrders } from '../mock/posData';
+import '../styles/pos-rush.css';
 
-export const POSOrdersScreen: React.FC = () => {
+export const POSOrdersScreen = () => {
     const router = useRouter();
     const [view, setView] = useState<'OPEN' | 'HELD' | 'CLOSED'>('OPEN');
     const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
+    // Filter logic
+    const filteredOrders = mockRecentOrders.filter(o =>
+        view === 'OPEN' ? o.status !== 'COMPLETED' && o.status !== 'CANCELLED' :
+            view === 'CLOSED' ? o.status === 'COMPLETED' || o.status === 'CANCELLED' :
+                true
+    );
+
     const selectedOrder = mockRecentOrders.find(o => o.id === selectedOrderId);
 
     return (
-        <div className="flex h-screen bg-white text-brand font-sans overflow-hidden">
-            {/* LEFT: ORDER CATEGORIES (Section 13) */}
-            <aside className="w-80 md:w-96 bg-brand/5 border-r border-brand/10 flex flex-col flex-shrink-0 animate-in slide-in-from-left duration-500">
-                <header className="p-8 border-b border-brand/10 bg-white flex items-center gap-4">
-                    <button onClick={() => router.push('/pos/dashboard')} className="p-2 border border-brand/10 rounded-lg text-brand/40 hover:text-brand">
-                        <ArrowLeft size={20} />
+        <div className="pos-orders-screen">
+            <style>{`
+                .pos-orders-screen {
+                    height: 100vh;
+                    display: flex;
+                    background: var(--pos-bg-main);
+                    color: var(--pos-text-primary);
+                    font-family: var(--pos-font-family);
+                    overflow: hidden;
+                }
+
+                .orders-sidebar {
+                    width: 320px;
+                    background: var(--pos-bg-surface);
+                    border-right: 1px solid var(--pos-border-subtle);
+                    display: flex;
+                    flex-direction: column;
+                    flex-shrink: 0;
+                    z-index: 10;
+                }
+
+                .sidebar-header {
+                    height: 90px;
+                    padding: 0 24px;
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    border-bottom: 1px solid var(--pos-border-subtle);
+                }
+
+                .back-icon-btn {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 12px;
+                    background: var(--pos-bg-main);
+                    border: 1px solid var(--pos-border-subtle);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--pos-text-secondary);
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    border: none;
+                }
+
+                .back-icon-btn:hover {
+                    background: var(--pos-border-subtle);
+                    color: var(--pos-text-primary);
+                }
+
+                .view-selector {
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    overflow-y: auto;
+                }
+
+                .view-btn {
+                    width: 100%;
+                    padding: 20px;
+                    border-radius: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    transition: all 0.2s;
+                    border: 1px solid var(--pos-border-subtle);
+                    background: var(--pos-bg-surface);
+                    cursor: pointer;
+                    text-align: left;
+                }
+
+                .view-btn.active.open { background: var(--pos-state-success); color: white; border-color: var(--pos-state-success); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+                .view-btn.active.held { background: var(--pos-state-warning); color: white; border-color: var(--pos-state-warning); box-shadow: 0 10px 20px rgba(245, 158, 11, 0.2); }
+                .view-btn.active.closed { background: #3B82F6; color: white; border-color: #3B82F6; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+
+                .view-btn:not(.active):hover {
+                    border-color: var(--pos-action-primary);
+                    color: var(--pos-action-primary);
+                }
+
+                .main-content {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                }
+
+                .main-header {
+                    height: 90px;
+                    padding: 0 32px;
+                    display: flex;
+                    align-items: center;
+                    gap: 24px;
+                    background: var(--pos-bg-surface);
+                    border-bottom: 1px solid var(--pos-border-subtle);
+                }
+
+                .search-box-container {
+                    flex: 1;
+                    position: relative;
+                }
+
+                .search-input-field {
+                    width: 100%;
+                    height: 56px;
+                    background: var(--pos-bg-main);
+                    border: 1px solid var(--pos-border-subtle);
+                    border-radius: 12px;
+                    padding-left: 48px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: var(--pos-text-primary);
+                    outline: none;
+                }
+
+                .order-list-area {
+                    flex: 1;
+                    padding: 32px;
+                    overflow-y: auto;
+                }
+
+                .order-row-item {
+                    width: 100%;
+                    background: var(--pos-bg-surface);
+                    border: 1px solid var(--pos-border-subtle);
+                    border-radius: 16px;
+                    padding: 20px 24px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 12px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    text-align: left;
+                    border: 1px solid var(--pos-border-subtle);
+                }
+
+                .order-row-item:hover {
+                    border-color: var(--pos-text-muted);
+                    transform: translateY(-2px);
+                }
+
+                .order-row-item.selected {
+                    border-color: var(--pos-action-primary);
+                    background: var(--pos-action-secondary);
+                }
+
+                .details-aside {
+                    width: 450px;
+                    background: var(--pos-bg-surface);
+                    border-left: 1px solid var(--pos-border-subtle);
+                    display: flex;
+                    flex-direction: column;
+                    flex-shrink: 0;
+                    z-index: 10;
+                }
+
+                .details-header-section {
+                    padding: 32px;
+                    border-bottom: 1px solid var(--pos-border-subtle);
+                }
+
+                .details-scrollable {
+                    flex: 1;
+                    padding: 32px;
+                    overflow-y: auto;
+                }
+
+                .attribution-card {
+                    background: #F8FAFC;
+                    border: 1px solid var(--pos-border-subtle);
+                    border-radius: 16px;
+                    padding: 20px;
+                    margin-bottom: 24px;
+                }
+
+                .timeline-box {
+                    position: relative;
+                    padding-left: 24px;
+                    margin-top: 24px;
+                }
+
+                .timeline-step {
+                    position: relative;
+                    padding-bottom: 24px;
+                }
+
+                .step-line {
+                    position: absolute;
+                    left: -16px;
+                    top: 8px;
+                    bottom: 0;
+                    width: 2px;
+                    background: var(--pos-border-subtle);
+                }
+
+                .step-dot {
+                    position: absolute;
+                    left: -20px;
+                    top: 4px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: var(--pos-state-success);
+                    border: 2px solid white;
+                }
+
+                .footer-actions-container {
+                    padding: 24px;
+                    background: var(--pos-bg-surface);
+                    border-top: 1px solid var(--pos-border-subtle);
+                }
+
+                .btn-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 12px;
+                }
+
+                .control-btn {
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    border: none;
+                    text-transform: uppercase;
+                    font-size: 13px;
+                }
+
+                .btn-primary { background: var(--pos-state-success); color: white; }
+                .btn-secondary { background: var(--pos-bg-main); color: var(--pos-text-primary); border: 1px solid var(--pos-border-subtle); }
+                .btn-error { background: #FEE2E2; color: var(--pos-state-error); border: 1px solid #FCA5A5; }
+
+                .list-labels {
+                    display: flex;
+                    padding: 0 24px;
+                    marginBottom: 8px;
+                    font-size: 10px;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: var(--pos-text-muted);
+                }
+            `}</style>
+
+            {/* SIDEBAR */}
+            <aside className="orders-sidebar">
+                <header className="sidebar-header">
+                    <button onClick={() => router.push('/pos/dashboard')} className="back-icon-btn">
+                        <ArrowLeft size={24} />
                     </button>
-                    <h3 className="text-xl font-black text-brand tracking-tight">Order Vault</h3>
+                    <h3 style={{ fontSize: '20px', fontWeight: 900 }}>Order Vault</h3>
                 </header>
-                <div className="p-6 space-y-3">
-                    <button
-                        onClick={() => setView('OPEN')}
-                        className={`w-full p-6 rounded-[2rem] flex flex-col transition-all border-4 ${view === 'OPEN' ? 'bg-brand border-brand text-white shadow-xl shadow-brand/20' : 'bg-white border-brand/5 text-brand/40 hover:border-brand/20'}`}
-                    >
-                        <div className="flex justify-between items-center w-full mb-3">
-                            <Play size={24} className={view === 'OPEN' ? 'text-white' : 'text-brand'} fill={view === 'OPEN' ? 'white' : 'currentColor'} />
-                            <span className={`text-2xl font-black ${view === 'OPEN' ? 'text-white' : 'text-brand'}`}>12</span>
+
+                <div className="view-selector">
+                    <button onClick={() => setView('OPEN')} className={`view-btn open ${view === 'OPEN' ? 'active' : ''}`}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <Play size={24} fill={view === 'OPEN' ? 'currentColor' : 'none'} />
+                            <span style={{ fontSize: '24px', fontWeight: 900 }}>12</span>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[.2em]">Live/Open Orders</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '8px' }}>Active Orders</span>
                     </button>
-                    <button
-                        onClick={() => setView('HELD')}
-                        className={`w-full p-6 rounded-[2rem] flex flex-col transition-all border-4 ${view === 'HELD' ? 'bg-amber-500 border-amber-500 text-white shadow-xl shadow-amber-500/20' : 'bg-white border-brand/5 text-brand/40 hover:border-brand/20'}`}
-                    >
-                        <div className="flex justify-between items-center w-full mb-3">
-                            <Pause size={24} className={view === 'HELD' ? 'text-white' : 'text-amber-500'} fill={view === 'HELD' ? 'white' : 'currentColor'} />
-                            <span className={`text-2xl font-black ${view === 'HELD' ? 'text-white' : 'text-amber-500'}`}>04</span>
+
+                    <button onClick={() => setView('HELD')} className={`view-btn held ${view === 'HELD' ? 'active' : ''}`}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <Pause size={24} fill={view === 'HELD' ? 'currentColor' : 'none'} />
+                            <span style={{ fontSize: '24px', fontWeight: 900 }}>04</span>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[.2em]">Held Transactions</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '8px' }}>Held Sessions</span>
                     </button>
-                    <button
-                        onClick={() => setView('CLOSED')}
-                        className={`w-full p-6 rounded-[2rem] flex flex-col transition-all border-4 ${view === 'CLOSED' ? 'bg-brand border-brand text-white shadow-xl shadow-brand/20' : 'bg-white border-brand/5 text-brand/40 hover:border-brand/20'}`}
-                    >
-                        <div className="flex justify-between items-center w-full mb-3">
-                            <CheckCircle2 size={24} className={view === 'CLOSED' ? 'text-white' : 'text-brand'} />
-                            <span className={`text-2xl font-black ${view === 'CLOSED' ? 'text-white' : 'text-brand'}`}>48</span>
+
+                    <button onClick={() => setView('CLOSED')} className={`view-btn closed ${view === 'CLOSED' ? 'active' : ''}`}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <CheckCircle2 size={24} />
+                            <span style={{ fontSize: '24px', fontWeight: 900 }}>48</span>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[.2em]">Settled Today</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '8px' }}>Settled Today</span>
                     </button>
                 </div>
             </aside>
 
-            {/* CENTER: ORDER LIST (Section 13) */}
-            <main className="flex-1 flex flex-col bg-white">
-                <header className="h-20 bg-white border-b border-brand/10 px-8 flex items-center gap-6">
-                    <div className="flex-1 relative">
-                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-brand/20" size={20} />
-                        <input
-                            type="text"
-                            placeholder="Identify Order by ID, Guest, or Table..."
-                            className="w-full h-12 bg-brand/5 border-none rounded-xl pl-16 pr-8 text-sm font-black text-brand placeholder:text-brand/20 focus:ring-4 focus:ring-brand/5 transition-all outline-none"
-                        />
+            {/* LIST */}
+            <main className="main-content">
+                <header className="main-header">
+                    <div className="search-box-container">
+                        <Search style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--pos-text-muted)' }} size={20} />
+                        <input type="text" placeholder="Locate by ID or Guest Name..." className="search-input-field" />
                     </div>
-                    <button className="h-12 px-6 bg-brand/5 rounded-xl flex items-center gap-2 text-[10px] font-black text-brand/40 uppercase tracking-widest hover:text-brand hover:border-brand transition-all border border-brand/10">
-                        <Filter size={16} />
-                        Sort: Newest
-                    </button>
                 </header>
 
-                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-                    <div className="space-y-2">
-                        {mockRecentOrders.map(o => (
-                            <button
-                                key={o.id}
-                                onClick={() => setSelectedOrderId(o.id)}
-                                className={`w-full p-6 rounded-3xl grid grid-cols-4 items-center transition-all border-2 ${selectedOrderId === o.id ? 'bg-brand/5 border-brand ring-4 ring-brand/5' : 'bg-white border-transparent hover:bg-brand/5 hover:border-brand/10'}`}
-                            >
-                                <div className="text-left">
-                                    <div className="text-xs font-black text-brand mb-1">{o.id}</div>
-                                    <div className="flex items-center gap-2">
-                                        <Clock size={12} className="text-brand/30" />
-                                        <span className="text-[10px] font-bold text-brand/40 uppercase">{o.time}</span>
-                                    </div>
-                                </div>
-                                <div className="text-left">
-                                    <div className="text-sm font-black text-brand">{o.customer}</div>
-                                    <div className="text-[10px] font-bold text-brand/40 uppercase tracking-widest">{o.type}</div>
-                                </div>
-                                <div className="text-center">
-                                    <span className="px-3 py-1 bg-brand/10 text-brand rounded-lg text-[8px] font-black uppercase tracking-widest border border-brand/20">
-                                        {o.status}
-                                    </span>
-                                </div>
-                                <div className="text-right flex items-center justify-end gap-6">
-                                    <span className="text-lg font-black text-brand">${o.amount.toFixed(2)}</span>
-                                    <ChevronRight className={selectedOrderId === o.id ? 'text-brand' : 'text-brand/20'} size={20} />
-                                </div>
-                            </button>
-                        ))}
+                <div className="order-list-area">
+                    <div className="list-labels">
+                        <div style={{ width: '100px' }}>TIMESTAMP</div>
+                        <div style={{ flex: 1 }}>DETAILS</div>
+                        <div style={{ width: '120px', textAlign: 'center' }}>STATUS</div>
+                        <div style={{ width: '120px', textAlign: 'right' }}>TOTAL</div>
+                        <div style={{ width: '40px' }}></div>
                     </div>
+
+                    {filteredOrders.map(o => (
+                        <div
+                            key={o.id}
+                            onClick={() => setSelectedOrderId(o.id)}
+                            className={`order-row-item ${selectedOrderId === o.id ? 'selected' : ''}`}
+                        >
+                            <div style={{ width: '100px' }}>
+                                <div style={{ fontSize: '14px', fontWeight: 800 }}>{o.time}</div>
+                                <div style={{ fontSize: '11px', color: 'var(--pos-action-primary)', fontWeight: 800 }}>{o.id}</div>
+                            </div>
+                            <div style={{ flex: 1 }}>
+                                <div style={{ fontSize: '16px', fontWeight: 800 }}>{o.customer || 'Walk-In'}</div>
+                                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--pos-text-muted)', textTransform: 'uppercase' }}>{o.type} {(o as any).tableId ? `• Table ${(o as any).tableId}` : ''}</div>
+                            </div>
+                            <div style={{ width: '120px', textAlign: 'center' }}>
+                                <span style={{
+                                    padding: '4px 12px', borderRadius: '8px', fontSize: '10px', fontWeight: 900,
+                                    background: o.status === 'COMPLETED' ? '#ECFDF5' : o.status === 'PENDING' ? '#FFFBEB' : '#FEF2F2',
+                                    color: o.status === 'COMPLETED' ? '#059669' : o.status === 'PENDING' ? '#B45309' : '#DC2626'
+                                }}>
+                                    {o.status}
+                                </span>
+                            </div>
+                            <div style={{ width: '120px', textAlign: 'right', fontSize: '20px', fontWeight: 900 }}>
+                                ${o.amount.toFixed(2)}
+                            </div>
+                            <div style={{ width: '40px', display: 'flex', justifyContent: 'flex-end' }}>
+                                <ChevronRight size={20} color={selectedOrderId === o.id ? 'var(--pos-action-primary)' : 'var(--pos-text-muted)'} />
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </main>
 
-            {/* RIGHT: ORDER ACTIONS (Section 14) */}
-            <aside className="w-96 md:w-[450px] bg-white border-l border-brand/10 flex flex-col flex-shrink-0 overflow-y-auto custom-scrollbar">
+            {/* DETAILS */}
+            <aside className="details-aside">
                 {selectedOrder ? (
-                    <div className="flex-1 flex flex-col animate-in slide-in-from-right duration-500">
-                        <header className="p-10 border-b border-brand/10 bg-brand/5">
-                            <div className="flex justify-between items-start mb-6">
-                                <div>
-                                    <span className="text-[10px] font-black text-brand/40 uppercase tracking-widest mb-1 block">Selected Order</span>
-                                    <h2 className="text-3xl font-black text-brand tracking-tighter">{selectedOrder.id}</h2>
+                    <>
+                        <div className="details-header-section">
+                            <span style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-action-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Live Transaction</span>
+                            <h2 style={{ fontSize: '32px', fontWeight: 950, marginTop: '4px' }}>{selectedOrder.id}</h2>
+                            <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+                                <div style={{ flex: 1, padding: '12px', background: 'var(--pos-bg-main)', borderRadius: '12px' }}>
+                                    <div style={{ fontSize: '10px', color: 'var(--pos-text-muted)', fontWeight: 800 }}>AGENT</div>
+                                    <div style={{ fontSize: '13px', fontWeight: 800 }}>Sarah A.</div>
                                 </div>
-                                <span className="px-4 py-2 bg-brand text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand/20">
-                                    Active Session
-                                </span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest">Operator</span>
-                                    <span className="text-sm font-black text-brand block">Sarah Agent</span>
-                                </div>
-                                <div className="space-y-1">
-                                    <span className="text-[10px] font-black text-brand/30 uppercase tracking-widest">Station</span>
-                                    <span className="text-sm font-black text-brand block">TR-8842-X</span>
+                                <div style={{ flex: 1, padding: '12px', background: 'var(--pos-bg-main)', borderRadius: '12px' }}>
+                                    <div style={{ fontSize: '10px', color: 'var(--pos-text-muted)', fontWeight: 800 }}>STATION</div>
+                                    <div style={{ fontSize: '13px', fontWeight: 800 }}>POS-01</div>
                                 </div>
                             </div>
-                        </header>
+                        </div>
 
-                        <div className="p-10 space-y-10">
-                            {/* Customer & Statistics (Section 12) */}
-                            <section>
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Identity & Attribution</h4>
-                                <div className="p-6 bg-brand/5 border border-brand/10 rounded-3xl space-y-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand shadow-sm font-black">
-                                            {selectedOrder.customer.charAt(0)}
-                                        </div>
-                                        <div className="flex-1">
-                                            <div className="text-sm font-black text-brand">{selectedOrder.customer}</div>
-                                            <div className="flex items-center gap-3 text-[10px] font-bold text-brand/40 uppercase tracking-widest mt-0.5">
-                                                <div className="flex items-center gap-1"><Phone size={10} /> +1 (555) 012-3456</div>
-                                                <div className="flex items-center gap-1"><Users size={10} /> Gold Tier</div>
-                                            </div>
-                                        </div>
+                        <div className="details-scrollable">
+                            <div className="attribution-card">
+                                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                                    <div style={{ width: '52px', height: '52px', background: 'white', borderRadius: '14px', border: '1px solid var(--pos-border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 950, color: 'var(--pos-action-primary)' }}>
+                                        {selectedOrder.customer?.charAt(0) || 'W'}
                                     </div>
-                                    <div className="flex items-center gap-3 text-[10px] font-bold text-brand/60 uppercase tracking-widest bg-white/50 p-3 rounded-xl border border-brand/5">
-                                        <MapPin size={12} className="text-brand/40" />
-                                        <span>Channel: {selectedOrder.type} / 3rd Party (Uber)</span>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '18px', fontWeight: 850 }}>{selectedOrder.customer || 'Walk-In Customer'}</div>
+                                        <div style={{ fontSize: '13px', color: 'var(--pos-text-muted)', fontWeight: 600 }}>+1 (555) 012-3456</div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            {/* Order Details (Section 14) */}
                             <section>
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Itemized Breakdown</h4>
-                                <div className="space-y-4">
+                                <h4 style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Order Synopsis</h4>
+                                <div style={{ marginBottom: '24px' }}>
                                     {[1, 2].map(i => (
-                                        <div key={i} className="flex justify-between items-start">
-                                            <div className="flex gap-4">
-                                                <div className="w-8 h-8 rounded-lg bg-brand/5 flex items-center justify-center text-xs font-black text-brand">1x</div>
-                                                <div>
-                                                    <div className="text-sm font-black text-brand">Premium Pepperoni Pizza</div>
-                                                    <div className="text-[10px] font-medium text-brand/40">Extra Cheese, No Onions</div>
-                                                </div>
+                                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
+                                                <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--pos-action-primary)' }}>1x</span>
+                                                <div style={{ fontSize: '14px', fontWeight: 800 }}>Premium Classic Item {i}</div>
                                             </div>
-                                            <span className="text-sm font-black text-brand">$24.00</span>
+                                            <span style={{ fontSize: '14px', fontWeight: 800 }}>$12.50</span>
                                         </div>
                                     ))}
-                                    <div className="pt-4 border-t border-brand/10 flex justify-between items-center">
-                                        <span className="text-xs font-black text-brand uppercase tracking-widest">Total Transaction</span>
-                                        <span className="text-xl font-black text-brand">${selectedOrder.amount.toFixed(2)}</span>
-                                    </div>
+                                </div>
+                                <div style={{ paddingTop: '16px', borderTop: '2px dashed var(--pos-border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '12px', fontWeight: 900 }}>DUE AMOUNT</span>
+                                    <span style={{ fontSize: '28px', fontWeight: 950, color: 'var(--pos-state-success)' }}>${selectedOrder.amount.toFixed(2)}</span>
                                 </div>
                             </section>
 
-                            {/* Timeline (Section 12.1) */}
-                            <section>
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Order Life-Cycle Timeline</h4>
-                                <div className="space-y-6 relative ml-2">
-                                    <div className="absolute left-1 top-2 bottom-2 w-0.5 bg-brand/5"></div>
+                            <section style={{ marginTop: '32px' }}>
+                                <h4 style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Status Log</h4>
+                                <div className="timeline-box">
                                     {[
-                                        { time: '11:20 AM', icon: ShoppingBag, label: 'Order Registered', desc: 'Captured via In-Store Kiosk', status: 'done' },
-                                        { time: '11:22 AM', icon: Play, label: 'KDS Fire Request', desc: 'Accepted by Kitchen Station 1', status: 'done' },
-                                        { time: '11:45 AM', icon: Clock, label: 'Quality Control', desc: 'Pending Final Inspection', status: 'pending' }
+                                        { time: '11:20 AM', label: 'Order Registered', status: 'done' },
+                                        { time: '11:25 AM', label: 'Kitchen Fired', status: 'done' },
+                                        { time: '11:45 AM', label: 'Awaiting Pickup', status: 'pending' }
                                     ].map((step, idx) => (
-                                        <div key={idx} className="flex gap-4 relative">
-                                            <div className={`w-3 h-3 rounded-full mt-1 z-10 border-2 ${step.status === 'done' ? 'bg-brand border-brand' : 'bg-white border-brand/20'}`}></div>
-                                            <div className="flex-1">
-                                                <div className="flex justify-between items-start mb-1">
-                                                    <span className="text-[11px] font-black text-brand">{step.label}</span>
-                                                    <span className="text-[10px] font-bold text-brand/30 uppercase">{step.time}</span>
-                                                </div>
-                                                <p className="text-[10px] font-medium text-brand/40 uppercase tracking-widest">{step.desc}</p>
+                                        <div key={idx} className="timeline-step">
+                                            {idx < 2 && <div className="step-line"></div>}
+                                            <div className="step-dot" style={{ background: step.status === 'done' ? 'var(--pos-state-success)' : 'var(--pos-border-subtle)' }}></div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <span style={{ fontSize: '13px', fontWeight: 800, color: step.status === 'done' ? 'var(--pos-text-primary)' : 'var(--pos-text-muted)' }}>{step.label}</span>
+                                                <span style={{ fontSize: '11px', color: 'var(--pos-text-muted)' }}>{step.time}</span>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                            </section>
-
-                            {/* Actions (Section 13+14) */}
-                            <section className="space-y-3">
-                                <h4 className="text-[10px] font-black text-brand uppercase tracking-[0.2em] mb-4">Execution Logic</h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <button
-                                        onClick={() => router.push('/pos/menu')}
-                                        className="h-20 bg-brand text-white rounded-[1.5rem] flex flex-col items-center justify-center gap-1 shadow-xl shadow-brand/20 hover:bg-brand-dark transition-all"
-                                    >
-                                        <Play size={20} fill="white" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Resume</span>
-                                    </button>
-                                    <button className="h-20 bg-brand/5 text-brand rounded-[1.5rem] flex flex-col items-center justify-center gap-1 border border-brand/10 hover:border-brand transition-all">
-                                        <Printer size={20} />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Reprint</span>
-                                    </button>
-                                    <button className="h-20 bg-brand/5 text-brand rounded-[1.5rem] flex flex-col items-center justify-center gap-1 border border-brand/10 hover:border-brand transition-all">
-                                        <Flame size={20} className="text-rose-500" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Re-Fire KDS</span>
-                                    </button>
-                                    <button className="h-20 bg-rose-500 text-white rounded-[1.5rem] flex flex-col items-center justify-center gap-1 shadow-xl shadow-rose-500/20 hover:bg-rose-600 transition-all">
-                                        <RotateCcw size={20} />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Full Refund</span>
-                                    </button>
-                                </div>
-                                <button className="w-full h-16 bg-white border-4 border-rose-500/10 text-rose-500 rounded-[1.5rem] flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest hover:bg-rose-50 transition-all">
-                                    <XCircle size={18} />
-                                    Cancel & Terminate Order
-                                </button>
                             </section>
                         </div>
-                    </div>
+
+                        <div className="footer-actions-container">
+                            <div className="btn-grid" style={{ marginBottom: '12px' }}>
+                                <button onClick={() => router.push('/pos/menu')} className="control-btn btn-primary">
+                                    <Play size={18} fill="white" /> Resume Checkout
+                                </button>
+                                <button className="control-btn btn-secondary">
+                                    <Printer size={18} /> Print Voucher
+                                </button>
+                            </div>
+                            <div className="btn-grid">
+                                <button className="control-btn btn-error">
+                                    <RotateCcw size={18} /> Process Refund
+                                </button>
+                                <button className="control-btn btn-error">
+                                    <XCircle size={18} /> Void Order
+                                </button>
+                            </div>
+                        </div>
+                    </>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-20 text-center opacity-30">
-                        <ShoppingBag size={64} className="mb-6" />
-                        <h4 className="text-xl font-black text-brand mb-2">Selection Required</h4>
-                        <p className="text-sm font-medium text-brand/60">Identify an active or historical transaction from the central stack to perform post-order operations.</p>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--pos-text-muted)', padding: '40px', textAlign: 'center' }}>
+                        <ShoppingBag size={80} style={{ opacity: 0.1, marginBottom: '24px' }} />
+                        <h3 style={{ fontSize: '20px', fontWeight: 850, color: 'var(--pos-text-secondary)' }}>Insight Engine</h3>
+                        <p style={{ fontSize: '14px', fontWeight: 600, marginTop: '8px' }}>Select a transaction from the list to analyze its contents and lifecycle.</p>
                     </div>
                 )}
             </aside>
         </div>
     );
 };
+
+export default POSOrdersScreen;

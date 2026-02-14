@@ -9,17 +9,17 @@ import {
     Truck,
     Tags,
     User,
-    RotateCcw
+    RotateCcw,
+    ChevronDown,
+    Check
 } from 'lucide-react';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import { POSProduct } from '@/modules/pos/types/pos';
 import POSDiscountModal from '../components/POSDiscountModal';
 import { POSCustomizationModal } from '../components/POSCustomizationModal';
 import { POSCartPanel } from '../components/POSCartPanel';
-
 import { POSPizzaModifierModal } from '../components/POSPizzaModifierModal';
 import { ShiftOpeningModal } from '../components/ShiftOpeningModal';
-import { POSCustomerManagementModal } from '../components/POSCustomerManagementModal';
 import { mockStores } from '../mock/posData';
 import '../styles/pos-rush.css';
 import { POSBackButton } from '../components/POSBackButton';
@@ -263,7 +263,7 @@ const MOCK_PRODUCTS: POSProduct[] = [
         isAvailable: true
     },
     {
-        id: 'p10',
+        id: 'p11',
         name: 'Garlic Bread',
         price: 4.99,
         categoryId: 'sides',
@@ -357,7 +357,6 @@ export const POSMenuScreen: React.FC = () => {
         clearCart,
         cartTotal,
         selectedCustomer,
-        isOffline,
         session,
         setStore,
         setChannel,
@@ -376,7 +375,20 @@ export const POSMenuScreen: React.FC = () => {
     const [isCustomizationModalOpen, setIsCustomizationModalOpen] = useState(false);
     const [isPizzaModalOpen, setIsPizzaModalOpen] = useState(false);
 
-    const [isCustomerManagementOpen, setIsCustomerManagementOpen] = useState(false);
+    const [isFulfillmentDropdownOpen, setIsFulfillmentDropdownOpen] = useState(false);
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Close dropdown on click outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsFulfillmentDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     // Pricing States
 
@@ -389,6 +401,13 @@ export const POSMenuScreen: React.FC = () => {
             // setIsProfileOpen(true);
         }
     }, [incomingCall, session?.posType]);
+
+    // Validation: Require table for Dine-In
+    useEffect(() => {
+        if (session?.channel === 'Dine-In' && !session.activeTable) {
+            router.push('/pos/table-selection');
+        }
+    }, [session?.channel, session?.activeTable, router]);
 
     // Barcode Scanner Auto-Focus
     useEffect(() => {
@@ -588,164 +607,251 @@ export const POSMenuScreen: React.FC = () => {
 
             {/* 2. PRODUCT ZONE */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'var(--pos-bg-main)' }}>
-                {/* Header with Customer & Search */}
+                {/* 2. MAIN HEADER / ACTION BAR */}
                 <div style={{
-                    padding: '16px 24px',
+                    padding: '24px 24px 16px',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '24px',
-                    borderBottom: '1px solid var(--pos-border-subtle)',
-                    background: 'var(--pos-bg-surface)'
+                    flexDirection: 'column',
+                    gap: '16px',
+                    background: 'var(--pos-bg-surface)',
+                    width: '100%',
                 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <button style={{
-                            width: '200px',
-                            height: '60px',
-                            padding: '0 16px',
-                            background: 'var(--pos-action-primary)',
-                            borderRadius: '14px',
-                            border: 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '12px',
-                            cursor: 'pointer',
-                            color: 'white',
-                            transition: 'all 0.2s',
-                            boxShadow: '0 4px 12px rgba(31, 164, 169, 0.2)'
-                        }}
-                            className="hover-scale"
-                            onClick={() => setIsCustomerManagementOpen(true)}>
-                            <User size={20} color="white" strokeWidth={2.5} />
-                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
-                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
-                                    Current Order
-                                </span>
-                                <span style={{
-                                    fontSize: '14px',
-                                    fontWeight: 900,
-                                    color: 'white',
-                                    whiteSpace: 'nowrap',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    maxWidth: '130px'
-                                }}>
-                                    {selectedCustomer?.name || 'SELECT CUSTOMER'}
-                                </span>
-                            </div>
-                        </button>
-                        {isOffline && (
-                            <div className="pos-badge pos-badge-warning">OFFLINE MODE</div>
-                        )}
-                        {/* Fulfillment Indicator */}
-                        <div style={{
-                            width: '200px',
-                            height: '60px',
-                            padding: '0 16px',
-                            background: 'var(--pos-bg-card)',
-                            borderRadius: '14px',
-                            border: '1px solid var(--pos-border-subtle)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '12px',
-                            cursor: 'pointer',
-                            boxShadow: 'var(--pos-shadow-sm)'
-                        }} onClick={() => router.push('/pos/fulfillment')}>
-                            {session?.channel === 'Dine-In' && <Utensils size={20} color="#22C55E" />}
-                            {session?.channel === 'Pickup' && <ShoppingBag size={20} color="var(--pos-action-primary)" />}
-                            {session?.channel === 'Delivery' && <Truck size={20} color="#F59E0B" />}
-                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
-                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--pos-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
-                                    Fulfillment
-                                </span>
-                                <span style={{ fontSize: '14px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>
-                                    {session?.channel || 'SELECT...'}
-                                </span>
-                            </div>
-                        </div>
 
-                        {session?.deliveryAddress && (
-                            <div style={{
-                                height: '60px',
-                                padding: '0 20px',
-                                background: 'rgba(16, 185, 129, 0.1)',
-                                borderRadius: '14px',
-                                border: '1px solid rgba(16, 185, 129, 0.2)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px'
-                            }}>
-                                <Truck size={16} color="#10B981" />
-                                <div>
-                                    <div style={{ fontSize: '10px', fontWeight: 700, color: '#10B981', textTransform: 'uppercase' }}>Delivery To</div>
-                                    <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--pos-text-primary)' }}>{session.deliveryAddress.label}</div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    {/* ROW 1: Buttons Row */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '100%' }}>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, maxWidth: '800px' }}>
+                        {/* BUTTON 1: CUSTOMER (Teal) */}
                         <button
-                            onClick={() => router.push('/pos/refund-management')}
+                            onClick={() => router.push('/pos/customers')}
+                            className="hover-scale"
                             style={{
-                                width: '200px',
-                                height: '60px',
-                                padding: '0 16px',
-                                background: 'var(--pos-state-error)',
-                                color: 'white',
-                                borderRadius: '14px',
+                                flex: 1,
+                                height: '64px',
+                                background: selectedCustomer ? '#14B8A6' : '#94A3B8', // Teal if customer, gray if not
+                                borderRadius: '12px',
                                 border: 'none',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '10px',
-                                fontSize: '15px',
-                                fontWeight: 900,
+                                padding: '0 20px',
+                                gap: '14px',
+                                color: 'white',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s',
-                                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.2)',
-                                whiteSpace: 'nowrap'
+                                boxShadow: selectedCustomer ? '0 4px 6px -1px rgba(20, 184, 166, 0.2)' : '0 4px 6px -1px rgba(148, 163, 184, 0.2)'
                             }}
-                            className="hover-scale"
                         >
-                            <RotateCcw size={20} color="white" strokeWidth={2.5} />
+                            <User size={24} strokeWidth={2.5} />
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2', flex: 1, minWidth: 0 }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    {selectedCustomer ? 'Customer' : 'Current Order'}
+                                </span>
+                                <span style={{ fontSize: '15px', fontWeight: 900, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    {selectedCustomer?.name || session?.activeCustomer?.name || 'SELECT CUSTOMER...'}
+                                </span>
+                            </div>
+                            {selectedCustomer && (
+                                <Check size={20} strokeWidth={3} style={{ opacity: 0.9 }} />
+                            )}
+                        </button>
+
+                        {/* BUTTON 2: FULFILLMENT (White/Outline) */}
+                        <div style={{ position: 'relative', flex: 1 }} ref={dropdownRef}>
+                            <button
+                                onClick={() => setIsFulfillmentDropdownOpen(!isFulfillmentDropdownOpen)}
+                                className="hover-scale"
+                                style={{
+                                    width: '100%',
+                                    height: '64px',
+                                    background: '#FFFFFF',
+                                    borderRadius: '12px',
+                                    border: '1px solid #E2E8F0', // Slate-200
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0 20px',
+                                    gap: '14px',
+                                    color: '#1E293B', // Slate-800
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {session?.channel === 'Dine-In' ? <Utensils size={24} className="text-emerald-500" /> :
+                                    session?.channel === 'Delivery' ? <Truck size={24} className="text-amber-500" /> :
+                                        <ShoppingBag size={24} className="text-sky-500" />}
+
+                                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
+                                    <span style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                        Fulfillment
+                                    </span>
+                                    <span style={{ fontSize: '15px', fontWeight: 900 }}>
+                                        {session?.channel || 'PICKUP'}
+                                    </span>
+                                </div>
+
+                                <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    {/* Table Info if Dine-In */}
+                                    {session?.channel === 'Dine-In' && session.activeTable && (
+                                        <span
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                router.push('/pos/table-selection');
+                                            }}
+                                            title="Change Table"
+                                            className="hover:bg-emerald-200 transition-colors"
+                                            style={{
+                                                fontSize: '12px',
+                                                fontWeight: 700,
+                                                background: '#DEF7EC',
+                                                color: '#03543F',
+                                                padding: '4px 10px',
+                                                borderRadius: '6px',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '4px',
+                                                border: '1px solid #BCF0DA'
+                                            }}
+                                        >
+                                            {session.activeTable.name}
+                                        </span>
+                                    )}
+                                    <ChevronDown size={20} className="text-slate-400" />
+                                </div>
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {isFulfillmentDropdownOpen && (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '72px',
+                                    left: 0,
+                                    width: '100%',
+                                    background: 'white',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+                                    border: '1px solid #E2E8F0',
+                                    zIndex: 50,
+                                    padding: '8px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '4px'
+                                }}>
+                                    {(['Dine-In', 'Pickup', 'Delivery'] as const).map(mode => (
+                                        <button
+                                            key={mode}
+                                            onClick={() => {
+                                                setChannel(mode);
+                                                setIsFulfillmentDropdownOpen(false);
+                                                // Redirect to tables if dine-in selected
+                                                if (mode === 'Dine-In') router.push('/pos/table-selection');
+                                            }}
+                                            style={{
+                                                padding: '12px 16px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '12px',
+                                                borderRadius: '8px',
+                                                border: 'none',
+                                                background: session?.channel === mode ? '#F1F5F9' : 'transparent',
+                                                color: session?.channel === mode ? '#0F172A' : '#64748B',
+                                                fontWeight: 700,
+                                                fontSize: '14px',
+                                                cursor: 'pointer',
+                                                textAlign: 'left'
+                                            }}
+                                        >
+                                            {mode === 'Dine-In' && <Utensils size={16} />}
+                                            {mode === 'Pickup' && <ShoppingBag size={16} />}
+                                            {mode === 'Delivery' && <Truck size={16} />}
+                                            {mode}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* BUTTON 3: REFUNDS (Red) */}
+                        <button
+                            onClick={() => router.push('/pos/refund-management')}
+                            className="hover-scale"
+                            style={{
+                                flex: 1,
+                                height: '64px',
+                                background: '#EF4444', // Red-500
+                                borderRadius: '12px',
+                                border: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '0 20px',
+                                gap: '14px',
+                                color: 'white',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)'
+                            }}
+                        >
+                            <RotateCcw size={24} strokeWidth={2.5} />
                             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
-                                <span style={{ fontSize: '10px', fontWeight: 800, color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                     Terminal
                                 </span>
-                                <span style={{ fontSize: '14px', fontWeight: 900, color: 'white' }}>
+                                <span style={{ fontSize: '15px', fontWeight: 900 }}>
                                     REFUNDS
                                 </span>
                             </div>
                         </button>
 
-                        <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
-                            <Search size={22} color="var(--pos-text-muted)" style={{ position: 'absolute', left: '20px' }} />
-                            <input
-                                ref={searchRef}
-                                type="text"
-                                placeholder="Search by Name / SKU / Barcode"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={handleSearchKeyDown}
-                                className="pos-input"
-                                style={{
-                                    height: '60px',
-                                    width: '100%',
-                                    paddingLeft: '56px',
-                                    paddingRight: '20px',
-                                    background: 'var(--pos-bg-card)',
-                                    borderRadius: '14px',
-                                    border: '1px solid var(--pos-border-subtle)',
-                                    fontSize: '18px',
-                                    fontWeight: 700,
-                                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)',
-                                    color: 'var(--pos-text-primary)'
-                                }}
-                            />
-                        </div>
+                        {/* BUTTON 4: VIEW ORDERS (Dark Slate) */}
+                        <button
+                            onClick={() => router.push('/pos/orders')}
+                            className="hover-scale"
+                            style={{
+                                flex: 1,
+                                height: '64px',
+                                background: '#334155', // Slate-700
+                                borderRadius: '12px',
+                                border: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '0 20px',
+                                gap: '14px',
+                                color: 'white',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 6px -1px rgba(51, 65, 85, 0.2)'
+                            }}
+                        >
+                            <ShoppingBag size={24} strokeWidth={2.5} />
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: '1.2' }}>
+                                <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    Management
+                                </span>
+                                <span style={{ fontSize: '15px', fontWeight: 900 }}>
+                                    VIEW ORDERS
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* ROW 2: SEARCH BAR (Full Width) */}
+                    <div style={{ width: '100%', position: 'relative' }}>
+                        <Search size={20} style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+                        <input
+                            ref={searchRef}
+                            type="text"
+                            placeholder="Search by Name / SKU / Barcode"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={handleSearchKeyDown}
+                            style={{
+                                width: '100%',
+                                height: '64px',
+                                background: '#FFFFFF',
+                                border: '1px solid #E2E8F0',
+                                borderRadius: '12px',
+                                paddingLeft: '56px',
+                                paddingRight: '20px',
+                                fontSize: '16px',
+                                fontWeight: 600,
+                                color: '#1E293B',
+                                outline: 'none'
+                            }}
+                        />
                     </div>
                 </div>
                 {/* Top-level Filter Tabs */}
@@ -932,7 +1038,7 @@ export const POSMenuScreen: React.FC = () => {
                     setCustomizationProduct(null);
                     setEditingCartItem(null);
                 }}
-                onAddToCart={(item) => {
+                onAddToCart={(item: any) => {
                     if (editingCartItem) {
                         updateCartItem(editingCartItem.id, { ...item, id: editingCartItem.id });
                     } else {
@@ -944,16 +1050,11 @@ export const POSMenuScreen: React.FC = () => {
                 }}
             />
 
-            <POSCustomerManagementModal
-                isOpen={isCustomerManagementOpen}
-                onClose={() => setIsCustomerManagementOpen(false)}
-            />
-
             <ShiftOpeningModal />
 
 
 
-        </div>
+        </div >
     );
 };
 

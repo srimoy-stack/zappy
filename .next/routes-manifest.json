@@ -158,6 +158,14 @@
         "nxtPid": "nxtPid"
       },
       "namedRegex": "^/pos/order\\-details/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/pos/order-success/[orderId]",
+      "regex": "^/pos/order\\-success/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPorderId": "nxtPorderId"
+      },
+      "namedRegex": "^/pos/order\\-success/(?<nxtPorderId>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -372,6 +380,18 @@
       "namedRegex": "^/backoffice/users(?:/)?$"
     },
     {
+      "page": "/callcenter/dashboard",
+      "regex": "^/callcenter/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/dashboard(?:/)?$"
+    },
+    {
+      "page": "/callcenter/login",
+      "regex": "^/callcenter/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/login(?:/)?$"
+    },
+    {
       "page": "/pos",
       "regex": "^/pos(?:/)?$",
       "routeKeys": {},
@@ -492,10 +512,10 @@
       "namedRegex": "^/pos/settings(?:/)?$"
     },
     {
-      "page": "/pos/store-selection",
-      "regex": "^/pos/store\\-selection(?:/)?$",
+      "page": "/pos/table-selection",
+      "regex": "^/pos/table\\-selection(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/pos/store\\-selection(?:/)?$"
+      "namedRegex": "^/pos/table\\-selection(?:/)?$"
     },
     {
       "page": "/pos/tables",

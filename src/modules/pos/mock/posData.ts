@@ -160,7 +160,7 @@ const pizzaVariants = [
         name: 'Size',
         options: [
             { id: 's1', name: 'Small', additionalPrice: 0 },
-            { id: 's2', name: 'Medium', additionalPrice: 5 },
+            { id: 's2', name: 'Medium', additionalPrice: 5, isDefault: true },
             { id: 's3', name: 'Large', additionalPrice: 8 },
             { id: 's4', name: 'Extra Large', additionalPrice: 12 },
         ]
@@ -169,17 +169,69 @@ const pizzaVariants = [
         id: 'var2',
         name: 'Crust / Style',
         options: [
-            { id: 'c1', name: 'New York Style', additionalPrice: 0 },
+            { id: 'c1', name: 'New York Style', additionalPrice: 0, isDefault: true },
             { id: 'c2', name: 'Stuffed Crust', additionalPrice: 3 },
             { id: 'c3', name: 'Thin Crust', additionalPrice: 0 },
         ]
     },
     {
         id: 'var3',
+        name: 'Dough',
+        options: [
+            { id: 'd1', name: 'Original Hand Tossed', additionalPrice: 0, isDefault: true },
+            { id: 'd2', name: 'Pan Dough', additionalPrice: 1.50 },
+            { id: 'd3', name: 'Thin & Crispy', additionalPrice: 0 },
+        ]
+    },
+    {
+        id: 'var4',
         name: 'Portion Type',
         options: [
-            { id: 'pt1', name: 'Full', additionalPrice: 0 },
+            { id: 'pt1', name: 'Full', additionalPrice: 0, isDefault: true },
             { id: 'pt2', name: 'Half (Split)', additionalPrice: 0 },
+        ]
+    }
+];
+
+const margheritaModifiers = [
+    {
+        id: 'mg-sauce',
+        name: 'Sauce',
+        minSelection: 1,
+        maxSelection: 1,
+        options: [
+            { id: 'opt-tomato', name: 'Tomato Sauce', price: 0, isDefault: true },
+            { id: 'opt-bbq', name: 'BBQ Sauce', price: 1.00 },
+        ]
+    },
+    {
+        id: 'mg-cheese',
+        name: 'Cheese',
+        minSelection: 1,
+        maxSelection: 1,
+        options: [
+            { id: 'opt-mozzarella', name: 'Mozzarella', price: 0, isDefault: true },
+            { id: 'opt-vegan', name: 'Vegan Cheese', price: 2.00 },
+        ]
+    },
+    {
+        id: 'mg-toppings-preset',
+        name: 'Toppings',
+        options: [
+            { id: 'opt-basil', name: 'Basil', price: 0, isDefault: true },
+            { id: 'opt-oregano', name: 'Oregano', price: 0, isDefault: true },
+            { id: 'opt-olive-oil', name: 'Olive Oil', price: 0, isDefault: true },
+            { id: 'opt-garlic', name: 'Garlic Paste', price: 0, isDefault: true },
+        ]
+    },
+    {
+        id: 'mod1',
+        name: 'Extra Toppings',
+        options: [
+            { id: 'top1', name: 'Pepperoni', price: 2.50 },
+            { id: 'top2', name: 'Extra Cheese', price: 2.00 },
+            { id: 'top3', name: 'Mushrooms', price: 1.50 },
+            { id: 'top4', name: 'Onions', price: 1.00 },
         ]
     }
 ];
@@ -196,7 +248,7 @@ export const mockPOSProducts = [
         isVeg: true,
         isAvailable: true,
         variantGroups: pizzaVariants,
-        modifierGroups: sharedPizzaModifiers
+        modifierGroups: margheritaModifiers
     },
     {
         id: 'p2',
@@ -248,25 +300,57 @@ export const mockPOSProducts = [
 
 export const mockPOSAreas = [
     { id: 'AREA1', name: 'Main Floor' },
-    { id: 'AREA2', name: 'Outdoor' },
-    { id: 'AREA3', name: 'Rooftop' }
+    { id: 'AREA2', name: 'Outdoor Terrace' },
+    { id: 'AREA3', name: 'Executive Lounge' },
+    { id: 'AREA4', name: 'Rooftop Bar' }
 ];
 
 export const mockPOSTables = [
-    { id: 'T1', name: 'Table 1', seats: 2, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T2', name: 'Table 2', seats: 2, status: 'OCCUPIED', orderId: 'ORD-5506', areaId: 'AREA1' },
-    { id: 'T3', name: 'Table 3', seats: 4, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T4', name: 'Table 4', seats: 4, status: 'OCCUPIED', orderId: 'ORD-5507', areaId: 'AREA1' },
-    { id: 'T5', name: 'Table 5', seats: 4, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T6', name: 'Table 6', seats: 6, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T7', name: 'Lounge 1', seats: 8, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T8', name: 'Group 1', seats: 10, status: 'FREE', areaId: 'AREA1' },
-    { id: 'T9', name: 'Patio 1', seats: 2, status: 'FREE', areaId: 'AREA2' },
-    { id: 'T10', name: 'Patio 2', seats: 4, status: 'FREE', areaId: 'AREA2' },
-    { id: 'T11', name: 'Garden 1', seats: 6, status: 'OCCUPIED', orderId: 'ORD-5508', areaId: 'AREA2' },
-    { id: 'T12', name: 'Garden 2', seats: 6, status: 'FREE', areaId: 'AREA2' },
-    { id: 'T13', name: 'Sky 1', seats: 2, status: 'FREE', areaId: 'AREA3' },
-    { id: 'T14', name: 'Sky 2', seats: 2, status: 'OCCUPIED', orderId: 'ORD-5509', areaId: 'AREA3' },
-    { id: 'T15', name: 'Vantage 1', seats: 4, status: 'FREE', areaId: 'AREA3' },
-    { id: 'T16', name: 'Vantage 2', seats: 4, status: 'FREE', areaId: 'AREA3' },
+    // === Main Floor: Dense Tile Grid ===
+    // Row 1
+    { id: 'T1', name: 'T-1', seats: 2, status: 'FREE', areaId: 'AREA1', x: 5, y: 5, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T2', name: 'T-2', seats: 2, status: 'OCCUPIED', areaId: 'AREA1', x: 21, y: 5, width: 14, height: 14, shape: 'rectangle', durationMinutes: 12 },
+    { id: 'T3', name: 'T-3', seats: 2, status: 'FREE', areaId: 'AREA1', x: 37, y: 5, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T4', name: 'T-4', seats: 4, status: 'FREE', areaId: 'AREA1', x: 53, y: 5, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T5', name: 'T-5', seats: 4, status: 'OCCUPIED', areaId: 'AREA1', x: 69, y: 5, width: 14, height: 14, shape: 'rectangle', durationMinutes: 45 },
+    { id: 'T6', name: 'T-6', seats: 4, status: 'FREE', areaId: 'AREA1', x: 85, y: 5, width: 14, height: 14, shape: 'rectangle' },
+
+    // Row 2
+    { id: 'T7', name: 'T-7', seats: 2, status: 'FREE', areaId: 'AREA1', x: 5, y: 23, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T8', name: 'T-8', seats: 2, status: 'FREE', areaId: 'AREA1', x: 21, y: 23, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T9', name: 'T-9', seats: 4, status: 'OCCUPIED', areaId: 'AREA1', x: 37, y: 23, width: 14, height: 14, shape: 'rectangle', durationMinutes: 30 },
+    { id: 'T10', name: 'T-10', seats: 4, status: 'FREE', areaId: 'AREA1', x: 53, y: 23, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T11', name: 'T-11', seats: 4, status: 'FREE', areaId: 'AREA1', x: 69, y: 23, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T12', name: 'T-12', seats: 4, status: 'OCCUPIED', areaId: 'AREA1', x: 85, y: 23, width: 14, height: 14, shape: 'rectangle', durationMinutes: 5 },
+
+    // Row 3
+    { id: 'T13', name: 'T-13', seats: 4, status: 'FREE', areaId: 'AREA1', x: 5, y: 41, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T14', name: 'T-14', seats: 4, status: 'FREE', areaId: 'AREA1', x: 21, y: 41, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T15', name: 'T-15', seats: 6, status: 'RESERVED', areaId: 'AREA1', x: 37, y: 41, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T16', name: 'T-16', seats: 6, status: 'FREE', areaId: 'AREA1', x: 53, y: 41, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T17', name: 'T-17', seats: 4, status: 'OCCUPIED', areaId: 'AREA1', x: 69, y: 41, width: 14, height: 14, shape: 'rectangle', durationMinutes: 60 },
+    { id: 'T18', name: 'T-18', seats: 4, status: 'FREE', areaId: 'AREA1', x: 85, y: 41, width: 14, height: 14, shape: 'rectangle' },
+
+    // Row 4
+    { id: 'T19', name: 'T-19', seats: 4, status: 'FREE', areaId: 'AREA1', x: 5, y: 59, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T20', name: 'T-20', seats: 4, status: 'FREE', areaId: 'AREA1', x: 21, y: 59, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T21', name: 'T-21', seats: 6, status: 'FREE', areaId: 'AREA1', x: 37, y: 59, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T22', name: 'T-22', seats: 6, status: 'FREE', areaId: 'AREA1', x: 53, y: 59, width: 14, height: 14, shape: 'rectangle' },
+    { id: 'T23', name: 'T-23', seats: 4, status: 'OCCUPIED', areaId: 'AREA1', x: 69, y: 59, width: 14, height: 14, shape: 'rectangle', durationMinutes: 22 },
+    { id: 'T24', name: 'T-24', seats: 4, status: 'FREE', areaId: 'AREA1', x: 85, y: 59, width: 14, height: 14, shape: 'rectangle' },
+
+    // Row 5 - Booths/Large
+    { id: 'B1', name: 'Booth 1', seats: 8, status: 'FREE', areaId: 'AREA1', x: 5, y: 77, width: 22, height: 18, shape: 'rectangle' },
+    { id: 'B2', name: 'Booth 2', seats: 8, status: 'FREE', areaId: 'AREA1', x: 29, y: 77, width: 22, height: 18, shape: 'rectangle' },
+    { id: 'B3', name: 'Booth 3', seats: 8, status: 'OCCUPIED', areaId: 'AREA1', x: 53, y: 77, width: 22, height: 18, shape: 'rectangle', durationMinutes: 90 },
+    { id: 'B4', name: 'Booth 4', seats: 8, status: 'FREE', areaId: 'AREA1', x: 77, y: 77, width: 22, height: 18, shape: 'rectangle' },
+
+    // Rooftop Bar
+    { id: 'RT1', name: 'Bar 1', seats: 2, status: 'FREE', areaId: 'AREA4', x: 20, y: 20, width: 70, height: 70, shape: 'circle' },
+    { id: 'RT2', name: 'Bar 2', seats: 2, status: 'OCCUPIED', areaId: 'AREA4', x: 40, y: 20, width: 70, height: 70, shape: 'circle', durationMinutes: 15 },
+    { id: 'RT3', name: 'VIP', seats: 8, status: 'RESERVED', areaId: 'AREA4', x: 60, y: 20, width: 150, height: 100, shape: 'rectangle', customerName: 'Party' },
+
+    // Outdoor Terrace (Sample)
+    { id: 'OD1', name: 'Deck 1', seats: 2, status: 'FREE', areaId: 'AREA2', x: 20, y: 20, width: 80, height: 80, shape: 'circle' },
+    { id: 'OD2', name: 'Deck 2', seats: 2, status: 'OCCUPIED', areaId: 'AREA2', x: 40, y: 20, width: 80, height: 80, shape: 'circle', durationMinutes: 30 }
 ];

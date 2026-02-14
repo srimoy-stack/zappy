@@ -80,7 +80,7 @@ const validateLuhn = (num)=>{
 };
 const POSPaymentScreen = ()=>{
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
-    const { cartTotal, clearCart, session } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$context$2f$POSContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePOS"])();
+    const { cartTotal, clearCart, session, selectedCustomer, addOrderToCustomerHistory, cart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$context$2f$POSContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePOS"])();
     // --- State ---
     const [transactions, setTransactions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isSplitMode, setIsSplitMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -89,7 +89,7 @@ const POSPaymentScreen = ()=>{
     // Pricing & Discounts
     const [appliedDiscount, setAppliedDiscount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [showDiscountPanel, setShowDiscountPanel] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [isDiscountsExpanded, setIsDiscountsExpanded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [isDiscountsExpanded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [tipAmount, setTipAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     // Input / Processing State
     const [inputValue, setInputValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
@@ -123,6 +123,12 @@ const POSPaymentScreen = ()=>{
         otp: '',
         type: 'Store Wallet'
     });
+    const [loyaltyPointsToRedeem, setLoyaltyPointsToRedeem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [showCustomerHistory, setShowCustomerHistory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Get customer data - use selectedCustomer from context as primary source
+    const customer = selectedCustomer || session?.activeCustomer;
+    const availableLoyaltyPoints = customer?.loyaltyPoints || 0;
+    const POINTS_TO_DOLLAR_RATE = 100; // 100 points = $1
     // --- Calculations ---
     const subtotal = cartTotal;
     const discountAmount = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
@@ -140,6 +146,21 @@ const POSPaymentScreen = ()=>{
     ]);
     const remainingBalance = Math.max(0, totalAmountDue - amountPaid);
     const isFullyPaid = remainingBalance <= 0.005;
+    // Debug: Log customer data
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        console.log('🔍 Payment Screen - Customer Data:', {
+            customer,
+            selectedCustomer,
+            sessionActiveCustomer: session?.activeCustomer,
+            availableLoyaltyPoints,
+            customerName: customer?.name
+        });
+    }, [
+        customer,
+        selectedCustomer,
+        session?.activeCustomer,
+        availableLoyaltyPoints
+    ]);
     // --- Effects ---
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (remainingBalance > 0) {
@@ -269,6 +290,21 @@ const POSPaymentScreen = ()=>{
                 return;
             }
         }
+        if (currentMethod === 'loyalty_points') {
+            if (loyaltyPointsToRedeem <= 0) {
+                setPaymentError('Please select points to redeem');
+                return;
+            }
+            const maxPointsValue = availableLoyaltyPoints / POINTS_TO_DOLLAR_RATE;
+            if (amountToTender > maxPointsValue) {
+                setPaymentError(`Insufficient Points (max $${maxPointsValue.toFixed(2)})`);
+                return;
+            }
+            if (loyaltyPointsToRedeem > availableLoyaltyPoints) {
+                setPaymentError('Insufficient loyalty points');
+                return;
+            }
+        }
         if (currentMethod !== 'cash' && amountToTender > remainingBalance + 0.01) {
             setPaymentError('Amount exceeds remaining balance');
             return;
@@ -319,6 +355,7 @@ const POSPaymentScreen = ()=>{
                 pin: '',
                 balance: null
             });
+            setLoyaltyPointsToRedeem(0);
         } catch (err) {
             setPaymentError('Transaction Failed: Communication Error');
             setPaymentState('ENTERING_DETAILS');
@@ -337,8 +374,18 @@ const POSPaymentScreen = ()=>{
         if (!isFullyPaid) return;
         const orderId = session?.activeTable?.orderId || `ORD-${Date.now().toString().slice(-6)}`;
         const fulfillment = session?.channel || 'Takeaway';
+        // Add to customer order history if customer is selected
+        if (customer) {
+            const newOrder = {
+                id: orderId,
+                date: new Date().toISOString().split('T')[0],
+                amount: totalAmountDue,
+                items: cart.map((item)=>`${item.quantity}x ${item.name}`).join(', ')
+            };
+            addOrderToCustomerHistory(customer.id, newOrder);
+        }
         clearCart();
-        router.push(`/pos/confirmation?orderId=${orderId}&fulfillment=${fulfillment}`);
+        router.push(`/pos/order-success/${orderId}?fulfillment=${fulfillment}${changeDue > 0 ? `&change=${changeDue}` : ''}`);
     };
     // --- Sub-Components ---
     const PricingRow = ({ label, value, isBold = false, color = 'var(--pos-text-primary)', isNeg = false, onExpand })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -371,31 +418,31 @@ const POSPaymentScreen = ()=>{
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 331,
+                                lineNumber: 378,
                                 columnNumber: 44
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 331,
+                                lineNumber: 378,
                                 columnNumber: 70
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 330,
+                            lineNumber: 377,
                             columnNumber: 30
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             children: label
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 333,
+                            lineNumber: 380,
                             columnNumber: 17
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 329,
+                    lineNumber: 376,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -406,13 +453,13 @@ const POSPaymentScreen = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 335,
+                    lineNumber: 382,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-            lineNumber: 328,
+            lineNumber: 375,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0));
     const MethodPanel = ()=>{
@@ -434,7 +481,7 @@ const POSPaymentScreen = ()=>{
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 344,
+                        lineNumber: 391,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -457,13 +504,13 @@ const POSPaymentScreen = ()=>{
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 345,
+                        lineNumber: 392,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                lineNumber: 343,
+                lineNumber: 390,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0));
         switch(currentMethod){
@@ -484,7 +531,7 @@ const POSPaymentScreen = ()=>{
                                 children: "Card Payment (Terminal)"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 373,
+                                lineNumber: 420,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -505,7 +552,7 @@ const POSPaymentScreen = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 376,
+                                        lineNumber: 423,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -517,7 +564,7 @@ const POSPaymentScreen = ()=>{
                                         children: "Integrated Terminal"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 377,
+                                        lineNumber: 424,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -528,13 +575,13 @@ const POSPaymentScreen = ()=>{
                                         children: "Proceed to send amount to payment device."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 378,
+                                        lineNumber: 425,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 375,
+                                lineNumber: 422,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -554,7 +601,7 @@ const POSPaymentScreen = ()=>{
                                         children: "Add Gratuity (Tip)"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 382,
+                                        lineNumber: 429,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -585,7 +632,7 @@ const POSPaymentScreen = ()=>{
                                                     ]
                                                 }, pct, true, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 385,
+                                                    lineNumber: 432,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -603,25 +650,25 @@ const POSPaymentScreen = ()=>{
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 389,
+                                                lineNumber: 436,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 383,
+                                        lineNumber: 430,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 381,
+                                lineNumber: 428,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 372,
+                        lineNumber: 419,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0));
                 }
@@ -640,7 +687,7 @@ const POSPaymentScreen = ()=>{
                             children: "Secure Card Entry"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 399,
+                            lineNumber: 446,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -653,7 +700,7 @@ const POSPaymentScreen = ()=>{
                             placeholder: "J. DOE"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 400,
+                            lineNumber: 447,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -668,7 +715,7 @@ const POSPaymentScreen = ()=>{
                             mode: "numeric"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 401,
+                            lineNumber: 448,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -689,7 +736,7 @@ const POSPaymentScreen = ()=>{
                                     mode: "numeric"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 403,
+                                    lineNumber: 450,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -705,13 +752,13 @@ const POSPaymentScreen = ()=>{
                                     mode: "numeric"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 404,
+                                    lineNumber: 451,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 402,
+                            lineNumber: 449,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -731,7 +778,7 @@ const POSPaymentScreen = ()=>{
                                     children: "Add Gratuity (Tip)"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 407,
+                                    lineNumber: 454,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,7 +809,7 @@ const POSPaymentScreen = ()=>{
                                                 ]
                                             }, pct, true, {
                                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 410,
+                                                lineNumber: 457,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -780,25 +827,25 @@ const POSPaymentScreen = ()=>{
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 414,
+                                            lineNumber: 461,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 408,
+                                    lineNumber: 455,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 406,
+                            lineNumber: 453,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 398,
+                    lineNumber: 445,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0));
             case 'cash':
@@ -816,7 +863,7 @@ const POSPaymentScreen = ()=>{
                             children: "Cash Settlement"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 422,
+                            lineNumber: 469,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -838,7 +885,7 @@ const POSPaymentScreen = ()=>{
                                     children: "REMAINING DUE"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 424,
+                                    lineNumber: 471,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -853,13 +900,13 @@ const POSPaymentScreen = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 425,
+                                    lineNumber: 472,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 423,
+                            lineNumber: 470,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -874,7 +921,7 @@ const POSPaymentScreen = ()=>{
                             children: "Quick Amount"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 427,
+                            lineNumber: 474,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -884,12 +931,12 @@ const POSPaymentScreen = ()=>{
                                 gap: '12px',
                                 marginBottom: '24px'
                             },
-                            children: [
+                            children: Array.from(new Set([
                                 Math.ceil(remainingBalance),
                                 10,
                                 20,
                                 50
-                            ].map((amt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            ])).slice(0, 4).map((amt, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setInputValue(amt.toFixed(2)),
                                     style: {
                                         height: '60px',
@@ -904,14 +951,14 @@ const POSPaymentScreen = ()=>{
                                         "$",
                                         amt
                                     ]
-                                }, amt, true, {
+                                }, `amt-${idx}-${amt}`, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 430,
+                                    lineNumber: 477,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 428,
+                            lineNumber: 475,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -921,7 +968,7 @@ const POSPaymentScreen = ()=>{
                             placeholder: "0.00"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 433,
+                            lineNumber: 480,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         parseFloat(inputValue) > remainingBalance && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -940,13 +987,13 @@ const POSPaymentScreen = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 435,
+                            lineNumber: 482,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 421,
+                    lineNumber: 468,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0));
             case 'terminal':
@@ -965,7 +1012,7 @@ const POSPaymentScreen = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 444,
+                            lineNumber: 491,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -977,7 +1024,7 @@ const POSPaymentScreen = ()=>{
                             children: "Integrated Terminal"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 445,
+                            lineNumber: 492,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -989,7 +1036,7 @@ const POSPaymentScreen = ()=>{
                             children: "Awaiting hardware handshake..."
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 446,
+                            lineNumber: 493,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1009,20 +1056,20 @@ const POSPaymentScreen = ()=>{
                                     className: "pulse-dot"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 448,
+                                    lineNumber: 495,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 " TERMINAL ID: T-800-ONLINE"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 447,
+                            lineNumber: 494,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 443,
+                    lineNumber: 490,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0));
             case 'gift_card':
@@ -1040,7 +1087,7 @@ const POSPaymentScreen = ()=>{
                             children: "Gift Card Redemption"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 455,
+                            lineNumber: 502,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -1053,7 +1100,7 @@ const POSPaymentScreen = ()=>{
                             placeholder: "GC-XXXX-XXXX"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 456,
+                            lineNumber: 503,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -1067,7 +1114,7 @@ const POSPaymentScreen = ()=>{
                             type: "password"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 457,
+                            lineNumber: 504,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1089,7 +1136,7 @@ const POSPaymentScreen = ()=>{
                             children: "CHECK BALANCE"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 458,
+                            lineNumber: 505,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         giftCardData.balance !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1111,7 +1158,7 @@ const POSPaymentScreen = ()=>{
                                     children: "AVAILABLE BALANCE"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 464,
+                                    lineNumber: 511,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1126,19 +1173,19 @@ const POSPaymentScreen = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 465,
+                                    lineNumber: 512,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 463,
+                            lineNumber: 510,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 454,
+                    lineNumber: 501,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0));
             case 'wallet':
@@ -1156,7 +1203,7 @@ const POSPaymentScreen = ()=>{
                             children: "Digital Wallet / App"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 473,
+                            lineNumber: 520,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1189,12 +1236,12 @@ const POSPaymentScreen = ()=>{
                                     children: w.toUpperCase()
                                 }, w, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 476,
+                                    lineNumber: 523,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 474,
+                            lineNumber: 521,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -1207,7 +1254,7 @@ const POSPaymentScreen = ()=>{
                             placeholder: "+1 (555) 000-0000"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 479,
+                            lineNumber: 526,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         walletData.type === 'Store Wallet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputRow, {
@@ -1220,13 +1267,231 @@ const POSPaymentScreen = ()=>{
                             placeholder: "6-digit code"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 480,
+                            lineNumber: 527,
                             columnNumber: 64
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 472,
+                    lineNumber: 519,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0));
+            case 'loyalty_points':
+                const maxPointsValue = availableLoyaltyPoints / POINTS_TO_DOLLAR_RATE;
+                const maxRedeemable = Math.min(maxPointsValue, remainingBalance);
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    style: {
+                        animation: 'posFadeInUp 0.3s'
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            style: {
+                                fontSize: '24px',
+                                fontWeight: 900,
+                                marginBottom: '24px'
+                            },
+                            children: "Redeem Loyalty Points"
+                        }, void 0, false, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 535,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                background: 'var(--pos-bg-surface)',
+                                padding: '24px',
+                                borderRadius: '20px',
+                                marginBottom: '24px',
+                                border: '1px solid var(--pos-border-subtle)'
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        fontSize: '12px',
+                                        fontWeight: 800,
+                                        color: 'var(--pos-text-muted)',
+                                        marginBottom: '4px'
+                                    },
+                                    children: "AVAILABLE POINTS"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 537,
+                                    columnNumber: 29
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        fontSize: '42px',
+                                        fontWeight: 900,
+                                        color: '#F97316'
+                                    },
+                                    children: availableLoyaltyPoints.toLocaleString()
+                                }, void 0, false, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 538,
+                                    columnNumber: 29
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        fontSize: '14px',
+                                        color: 'var(--pos-text-muted)',
+                                        marginTop: '8px'
+                                    },
+                                    children: [
+                                        "= $",
+                                        maxPointsValue.toFixed(2),
+                                        " (",
+                                        POINTS_TO_DOLLAR_RATE,
+                                        " points = $1)"
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 539,
+                                    columnNumber: 29
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 536,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                            style: {
+                                fontSize: '11px',
+                                fontWeight: 900,
+                                color: 'var(--pos-text-muted)',
+                                textTransform: 'uppercase',
+                                marginBottom: '12px',
+                                display: 'block'
+                            },
+                            children: "Points to Redeem"
+                        }, void 0, false, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 541,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(4, 1fr)',
+                                gap: '12px',
+                                marginBottom: '24px'
+                            },
+                            children: [
+                                25,
+                                50,
+                                75,
+                                100
+                            ].map((pct)=>{
+                                const points = Math.floor(maxRedeemable * pct / 100 * POINTS_TO_DOLLAR_RATE);
+                                const value = points / POINTS_TO_DOLLAR_RATE;
+                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>{
+                                        setLoyaltyPointsToRedeem(points);
+                                        setInputValue(value.toFixed(2));
+                                    },
+                                    style: {
+                                        height: '60px',
+                                        borderRadius: '12px',
+                                        background: loyaltyPointsToRedeem === points ? 'var(--pos-action-primary)' : 'var(--pos-bg-card)',
+                                        color: loyaltyPointsToRedeem === points ? 'white' : 'var(--pos-text-primary)',
+                                        border: '2px solid var(--pos-border-subtle)',
+                                        fontWeight: 900,
+                                        fontSize: '14px',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            children: [
+                                                pct,
+                                                "%"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 548,
+                                            columnNumber: 41
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                fontSize: '11px',
+                                                opacity: 0.7
+                                            },
+                                            children: [
+                                                points,
+                                                " pts"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 549,
+                                            columnNumber: 41
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, pct, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 547,
+                                    columnNumber: 37
+                                }, ("TURBOPACK compile-time value", void 0));
+                            })
+                        }, void 0, false, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 542,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "number",
+                            placeholder: "Enter points",
+                            value: loyaltyPointsToRedeem || '',
+                            onChange: (e)=>{
+                                const pts = parseInt(e.target.value) || 0;
+                                const capped = Math.min(pts, Math.floor(maxRedeemable * POINTS_TO_DOLLAR_RATE));
+                                setLoyaltyPointsToRedeem(capped);
+                                setInputValue((capped / POINTS_TO_DOLLAR_RATE).toFixed(2));
+                            },
+                            style: {
+                                width: '100%',
+                                height: '56px',
+                                background: 'var(--pos-bg-surface)',
+                                border: '2px solid var(--pos-border-subtle)',
+                                borderRadius: '12px',
+                                padding: '0 16px',
+                                fontSize: '18px',
+                                fontWeight: 700,
+                                color: 'var(--pos-text-primary)',
+                                marginBottom: '16px'
+                            }
+                        }, void 0, false, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 554,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                padding: '16px',
+                                borderRadius: '12px',
+                                background: 'rgba(249, 115, 22, 0.1)',
+                                border: '1px solid rgba(249, 115, 22, 0.2)',
+                                color: '#F97316',
+                                fontWeight: 700,
+                                textAlign: 'center'
+                            },
+                            children: [
+                                "Redeeming ",
+                                loyaltyPointsToRedeem,
+                                " points = $",
+                                (loyaltyPointsToRedeem / POINTS_TO_DOLLAR_RATE).toFixed(2)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 555,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0))
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                    lineNumber: 534,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0));
             default:
@@ -1278,14 +1543,14 @@ const POSPaymentScreen = ()=>{
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 495,
+                                        lineNumber: 572,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " BACK"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 494,
+                                lineNumber: 571,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1298,7 +1563,7 @@ const POSPaymentScreen = ()=>{
                                         children: "Enterprise Payment System"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 498,
+                                        lineNumber: 575,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1315,43 +1580,46 @@ const POSPaymentScreen = ()=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 499,
+                                        lineNumber: 576,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 497,
+                                lineNumber: 574,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 493,
+                        lineNumber: 570,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
-                    isFullyPaid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        disabled: !isFullyPaid,
                         onClick: handleCompleteOrder,
                         className: "pos-btn-primary",
                         style: {
                             height: '56px',
                             padding: '0 32px',
                             borderRadius: '12px',
-                            background: '#10B981',
+                            background: isFullyPaid ? '#10B981' : 'var(--pos-bg-surface)',
                             border: 'none',
                             fontWeight: 900,
-                            boxShadow: '0 8px 16px rgba(16,185,129,0.3)'
+                            boxShadow: isFullyPaid ? '0 8px 16px rgba(16,185,129,0.3)' : 'none',
+                            opacity: isFullyPaid ? 1 : 0.5,
+                            cursor: isFullyPaid ? 'pointer' : 'not-allowed'
                         },
-                        children: "COMPLETE ORDER & PRINT"
+                        children: "COMPLETE SESSION"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 505,
-                        columnNumber: 21
+                        lineNumber: 581,
+                        columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                lineNumber: 492,
+                lineNumber: 569,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1383,7 +1651,7 @@ const POSPaymentScreen = ()=>{
                                     color: "var(--pos-action-primary)"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 517,
+                                    lineNumber: 592,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1400,7 +1668,7 @@ const POSPaymentScreen = ()=>{
                                             children: terminalStatus
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 519,
+                                            lineNumber: 594,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1412,19 +1680,19 @@ const POSPaymentScreen = ()=>{
                                             children: "Awaiting backend confirmation..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 520,
+                                            lineNumber: 595,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 518,
+                                    lineNumber: 593,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 516,
+                            lineNumber: 591,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)) : paymentState === 'SELECTING' && !isSplitMode ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             style: {
@@ -1442,7 +1710,7 @@ const POSPaymentScreen = ()=>{
                                     children: "Primary Tender Selection"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 525,
+                                    lineNumber: 600,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1483,13 +1751,20 @@ const POSPaymentScreen = ()=>{
                                             color: '#EC4899'
                                         },
                                         {
+                                            id: 'loyalty_points',
+                                            label: 'LOYALTY POINTS',
+                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gift$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gift$3e$__["Gift"],
+                                            color: '#F97316',
+                                            disabled: !customer || availableLoyaltyPoints === 0
+                                        },
+                                        {
                                             id: 'split',
                                             label: 'SPLIT PAYMENT',
                                             icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$split$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Split$3e$__["Split"],
                                             color: '#64748B'
                                         }
                                     ].map((m)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>handleMethodSelect(m.id),
+                                            onClick: ()=>!m.disabled && handleMethodSelect(m.id),
                                             className: "pos-card hover-glow",
                                             style: {
                                                 padding: '32px',
@@ -1500,7 +1775,8 @@ const POSPaymentScreen = ()=>{
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 gap: '24px',
-                                                cursor: 'pointer'
+                                                cursor: m.disabled ? 'not-allowed' : 'pointer',
+                                                opacity: m.disabled ? 0.5 : 1
                                             },
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1518,40 +1794,60 @@ const POSPaymentScreen = ()=>{
                                                         size: 36
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 536,
+                                                        lineNumber: 612,
                                                         columnNumber: 219
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 536,
+                                                    lineNumber: 612,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    style: {
-                                                        fontSize: '20px',
-                                                        fontWeight: 900
-                                                    },
-                                                    children: m.label
-                                                }, void 0, false, {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '20px',
+                                                                fontWeight: 900
+                                                            },
+                                                            children: m.label
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 614,
+                                                            columnNumber: 45
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        m.id === 'loyalty_points' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: 'var(--pos-text-muted)',
+                                                                marginTop: '4px'
+                                                            },
+                                                            children: customer ? `${availableLoyaltyPoints} pts available` : 'No customer selected'
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 616,
+                                                            columnNumber: 49
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 537,
+                                                    lineNumber: 613,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, m.id, true, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 535,
+                                            lineNumber: 611,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 526,
+                                    lineNumber: 601,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 524,
+                            lineNumber: 599,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             style: {
@@ -1576,7 +1872,7 @@ const POSPaymentScreen = ()=>{
                                             children: currentMethod ? 'Payment Details' : 'Select Split Method'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 545,
+                                            lineNumber: 628,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1593,13 +1889,13 @@ const POSPaymentScreen = ()=>{
                                             children: "CANCEL"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 546,
+                                            lineNumber: 629,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 544,
+                                    lineNumber: 627,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 isSplitMode && !currentMethod && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1633,9 +1929,15 @@ const POSPaymentScreen = ()=>{
                                             id: 'gift_card',
                                             icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gift$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gift$3e$__["Gift"],
                                             label: 'GIFT'
+                                        },
+                                        {
+                                            id: 'loyalty_points',
+                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gift$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gift$3e$__["Gift"],
+                                            label: 'LOYALTY',
+                                            disabled: !customer || availableLoyaltyPoints === 0
                                         }
                                     ].map((m)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>handleMethodSelect(m.id),
+                                            onClick: ()=>!m.disabled && handleMethodSelect(m.id),
                                             style: {
                                                 height: '100px',
                                                 borderRadius: '20px',
@@ -1647,15 +1949,16 @@ const POSPaymentScreen = ()=>{
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
                                                 gap: '8px',
-                                                cursor: 'pointer',
-                                                fontWeight: 800
+                                                cursor: m.disabled ? 'not-allowed' : 'pointer',
+                                                fontWeight: 800,
+                                                opacity: m.disabled ? 0.5 : 1
                                             },
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(m.icon, {
                                                     size: 32
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 559,
+                                                    lineNumber: 643,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1665,18 +1968,18 @@ const POSPaymentScreen = ()=>{
                                                     children: m.label
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 560,
+                                                    lineNumber: 644,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, m.id, true, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 558,
+                                            lineNumber: 642,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 550,
+                                    lineNumber: 633,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 currentMethod && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1691,7 +1994,7 @@ const POSPaymentScreen = ()=>{
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MethodPanel, {}, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 568,
+                                            lineNumber: 652,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         paymentError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1712,7 +2015,7 @@ const POSPaymentScreen = ()=>{
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 569,
+                                                    lineNumber: 653,
                                                     columnNumber: 296
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " ",
@@ -1720,7 +2023,7 @@ const POSPaymentScreen = ()=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 569,
+                                            lineNumber: 653,
                                             columnNumber: 54
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1740,7 +2043,7 @@ const POSPaymentScreen = ()=>{
                                                     children: "Tender Amount"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 571,
+                                                    lineNumber: 655,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1761,7 +2064,7 @@ const POSPaymentScreen = ()=>{
                                                             children: "$"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                            lineNumber: 573,
+                                                            lineNumber: 657,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1782,19 +2085,19 @@ const POSPaymentScreen = ()=>{
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                            lineNumber: 574,
+                                                            lineNumber: 658,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                    lineNumber: 572,
+                                                    lineNumber: 656,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 570,
+                                            lineNumber: 654,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1812,13 +2115,13 @@ const POSPaymentScreen = ()=>{
                                             children: "CONFIRM & PROCESS"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 577,
+                                            lineNumber: 661,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 567,
+                                    lineNumber: 651,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 currentMethod === 'cash' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1860,23 +2163,23 @@ const POSPaymentScreen = ()=>{
                                             children: v
                                         }, v, false, {
                                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                            lineNumber: 584,
+                                            lineNumber: 668,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 582,
+                                    lineNumber: 666,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 543,
+                            lineNumber: 626,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 514,
+                        lineNumber: 589,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1887,723 +2190,912 @@ const POSPaymentScreen = ()=>{
                             display: 'flex',
                             flexDirection: 'column'
                         },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                style: {
-                                    flex: 1,
-                                    padding: '32px',
-                                    overflowY: 'auto'
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            marginBottom: '24px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                style: {
-                                                    fontSize: '18px',
-                                                    fontWeight: 900
-                                                },
-                                                children: "Payment Breakdown"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 600,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>setShowDiscountPanel(!showDiscountPanel),
-                                                className: "pos-btn-secondary",
-                                                style: {
-                                                    height: '36px',
-                                                    padding: '0 12px',
-                                                    borderRadius: '8px',
-                                                    color: 'var(--pos-action-primary)',
-                                                    fontSize: '12px',
-                                                    fontWeight: 800
-                                                },
-                                                children: "+ DISCOUNT"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 601,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 599,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    showDiscountPanel && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "pos-card",
-                                        style: {
-                                            marginBottom: '24px',
-                                            padding: '20px',
-                                            border: '2px solid var(--pos-action-primary)',
-                                            borderRadius: '16px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    marginBottom: '16px'
-                                                },
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                flex: 1,
+                                padding: '32px',
+                                overflowY: 'auto'
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        padding: '24px',
+                                        background: 'var(--pos-bg-card)',
+                                        borderRadius: '16px',
+                                        border: '1px solid var(--pos-border-subtle)',
+                                        marginBottom: '24px'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                marginBottom: '12px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 800,
+                                                        color: 'var(--pos-text-muted)'
+                                                    },
+                                                    children: "TOTAL PAID"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 685,
+                                                    columnNumber: 117
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 900,
+                                                        fontSize: '20px',
+                                                        color: '#10B981'
+                                                    },
+                                                    children: [
+                                                        "$",
+                                                        amountPaid.toFixed(2)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 685,
+                                                    columnNumber: 200
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 685,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                justifyContent: 'space-between'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 800,
+                                                        color: 'var(--pos-text-muted)'
+                                                    },
+                                                    children: "REMAINING"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 686,
+                                                    columnNumber: 95
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 900,
+                                                        fontSize: '32px',
+                                                        color: remainingBalance > 0 ? 'var(--pos-action-primary)' : '#10B981'
+                                                    },
+                                                    children: [
+                                                        "$",
+                                                        remainingBalance.toFixed(2)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 686,
+                                                    columnNumber: 177
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 686,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        changeDue > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                padding: '16px',
+                                                borderRadius: '12px',
+                                                background: 'rgba(16, 185, 129, 0.1)',
+                                                color: '#10B981',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                marginTop: '16px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 800
+                                                    },
+                                                    children: "CHANGE DUE"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 689,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 950,
+                                                        fontSize: '24px'
+                                                    },
+                                                    children: [
+                                                        "$",
+                                                        changeDue.toFixed(2)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 690,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 688,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 684,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                customer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "pos-card",
+                                    style: {
+                                        padding: '20px',
+                                        borderRadius: '16px',
+                                        background: 'var(--pos-bg-card)',
+                                        border: '1px solid var(--pos-border-subtle)',
+                                        marginBottom: '24px'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                marginBottom: '12px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '16px',
+                                                                fontWeight: 900
+                                                            },
+                                                            children: customer.name
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 700,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: 'var(--pos-text-muted)',
+                                                                fontWeight: 600
+                                                            },
+                                                            children: customer.phone
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 701,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 699,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        textAlign: 'right'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '12px',
+                                                                color: 'var(--pos-text-muted)',
+                                                                fontWeight: 800
+                                                            },
+                                                            children: "LOYALTY"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 704,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '20px',
+                                                                fontWeight: 900,
+                                                                color: '#F97316'
+                                                            },
+                                                            children: availableLoyaltyPoints
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 705,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 703,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 698,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        customer.recentOrders && customer.recentOrders.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setShowCustomerHistory(!showCustomerHistory),
+                                            style: {
+                                                width: '100%',
+                                                padding: '8px',
+                                                background: 'var(--pos-bg-surface)',
+                                                border: '1px solid var(--pos-border-subtle)',
+                                                borderRadius: '8px',
+                                                fontSize: '12px',
+                                                fontWeight: 800,
+                                                color: 'var(--pos-action-primary)',
+                                                cursor: 'pointer',
+                                                marginTop: '12px'
+                                            },
+                                            children: [
+                                                showCustomerHistory ? 'HIDE' : 'VIEW',
+                                                " ORDER HISTORY (",
+                                                customer.recentOrders.length,
+                                                ")"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 709,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        showCustomerHistory && customer.recentOrders && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                marginTop: '12px',
+                                                maxHeight: '200px',
+                                                overflowY: 'auto'
+                                            },
+                                            children: customer.recentOrders.map((order, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        padding: '12px',
+                                                        background: 'var(--pos-bg-surface)',
+                                                        borderRadius: '8px',
+                                                        marginBottom: '8px',
+                                                        border: '1px solid var(--pos-border-subtle)'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                display: 'flex',
+                                                                justifyContent: 'space-between',
+                                                                marginBottom: '4px'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    style: {
+                                                                        fontSize: '12px',
+                                                                        fontWeight: 900,
+                                                                        color: 'var(--pos-action-primary)'
+                                                                    },
+                                                                    children: order.id
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                    lineNumber: 718,
+                                                                    columnNumber: 53
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    style: {
+                                                                        fontSize: '12px',
+                                                                        fontWeight: 900
+                                                                    },
+                                                                    children: [
+                                                                        "$",
+                                                                        order.amount.toFixed(2)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                    lineNumber: 719,
+                                                                    columnNumber: 53
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 717,
+                                                            columnNumber: 49
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '11px',
+                                                                color: 'var(--pos-text-muted)',
+                                                                marginBottom: '4px'
+                                                            },
+                                                            children: order.date
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 721,
+                                                            columnNumber: 49
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '11px',
+                                                                color: 'var(--pos-text-primary)'
+                                                            },
+                                                            children: order.items
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 722,
+                                                            columnNumber: 49
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, idx, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 716,
+                                                    columnNumber: 45
+                                                }, ("TURBOPACK compile-time value", void 0)))
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 714,
+                                            columnNumber: 37
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 697,
+                                    columnNumber: 29
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginBottom: '24px'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            style: {
+                                                fontSize: '18px',
+                                                fontWeight: 900
+                                            },
+                                            children: "Payment Breakdown"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 731,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setShowDiscountPanel(!showDiscountPanel),
+                                            className: "pos-btn-secondary",
+                                            style: {
+                                                height: '36px',
+                                                padding: '0 12px',
+                                                borderRadius: '8px',
+                                                color: 'var(--pos-action-primary)',
+                                                fontSize: '12px',
+                                                fontWeight: 800
+                                            },
+                                            children: "+ DISCOUNT"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 732,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 730,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                showDiscountPanel && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "pos-card",
+                                    style: {
+                                        marginBottom: '24px',
+                                        padding: '20px',
+                                        border: '2px solid var(--pos-action-primary)',
+                                        borderRadius: '16px'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                marginBottom: '16px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontWeight: 900,
+                                                        fontSize: '14px'
+                                                    },
+                                                    children: "PROMOTIONS"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 737,
+                                                    columnNumber: 121
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                                    size: 20,
+                                                    style: {
+                                                        cursor: 'pointer'
+                                                    },
+                                                    onClick: ()=>setShowDiscountPanel(false)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 737,
+                                                    columnNumber: 190
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 737,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: '8px',
+                                                marginBottom: '20px'
+                                            },
+                                            children: MOCK_COUPONS.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>handleApplyCoupon(c),
+                                                    style: {
+                                                        padding: '12px',
+                                                        borderRadius: '10px',
+                                                        background: 'var(--pos-bg-surface)',
+                                                        border: '1px solid var(--pos-border-subtle)',
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontWeight: 900,
+                                                                fontSize: '13px',
+                                                                color: 'var(--pos-action-primary)'
+                                                            },
+                                                            children: c.name
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 739,
+                                                            columnNumber: 287
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                fontSize: '11px',
+                                                                color: 'var(--pos-text-muted)'
+                                                            },
+                                                            children: c.description
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 739,
+                                                            columnNumber: 388
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, c.id, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 739,
+                                                    columnNumber: 60
+                                                }, ("TURBOPACK compile-time value", void 0)))
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 738,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                borderTop: '1px solid var(--pos-border-subtle)',
+                                                paddingTop: '16px'
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    style: {
+                                                        fontSize: '13px',
+                                                        fontWeight: 900,
+                                                        display: 'block',
+                                                        marginBottom: '12px'
+                                                    },
+                                                    children: "MANUAL ADJUSTMENT"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 742,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        display: 'grid',
+                                                        gridTemplateColumns: 'min-content 1fr',
+                                                        gap: '8px',
+                                                        marginBottom: '12px'
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            style: {
+                                                                display: 'flex',
+                                                                background: 'var(--pos-bg-surface)',
+                                                                borderRadius: '8px',
+                                                                overflow: 'hidden',
+                                                                border: '1px solid var(--pos-border-subtle)'
+                                                            },
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    onClick: ()=>setManualType('PERCENT'),
+                                                                    style: {
+                                                                        padding: '8px 12px',
+                                                                        background: manualType === 'PERCENT' ? 'var(--pos-action-primary)' : 'transparent',
+                                                                        color: manualType === 'PERCENT' ? 'white' : 'var(--pos-text-muted)',
+                                                                        border: 'none',
+                                                                        fontWeight: 900
+                                                                    },
+                                                                    children: "%"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                    lineNumber: 745,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    onClick: ()=>setManualType('FLAT'),
+                                                                    style: {
+                                                                        padding: '8px 12px',
+                                                                        background: manualType === 'FLAT' ? 'var(--pos-action-primary)' : 'transparent',
+                                                                        color: manualType === 'FLAT' ? 'white' : 'var(--pos-text-muted)',
+                                                                        border: 'none',
+                                                                        fontWeight: 900
+                                                                    },
+                                                                    children: "$"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                    lineNumber: 746,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 744,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "text",
+                                                            placeholder: "Value",
+                                                            value: manualValue,
+                                                            onChange: (e)=>setManualValue(e.target.value),
+                                                            style: {
+                                                                height: '40px',
+                                                                background: 'var(--pos-bg-surface)',
+                                                                border: '1px solid var(--pos-border-subtle)',
+                                                                borderRadius: '8px',
+                                                                padding: '0 12px',
+                                                                fontWeight: 800
+                                                            }
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                            lineNumber: 748,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 743,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "text",
+                                                    placeholder: "Reason for override...",
+                                                    value: manualReason,
+                                                    onChange: (e)=>setManualReason(e.target.value),
+                                                    style: {
+                                                        width: '100%',
+                                                        height: '40px',
+                                                        background: 'var(--pos-bg-surface)',
+                                                        border: '1px solid var(--pos-border-subtle)',
+                                                        borderRadius: '8px',
+                                                        padding: '0 12px',
+                                                        fontWeight: 600,
+                                                        fontSize: '12px',
+                                                        marginBottom: '12px'
+                                                    }
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 750,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: handleApplyManualDiscountRequest,
+                                                    className: "pos-btn-primary",
+                                                    style: {
+                                                        width: '100%',
+                                                        height: '44px',
+                                                        borderRadius: '10px',
+                                                        fontSize: '13px'
+                                                    },
+                                                    children: "APPLY ADJUSTMENT"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 751,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 741,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 736,
+                                    columnNumber: 29
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "pos-card",
+                                    style: {
+                                        padding: '24px',
+                                        borderRadius: '20px',
+                                        background: 'var(--pos-bg-card)',
+                                        border: '1px solid var(--pos-border-subtle)'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: "Order Subtotal",
+                                            value: subtotal
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 757,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        appliedDiscount && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: `${appliedDiscount.name} (${appliedDiscount.type === 'PERCENT' ? appliedDiscount.value + '%' : '$' + appliedDiscount.value})`,
+                                            value: discountAmount,
+                                            isNeg: true,
+                                            color: "#EF4444"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 758,
+                                            columnNumber: 49
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: "Tax (8%)",
+                                            value: taxAmount
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 759,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        deliveryFee > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: "Delivery Fee",
+                                            value: deliveryFee
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 760,
+                                            columnNumber: 49
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        tipAmount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: "Gratuity (Tip)",
+                                            value: tipAmount,
+                                            color: "var(--pos-action-primary)"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 761,
+                                            columnNumber: 47
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                margin: '20px 0',
+                                                borderTop: '2px dashed var(--pos-border-subtle)'
+                                            }
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 762,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
+                                            label: "TOTAL AMOUNT",
+                                            value: totalAmountDue,
+                                            isBold: true
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 763,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 756,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    style: {
+                                        marginTop: '32px'
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            style: {
+                                                fontSize: '14px',
+                                                fontWeight: 900,
+                                                marginBottom: '16px',
+                                                color: 'var(--pos-text-muted)'
+                                            },
+                                            children: "TRANSACTION HISTORY"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 767,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: '12px'
+                                            },
+                                            children: [
+                                                transactions.map((t, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         style: {
-                                                            fontWeight: 900,
-                                                            fontSize: '14px'
-                                                        },
-                                                        children: "PROMOTIONS"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 606,
-                                                        columnNumber: 121
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                                        size: 20,
-                                                        style: {
-                                                            cursor: 'pointer'
-                                                        },
-                                                        onClick: ()=>setShowDiscountPanel(false)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 606,
-                                                        columnNumber: 190
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 606,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    gap: '8px',
-                                                    marginBottom: '20px'
-                                                },
-                                                children: MOCK_COUPONS.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: ()=>handleApplyCoupon(c),
-                                                        style: {
-                                                            padding: '12px',
-                                                            borderRadius: '10px',
-                                                            background: 'var(--pos-bg-surface)',
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            alignItems: 'center',
+                                                            padding: '16px',
+                                                            borderRadius: '16px',
+                                                            background: 'var(--pos-bg-card)',
                                                             border: '1px solid var(--pos-border-subtle)',
-                                                            textAlign: 'left',
-                                                            cursor: 'pointer'
+                                                            animation: 'posFadeInUp 0.3s'
                                                         },
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                style: {
-                                                                    fontWeight: 900,
-                                                                    fontSize: '13px',
-                                                                    color: 'var(--pos-action-primary)'
-                                                                },
-                                                                children: c.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                lineNumber: 608,
-                                                                columnNumber: 287
-                                                            }, ("TURBOPACK compile-time value", void 0)),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                style: {
-                                                                    fontSize: '11px',
-                                                                    color: 'var(--pos-text-muted)'
-                                                                },
-                                                                children: c.description
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                lineNumber: 608,
-                                                                columnNumber: 388
-                                                            }, ("TURBOPACK compile-time value", void 0))
-                                                        ]
-                                                    }, c.id, true, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 608,
-                                                        columnNumber: 60
-                                                    }, ("TURBOPACK compile-time value", void 0)))
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 607,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    borderTop: '1px solid var(--pos-border-subtle)',
-                                                    paddingTop: '16px'
-                                                },
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        style: {
-                                                            fontSize: '13px',
-                                                            fontWeight: 900,
-                                                            display: 'block',
-                                                            marginBottom: '12px'
-                                                        },
-                                                        children: "MANUAL ADJUSTMENT"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 611,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        style: {
-                                                            display: 'grid',
-                                                            gridTemplateColumns: 'min-content 1fr',
-                                                            gap: '8px',
-                                                            marginBottom: '12px'
-                                                        },
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                style: {
-                                                                    display: 'flex',
-                                                                    background: 'var(--pos-bg-surface)',
-                                                                    borderRadius: '8px',
-                                                                    overflow: 'hidden',
-                                                                    border: '1px solid var(--pos-border-subtle)'
-                                                                },
                                                                 children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        onClick: ()=>setManualType('PERCENT'),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         style: {
-                                                                            padding: '8px 12px',
-                                                                            background: manualType === 'PERCENT' ? 'var(--pos-action-primary)' : 'transparent',
-                                                                            color: manualType === 'PERCENT' ? 'white' : 'var(--pos-text-muted)',
-                                                                            border: 'none',
-                                                                            fontWeight: 900
+                                                                            fontWeight: 900,
+                                                                            fontSize: '14px'
                                                                         },
-                                                                        children: "%"
-                                                                    }, void 0, false, {
+                                                                        children: [
+                                                                            t.method.toUpperCase(),
+                                                                            " ",
+                                                                            t.last4 ? `(****${t.last4})` : ''
+                                                                        ]
+                                                                    }, void 0, true, {
                                                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                        lineNumber: 614,
+                                                                        lineNumber: 772,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0)),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        onClick: ()=>setManualType('FLAT'),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         style: {
-                                                                            padding: '8px 12px',
-                                                                            background: manualType === 'FLAT' ? 'var(--pos-action-primary)' : 'transparent',
-                                                                            color: manualType === 'FLAT' ? 'white' : 'var(--pos-text-muted)',
-                                                                            border: 'none',
-                                                                            fontWeight: 900
+                                                                            fontSize: '11px',
+                                                                            color: 'var(--pos-text-muted)',
+                                                                            fontWeight: 700
                                                                         },
-                                                                        children: "$"
-                                                                    }, void 0, false, {
+                                                                        children: [
+                                                                            t.timestamp.toLocaleTimeString(),
+                                                                            " • ",
+                                                                            t.reference_id
+                                                                        ]
+                                                                    }, void 0, true, {
                                                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                        lineNumber: 615,
+                                                                        lineNumber: 773,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                lineNumber: 613,
+                                                                lineNumber: 771,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "text",
-                                                                placeholder: "Value",
-                                                                value: manualValue,
-                                                                onChange: (e)=>setManualValue(e.target.value),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 style: {
-                                                                    height: '40px',
-                                                                    background: 'var(--pos-bg-surface)',
-                                                                    border: '1px solid var(--pos-border-subtle)',
-                                                                    borderRadius: '8px',
-                                                                    padding: '0 12px',
-                                                                    fontWeight: 800
-                                                                }
-                                                            }, void 0, false, {
+                                                                    textAlign: 'right',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    gap: '16px'
+                                                                },
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontWeight: 900,
+                                                                                    fontSize: '16px',
+                                                                                    color: '#10B981'
+                                                                                },
+                                                                                children: [
+                                                                                    "+ $",
+                                                                                    t.amount.toFixed(2)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                                lineNumber: 777,
+                                                                                columnNumber: 49
+                                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                                            t.tip > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                style: {
+                                                                                    fontSize: '11px',
+                                                                                    color: 'var(--pos-action-primary)',
+                                                                                    fontWeight: 800
+                                                                                },
+                                                                                children: [
+                                                                                    "Tip: $",
+                                                                                    t.tip.toFixed(2)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                                lineNumber: 778,
+                                                                                columnNumber: 63
+                                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                        lineNumber: 776,
+                                                                        columnNumber: 45
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    idx === transactions.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                        onClick: ()=>initiateReversal(t.id),
+                                                                        style: {
+                                                                            color: '#EF4444',
+                                                                            border: 'none',
+                                                                            background: 'transparent',
+                                                                            cursor: 'pointer'
+                                                                        },
+                                                                        title: "Reverse Transaction",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rotate$2d$ccw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RotateCcw$3e$__["RotateCcw"], {
+                                                                            size: 18
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                            lineNumber: 781,
+                                                                            columnNumber: 215
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                                        lineNumber: 781,
+                                                                        columnNumber: 49
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, void 0, true, {
                                                                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                lineNumber: 617,
+                                                                lineNumber: 775,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
-                                                    }, void 0, true, {
+                                                    }, t.id, true, {
                                                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 612,
+                                                        lineNumber: 770,
                                                         columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        type: "text",
-                                                        placeholder: "Reason for override...",
-                                                        value: manualReason,
-                                                        onChange: (e)=>setManualReason(e.target.value),
-                                                        style: {
-                                                            width: '100%',
-                                                            height: '40px',
-                                                            background: 'var(--pos-bg-surface)',
-                                                            border: '1px solid var(--pos-border-subtle)',
-                                                            borderRadius: '8px',
-                                                            padding: '0 12px',
-                                                            fontWeight: 600,
-                                                            fontSize: '12px',
-                                                            marginBottom: '12px'
-                                                        }
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 619,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0)),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: handleApplyManualDiscountRequest,
-                                                        className: "pos-btn-primary",
-                                                        style: {
-                                                            width: '100%',
-                                                            height: '44px',
-                                                            borderRadius: '10px',
-                                                            fontSize: '13px'
-                                                        },
-                                                        children: "APPLY ADJUSTMENT"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 620,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 610,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 605,
-                                        columnNumber: 29
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "pos-card",
-                                        style: {
-                                            padding: '24px',
-                                            borderRadius: '20px',
-                                            background: 'var(--pos-bg-card)',
-                                            border: '1px solid var(--pos-border-subtle)'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: "Order Subtotal",
-                                                value: subtotal
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 626,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            appliedDiscount && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: `${appliedDiscount.name} (${appliedDiscount.type === 'PERCENT' ? appliedDiscount.value + '%' : '$' + appliedDiscount.value})`,
-                                                value: discountAmount,
-                                                isNeg: true,
-                                                color: "#EF4444"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 627,
-                                                columnNumber: 49
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: "Tax (8%)",
-                                                value: taxAmount
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 628,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            deliveryFee > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: "Delivery Fee",
-                                                value: deliveryFee
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 629,
-                                                columnNumber: 49
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            tipAmount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: "Gratuity (Tip)",
-                                                value: tipAmount,
-                                                color: "var(--pos-action-primary)"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 630,
-                                                columnNumber: 47
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    margin: '20px 0',
-                                                    borderTop: '2px dashed var(--pos-border-subtle)'
-                                                }
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 631,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PricingRow, {
-                                                label: "TOTAL AMOUNT",
-                                                value: totalAmountDue,
-                                                isBold: true
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 632,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 625,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            marginTop: '32px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                style: {
-                                                    fontSize: '14px',
-                                                    fontWeight: 900,
-                                                    marginBottom: '16px',
-                                                    color: 'var(--pos-text-muted)'
-                                                },
-                                                children: "TRANSACTION HISTORY"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 636,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                style: {
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    gap: '12px'
-                                                },
-                                                children: [
-                                                    transactions.map((t, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            style: {
-                                                                display: 'flex',
-                                                                justifyContent: 'space-between',
-                                                                alignItems: 'center',
-                                                                padding: '16px',
-                                                                borderRadius: '16px',
-                                                                background: 'var(--pos-bg-card)',
-                                                                border: '1px solid var(--pos-border-subtle)',
-                                                                animation: 'posFadeInUp 0.3s'
-                                                            },
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            style: {
-                                                                                fontWeight: 900,
-                                                                                fontSize: '14px'
-                                                                            },
-                                                                            children: [
-                                                                                t.method.toUpperCase(),
-                                                                                " ",
-                                                                                t.last4 ? `(****${t.last4})` : ''
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                            lineNumber: 641,
-                                                                            columnNumber: 45
-                                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            style: {
-                                                                                fontSize: '11px',
-                                                                                color: 'var(--pos-text-muted)',
-                                                                                fontWeight: 700
-                                                                            },
-                                                                            children: [
-                                                                                t.timestamp.toLocaleTimeString(),
-                                                                                " • ",
-                                                                                t.reference_id
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                            lineNumber: 642,
-                                                                            columnNumber: 45
-                                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                    lineNumber: 640,
-                                                                    columnNumber: 41
-                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    style: {
-                                                                        textAlign: 'right',
-                                                                        display: 'flex',
-                                                                        alignItems: 'center',
-                                                                        gap: '16px'
-                                                                    },
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    style: {
-                                                                                        fontWeight: 900,
-                                                                                        fontSize: '16px',
-                                                                                        color: '#10B981'
-                                                                                    },
-                                                                                    children: [
-                                                                                        "+ $",
-                                                                                        t.amount.toFixed(2)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                                    lineNumber: 646,
-                                                                                    columnNumber: 49
-                                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                                t.tip > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    style: {
-                                                                                        fontSize: '11px',
-                                                                                        color: 'var(--pos-action-primary)',
-                                                                                        fontWeight: 800
-                                                                                    },
-                                                                                    children: [
-                                                                                        "Tip: $",
-                                                                                        t.tip.toFixed(2)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                                    lineNumber: 647,
-                                                                                    columnNumber: 63
-                                                                                }, ("TURBOPACK compile-time value", void 0))
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                            lineNumber: 645,
-                                                                            columnNumber: 45
-                                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                                        idx === transactions.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                            onClick: ()=>initiateReversal(t.id),
-                                                                            style: {
-                                                                                color: '#EF4444',
-                                                                                border: 'none',
-                                                                                background: 'transparent',
-                                                                                cursor: 'pointer'
-                                                                            },
-                                                                            title: "Reverse Transaction",
-                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rotate$2d$ccw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RotateCcw$3e$__["RotateCcw"], {
-                                                                                size: 18
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                                lineNumber: 650,
-                                                                                columnNumber: 215
-                                                                            }, ("TURBOPACK compile-time value", void 0))
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                            lineNumber: 650,
-                                                                            columnNumber: 49
-                                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                                    lineNumber: 644,
-                                                                    columnNumber: 41
-                                                                }, ("TURBOPACK compile-time value", void 0))
-                                                            ]
-                                                        }, t.id, true, {
-                                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                            lineNumber: 639,
-                                                            columnNumber: 37
-                                                        }, ("TURBOPACK compile-time value", void 0))),
-                                                    transactions.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        style: {
-                                                            padding: '40px 0',
-                                                            textAlign: 'center',
-                                                            color: 'var(--pos-text-muted)',
-                                                            fontWeight: 600,
-                                                            border: '2px dashed var(--pos-border-subtle)',
-                                                            borderRadius: '20px'
-                                                        },
-                                                        children: "No payments recorded"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                        lineNumber: 655,
-                                                        columnNumber: 63
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 637,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 635,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0))
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 598,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0)),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                style: {
-                                    padding: '32px',
-                                    background: 'var(--pos-bg-card)',
-                                    borderTop: '1px solid var(--pos-border-subtle)'
-                                },
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            marginBottom: '8px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 800,
-                                                    color: 'var(--pos-text-muted)'
-                                                },
-                                                children: "TOTAL PAID"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 661,
-                                                columnNumber: 112
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 900,
-                                                    fontSize: '20px',
-                                                    color: '#10B981'
-                                                },
-                                                children: [
-                                                    "$",
-                                                    amountPaid.toFixed(2)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 661,
-                                                columnNumber: 195
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 661,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            marginBottom: '24px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 800,
-                                                    color: 'var(--pos-text-muted)'
-                                                },
-                                                children: "REMAINING"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 662,
-                                                columnNumber: 113
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 900,
-                                                    fontSize: '32px',
-                                                    color: remainingBalance > 0 ? 'var(--pos-action-primary)' : '#10B981'
-                                                },
-                                                children: [
-                                                    "$",
-                                                    remainingBalance.toFixed(2)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 662,
-                                                columnNumber: 195
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 662,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    changeDue > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        style: {
-                                            padding: '16px',
-                                            borderRadius: '12px',
-                                            background: 'rgba(16, 185, 129, 0.1)',
-                                            color: '#10B981',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            marginBottom: '24px'
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 800
-                                                },
-                                                children: "CHANGE DUE"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 665,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                style: {
-                                                    fontWeight: 950,
-                                                    fontSize: '24px'
-                                                },
-                                                children: [
-                                                    "$",
-                                                    changeDue.toFixed(2)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                                lineNumber: 666,
-                                                columnNumber: 33
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 664,
-                                        columnNumber: 29
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        disabled: !isFullyPaid,
-                                        onClick: handleCompleteOrder,
-                                        className: "pos-btn-primary",
-                                        style: {
-                                            width: '100%',
-                                            height: '72px',
-                                            borderRadius: '18px',
-                                            fontSize: '20px',
-                                            fontWeight: 900,
-                                            opacity: isFullyPaid ? 1 : 0.5,
-                                            cursor: isFullyPaid ? 'pointer' : 'not-allowed'
-                                        },
-                                        children: "COMPLETE SESSION"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                        lineNumber: 669,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0))
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                lineNumber: 660,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0))
-                        ]
-                    }, void 0, true, {
+                                                    }, ("TURBOPACK compile-time value", void 0))),
+                                                transactions.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    style: {
+                                                        padding: '40px 0',
+                                                        textAlign: 'center',
+                                                        color: 'var(--pos-text-muted)',
+                                                        fontWeight: 600,
+                                                        border: '2px dashed var(--pos-border-subtle)',
+                                                        borderRadius: '20px'
+                                                    },
+                                                    children: "No payments recorded"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                                    lineNumber: 786,
+                                                    columnNumber: 63
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                            lineNumber: 768,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                                    lineNumber: 766,
+                                    columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
+                            lineNumber: 682,
+                            columnNumber: 21
+                        }, ("TURBOPACK compile-time value", void 0))
+                    }, void 0, false, {
                         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                        lineNumber: 597,
+                        lineNumber: 681,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                lineNumber: 511,
+                lineNumber: 586,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             showPinPrompt && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2636,7 +3128,7 @@ const POSPaymentScreen = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 678,
+                            lineNumber: 799,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2648,7 +3140,7 @@ const POSPaymentScreen = ()=>{
                             children: "Manager PIN"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 679,
+                            lineNumber: 800,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2660,7 +3152,7 @@ const POSPaymentScreen = ()=>{
                             children: pinPurpose === 'DISCOUNT' ? 'Authorize high-value discount' : 'Authorize transaction reversal'
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 680,
+                            lineNumber: 801,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2683,7 +3175,7 @@ const POSPaymentScreen = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 681,
+                            lineNumber: 802,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2706,7 +3198,7 @@ const POSPaymentScreen = ()=>{
                                     children: "CANCEL"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 683,
+                                    lineNumber: 804,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2719,24 +3211,24 @@ const POSPaymentScreen = ()=>{
                                     children: "CONFIRM"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                                    lineNumber: 684,
+                                    lineNumber: 805,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                            lineNumber: 682,
+                            lineNumber: 803,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                    lineNumber: 677,
+                    lineNumber: 798,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                lineNumber: 676,
+                lineNumber: 797,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
@@ -2750,13 +3242,13 @@ const POSPaymentScreen = ()=>{
             `
             }, void 0, false, {
                 fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-                lineNumber: 690,
+                lineNumber: 811,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/pos/pages/POSPaymentScreen.tsx",
-        lineNumber: 489,
+        lineNumber: 566,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

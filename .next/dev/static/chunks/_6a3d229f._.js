@@ -276,7 +276,8 @@ const pizzaVariants = [
             {
                 id: 's2',
                 name: 'Medium',
-                additionalPrice: 5
+                additionalPrice: 5,
+                isDefault: true
             },
             {
                 id: 's3',
@@ -297,7 +298,8 @@ const pizzaVariants = [
             {
                 id: 'c1',
                 name: 'New York Style',
-                additionalPrice: 0
+                additionalPrice: 0,
+                isDefault: true
             },
             {
                 id: 'c2',
@@ -313,17 +315,136 @@ const pizzaVariants = [
     },
     {
         id: 'var3',
+        name: 'Dough',
+        options: [
+            {
+                id: 'd1',
+                name: 'Original Hand Tossed',
+                additionalPrice: 0,
+                isDefault: true
+            },
+            {
+                id: 'd2',
+                name: 'Pan Dough',
+                additionalPrice: 1.50
+            },
+            {
+                id: 'd3',
+                name: 'Thin & Crispy',
+                additionalPrice: 0
+            }
+        ]
+    },
+    {
+        id: 'var4',
         name: 'Portion Type',
         options: [
             {
                 id: 'pt1',
                 name: 'Full',
-                additionalPrice: 0
+                additionalPrice: 0,
+                isDefault: true
             },
             {
                 id: 'pt2',
                 name: 'Half (Split)',
                 additionalPrice: 0
+            }
+        ]
+    }
+];
+const margheritaModifiers = [
+    {
+        id: 'mg-sauce',
+        name: 'Sauce',
+        minSelection: 1,
+        maxSelection: 1,
+        options: [
+            {
+                id: 'opt-tomato',
+                name: 'Tomato Sauce',
+                price: 0,
+                isDefault: true
+            },
+            {
+                id: 'opt-bbq',
+                name: 'BBQ Sauce',
+                price: 1.00
+            }
+        ]
+    },
+    {
+        id: 'mg-cheese',
+        name: 'Cheese',
+        minSelection: 1,
+        maxSelection: 1,
+        options: [
+            {
+                id: 'opt-mozzarella',
+                name: 'Mozzarella',
+                price: 0,
+                isDefault: true
+            },
+            {
+                id: 'opt-vegan',
+                name: 'Vegan Cheese',
+                price: 2.00
+            }
+        ]
+    },
+    {
+        id: 'mg-toppings-preset',
+        name: 'Toppings',
+        options: [
+            {
+                id: 'opt-basil',
+                name: 'Basil',
+                price: 0,
+                isDefault: true
+            },
+            {
+                id: 'opt-oregano',
+                name: 'Oregano',
+                price: 0,
+                isDefault: true
+            },
+            {
+                id: 'opt-olive-oil',
+                name: 'Olive Oil',
+                price: 0,
+                isDefault: true
+            },
+            {
+                id: 'opt-garlic',
+                name: 'Garlic Paste',
+                price: 0,
+                isDefault: true
+            }
+        ]
+    },
+    {
+        id: 'mod1',
+        name: 'Extra Toppings',
+        options: [
+            {
+                id: 'top1',
+                name: 'Pepperoni',
+                price: 2.50
+            },
+            {
+                id: 'top2',
+                name: 'Extra Cheese',
+                price: 2.00
+            },
+            {
+                id: 'top3',
+                name: 'Mushrooms',
+                price: 1.50
+            },
+            {
+                id: 'top4',
+                name: 'Onions',
+                price: 1.00
             }
         ]
     }
@@ -340,7 +461,7 @@ const mockPOSProducts = [
         isVeg: true,
         isAvailable: true,
         variantGroups: pizzaVariants,
-        modifierGroups: sharedPizzaModifiers
+        modifierGroups: margheritaModifiers
     },
     {
         id: 'p2',
@@ -440,129 +561,431 @@ const mockPOSAreas = [
     },
     {
         id: 'AREA2',
-        name: 'Outdoor'
+        name: 'Outdoor Terrace'
     },
     {
         id: 'AREA3',
-        name: 'Rooftop'
+        name: 'Executive Lounge'
+    },
+    {
+        id: 'AREA4',
+        name: 'Rooftop Bar'
     }
 ];
 const mockPOSTables = [
+    // === Main Floor: Dense Tile Grid ===
+    // Row 1
     {
         id: 'T1',
-        name: 'Table 1',
+        name: 'T-1',
         seats: 2,
         status: 'FREE',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 5,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T2',
-        name: 'Table 2',
+        name: 'T-2',
         seats: 2,
         status: 'OCCUPIED',
-        orderId: 'ORD-5506',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 21,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 12
     },
     {
         id: 'T3',
-        name: 'Table 3',
-        seats: 4,
+        name: 'T-3',
+        seats: 2,
         status: 'FREE',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 37,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T4',
-        name: 'Table 4',
+        name: 'T-4',
         seats: 4,
-        status: 'OCCUPIED',
-        orderId: 'ORD-5507',
-        areaId: 'AREA1'
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 53,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T5',
-        name: 'Table 5',
+        name: 'T-5',
         seats: 4,
-        status: 'FREE',
-        areaId: 'AREA1'
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 69,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 45
     },
     {
         id: 'T6',
-        name: 'Table 6',
-        seats: 6,
+        name: 'T-6',
+        seats: 4,
         status: 'FREE',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 85,
+        y: 5,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
+    // Row 2
     {
         id: 'T7',
-        name: 'Lounge 1',
-        seats: 8,
+        name: 'T-7',
+        seats: 2,
         status: 'FREE',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 5,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T8',
-        name: 'Group 1',
-        seats: 10,
+        name: 'T-8',
+        seats: 2,
         status: 'FREE',
-        areaId: 'AREA1'
+        areaId: 'AREA1',
+        x: 21,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T9',
-        name: 'Patio 1',
-        seats: 2,
-        status: 'FREE',
-        areaId: 'AREA2'
+        name: 'T-9',
+        seats: 4,
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 37,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 30
     },
     {
         id: 'T10',
-        name: 'Patio 2',
+        name: 'T-10',
         seats: 4,
         status: 'FREE',
-        areaId: 'AREA2'
+        areaId: 'AREA1',
+        x: 53,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T11',
-        name: 'Garden 1',
-        seats: 6,
-        status: 'OCCUPIED',
-        orderId: 'ORD-5508',
-        areaId: 'AREA2'
+        name: 'T-11',
+        seats: 4,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 69,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T12',
-        name: 'Garden 2',
-        seats: 6,
-        status: 'FREE',
-        areaId: 'AREA2'
+        name: 'T-12',
+        seats: 4,
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 85,
+        y: 23,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 5
     },
+    // Row 3
     {
         id: 'T13',
-        name: 'Sky 1',
-        seats: 2,
+        name: 'T-13',
+        seats: 4,
         status: 'FREE',
-        areaId: 'AREA3'
+        areaId: 'AREA1',
+        x: 5,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T14',
-        name: 'Sky 2',
-        seats: 2,
-        status: 'OCCUPIED',
-        orderId: 'ORD-5509',
-        areaId: 'AREA3'
+        name: 'T-14',
+        seats: 4,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 21,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T15',
-        name: 'Vantage 1',
-        seats: 4,
-        status: 'FREE',
-        areaId: 'AREA3'
+        name: 'T-15',
+        seats: 6,
+        status: 'RESERVED',
+        areaId: 'AREA1',
+        x: 37,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
     },
     {
         id: 'T16',
-        name: 'Vantage 2',
+        name: 'T-16',
+        seats: 6,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 53,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    {
+        id: 'T17',
+        name: 'T-17',
+        seats: 4,
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 69,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 60
+    },
+    {
+        id: 'T18',
+        name: 'T-18',
         seats: 4,
         status: 'FREE',
-        areaId: 'AREA3'
+        areaId: 'AREA1',
+        x: 85,
+        y: 41,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    // Row 4
+    {
+        id: 'T19',
+        name: 'T-19',
+        seats: 4,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 5,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    {
+        id: 'T20',
+        name: 'T-20',
+        seats: 4,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 21,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    {
+        id: 'T21',
+        name: 'T-21',
+        seats: 6,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 37,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    {
+        id: 'T22',
+        name: 'T-22',
+        seats: 6,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 53,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    {
+        id: 'T23',
+        name: 'T-23',
+        seats: 4,
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 69,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle',
+        durationMinutes: 22
+    },
+    {
+        id: 'T24',
+        name: 'T-24',
+        seats: 4,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 85,
+        y: 59,
+        width: 14,
+        height: 14,
+        shape: 'rectangle'
+    },
+    // Row 5 - Booths/Large
+    {
+        id: 'B1',
+        name: 'Booth 1',
+        seats: 8,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 5,
+        y: 77,
+        width: 22,
+        height: 18,
+        shape: 'rectangle'
+    },
+    {
+        id: 'B2',
+        name: 'Booth 2',
+        seats: 8,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 29,
+        y: 77,
+        width: 22,
+        height: 18,
+        shape: 'rectangle'
+    },
+    {
+        id: 'B3',
+        name: 'Booth 3',
+        seats: 8,
+        status: 'OCCUPIED',
+        areaId: 'AREA1',
+        x: 53,
+        y: 77,
+        width: 22,
+        height: 18,
+        shape: 'rectangle',
+        durationMinutes: 90
+    },
+    {
+        id: 'B4',
+        name: 'Booth 4',
+        seats: 8,
+        status: 'FREE',
+        areaId: 'AREA1',
+        x: 77,
+        y: 77,
+        width: 22,
+        height: 18,
+        shape: 'rectangle'
+    },
+    // Rooftop Bar
+    {
+        id: 'RT1',
+        name: 'Bar 1',
+        seats: 2,
+        status: 'FREE',
+        areaId: 'AREA4',
+        x: 20,
+        y: 20,
+        width: 70,
+        height: 70,
+        shape: 'circle'
+    },
+    {
+        id: 'RT2',
+        name: 'Bar 2',
+        seats: 2,
+        status: 'OCCUPIED',
+        areaId: 'AREA4',
+        x: 40,
+        y: 20,
+        width: 70,
+        height: 70,
+        shape: 'circle',
+        durationMinutes: 15
+    },
+    {
+        id: 'RT3',
+        name: 'VIP',
+        seats: 8,
+        status: 'RESERVED',
+        areaId: 'AREA4',
+        x: 60,
+        y: 20,
+        width: 150,
+        height: 100,
+        shape: 'rectangle',
+        customerName: 'Party'
+    },
+    // Outdoor Terrace (Sample)
+    {
+        id: 'OD1',
+        name: 'Deck 1',
+        seats: 2,
+        status: 'FREE',
+        areaId: 'AREA2',
+        x: 20,
+        y: 20,
+        width: 80,
+        height: 80,
+        shape: 'circle'
+    },
+    {
+        id: 'OD2',
+        name: 'Deck 2',
+        seats: 2,
+        status: 'OCCUPIED',
+        areaId: 'AREA2',
+        x: 40,
+        y: 20,
+        width: 80,
+        height: 80,
+        shape: 'circle',
+        durationMinutes: 30
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -592,8 +1015,9 @@ const POSContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
 const POSProvider = ({ children })=>{
     _s();
     const [session, setSession] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [tables, setTables] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [tables, setTables] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]);
     const [cart, setCart] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [customers, setCustomers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isOffline, setIsOffline] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isSyncing, setIsSyncing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [deviceId, setDeviceId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
@@ -636,12 +1060,21 @@ const POSProvider = ({ children })=>{
             }
             if (savedTables) {
                 try {
-                    setTables(JSON.parse(savedTables));
+                    const parsed = JSON.parse(savedTables);
+                    if (parsed.length > 0) {
+                        setTables(parsed);
+                    } else {
+                        setTables(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]);
+                        localStorage.setItem('pos_tables', JSON.stringify(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]));
+                    }
                 } catch (e) {
                     console.error('Failed to parse POS tables', e);
+                    setTables(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]);
+                    localStorage.setItem('pos_tables', JSON.stringify(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]));
                 }
             } else {
                 setTables(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]);
+                localStorage.setItem('pos_tables', JSON.stringify(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSTables"]));
             }
             if (savedCart) {
                 try {
@@ -650,16 +1083,37 @@ const POSProvider = ({ children })=>{
                     console.error('Failed to parse POS cart', e);
                 }
             }
+            const savedCustomers = localStorage.getItem('pos_customers');
+            if (savedCustomers) {
+                try {
+                    setCustomers(JSON.parse(savedCustomers));
+                } catch (e) {
+                    console.error('Failed to parse POS customers', e);
+                    setCustomers(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSCustomers"]);
+                }
+            } else {
+                setCustomers(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSCustomers"]);
+                localStorage.setItem('pos_customers', JSON.stringify(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$pos$2f$mock$2f$posData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mockPOSCustomers"]));
+            }
         }
     }["POSProvider.useEffect"], []);
     const updateSession = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "POSProvider.useCallback[updateSession]": (newSession)=>{
-            setSession(newSession);
-            if (newSession) {
-                localStorage.setItem('pos_session', JSON.stringify(newSession));
-            } else {
-                localStorage.removeItem('pos_session');
-            }
+        "POSProvider.useCallback[updateSession]": (updates)=>{
+            console.log('💾 updateSession called with updates:', updates);
+            setSession({
+                "POSProvider.useCallback[updateSession]": (prev)=>{
+                    if (updates === null) {
+                        localStorage.removeItem('pos_session');
+                        return null;
+                    }
+                    const updated = prev ? {
+                        ...prev,
+                        ...updates
+                    } : updates;
+                    localStorage.setItem('pos_session', JSON.stringify(updated));
+                    return updated;
+                }
+            }["POSProvider.useCallback[updateSession]"]);
         }
     }["POSProvider.useCallback[updateSession]"], []);
     const updateTables = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
@@ -721,7 +1175,7 @@ const POSProvider = ({ children })=>{
         const initialSession = {
             user,
             posType: type,
-            store: accessibleStores.length === 1 ? accessibleStores[0] : null,
+            store: accessibleStores[0],
             deviceId: credentials.deviceId,
             isOffline: false
         };
@@ -737,23 +1191,21 @@ const POSProvider = ({ children })=>{
         };
     };
     const setStore = (store)=>{
-        if (!session) return;
         updateSession({
-            ...session,
             store
         });
     };
     const setChannel = (channel)=>{
-        if (!session) return;
-        updateSession({
-            ...session,
+        const updates = {
             channel
-        });
+        };
+        if (channel !== 'Dine-In') {
+            updates.activeTable = undefined;
+        }
+        updateSession(updates);
     };
     const setTable = (table)=>{
-        if (!session) return;
         updateSession({
-            ...session,
             activeTable: table || undefined
         });
         if (table) {
@@ -796,11 +1248,71 @@ const POSProvider = ({ children })=>{
         }
     };
     const setCustomer = (customer)=>{
-        if (!session) return;
+        console.log('🔧 setCustomer called:', {
+            customer
+        });
+        if (customer) {
+            setCustomers((prev)=>{
+                const exists = prev.find((c)=>c.id === customer.id);
+                if (!exists) {
+                    const updated = [
+                        ...prev,
+                        customer
+                    ];
+                    localStorage.setItem('pos_customers', JSON.stringify(updated));
+                    return updated;
+                }
+                return prev;
+            });
+        }
         updateSession({
-            ...session,
             activeCustomer: customer || undefined
         });
+    };
+    const mergeTables = (tableIds)=>{
+        if (tableIds.length < 2) return;
+        const mainTableId = tableIds[0];
+        const otherTableIds = tableIds.slice(1);
+        const totalSeats = tables.filter((t)=>tableIds.includes(t.id)).reduce((sum, t)=>sum + t.seats, 0);
+        const updatedTables = tables.map((t)=>{
+            if (t.id === mainTableId) {
+                return {
+                    ...t,
+                    seats: totalSeats,
+                    mergedWith: otherTableIds,
+                    name: `${t.name} + ${otherTableIds.length}`
+                };
+            }
+            if (otherTableIds.includes(t.id)) {
+                return {
+                    ...t,
+                    status: 'OCCUPIED',
+                    mergedWith: [
+                        mainTableId
+                    ]
+                };
+            }
+            return t;
+        });
+        updateTables(updatedTables);
+    };
+    const unmergeTable = (tableId)=>{
+        const table = tables.find((t)=>t.id === tableId);
+        if (!table || !table.mergedWith) return;
+        const mergedIds = table.mergedWith;
+        const updatedTables = tables.map((t)=>{
+            if (t.id === tableId || mergedIds.includes(t.id)) {
+                return {
+                    ...t,
+                    mergedWith: undefined,
+                    seats: t.id === tableId ? t.seats - mergedIds.length * 2 : t.seats,
+                    status: 'FREE',
+                    name: t.name.split(' + ')[0]
+                };
+            }
+            return t;
+        });
+        updateTables(updatedTables);
     };
     const logout = ()=>{
         updateSession(null);
@@ -864,6 +1376,18 @@ const POSProvider = ({ children })=>{
     const [incomingCall, setIncomingCall] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const updateCustomer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "POSProvider.useCallback[updateCustomer]": (customerId, data)=>{
+            setCustomers({
+                "POSProvider.useCallback[updateCustomer]": (prev)=>{
+                    const updated = prev.map({
+                        "POSProvider.useCallback[updateCustomer].updated": (c)=>c.id === customerId ? {
+                                ...c,
+                                ...data
+                            } : c
+                    }["POSProvider.useCallback[updateCustomer].updated"]);
+                    localStorage.setItem('pos_customers', JSON.stringify(updated));
+                    return updated;
+                }
+            }["POSProvider.useCallback[updateCustomer]"]);
             if (session?.activeCustomer?.id === customerId) {
                 updateSession({
                     ...session,
@@ -878,16 +1402,54 @@ const POSProvider = ({ children })=>{
         session,
         updateSession
     ]);
+    const addOrderToCustomerHistory = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "POSProvider.useCallback[addOrderToCustomerHistory]": (customerId, order)=>{
+            setCustomers({
+                "POSProvider.useCallback[addOrderToCustomerHistory]": (prev)=>{
+                    const updated = prev.map({
+                        "POSProvider.useCallback[addOrderToCustomerHistory].updated": (c)=>{
+                            if (c.id === customerId) {
+                                const updatedOrders = [
+                                    order,
+                                    ...c.recentOrders || []
+                                ];
+                                return {
+                                    ...c,
+                                    recentOrders: updatedOrders
+                                };
+                            }
+                            return c;
+                        }
+                    }["POSProvider.useCallback[addOrderToCustomerHistory].updated"]);
+                    localStorage.setItem('pos_customers', JSON.stringify(updated));
+                    return updated;
+                }
+            }["POSProvider.useCallback[addOrderToCustomerHistory]"]);
+            if (session?.activeCustomer?.id === customerId) {
+                const updatedOrders = [
+                    order,
+                    ...session.activeCustomer.recentOrders || []
+                ];
+                updateSession({
+                    ...session,
+                    activeCustomer: {
+                        ...session.activeCustomer,
+                        recentOrders: updatedOrders
+                    }
+                });
+            }
+        }
+    }["POSProvider.useCallback[addOrderToCustomerHistory]"], [
+        session,
+        updateSession
+    ]);
     const setDeliveryAddress = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "POSProvider.useCallback[setDeliveryAddress]": (address)=>{
-            if (!session) return;
             updateSession({
-                ...session,
                 deliveryAddress: address || undefined
             });
         }
     }["POSProvider.useCallback[setDeliveryAddress]"], [
-        session,
         updateSession
     ]);
     const startShift = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
@@ -940,18 +1502,24 @@ const POSProvider = ({ children })=>{
             incomingCall,
             setIncomingCall,
             updateCustomer,
+            addOrderToCustomerHistory,
+            customers,
             startShift,
             isSyncing,
-            setSyncing: setIsSyncing
+            setSyncing: setIsSyncing,
+            tables,
+            updateTables,
+            mergeTables,
+            unmergeTable
         },
         children: children
     }, void 0, false, {
         fileName: "[project]/src/modules/pos/context/POSContext.tsx",
-        lineNumber: 297,
+        lineNumber: 413,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(POSProvider, "GMe8pJxpeR5fcfv3MZpkq3jvHuM=", false, function() {
+_s(POSProvider, "VATiJjWG1OKGZtUfILzLwoxes0Q=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

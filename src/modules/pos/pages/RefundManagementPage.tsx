@@ -189,7 +189,7 @@ export const RefundManagementPage: React.FC = () => {
 
     if (showSuccess) {
         return (
-            <div className="pos-screen">
+            <div className="pos-screen" style={{ background: 'var(--pos-bg-main)' }}>
                 <div style={{
                     minHeight: '100vh',
                     display: 'flex',
@@ -207,23 +207,27 @@ export const RefundManagementPage: React.FC = () => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             margin: '0 auto 32px',
-                            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+                            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.05)',
+                            border: '4px solid var(--pos-state-success)'
                         }}>
                             <CheckCircle2 size={70} color="var(--pos-state-success)" />
                         </div>
                         <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'var(--pos-text-primary)', marginBottom: '16px' }}>
                             Refund Processed
                         </h1>
-                        <p style={{ fontSize: '18px', color: 'var(--pos-text-secondary)', fontWeight: 600, marginBottom: '32px' }}>
+                        <p style={{ fontSize: '18px', color: 'var(--pos-text-secondary)', fontWeight: 700, marginBottom: '32px' }}>
                             ${totalRefundAmount.toFixed(2)} has been refunded successfully
                         </p>
                         <div style={{
                             background: 'var(--pos-bg-surface)',
-                            borderRadius: '16px',
+                            border: '1px solid var(--pos-border-subtle)',
+                            borderRadius: '20px',
                             padding: '24px',
                             fontSize: '14px',
                             color: 'var(--pos-text-muted)',
-                            fontWeight: 600
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em'
                         }}>
                             Redirecting to refund history...
                         </div>

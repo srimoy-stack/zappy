@@ -9,7 +9,6 @@ import {
     ShoppingBag,
     Truck,
     Phone,
-    ArrowLeft,
     Clock,
     LayoutGrid
 } from 'lucide-react';
@@ -115,13 +114,9 @@ export const ChannelSelectionPage: React.FC = () => {
 
             {/* Footer Navigation */}
             <div className="w-full max-w-5xl mt-16 flex items-center justify-between z-10">
-                <button
-                    onClick={() => router.push('/pos/store-selection')}
-                    className="flex items-center gap-3 text-brand/40 hover:text-brand font-black text-sm uppercase tracking-widest transition-all px-6 py-3 rounded-2xl hover:bg-brand/5"
-                >
-                    <ArrowLeft size={20} />
-                    Back to Selection
-                </button>
+                <div className="flex items-center gap-3 text-brand/20 font-black text-sm uppercase tracking-widest px-6 py-3">
+                    {/* Store selection removed */}
+                </div>
 
                 <div className="flex items-center gap-8 bg-white px-8 py-4 rounded-[1.5rem] border-2 border-brand/10 shadow-lg shadow-brand/5">
                     <div className="flex items-center gap-4">

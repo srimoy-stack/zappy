@@ -43,10 +43,24 @@ export const ProductCustomizationModal: React.FC<ProductCustomizationModalProps>
                 setNotes(initialItem.notes || '');
                 setQuantity(initialItem.quantity);
             } else {
-                // Pre-select defaults if any (simplified)
-                const initialVariants: Record<string, string> = {};
-                setSelectedVariants(initialVariants);
-                setSelectedModifiers({});
+                // Reset with Defaults
+                const defaultVariants: Record<string, string> = {};
+                product.variantGroups?.forEach(g => {
+                    const def = g.options.find((o: any) => o.isDefault) || g.options[0];
+                    if (def) defaultVariants[g.id] = def.id;
+                });
+
+                const defaultMods: Record<string, { optionId: string; quantity: number }> = {};
+                product.modifierGroups?.forEach(g => {
+                    g.options.forEach(opt => {
+                        if ((opt as any).isDefault) {
+                            defaultMods[opt.id] = { optionId: opt.id, quantity: 1 };
+                        }
+                    });
+                });
+
+                setSelectedVariants(defaultVariants);
+                setSelectedModifiers(defaultMods);
                 setNotes('');
                 setQuantity(1);
             }
@@ -181,6 +195,68 @@ export const ProductCustomizationModal: React.FC<ProductCustomizationModalProps>
                 {/* Body */}
                 <div className="pos-modal-body" style={{ padding: '0' }}>
                     <div style={{ padding: '24px' }}>
+
+                        {/* --- PRE-SELECTED SECTION --- */}
+                        <div className="pos-preselected-container" style={{
+                            marginBottom: '32px',
+                            padding: '20px',
+                            background: 'rgba(31, 164, 169, 0.05)',
+                            borderRadius: '16px',
+                            border: '1px solid rgba(31, 164, 169, 0.1)'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                                <Check size={18} color="var(--pos-action-primary)" strokeWidth={3} />
+                                <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--pos-text-primary)', margin: 0 }}>Pre-Selected</h3>
+                            </div>
+
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                {/* Default Variants Items */}
+                                {product.variantGroups?.map(group => {
+                                    const selectedId = selectedVariants[group.id];
+                                    const option = group.options.find(o => o.id === selectedId);
+                                    if (!option) return null;
+                                    return (
+                                        <div key={group.id} style={{
+                                            padding: '6px 12px',
+                                            background: 'white',
+                                            borderRadius: '8px',
+                                            fontSize: '12px',
+                                            fontWeight: 700,
+                                            border: '1px solid var(--pos-border-subtle)'
+                                        }}>
+                                            <span style={{ color: 'var(--pos-text-muted)' }}>{group.name}: </span>
+                                            {option.name}
+                                        </div>
+                                    );
+                                })}
+
+                                {/* Default Modifiers */}
+                                {Object.values(selectedModifiers).map(mod => {
+                                    const isDefaultInProduct = product.modifierGroups?.some(v => v.options.some(o => o.id === mod.optionId && (o as any).isDefault));
+                                    if (!isDefaultInProduct) return null;
+
+                                    let mName = '';
+                                    product.modifierGroups?.forEach(g => {
+                                        const f = g.options.find(o => o.id === mod.optionId);
+                                        if (f) mName = f.name;
+                                    });
+
+                                    return (
+                                        <div key={mod.optionId} style={{
+                                            padding: '6px 12px',
+                                            background: 'white',
+                                            borderRadius: '8px',
+                                            fontSize: '12px',
+                                            fontWeight: 700,
+                                            border: '1px solid var(--pos-border-subtle)'
+                                        }}>
+                                            {mName}
+                                            {mod.quantity > 1 && <span style={{ color: 'var(--pos-action-primary)' }}> x{mod.quantity}</span>}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
 
                         {/* 6.1 VARIANTS */}
                         {product.variantGroups?.map(group => (

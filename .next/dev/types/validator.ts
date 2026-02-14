@@ -596,6 +596,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/pos/order-success/[orderId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/pos/order-success/[orderId]">> = Specific
+  const handler = {} as typeof import("../../../src/app/pos/order-success/[orderId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/pos/orders/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/pos/orders">> = Specific
@@ -668,10 +677,10 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
-// Validate ../../../src/app/pos/store-selection/page.tsx
+// Validate ../../../src/app/pos/table-selection/page.tsx
 {
-  type __IsExpected<Specific extends AppPageConfig<"/pos/store-selection">> = Specific
-  const handler = {} as typeof import("../../../src/app/pos/store-selection/page.js")
+  type __IsExpected<Specific extends AppPageConfig<"/pos/table-selection">> = Specific
+  const handler = {} as typeof import("../../../src/app/pos/table-selection/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

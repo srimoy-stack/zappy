@@ -1,7 +1,18 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/pos/confirmation/page": "app/pos/confirmation/page.js",
-  "/pos/fulfillment/page": "app/pos/fulfillment/page.js",
+  "/pos/customers/page": "app/pos/customers/page.js",
+  "/pos/dashboard/page": "app/pos/dashboard/page.js",
+  "/pos/held-orders/page": "app/pos/held-orders/page.js",
+  "/pos/login/page": "app/pos/login/page.js",
   "/pos/menu/page": "app/pos/menu/page.js",
-  "/pos/payment/page": "app/pos/payment/page.js"
+  "/pos/open-orders/page": "app/pos/open-orders/page.js",
+  "/pos/order-success/[orderId]/page": "app/pos/order-success/[orderId]/page.js",
+  "/pos/orders/page": "app/pos/orders/page.js",
+  "/pos/payment/page": "app/pos/payment/page.js",
+  "/pos/refund-management/page": "app/pos/refund-management/page.js",
+  "/pos/refund/page": "app/pos/refund/page.js",
+  "/pos/store-selection/page": "app/pos/store-selection/page.js",
+  "/pos/table-selection/page": "app/pos/table-selection/page.js"
 }

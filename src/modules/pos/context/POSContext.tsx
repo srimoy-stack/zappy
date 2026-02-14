@@ -2,15 +2,16 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { POSType, OrderChannel, POSSession, POSContextType, POSStore, POSTable, POSCartItem } from '../types/pos';
-import { POSCustomer, mockPOSUsers, mockStores, VALID_STORE_PINS, VALID_CALL_CENTER_USERS, mockPOSTables } from '../mock/posData';
+import { POSCustomer, mockPOSUsers, mockStores, VALID_STORE_PINS, VALID_CALL_CENTER_USERS, mockPOSTables, mockPOSCustomers } from '../mock/posData';
 import { useRouter } from 'next/navigation';
 
 const POSContext = createContext<POSContextType | undefined>(undefined);
 
 export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [session, setSession] = useState<POSSession | null>(null);
-    const [tables, setTables] = useState<POSTable[]>([]);
+    const [tables, setTables] = useState<POSTable[]>(mockPOSTables as POSTable[]);
     const [cart, setCart] = useState<POSCartItem[]>([]);
+    const [customers, setCustomers] = useState<POSCustomer[]>([]);
     const [isOffline, setIsOffline] = useState(false);
     const [isSyncing, setIsSyncing] = useState(false);
     const [deviceId, setDeviceId] = useState('');
@@ -51,12 +52,21 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         if (savedTables) {
             try {
-                setTables(JSON.parse(savedTables));
+                const parsed = JSON.parse(savedTables);
+                if (parsed.length > 0) {
+                    setTables(parsed);
+                } else {
+                    setTables(mockPOSTables as POSTable[]);
+                    localStorage.setItem('pos_tables', JSON.stringify(mockPOSTables));
+                }
             } catch (e) {
                 console.error('Failed to parse POS tables', e);
+                setTables(mockPOSTables as POSTable[]);
+                localStorage.setItem('pos_tables', JSON.stringify(mockPOSTables));
             }
         } else {
             setTables(mockPOSTables as POSTable[]);
+            localStorage.setItem('pos_tables', JSON.stringify(mockPOSTables));
         }
 
         if (savedCart) {
@@ -66,15 +76,32 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 console.error('Failed to parse POS cart', e);
             }
         }
+
+        const savedCustomers = localStorage.getItem('pos_customers');
+        if (savedCustomers) {
+            try {
+                setCustomers(JSON.parse(savedCustomers));
+            } catch (e) {
+                console.error('Failed to parse POS customers', e);
+                setCustomers(mockPOSCustomers);
+            }
+        } else {
+            setCustomers(mockPOSCustomers);
+            localStorage.setItem('pos_customers', JSON.stringify(mockPOSCustomers));
+        }
     }, []);
 
-    const updateSession = useCallback((newSession: POSSession | null) => {
-        setSession(newSession);
-        if (newSession) {
-            localStorage.setItem('pos_session', JSON.stringify(newSession));
-        } else {
-            localStorage.removeItem('pos_session');
-        }
+    const updateSession = useCallback((updates: Partial<POSSession> | null) => {
+        console.log('💾 updateSession called with updates:', updates);
+        setSession(prev => {
+            if (updates === null) {
+                localStorage.removeItem('pos_session');
+                return null;
+            }
+            const updated = prev ? { ...prev, ...updates } : (updates as POSSession);
+            localStorage.setItem('pos_session', JSON.stringify(updated));
+            return updated;
+        });
     }, []);
 
     const updateTables = useCallback((newTables: POSTable[]) => {
@@ -135,7 +162,7 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const initialSession: POSSession = {
             user,
             posType: type,
-            store: accessibleStores.length === 1 ? accessibleStores[0] : (null as any),
+            store: accessibleStores[0]!,
             deviceId: credentials.deviceId,
             isOffline: false
         };
@@ -154,18 +181,19 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     const setStore = (store: POSStore) => {
-        if (!session) return;
-        updateSession({ ...session, store });
+        updateSession({ store });
     };
 
     const setChannel = (channel: OrderChannel) => {
-        if (!session) return;
-        updateSession({ ...session, channel });
+        const updates: Partial<POSSession> = { channel };
+        if (channel !== 'Dine-In') {
+            updates.activeTable = undefined;
+        }
+        updateSession(updates);
     };
 
     const setTable = (table: POSTable | null) => {
-        if (!session) return;
-        updateSession({ ...session, activeTable: table || undefined });
+        updateSession({ activeTable: table || undefined });
 
         if (table) {
             const updatedTables = tables.map(t =>
@@ -200,8 +228,69 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     const setCustomer = (customer: POSCustomer | null) => {
-        if (!session) return;
-        updateSession({ ...session, activeCustomer: customer || undefined });
+        console.log('🔧 setCustomer called:', { customer });
+
+        if (customer) {
+            setCustomers(prev => {
+                const exists = prev.find(c => c.id === customer.id);
+                if (!exists) {
+                    const updated = [...prev, customer];
+                    localStorage.setItem('pos_customers', JSON.stringify(updated));
+                    return updated;
+                }
+                return prev;
+            });
+        }
+
+        updateSession({ activeCustomer: customer || undefined });
+    };
+
+    const mergeTables = (tableIds: string[]) => {
+        if (tableIds.length < 2) return;
+        const mainTableId = tableIds[0];
+        const otherTableIds = tableIds.slice(1);
+
+        const totalSeats = tables
+            .filter(t => tableIds.includes(t.id))
+            .reduce((sum, t) => sum + t.seats, 0);
+
+        const updatedTables = tables.map(t => {
+            if (t.id === mainTableId) {
+                return {
+                    ...t,
+                    seats: totalSeats,
+                    mergedWith: otherTableIds,
+                    name: `${t.name} + ${otherTableIds.length}`
+                } as POSTable;
+            }
+            if (otherTableIds.includes(t.id)) {
+                return { ...t, status: 'OCCUPIED' as const, mergedWith: [mainTableId] } as POSTable;
+            }
+            return t;
+        });
+
+        updateTables(updatedTables);
+    };
+
+    const unmergeTable = (tableId: string) => {
+        const table = tables.find(t => t.id === tableId);
+        if (!table || !table.mergedWith) return;
+
+        const mergedIds = table.mergedWith;
+        const updatedTables = tables.map(t => {
+            if (t.id === tableId || mergedIds.includes(t.id)) {
+                return {
+                    ...t,
+                    mergedWith: undefined,
+                    seats: t.id === tableId ? t.seats - (mergedIds.length * 2) : t.seats,
+                    status: 'FREE' as const,
+                    name: t.name.split(' + ')[0]
+                } as POSTable;
+            }
+            return t;
+        });
+
+        updateTables(updatedTables);
     };
 
     const logout = () => {
@@ -267,15 +356,42 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [incomingCall, setIncomingCall] = useState<{ number: string; caller: string; location: string; customerId?: string } | null>(null);
 
     const updateCustomer = useCallback((customerId: string, data: Partial<POSCustomer>) => {
+        setCustomers(prev => {
+            const updated = prev.map(c => c.id === customerId ? { ...c, ...data } : c);
+            localStorage.setItem('pos_customers', JSON.stringify(updated));
+            return updated;
+        });
+
         if (session?.activeCustomer?.id === customerId) {
             updateSession({ ...session, activeCustomer: { ...session.activeCustomer, ...data } });
         }
     }, [session, updateSession]);
 
-    const setDeliveryAddress = useCallback((address: { id: string; text: string; label: string } | null) => {
-        if (!session) return;
-        updateSession({ ...session, deliveryAddress: address || undefined });
+    const addOrderToCustomerHistory = useCallback((customerId: string, order: any) => {
+        setCustomers(prev => {
+            const updated = prev.map(c => {
+                if (c.id === customerId) {
+                    const updatedOrders = [order, ...(c.recentOrders || [])];
+                    return { ...c, recentOrders: updatedOrders };
+                }
+                return c;
+            });
+            localStorage.setItem('pos_customers', JSON.stringify(updated));
+            return updated;
+        });
+
+        if (session?.activeCustomer?.id === customerId) {
+            const updatedOrders = [order, ...(session.activeCustomer.recentOrders || [])];
+            updateSession({
+                ...session,
+                activeCustomer: { ...session.activeCustomer, recentOrders: updatedOrders }
+            });
+        }
     }, [session, updateSession]);
+
+    const setDeliveryAddress = useCallback((address: { id: string; text: string; label: string } | null) => {
+        updateSession({ deliveryAddress: address || undefined });
+    }, [updateSession]);
 
     const startShift = useCallback((openingCash: number, notes?: string) => {
         if (!session) return;
@@ -300,10 +416,15 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             selectedCustomer: session?.activeCustomer,
             deliveryAddress: session?.deliveryAddress,
             setDeliveryAddress,
-            incomingCall, setIncomingCall, updateCustomer,
+            incomingCall, setIncomingCall, updateCustomer, addOrderToCustomerHistory,
+            customers,
             startShift,
             isSyncing,
-            setSyncing: setIsSyncing
+            setSyncing: setIsSyncing,
+            tables,
+            updateTables,
+            mergeTables,
+            unmergeTable
         }}>
             {children}
         </POSContext.Provider>

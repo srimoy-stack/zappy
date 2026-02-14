@@ -20,7 +20,7 @@ import {
     Store
 } from 'lucide-react';
 import { usePOS } from '../context/POSContext';
-import { POSCustomer, mockPOSCustomers } from '../mock/posData';
+import { POSCustomer } from '../mock/posData';
 import { OrderChannel } from '../types/pos';
 import { mockStores } from '../mock/posData';
 import '../styles/pos-rush.css';
@@ -32,7 +32,7 @@ interface POSCustomerManagementModalProps {
 
 export const POSCustomerManagementModal: React.FC<POSCustomerManagementModalProps> = ({ isOpen, onClose }) => {
     const router = useRouter();
-    const { setCustomer, addToCart, selectedCustomer: currentSelected, updateCustomer, setChannel, setStore, setDeliveryAddress: setContextDeliveryAddress, session } = usePOS();
+    const { setCustomer, addToCart, selectedCustomer: currentSelected, updateCustomer, setChannel, setStore, setDeliveryAddress: setContextDeliveryAddress, session, customers } = usePOS();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState<POSCustomer | null>(currentSelected || null);
     const [isAddingNew, setIsAddingNew] = useState(false);
@@ -41,16 +41,32 @@ export const POSCustomerManagementModal: React.FC<POSCustomerManagementModalProp
     const [orderType, setOrderType] = useState<OrderChannel>('Pickup');
     const [selectedStore, setSelectedStore] = useState<string>('');
     const [deliveryAddress, setLocalDeliveryAddress] = useState<string>('');
+    const [reorderExpandedId, setReorderExpandedId] = useState<string | null>(null);
+    const [reorderConfig, setReorderConfig] = useState<{
+        fulfillment: OrderChannel;
+        address: string;
+        storeId: string;
+        tableId: string;
+        tableName: string;
+    }>({
+        fulfillment: 'Pickup',
+        address: '',
+        storeId: '',
+        tableId: '',
+        tableName: ''
+    });
+    const [isSelectingTable, setIsSelectingTable] = useState(false);
+    const { tables, setTable } = usePOS();
 
     const filteredCustomers = useMemo(() => {
-        if (!searchQuery) return mockPOSCustomers;
+        if (!searchQuery) return customers;
         const q = searchQuery.toLowerCase();
-        return mockPOSCustomers.filter(c =>
+        return customers.filter(c =>
             c.name.toLowerCase().includes(q) ||
             c.phone.includes(q) ||
-            c.email.toLowerCase().includes(q)
+            c.email?.toLowerCase().includes(q)
         );
-    }, [searchQuery]);
+    }, [searchQuery, customers]);
 
     if (!isOpen) return null;
 
@@ -59,22 +75,72 @@ export const POSCustomerManagementModal: React.FC<POSCustomerManagementModalProp
         setCustomer(customer);
     };
 
-    const handleReorder = (order: any) => {
-        // Mock reorder logic: Add some items to cart based on the order
-        // In reality, order would contain structured data.
-        alert(`Reordering items from ${order.id}. Cart will be updated with current prices.`);
+    const handleReorderToggle = (order: any) => {
+        if (reorderExpandedId === order.id) {
+            setReorderExpandedId(null);
+            return;
+        }
 
-        // Simulating adding some items
+        setReorderExpandedId(order.id);
+
+        // Initialize reorder config from previous order or session
+        const primaryAddress = selectedCustomer?.addresses.find(a => a.isDefault) || selectedCustomer?.addresses[0];
+
+        setReorderConfig({
+            fulfillment: (session?.channel as OrderChannel) || 'Pickup',
+            address: primaryAddress?.text || '',
+            storeId: session?.store?.id || '',
+            tableId: '',
+            tableName: ''
+        });
+    };
+
+    const confirmReorder = (_order: any) => {
+        if (selectedCustomer) {
+            setCustomer(selectedCustomer);
+        }
+
+        // Apply selected fulfillment and details
+        setChannel(reorderConfig.fulfillment);
+
+        if (reorderConfig.fulfillment === 'Pickup' && reorderConfig.storeId) {
+            const store = mockStores.find(s => s.id === reorderConfig.storeId);
+            if (store) setStore(store);
+        }
+
+        if (reorderConfig.fulfillment === 'Delivery') {
+            setContextDeliveryAddress({
+                id: `addr-${Date.now()}`,
+                text: reorderConfig.address,
+                label: 'Delivery'
+            });
+        }
+
+        if (reorderConfig.fulfillment === 'Dine-In' && reorderConfig.tableId) {
+            const table = tables.find(t => t.id === reorderConfig.tableId);
+            if (table) setTable(table);
+        }
+
+        // Mock reorder logic: Add items
         addToCart({
-            id: 'p1',
+            id: `reorder-${Date.now()}`,
             name: 'Margherita Dream',
-            price: 18.00, // Recalculated/Current price
+            price: 18.00,
             quantity: 1,
             variants: [],
             modifiers: []
         });
 
         onClose();
+    };
+
+    const handleSelectTableForReorder = (table: any) => {
+        setReorderConfig({
+            ...reorderConfig,
+            tableId: table.id,
+            tableName: table.name
+        });
+        setIsSelectingTable(false);
     };
 
     const handleRefund = (_order: any) => {
@@ -387,57 +453,175 @@ export const POSCustomerManagementModal: React.FC<POSCustomerManagementModalProp
 
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                         {selectedCustomer.recentOrders.length > 0 ? selectedCustomer.recentOrders.map(order => (
-                                            <div
-                                                key={order.id}
-                                                style={{
-                                                    background: 'var(--pos-bg-surface)',
-                                                    borderRadius: '20px',
-                                                    padding: '24px',
-                                                    border: '1px solid var(--pos-border-subtle)',
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center'
-                                                }}
-                                            >
-                                                <div>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                                                        <span style={{ fontSize: '16px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>{order.id}</span>
-                                                        <span style={{ padding: '4px 8px', background: 'var(--pos-bg-main)', borderRadius: '6px', fontSize: '11px', fontWeight: 700, color: 'var(--pos-text-muted)' }}>{order.date}</span>
+                                            <React.Fragment key={order.id}>
+                                                <div
+                                                    style={{
+                                                        background: 'var(--pos-bg-surface)',
+                                                        borderRadius: '20px',
+                                                        padding: '24px',
+                                                        border: '1px solid var(--pos-border-subtle)',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <div>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                                                            <span style={{ fontSize: '16px', fontWeight: 900, color: 'var(--pos-text-primary)' }}>{order.id}</span>
+                                                            <span style={{ padding: '4px 8px', background: 'var(--pos-bg-main)', borderRadius: '6px', fontSize: '11px', fontWeight: 700, color: 'var(--pos-text-muted)' }}>{order.date}</span>
+                                                        </div>
+                                                        <div style={{ fontSize: '14px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>{order.items}</div>
+                                                        <div style={{ fontSize: '20px', fontWeight: 900, color: 'var(--pos-action-primary)', marginTop: '8px' }}>${order.amount.toFixed(2)}</div>
                                                     </div>
-                                                    <div style={{ fontSize: '14px', color: 'var(--pos-text-secondary)', fontWeight: 600 }}>{order.items}</div>
-                                                    <div style={{ fontSize: '20px', fontWeight: 900, color: 'var(--pos-action-primary)', marginTop: '8px' }}>${order.amount.toFixed(2)}</div>
+
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                                        <button
+                                                            onClick={() => handleReorderToggle(order)}
+                                                            className="pos-btn"
+                                                            style={{
+                                                                background: reorderExpandedId === order.id ? 'var(--pos-text-primary)' : 'var(--pos-state-success)',
+                                                                color: 'white',
+                                                                height: '44px',
+                                                                fontSize: '12px',
+                                                                padding: '0 16px',
+                                                                borderRadius: '12px'
+                                                            }}
+                                                        >
+                                                            <RotateCcw size={14} /> {reorderExpandedId === order.id ? 'CANCEL' : 'REORDER'}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleRefund(order)}
+                                                            className="pos-btn"
+                                                            style={{
+                                                                background: 'transparent',
+                                                                color: 'var(--pos-text-muted)',
+                                                                border: '1px solid var(--pos-border-subtle)',
+                                                                height: '44px',
+                                                                fontSize: '12px',
+                                                                padding: '0 16px',
+                                                                borderRadius: '12px'
+                                                            }}
+                                                        >
+                                                            <ArrowLeftRight size={14} /> REFUND
+                                                        </button>
+                                                    </div>
                                                 </div>
 
-                                                <div style={{ display: 'flex', gap: '12px' }}>
-                                                    <button
-                                                        onClick={() => handleReorder(order)}
-                                                        className="pos-btn"
-                                                        style={{
-                                                            background: 'var(--pos-state-success)',
-                                                            color: 'white',
-                                                            height: '52px',
-                                                            fontSize: '13px',
-                                                            padding: '0 20px'
-                                                        }}
-                                                    >
-                                                        <RotateCcw size={16} /> REORDER
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleRefund(order)}
-                                                        className="pos-btn"
-                                                        style={{
-                                                            background: 'rgba(239, 68, 68, 0.1)',
-                                                            color: '#EF4444',
-                                                            border: '1px solid rgba(239, 68, 68, 0.2)',
-                                                            height: '52px',
-                                                            fontSize: '13px',
-                                                            padding: '0 20px'
-                                                        }}
-                                                    >
-                                                        <ArrowLeftRight size={16} /> REFUND
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                {/* Expanded Reorder Section */}
+                                                {reorderExpandedId === order.id && (
+                                                    <div style={{
+                                                        marginTop: '16px',
+                                                        padding: '24px',
+                                                        background: 'var(--pos-bg-main)',
+                                                        borderRadius: '16px',
+                                                        border: '1.5px solid var(--pos-action-primary)',
+                                                        animation: 'posFadeInUp 0.3s ease'
+                                                    }}>
+                                                        <div style={{ fontSize: '12px', fontWeight: 900, color: 'var(--pos-action-primary)', textTransform: 'uppercase', marginBottom: '16px', letterSpacing: '0.05em' }}>Confirm Reorder Details</div>
+
+                                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '16px' }}>
+                                                            {(['Dine-In', 'Pickup', 'Delivery'] as OrderChannel[]).map(type => (
+                                                                <button
+                                                                    key={type}
+                                                                    onClick={() => setReorderConfig({ ...reorderConfig, fulfillment: type })}
+                                                                    style={{
+                                                                        padding: '12px',
+                                                                        borderRadius: '10px',
+                                                                        border: reorderConfig.fulfillment === type ? '2px solid var(--pos-action-primary)' : '1px solid var(--pos-border-subtle)',
+                                                                        background: reorderConfig.fulfillment === type ? 'white' : 'transparent',
+                                                                        fontSize: '13px',
+                                                                        fontWeight: 800,
+                                                                        color: reorderConfig.fulfillment === type ? 'var(--pos-action-primary)' : 'var(--pos-text-secondary)',
+                                                                        cursor: 'pointer'
+                                                                    }}
+                                                                >
+                                                                    {type}
+                                                                </button>
+                                                            ))}
+                                                        </div>
+
+                                                        {reorderConfig.fulfillment === 'Delivery' && (
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <label style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', display: 'block', marginBottom: '6px' }}>CONFIRM ADDRESS</label>
+                                                                <textarea
+                                                                    className="pos-input"
+                                                                    value={reorderConfig.address}
+                                                                    onChange={e => setReorderConfig({ ...reorderConfig, address: e.target.value })}
+                                                                    style={{ background: 'white', minHeight: '60px', padding: '12px' }}
+                                                                />
+                                                            </div>
+                                                        )}
+
+                                                        {reorderConfig.fulfillment === 'Pickup' && (
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <label style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', display: 'block', marginBottom: '6px' }}>SELECT STORE</label>
+                                                                <select
+                                                                    className="pos-input"
+                                                                    value={reorderConfig.storeId}
+                                                                    onChange={e => setReorderConfig({ ...reorderConfig, storeId: e.target.value })}
+                                                                    style={{ background: 'white' }}
+                                                                >
+                                                                    {mockStores.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                                                </select>
+                                                            </div>
+                                                        )}
+
+                                                        {reorderConfig.fulfillment === 'Dine-In' && (
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <label style={{ fontSize: '11px', fontWeight: 900, color: 'var(--pos-text-muted)', display: 'block', marginBottom: '6px' }}>ASSIGN TABLE</label>
+                                                                <button
+                                                                    onClick={() => setIsSelectingTable(!isSelectingTable)}
+                                                                    className="pos-btn"
+                                                                    style={{ width: '100%', background: 'white', border: '1px solid var(--pos-border-subtle)', justifyContent: 'space-between', color: 'var(--pos-text-primary)' }}
+                                                                >
+                                                                    {reorderConfig.tableName || 'CHOOSE A TABLE'} <ChevronRight size={16} />
+                                                                </button>
+
+                                                                {isSelectingTable && (
+                                                                    <div style={{
+                                                                        marginTop: '8px',
+                                                                        display: 'grid',
+                                                                        gridTemplateColumns: 'repeat(4, 1fr)',
+                                                                        gap: '8px',
+                                                                        maxHeight: '150px',
+                                                                        overflowY: 'auto',
+                                                                        padding: '12px',
+                                                                        background: 'white',
+                                                                        borderRadius: '12px',
+                                                                        border: '1px solid var(--pos-border-subtle)'
+                                                                    }}>
+                                                                        {tables.filter(t => t.status === 'FREE').map(table => (
+                                                                            <button
+                                                                                key={table.id}
+                                                                                onClick={() => handleSelectTableForReorder(table)}
+                                                                                style={{
+                                                                                    padding: '10px',
+                                                                                    borderRadius: '8px',
+                                                                                    border: '1px solid var(--pos-border-subtle)',
+                                                                                    background: 'var(--pos-bg-main)',
+                                                                                    fontSize: '12px',
+                                                                                    fontWeight: 800,
+                                                                                    cursor: 'pointer'
+                                                                                }}
+                                                                            >
+                                                                                {table.name}
+                                                                            </button>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )}
+
+                                                        <button
+                                                            onClick={() => confirmReorder(order)}
+                                                            className="pos-btn pos-btn-primary"
+                                                            style={{ width: '100%', height: '52px', fontSize: '14px' }}
+                                                        >
+                                                            CONFIRM & START REORDER
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </React.Fragment>
                                         )) : (
                                             <div style={{ padding: '60px', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '2px dashed var(--pos-border-subtle)' }}>
                                                 <History size={48} style={{ marginBottom: '16px', opacity: 0.2 }} />
@@ -461,7 +645,12 @@ export const POSCustomerManagementModal: React.FC<POSCustomerManagementModalProp
                 <div className="pos-modal-footer" style={{ padding: '24px 32px' }}>
                     <button
                         disabled={!selectedCustomer}
-                        onClick={onClose}
+                        onClick={() => {
+                            if (selectedCustomer) {
+                                setCustomer(selectedCustomer);
+                            }
+                            onClose();
+                        }}
                         className="pos-btn pos-btn-primary"
                         style={{ width: '100%', height: '64px', fontSize: '18px' }}
                     >

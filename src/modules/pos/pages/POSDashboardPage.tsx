@@ -43,7 +43,7 @@ const mockRecentOrders = [
 
 export const POSDashboardPage: React.FC = () => {
     const router = useRouter();
-    const { session, logout, isOffline, setCustomer, setIncomingCall, setChannel } = usePOS();
+    const { session, logout, isOffline, setCustomer, setIncomingCall, setChannel, clearCart, setTable } = usePOS();
     const [currentTime, setCurrentTime] = useState<string>('');
     const [showIncomingCall, setShowIncomingCall] = useState(false);
 
@@ -83,8 +83,11 @@ export const POSDashboardPage: React.FC = () => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.ctrlKey && e.key === 'n') || e.key === 'F1') {
                 e.preventDefault();
+                clearCart();
+                setTable(null);
                 setChannel('Pickup');
-                router.push('/pos/menu');
+                setCustomer(null);
+                router.push('/pos/customers');
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -92,8 +95,11 @@ export const POSDashboardPage: React.FC = () => {
     }, [router]);
 
     const handleNewOrder = () => {
+        clearCart();
+        setTable(null);
         setChannel('Pickup');
-        router.push('/pos/menu');
+        setCustomer(null);
+        router.push('/pos/customers');
     };
 
     const handleAttachCall = () => {
@@ -640,7 +646,7 @@ export const POSDashboardPage: React.FC = () => {
                             Reprint Receipt
                         </button>
                         <button
-                            onClick={() => router.push('/pos/customer-search')}
+                            onClick={() => router.push('/pos/customers')}
                             className="pos-btn pos-btn-secondary"
                             style={{
                                 height: '64px',
