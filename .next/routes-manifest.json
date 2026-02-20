@@ -152,6 +152,30 @@
       "namedRegex": "^/backoffice/shop/(?<nxtPcategory>[^/]+?)/(?<nxtPitemId>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/callcenter/order/[order_id]",
+      "regex": "^/callcenter/order/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPorder_id": "nxtPorder_id"
+      },
+      "namedRegex": "^/callcenter/order/(?<nxtPorder_id>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/callcenter/order-success/[order_id]",
+      "regex": "^/callcenter/order\\-success/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPorder_id": "nxtPorder_id"
+      },
+      "namedRegex": "^/callcenter/order\\-success/(?<nxtPorder_id>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/kiosk/product/[id]",
+      "regex": "^/kiosk/product/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/kiosk/product/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/pos/order-details/[id]",
       "regex": "^/pos/order\\-details/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -380,16 +404,100 @@
       "namedRegex": "^/backoffice/users(?:/)?$"
     },
     {
+      "page": "/callcenter/customer-lookup",
+      "regex": "^/callcenter/customer\\-lookup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/customer\\-lookup(?:/)?$"
+    },
+    {
       "page": "/callcenter/dashboard",
       "regex": "^/callcenter/dashboard(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/callcenter/dashboard(?:/)?$"
     },
     {
+      "page": "/callcenter/fulfillment",
+      "regex": "^/callcenter/fulfillment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/fulfillment(?:/)?$"
+    },
+    {
       "page": "/callcenter/login",
       "regex": "^/callcenter/login(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/callcenter/login(?:/)?$"
+    },
+    {
+      "page": "/callcenter/menu",
+      "regex": "^/callcenter/menu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/menu(?:/)?$"
+    },
+    {
+      "page": "/callcenter/orders",
+      "regex": "^/callcenter/orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/orders(?:/)?$"
+    },
+    {
+      "page": "/callcenter/payment",
+      "regex": "^/callcenter/payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/payment(?:/)?$"
+    },
+    {
+      "page": "/callcenter/promotions",
+      "regex": "^/callcenter/promotions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/callcenter/promotions(?:/)?$"
+    },
+    {
+      "page": "/kiosk/builder",
+      "regex": "^/kiosk/builder(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/builder(?:/)?$"
+    },
+    {
+      "page": "/kiosk/cart",
+      "regex": "^/kiosk/cart(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/cart(?:/)?$"
+    },
+    {
+      "page": "/kiosk/identity",
+      "regex": "^/kiosk/identity(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/identity(?:/)?$"
+    },
+    {
+      "page": "/kiosk/menu",
+      "regex": "^/kiosk/menu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/menu(?:/)?$"
+    },
+    {
+      "page": "/kiosk/restaurant",
+      "regex": "^/kiosk/restaurant(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/restaurant(?:/)?$"
+    },
+    {
+      "page": "/kiosk/review",
+      "regex": "^/kiosk/review(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/review(?:/)?$"
+    },
+    {
+      "page": "/kiosk/start",
+      "regex": "^/kiosk/start(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/start(?:/)?$"
+    },
+    {
+      "page": "/kiosk/success",
+      "regex": "^/kiosk/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kiosk/success(?:/)?$"
     },
     {
       "page": "/pos",

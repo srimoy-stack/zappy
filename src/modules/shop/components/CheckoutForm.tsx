@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CreditCard, ArrowRight, Loader2, Trash2, ShieldCheck, Zap, Info } from 'lucide-react';
+import {  ArrowRight, Loader2, Trash2, ShieldCheck, Zap, Info, CreditCard } from 'lucide-react';
 import { CartItem } from '../types';
 import { formatCurrency } from '@/utils';
 import { useToast } from '../context/ToastContext';

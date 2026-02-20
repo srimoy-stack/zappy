@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(kiosk)/layout,_N_T_/(kiosk)/kiosk/layout,_N_T_/(kiosk)/kiosk/restaurant/layout,_N_T_/(kiosk)/kiosk/restaurant/page,_N_T_/kiosk/restaurant"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGtpb3NrKQ/kiosk/restaurant/__PAGE__",
+    "/!KGtpb3NrKQ/kiosk/restaurant",
+    "/!KGtpb3NrKQ/kiosk",
+    "/!KGtpb3NrKQ",
+    "/_index",
+    "/_head"
+  ]
+}

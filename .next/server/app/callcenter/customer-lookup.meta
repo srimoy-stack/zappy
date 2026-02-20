@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/callcenter/layout,_N_T_/callcenter/customer-lookup/layout,_N_T_/callcenter/customer-lookup/page,_N_T_/callcenter/customer-lookup"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/callcenter/customer-lookup/__PAGE__",
+    "/callcenter/customer-lookup",
+    "/callcenter",
+    "/_index",
+    "/_head"
+  ]
+}

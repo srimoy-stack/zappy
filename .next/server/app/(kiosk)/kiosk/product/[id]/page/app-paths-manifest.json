@@ -1,0 +1,3 @@
+{
+  "/(kiosk)/kiosk/product/[id]/page": "app/(kiosk)/kiosk/product/[id]/page.js"
+}

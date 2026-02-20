@@ -56,3 +56,43 @@ h3 {
 .animate-slide-in-right {
   animation: slide-in-right 0.3s ease-out forwards;
 }
+
+/* Kiosk-specific rules */
+.kiosk-mode {
+  height: 100vh !important;
+  width: 100vw !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.kiosk-mode body {
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior-y: none !important;
+  user-select: none !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: manipulation !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.kiosk-layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}

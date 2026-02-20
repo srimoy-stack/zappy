@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(kiosk)/layout,_N_T_/(kiosk)/kiosk/layout,_N_T_/(kiosk)/kiosk/success/layout,_N_T_/(kiosk)/kiosk/success/page,_N_T_/kiosk/success"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGtpb3NrKQ/kiosk/success/__PAGE__",
+    "/!KGtpb3NrKQ/kiosk/success",
+    "/!KGtpb3NrKQ/kiosk",
+    "/!KGtpb3NrKQ",
+    "/_index",
+    "/_head"
+  ]
+}
