@@ -1,5 +1,7 @@
 {
+  "/(kiosk)/kiosk/menu/page": "app/(kiosk)/kiosk/menu/page.js",
   "/(kiosk)/kiosk/start/page": "app/(kiosk)/kiosk/start/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/backoffice/home/page": "app/backoffice/home/page.js",
   "/page": "app/page.js"

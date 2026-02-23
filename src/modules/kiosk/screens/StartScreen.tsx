@@ -4,137 +4,145 @@ import { useEffect, useState, type MouseEvent, type TouchEvent } from 'react';
 import { useKioskStore } from '@/store/kioskStore';
 import { menuService } from '@/services/kiosk/menuService';
 
-const HERO_IMAGES = [
-    'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1080',
-    'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1080',
-    'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=1080',
-    'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=1080',
+const SLIDES = [
+    {
+        id: '1',
+        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1080&q=80',
+        title: '30% OFF',
+        subtitle: 'On All Large Pizzas',
+        description: 'Valid for a limited time only. Order now and save big!',
+        badge: 'FLASH DEAL'
+    },
+    {
+        id: '2',
+        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1080&q=80',
+        title: 'Buy 1 Get 1',
+        subtitle: 'FREE Every Monday',
+        description: 'Double the joy with our legendary BOGO deal.',
+        badge: 'MONDAY SPECIAL'
+    },
+    {
+        id: '3',
+        image: 'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=1080&q=80',
+        title: 'Family Combo',
+        subtitle: 'Full Meal for $24.99',
+        description: 'Incl. 2 Medium Pizzas, 6 Wings & a Large Soda.',
+        badge: 'BEST VALUE'
+    },
+    {
+        id: '4',
+        image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=1080&q=80',
+        title: 'Spicy Feast',
+        subtitle: 'New Buffalo Wings',
+        description: 'Experience the heat with our new signature sauce.',
+        badge: 'NEW ARRIVAL'
+    }
 ];
 
 export function StartScreen() {
     const { startSession, resetSession, navigateTo } = useKioskStore();
-    const [currentImage, setCurrentImage] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(0);
     const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
     useEffect(() => {
         resetSession();
-        // Background pre-fetch
         menuService.getMenu('default');
 
         const interval = setInterval(() => {
-            setCurrentImage(prev => (prev + 1) % HERO_IMAGES.length);
-        }, 5000);
+            setCurrentSlide(prev => (prev + 1) % SLIDES.length);
+        }, 4000); // Auto-slide every 4 seconds
+
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleStart = (e: MouseEvent | TouchEvent) => {
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        const scale = rect.width / 1920;
+
         const touch = 'touches' in e && e.touches.length > 0 ? e.touches[0] : null;
         const clientX = touch ? touch.clientX : (e as MouseEvent).clientX;
         const clientY = touch ? touch.clientY : (e as MouseEvent).clientY;
-        setRipple({ x: clientX - rect.left, y: clientY - rect.top });
+
+        const x = (clientX - rect.left) / scale;
+        const y = (clientY - rect.top) / scale;
+
+        setRipple({ x, y });
 
         setTimeout(() => {
             startSession();
-            navigateTo('identity');
+            navigateTo('menu'); // On tap -> navigate to menu page
         }, 300);
     };
 
     return (
-        <div
-            className="kiosk-start-screen"
-            onClick={handleStart}
-        >
-            {/* Hero Carousel */}
-            {HERO_IMAGES.map((img, idx) => (
-                <div
-                    key={idx}
-                    className="kiosk-start-hero-image"
-                    style={{ opacity: idx === currentImage ? 0.5 : 0 }}
-                >
-                    <img src={img} alt="Food" loading="eager" />
-                </div>
-            ))}
-
-            {/* Gradient overlay */}
-            <div className="kiosk-start-gradient" />
-
-            {/* Content */}
-            <div className="kiosk-start-content">
-                {/* Brand logo */}
-                <div className="kiosk-start-brand">
-                    <div className="kiosk-start-logo">
-                        <span>Z</span>
+        <div className="kiosk-start-v4" onClick={handleStart}>
+            {/* 1️⃣ Full Screen Slideshow Background */}
+            <div className="kiosk-start-slider-v4">
+                {SLIDES.map((slide, idx) => (
+                    <div
+                        key={slide.id}
+                        className={`kiosk-start-slide-v4 ${idx === currentSlide ? 'active' : ''}`}
+                    >
+                        <img src={slide.image} alt="" />
                     </div>
-                    <h2 className="kiosk-start-brand-name">ZYAPPY</h2>
+                ))}
+                {/* Dark atmospheric overlay */}
+                <div className="kiosk-start-v4-overlay" />
+            </div>
+
+            {/* Content Layer */}
+            <div className="kiosk-start-v4-content">
+                {/* Branding - Top Centered */}
+                <div className="kiosk-start-v4-brand">
+                    <div className="v4-logo">Z</div>
+                    <span className="v4-logo-text">ZYAPPY</span>
                 </div>
 
-                {/* Hero text */}
-                <div className="kiosk-start-hero-text">
-                    <h1>
-                        Order &<br />
-                        Pay <span className="accent">Here</span>
-                    </h1>
-                </div>
-
-                {/* CTA */}
-                <div className="kiosk-start-cta">
-                    <div className="kiosk-start-cta-inner">
-                        <span>Tap anywhere to start</span>
-                        <div className="kiosk-start-cta-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
+                {/* 3️⃣ Middle Section - Trending Today */}
+                <div className="kiosk-start-v4-middle">
+                    <h3 className="v4-section-label">TRENDING TODAY</h3>
+                    <div className="v4-trending-card">
+                        <div className="v4-trending-badge">
+                            {SLIDES[currentSlide]?.badge}
                         </div>
+                        <h1 key={`title-${currentSlide}`} className="kiosk-screen-enter">
+                            {SLIDES[currentSlide]?.title}
+                        </h1>
+                        <h2 key={`subtitle-${currentSlide}`} className="kiosk-screen-enter">
+                            {SLIDES[currentSlide]?.subtitle}
+                        </h2>
+                        <p key={`desc-${currentSlide}`} className="kiosk-screen-enter">
+                            {SLIDES[currentSlide]?.description}
+                        </p>
+                    </div>
+
+                    {/* Minimal Dots Indicators */}
+                    <div className="v4-slider-dots">
+                        {SLIDES.map((_, idx) => (
+                            <div
+                                key={idx}
+                                className={`v4-dot ${idx === currentSlide ? 'active' : ''}`}
+                            />
+                        ))}
                     </div>
                 </div>
 
-                {/* Bottom indicators */}
-                <div className="kiosk-start-indicators">
-                    {HERO_IMAGES.map((_, idx) => (
-                        <div
-                            key={idx}
-                            className={`kiosk-start-indicator ${idx === currentImage ? 'active' : ''}`}
-                        />
-                    ))}
-                </div>
-
-                {/* New: Trending Items Preview to make UX more efficient */}
-                <div className="kiosk-start-trending">
-                    <h3>Trending Today</h3>
-                    <div className="kiosk-start-trending-list">
-                        <div className="kiosk-start-trending-item">
-                            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=200" alt="Pizza" />
-                            <span>Pepperoni Feast</span>
-                        </div>
-                        <div className="kiosk-start-trending-item">
-                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200" alt="Pizza" />
-                            <span>Veggie Supreme</span>
-                        </div>
-                        <div className="kiosk-start-trending-item">
-                            <img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=200" alt="Wings" />
-                            <span>Buffalo Wings</span>
-                        </div>
-                        <div className="kiosk-start-trending-item">
-                            <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=200" alt="Drink" />
-                            <span>Large Cola</span>
-                        </div>
+                {/* 4️⃣ Bottom Fixed Section - "Tap anywhere to start" */}
+                <div className="kiosk-start-v4-bottom">
+                    <div className="v4-tap-bar">
+                        <span className="v4-tap-text">TAP ANYWHERE TO START</span>
+                        <div className="v4-tap-indicator" />
                     </div>
                 </div>
             </div>
 
-            {/* Ripple effect */}
+            {/* Interaction Feedback - Ripple */}
             {ripple && (
                 <div
-                    className="kiosk-start-ripple"
+                    className="kiosk-start-ripple-v4"
                     style={{ left: ripple.x, top: ripple.y }}
                 />
             )}
-
-            {/* Decorative blurs */}
-            <div className="kiosk-start-blur kiosk-start-blur--1" />
-            <div className="kiosk-start-blur kiosk-start-blur--2" />
         </div>
     );
 }

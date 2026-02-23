@@ -4,7 +4,6 @@ import { useMemo, useCallback } from 'react';
 import { useKioskStore, type KioskScreen } from '@/store/kioskStore';
 
 // Screen Components
-import { StartScreen } from './screens/StartScreen';
 import { IdentityScreen } from './screens/IdentityScreen';
 import { RestaurantScreen } from './screens/RestaurantScreen';
 import { MenuScreen } from './screens/MenuScreen';
@@ -13,6 +12,7 @@ import { BuilderScreen } from './screens/BuilderScreen';
 import { CartScreen } from './screens/CartScreen';
 import { ReviewScreen } from './screens/ReviewScreen';
 import { PaymentScreen } from './screens/PaymentScreen';
+import { StartScreen } from './screens/StartScreen';
 import { SuccessScreen } from './screens/SuccessScreen';
 
 /**

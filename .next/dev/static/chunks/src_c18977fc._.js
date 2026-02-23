@@ -795,16 +795,76 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const HERO_IMAGES = [
-    'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1080',
-    'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1080',
-    'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=1080',
-    'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=1080'
+const OFFERS = [
+    {
+        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1080',
+        title: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                "Order &",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                    lineNumber: 10,
+                    columnNumber: 25
+                }, ("TURBOPACK compile-time value", void 0)),
+                "Pay ",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "accent",
+                    children: "Here"
+                }, void 0, false, {
+                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                    lineNumber: 10,
+                    columnNumber: 35
+                }, ("TURBOPACK compile-time value", void 0))
+            ]
+        }, void 0, true)
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1080',
+        title: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                "BOGO",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                    lineNumber: 14,
+                    columnNumber: 22
+                }, ("TURBOPACK compile-time value", void 0)),
+                "Mondays"
+            ]
+        }, void 0, true)
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=1080',
+        title: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                "Family",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                    lineNumber: 18,
+                    columnNumber: 24
+                }, ("TURBOPACK compile-time value", void 0)),
+                "Feast Pack"
+            ]
+        }, void 0, true)
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=1080',
+        title: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                "New Spicy",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                    lineNumber: 22,
+                    columnNumber: 27
+                }, ("TURBOPACK compile-time value", void 0)),
+                "Buffalo Wings"
+            ]
+        }, void 0, true)
+    }
 ];
 function StartScreen() {
     _s();
     const { startSession, resetSession, navigateTo } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$kioskStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKioskStore"])();
-    const [currentImage, setCurrentImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [currentSlide, setCurrentSlide] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [ripple, setRipple] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "StartScreen.useEffect": ()=>{
@@ -813,8 +873,8 @@ function StartScreen() {
             __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$kiosk$2f$menuService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["menuService"].getMenu('default');
             const interval = setInterval({
                 "StartScreen.useEffect.interval": ()=>{
-                    setCurrentImage({
-                        "StartScreen.useEffect.interval": (prev)=>(prev + 1) % HERO_IMAGES.length
+                    setCurrentSlide({
+                        "StartScreen.useEffect.interval": (prev)=>(prev + 1) % OFFERS.length
                     }["StartScreen.useEffect.interval"]);
                 }
             }["StartScreen.useEffect.interval"], 5000);
@@ -842,30 +902,31 @@ function StartScreen() {
         className: "kiosk-start-screen",
         onClick: handleStart,
         children: [
-            HERO_IMAGES.map((img, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            OFFERS.map((offer, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "kiosk-start-hero-image",
                     style: {
-                        opacity: idx === currentImage ? 0.5 : 0
+                        opacity: idx === currentSlide ? 0.6 : 0,
+                        transition: 'opacity 1.5s ease-in-out'
                     },
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                        src: img,
+                        src: offer.image,
                         alt: "Food",
                         loading: "eager"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 56,
+                        lineNumber: 71,
                         columnNumber: 21
                     }, this)
                 }, idx, false, {
                     fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                    lineNumber: 51,
+                    lineNumber: 63,
                     columnNumber: 17
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "kiosk-start-gradient"
             }, void 0, false, {
                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                lineNumber: 61,
+                lineNumber: 76,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -880,12 +941,12 @@ function StartScreen() {
                                     children: "Z"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                    lineNumber: 68,
+                                    lineNumber: 83,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                lineNumber: 67,
+                                lineNumber: 82,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -893,43 +954,34 @@ function StartScreen() {
                                 children: "ZYAPPY"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                lineNumber: 70,
+                                lineNumber: 85,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 66,
+                        lineNumber: 81,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "kiosk-start-hero-text",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            children: [
-                                "Order &",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                    lineNumber: 76,
-                                    columnNumber: 32
-                                }, this),
-                                "Pay ",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "accent",
-                                    children: "Here"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                    lineNumber: 77,
-                                    columnNumber: 29
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "kiosk-screen-enter",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                children: OFFERS[currentSlide]?.title
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
+                                lineNumber: 91,
+                                columnNumber: 25
+                            }, this)
+                        }, currentSlide, false, {
                             fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                            lineNumber: 75,
+                            lineNumber: 90,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 74,
+                        lineNumber: 89,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -941,7 +993,7 @@ function StartScreen() {
                                     children: "Tap anywhere to start"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                    lineNumber: 84,
+                                    lineNumber: 98,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -959,42 +1011,42 @@ function StartScreen() {
                                             d: "M5 12h14M12 5l7 7-7 7"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 101,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                        lineNumber: 86,
+                                        lineNumber: 100,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                    lineNumber: 85,
+                                    lineNumber: 99,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                            lineNumber: 83,
+                            lineNumber: 97,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 82,
+                        lineNumber: 96,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "kiosk-start-indicators",
-                        children: HERO_IMAGES.map((_, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `kiosk-start-indicator ${idx === currentImage ? 'active' : ''}`
+                        children: OFFERS.map((_, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `kiosk-start-indicator ${idx === currentSlide ? 'active' : ''}`
                             }, idx, false, {
                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                lineNumber: 96,
+                                lineNumber: 110,
                                 columnNumber: 25
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 94,
+                        lineNumber: 108,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1004,7 +1056,7 @@ function StartScreen() {
                                 children: "Trending Today"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                lineNumber: 105,
+                                lineNumber: 119,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1014,114 +1066,114 @@ function StartScreen() {
                                         className: "kiosk-start-trending-item",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=200",
+                                                src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&h=200&fit=crop",
                                                 alt: "Pizza"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 108,
+                                                lineNumber: 122,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Pepperoni Feast"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 109,
+                                                lineNumber: 123,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 121,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "kiosk-start-trending-item",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200",
+                                                src: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=200&h=200&fit=crop",
                                                 alt: "Pizza"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 126,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Veggie Supreme"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 113,
+                                                lineNumber: 127,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                        lineNumber: 111,
+                                        lineNumber: 125,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "kiosk-start-trending-item",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=200",
+                                                src: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=200&h=200&fit=crop",
                                                 alt: "Wings"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 116,
+                                                lineNumber: 130,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Buffalo Wings"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 117,
+                                                lineNumber: 131,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 129,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "kiosk-start-trending-item",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=200",
+                                                src: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=200&h=200&fit=crop",
                                                 alt: "Drink"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 120,
+                                                lineNumber: 134,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Large Cola"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                                lineNumber: 121,
+                                                lineNumber: 135,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                        lineNumber: 119,
+                                        lineNumber: 133,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                                lineNumber: 106,
+                                lineNumber: 120,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                        lineNumber: 104,
+                        lineNumber: 118,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                lineNumber: 64,
+                lineNumber: 79,
                 columnNumber: 13
             }, this),
             ripple && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1132,31 +1184,31 @@ function StartScreen() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                lineNumber: 129,
+                lineNumber: 143,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "kiosk-start-blur kiosk-start-blur--1"
             }, void 0, false, {
                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                lineNumber: 136,
+                lineNumber: 150,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "kiosk-start-blur kiosk-start-blur--2"
             }, void 0, false, {
                 fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-                lineNumber: 137,
+                lineNumber: 151,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kiosk/screens/StartScreen.tsx",
-        lineNumber: 45,
+        lineNumber: 57,
         columnNumber: 9
     }, this);
 }
-_s(StartScreen, "EAPbxQuD2YJR+0463Wbn35FQAYg=", false, function() {
+_s(StartScreen, "dzMG7V6T3pMYlF3DVI9867gdHew=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$kioskStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKioskStore"]
     ];

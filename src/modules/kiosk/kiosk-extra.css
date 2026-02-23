@@ -329,3 +329,109 @@
 .kiosk-success-blur { position: absolute; border-radius: 50%; filter: blur(60px); }
 .kiosk-success-blur--1 { bottom: -60px; left: -60px; width: 200px; height: 200px; background: rgba(255,255,255,.1); }
 .kiosk-success-blur--2 { top: -60px; right: -60px; width: 260px; height: 260px; background: rgba(0,0,0,.1); }
+
+/* ═══════════════ ATTRACT SCREEN ═══════════════ */
+.kiosk-attract-root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+}
+
+.kiosk-attract-media-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.kiosk-attract-media-container.fade-in { opacity: 1; }
+.kiosk-attract-media-container.fade-out { opacity: 0; }
+
+.kiosk-attract-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kiosk-attract-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.7) 0%,
+    rgba(0,0,0,0.4) 50%,
+    rgba(0,0,0,0) 100%
+  );
+  z-index: 1;
+}
+
+.kiosk-attract-content {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  max-width: 600px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #fff;
+  text-align: left;
+}
+
+.kiosk-attract-badge {
+  background: #E8032F;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 99px;
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  width: fit-content;
+  letter-spacing: 0.05em;
+}
+
+.kiosk-attract-title {
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0;
+  color: #fff;
+}
+
+.kiosk-attract-subtitle {
+  font-size: 24px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin: 0;
+  color: #fff;
+}
+
+.kiosk-attract-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #FFC405;
+}
+
+.kiosk-attract-tap-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  z-index: 3;
+  text-align: center;
+  animation: attract-pulse 1.2s infinite alternate ease-in-out;
+  pointer-events: none;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+@keyframes attract-pulse {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(1.05); }
+}
