@@ -20,7 +20,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     isCollapsed,
 }) => {
     const pathname = usePathname();
-    const isActive = pathname === path || (path !== '/backoffice/home' && pathname?.startsWith(path));
+    const isActive = pathname === path || (pathname?.startsWith(path + '/') ?? false);
 
     return (
         <Link

@@ -14,11 +14,12 @@ import { useRouteAccess } from '@/hooks/useRouteAccess';
 export const Sidebar: React.FC = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { role, getVisibleMenuItems } = useRouteAccess();
-
     const menuItems = getVisibleMenuItems();
 
-    // Primary action button allowed for ADMIN and STORE_MANAGER roles
-    const showNewSale = role === 'ADMIN' || role === 'STORE_MANAGER';
+    const isPlatform = role === 'PLATFORM_SUPER_ADMIN';
+
+    // Primary action button allowed for BRAND_ADMIN, ADMIN and STORE_MANAGER roles (hidden for Platform)
+    const showNewSale = (role === 'BRAND_ADMIN' || role === 'ADMIN' || role === 'STORE_MANAGER') && !isPlatform;
 
     return (
         <div
@@ -32,14 +33,25 @@ export const Sidebar: React.FC = () => {
                 'flex h-14 shrink-0 items-center px-4',
                 isCollapsed ? 'justify-center border-b border-slate-50' : 'justify-start mb-2'
             )}>
-                <a href="/backoffice" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                    <div className="w-7 h-7 bg-emerald-600 rounded-md flex items-center justify-center shadow shadow-emerald-100">
+                <a
+                    href={isPlatform ? "/platform/brands" : "/backoffice"}
+                    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                >
+                    <div className={cn(
+                        "w-7 h-7 rounded-md flex items-center justify-center shadow transition-all",
+                        isPlatform ? "bg-slate-900 shadow-slate-200" : "bg-emerald-600 shadow-emerald-100"
+                    )}>
                         <span className="text-white text-[10px] font-bold tracking-tighter">Z</span>
                     </div>
                     {!isCollapsed && (
-                        <span className="text-sm font-black text-slate-800 tracking-tight lowercase">
-                            zyappy
-                        </span>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-black text-slate-800 tracking-tight lowercase leading-none">
+                                zyappy
+                            </span>
+                            {isPlatform && (
+                                <span className="text-[8px] font-black text-emerald-600 uppercase tracking-widest mt-0.5">Platform</span>
+                            )}
+                        </div>
                     )}
                 </a>
             </div>

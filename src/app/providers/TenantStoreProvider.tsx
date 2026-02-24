@@ -1,4 +1,4 @@
-                  'use client';
+'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Tenant, Store, TenantStoreContextType } from '@/types';
@@ -34,7 +34,13 @@ export const TenantStoreProvider: React.FC<TenantStoreProviderProps> = ({ childr
         name: 'Flagship Store',
         code: 'FS-01',
         tenantId: 'tenant-demo',
-        timezone: 'America/New_York'
+        timezone: 'America/New_York',
+        city: 'New York',
+        province: 'New York',
+        status: 'Active',
+        paymentTerms: 'Net 30',
+        taxProfile: 'Inherit',
+        logoStatus: 'Default'
     });
 
     const [allStores] = useState<Store[]>([
@@ -43,14 +49,26 @@ export const TenantStoreProvider: React.FC<TenantStoreProviderProps> = ({ childr
             name: 'Flagship Store',
             code: 'FS-01',
             tenantId: 'tenant-demo',
-            timezone: 'America/New_York'
+            timezone: 'America/New_York',
+            city: 'New York',
+            province: 'New York',
+            status: 'Active',
+            paymentTerms: 'Net 30',
+            taxProfile: 'Inherit',
+            logoStatus: 'Default'
         },
         {
             id: 'store-02',
             name: 'Warehouse Ops',
             code: 'WH-02',
             tenantId: 'tenant-demo',
-            timezone: 'America/New_York'
+            timezone: 'America/New_York',
+            city: 'Jersey City',
+            province: 'New Jersey',
+            status: 'Active',
+            paymentTerms: 'Net 15',
+            taxProfile: 'Inherit',
+            logoStatus: 'Default'
         }
     ]);
 

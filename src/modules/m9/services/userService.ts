@@ -27,6 +27,22 @@ export const AVAILABLE_PERMISSIONS: { category: PermissionCategory; actions: str
 // Initial Roles (Seed)
 const INITIAL_ROLES: Role[] = [
     {
+        id: 'ROLE_PLATFORM_ADMIN',
+        name: 'Platform Super Admin',
+        description: 'Global system access',
+        permissions: AVAILABLE_PERMISSIONS.flatMap(g => g.actions),
+        isSystem: true,
+        createdAt: new Date().toISOString()
+    },
+    {
+        id: 'ROLE_BRAND_ADMIN',
+        name: 'Brand Admin',
+        description: 'Brand-level administrative access',
+        permissions: AVAILABLE_PERMISSIONS.flatMap(g => g.actions),
+        isSystem: true,
+        createdAt: new Date().toISOString()
+    },
+    {
         id: 'ROLE_ADMIN',
         name: 'Admin',
         description: 'Full system access',

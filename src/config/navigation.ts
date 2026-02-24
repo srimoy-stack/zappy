@@ -9,9 +9,10 @@ import {
     MoreHorizontal,
     Warehouse,
     Settings,
-    LayoutGrid
+    LayoutGrid,
+    Building2
 } from 'lucide-react';
-import { UserRole } from '@/types';
+import { UserRole, ModuleId } from '@/types';
 
 export type AccessMode = 'full' | 'read-only' | 'hidden';
 
@@ -24,6 +25,7 @@ export interface MenuConfig {
     // Map role to its specific access mode on this page
     accessMode: Partial<Record<UserRole, AccessMode>>;
     requiresStoreScope: boolean;
+    requiredModule?: ModuleId;
 }
 
 /**
@@ -35,8 +37,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Home',
         route: '/backoffice/home',
         icon: 'Home',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -47,8 +50,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Sales Activity',
         route: '/backoffice/sales-activity',
         icon: 'TrendingUp',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -60,8 +64,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Reports',
         route: '/backoffice/reports',
         icon: 'FileText',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'read-only'
         },
@@ -72,8 +77,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Finances',
         route: '/backoffice/finances',
         icon: 'DollarSign',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -84,8 +90,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Items',
         route: '/backoffice/items',
         icon: 'Package',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -97,8 +104,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Users',
         route: '/backoffice/users',
         icon: 'Users',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -110,8 +118,9 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Customers',
         route: '/backoffice/customers',
         icon: 'UserCircle',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'EMPLOYEE'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -123,32 +132,37 @@ export const navigationConfig: MenuConfig[] = [
         label: 'Inventory',
         route: '/backoffice/inventory',
         icon: 'Warehouse',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
-        requiresStoreScope: true
+        requiresStoreScope: true,
+        requiredModule: 'inventory'
     },
     {
         id: 'web-shop',
         label: 'Web Shop',
         route: '/backoffice/shop',
         icon: 'LayoutGrid',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
-        requiresStoreScope: false
+        requiresStoreScope: false,
+        requiredModule: 'web-shop'
     },
     {
         id: 'business-operations',
         label: 'Settings',
         route: '/backoffice/settings/business-operations',
         icon: 'Settings',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -159,10 +173,24 @@ export const navigationConfig: MenuConfig[] = [
         label: 'More',
         route: '/backoffice/more',
         icon: 'MoreHorizontal',
-        allowedRoles: ['ADMIN', 'STORE_MANAGER'],
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
+    },
+
+    // ── Platform Section (PLATFORM_SUPER_ADMIN only) ────────────────────
+    {
+        id: 'platform-brands',
+        label: 'Brands',
+        route: '/platform/brands',
+        icon: 'Building2',
+        allowedRoles: ['PLATFORM_SUPER_ADMIN'],
+        accessMode: {
+            PLATFORM_SUPER_ADMIN: 'full'
         },
         requiresStoreScope: false
     }
@@ -181,4 +209,5 @@ export const iconMap = {
     Warehouse,
     Settings,
     LayoutGrid,
+    Building2,
 };

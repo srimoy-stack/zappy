@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/app/backoffice/finances/page.tsx"],"sourcesContent":["'use client';\n\nimport { FinancesPage } from '@/modules/m9/pages';\n\nexport default function Page() {\n  return <FinancesPage />;\n}\n"],"names":[],"mappings":"uDAEA,EAAA,CAAA,CAAA,OAAA,IAAA,EAAA,EAAA,CAAA,CAAA,OAEe,SAAS,IACtB,MAAO,CAAA,EAAA,EAAA,GAAA,EAAC,EAAA,YAAY,CAAA,CAAA,EACtB"}

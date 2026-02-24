@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/platform/layout,_N_T_/platform/brands/layout,_N_T_/platform/brands/onboarding/layout,_N_T_/platform/brands/onboarding/page,_N_T_/platform/brands/onboarding"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/platform/brands/onboarding/__PAGE__",
+    "/platform/brands/onboarding",
+    "/platform/brands",
+    "/platform",
+    "/_index",
+    "/_head"
+  ]
+}

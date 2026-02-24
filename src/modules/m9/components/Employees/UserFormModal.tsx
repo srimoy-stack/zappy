@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { Employee } from '../../types/employees';
-import { UserRole, UserType } from '@/types';
+import { UserRole } from '@/types';
+import { Employee, UserType } from '../../types/employees';
 
 interface UserFormModalProps {
     isOpen: boolean;

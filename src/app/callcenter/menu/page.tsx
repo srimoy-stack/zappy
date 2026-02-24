@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePOS } from '@/modules/pos/context/POSContext';
 import {
@@ -163,7 +163,7 @@ export default function CallCenterMenuPage() {
         });
     }, [activeCategory, searchQuery]);
 
-    const handleProductClick = (product: POSProduct) => {
+    const handleProductClick = useCallback((product: POSProduct) => {
         if (!product.isAvailable) return;
 
         if (product.hasVariants || product.modifierGroups?.length || product.isCombo) {
@@ -184,9 +184,9 @@ export default function CallCenterMenuPage() {
                 notes: ''
             });
         }
-    };
+    }, [addToCart]);
 
-    const handleCustomizedAdd = (cartItem: any) => {
+    const handleCustomizedAdd = useCallback((cartItem: any) => {
         if (editingCartItem) {
             updateCartItem(editingCartItem.id, { ...cartItem, id: editingCartItem.id });
         } else {
@@ -196,7 +196,20 @@ export default function CallCenterMenuPage() {
         setIsPizzaModalOpen(false);
         setCustomizationProduct(null);
         setEditingCartItem(null);
-    };
+    }, [editingCartItem, updateCartItem, addToCart]);
+
+    const handleEditItem = useCallback((item: any) => {
+        const product = MOCK_PRODUCTS.find(p => p.id === item.productId);
+        if (product) {
+            setEditingCartItem(item);
+            setCustomizationProduct(product);
+            if (product.categoryId === 'pizza' && !product.isCombo) {
+                setIsPizzaModalOpen(true);
+            } else {
+                setIsCustomizationOpen(true);
+            }
+        }
+    }, []);
 
     if (!selectedCustomer) {
         router.push('/callcenter/customer-lookup');
@@ -340,46 +353,11 @@ export default function CallCenterMenuPage() {
                         gap: '24px'
                     }}>
                         {filteredProducts.map(product => (
-                            <button
+                            <ProductItem
                                 key={product.id}
-                                onClick={() => handleProductClick(product)}
-                                style={{
-                                    background: '#1e293b',
-                                    border: '1px solid #334155',
-                                    borderRadius: '24px',
-                                    padding: '24px',
-                                    textAlign: 'left',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s',
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '12px'
-                                }}
-                                className="product-card"
-                            >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                    <div>
-                                        <h3 style={{ fontSize: '18px', fontWeight: 900, color: 'white', margin: 0 }}>{product.name}</h3>
-                                        <p style={{ fontSize: '12px', color: '#64748b', margin: '4px 0 0 0', fontWeight: 700 }}>SKU: {product.sku}</p>
-                                    </div>
-                                    <div style={{ fontSize: '18px', fontWeight: 950, color: '#3b82f6' }}>
-                                        ${product.price.toFixed(2)}
-                                    </div>
-                                </div>
-                                <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.5, flex: 1 }}>
-                                    Deliciously crafted with premium ingredients and our signature recipe.
-                                </p>
-                                <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                                    {product.hasVariants && (
-                                        <span style={{ fontSize: '10px', background: '#334155', color: 'white', padding: '4px 8px', borderRadius: '6px', fontWeight: 800 }}>CUSTOMIZABLE</span>
-                                    )}
-                                    {product.isVeg && (
-                                        <span style={{ fontSize: '10px', background: '#065f46', color: '#34d399', padding: '4px 8px', borderRadius: '6px', fontWeight: 800 }}>VEG</span>
-                                    )}
-                                </div>
-                            </button>
+                                product={product}
+                                onClick={handleProductClick}
+                            />
                         ))}
                     </div>
                 </div>
@@ -451,17 +429,48 @@ export default function CallCenterMenuPage() {
             `}</style>
         </div>
     );
-
-    function handleEditItem(item: any) {
-        const product = MOCK_PRODUCTS.find(p => p.id === item.productId);
-        if (product) {
-            setEditingCartItem(item);
-            setCustomizationProduct(product);
-            if (product.categoryId === 'pizza' && !product.isCombo) {
-                setIsPizzaModalOpen(true);
-            } else {
-                setIsCustomizationOpen(true);
-            }
-        }
-    }
 }
+
+const ProductItem = memo(({ product, onClick }: { product: POSProduct, onClick: (p: POSProduct) => void }) => (
+    <button
+        onClick={() => onClick(product)}
+        style={{
+            background: '#1e293b',
+            border: '1px solid #334155',
+            borderRadius: '24px',
+            padding: '24px',
+            textAlign: 'left',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            position: 'relative',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px'
+        }}
+        className="product-card"
+    >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+                <h3 style={{ fontSize: '18px', fontWeight: 900, color: 'white', margin: 0 }}>{product.name}</h3>
+                <p style={{ fontSize: '12px', color: '#64748b', margin: '4px 0 0 0', fontWeight: 700 }}>SKU: {product.sku}</p>
+            </div>
+            <div style={{ fontSize: '18px', fontWeight: 950, color: '#3b82f6' }}>
+                ${product.price.toFixed(2)}
+            </div>
+        </div>
+        <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.5, flex: 1 }}>
+            Deliciously crafted with premium ingredients and our signature recipe.
+        </p>
+        <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            {product.hasVariants && (
+                <span style={{ fontSize: '10px', background: '#334155', color: 'white', padding: '4px 8px', borderRadius: '6px', fontWeight: 800 }}>CUSTOMIZABLE</span>
+            )}
+            {product.isVeg && (
+                <span style={{ fontSize: '10px', background: '#065f46', color: '#34d399', padding: '4px 8px', borderRadius: '6px', fontWeight: 800 }}>VEG</span>
+            )}
+        </div>
+    </button>
+));
+
+ProductItem.displayName = 'ProductItem';

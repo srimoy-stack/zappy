@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RotateCcw, AlertCircle, CheckCircle2, DollarSign } from 'lucide-react';
 import '../styles/pos-rush.css';
@@ -27,30 +27,34 @@ export const RefundPage: React.FC = () => {
     const [processing, setProcessing] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const calculateRefundAmount = () => {
+    const calculateRefundAmount = useCallback(() => {
         if (refundType === 'FULL') {
             return mockOrder.total;
         }
         if (customAmount) {
-            return parseFloat(customAmount) || 0;
+            const amount = parseFloat(customAmount);
+            return isNaN(amount) ? 0 : Math.min(amount, mockOrder.total);
         }
         return mockOrder.items
             .filter(item => selectedItems.has(item.id))
             .reduce((sum, item) => sum + item.price, 0);
-    };
+    }, [refundType, customAmount, selectedItems]);
 
-    const handleItemToggle = (itemId: string) => {
-        const newSelected = new Set(selectedItems);
-        if (newSelected.has(itemId)) {
-            newSelected.delete(itemId);
-        } else {
-            newSelected.add(itemId);
-        }
-        setSelectedItems(newSelected);
-    };
+    const handleItemToggle = useCallback((itemId: string) => {
+        setSelectedItems(prev => {
+            const next = new Set(prev);
+            if (next.has(itemId)) {
+                next.delete(itemId);
+            } else {
+                next.add(itemId);
+            }
+            return next;
+        });
+    }, []);
 
-    const handleProcessRefund = async () => {
-        if (!refundReason) {
+    const handleProcessRefund = useCallback(async () => {
+        const reason = refundReason.trim();
+        if (!reason) {
             alert('Please provide a refund reason');
             return;
         }
@@ -64,59 +68,13 @@ export const RefundPage: React.FC = () => {
                 router.push('/pos/dashboard');
             }, 2000);
         }, 2000);
-    };
+    }, [refundReason, router]);
 
-    const refundAmount = calculateRefundAmount();
+    const refundAmount = useMemo(() => calculateRefundAmount(), [calculateRefundAmount]);
     const canProcess = refundAmount > 0 && refundReason.trim().length > 0;
 
     if (success) {
-        return (
-            <div className="pos-screen" style={{ background: 'var(--pos-bg-main)' }}>
-                <div style={{
-                    minHeight: '100vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '24px'
-                }}>
-                    <div style={{ textAlign: 'center', maxWidth: '600px' }}>
-                        <div style={{
-                            width: '120px',
-                            height: '120px',
-                            background: 'var(--pos-bg-surface)',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            margin: '0 auto 32px',
-                            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.05)',
-                            border: '4px solid var(--pos-state-success)'
-                        }}>
-                            <CheckCircle2 size={70} color="var(--pos-state-success)" />
-                        </div>
-                        <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'var(--pos-text-primary)', marginBottom: '16px' }}>
-                            Refund Processed
-                        </h1>
-                        <p style={{ fontSize: '18px', color: 'var(--pos-text-secondary)', fontWeight: 700, marginBottom: '32px' }}>
-                            ${refundAmount.toFixed(2)} has been refunded to the customer
-                        </p>
-                        <div style={{
-                            background: 'var(--pos-bg-surface)',
-                            border: '1px solid var(--pos-border-subtle)',
-                            borderRadius: '20px',
-                            padding: '24px',
-                            fontSize: '14px',
-                            color: 'var(--pos-text-muted)',
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em'
-                        }}>
-                            Redirecting to dashboard...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+        return <RefundSuccess amount={refundAmount} />;
     }
 
     return (
@@ -307,7 +265,7 @@ export const RefundPage: React.FC = () => {
                             value={refundReason}
                             onChange={(e) => setRefundReason(e.target.value)}
                             placeholder="Provide systemic reason for refund sequence..."
-                            className="pos-input"
+                            className="pos-input pos-scroll"
                             style={{ minHeight: '140px', resize: 'none', padding: '20px', fontSize: '16px', fontWeight: 600, background: 'white' }}
                         />
                         <div style={{ fontSize: '12px', color: 'var(--pos-text-muted)', fontWeight: 700, marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -421,3 +379,51 @@ export const RefundPage: React.FC = () => {
         </div>
     );
 };
+
+const RefundSuccess: React.FC<{ amount: number }> = ({ amount }) => (
+    <div className="pos-screen" style={{ background: 'var(--pos-bg-main)' }}>
+        <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+        }}>
+            <div style={{ textAlign: 'center', maxWidth: '600px', animation: 'posFadeInUp 0.5s ease-out' }}>
+                <div style={{
+                    width: '120px',
+                    height: '120px',
+                    background: 'var(--pos-bg-surface)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 32px',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.05)',
+                    border: '4px solid var(--pos-state-success)'
+                }}>
+                    <CheckCircle2 size={70} color="var(--pos-state-success)" />
+                </div>
+                <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'var(--pos-text-primary)', marginBottom: '16px' }}>
+                    Refund Processed
+                </h1>
+                <p style={{ fontSize: '18px', color: 'var(--pos-text-secondary)', fontWeight: 700, marginBottom: '32px' }}>
+                    ${amount.toFixed(2)} has been refunded to the customer
+                </p>
+                <div style={{
+                    background: 'var(--pos-bg-surface)',
+                    border: '1px solid var(--pos-border-subtle)',
+                    borderRadius: '20px',
+                    padding: '24px',
+                    fontSize: '14px',
+                    color: 'var(--pos-text-muted)',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em'
+                }}>
+                    Redirecting to dashboard...
+                </div>
+            </div>
+        </div>
+    </div>
+);

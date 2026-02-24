@@ -8,17 +8,25 @@ import { navigationConfig, MenuConfig, AccessMode } from '@/config/navigation';
  * Drives visibility and behavior based on the production-grade session.
  */
 export const useRouteAccess = () => {
-    const { role, storeIds, user } = useAuth();
+    const { role, storeIds, user, enabledModules } = useAuth();
 
     /**
-     * Gets visible menu items for the current role
+     * Gets visible menu items for the current role and active modules
      */
     const getVisibleMenuItems = (): MenuConfig[] => {
         if (!role) return [];
-        return navigationConfig.filter(item =>
-            item.allowedRoles.includes(role) &&
-            item.accessMode[role] !== 'hidden'
-        );
+        return navigationConfig.filter(item => {
+            // Role check
+            const roleAllowed = item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
+            if (!roleAllowed) return false;
+
+            // Module check
+            if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
+                return false;
+            }
+
+            return true;
+        });
     };
 
     /**
@@ -26,6 +34,11 @@ export const useRouteAccess = () => {
      */
     const isAuthorized = (path: string): boolean => {
         if (!role) return false;
+
+        // Platform routes → only PLATFORM_SUPER_ADMIN
+        if (path.startsWith('/platform')) {
+            return role === 'PLATFORM_SUPER_ADMIN';
+        }
 
         // If it's a direct backoffice subpath, check config
         const item = navigationConfig.find(m => m.route === path);
@@ -35,7 +48,13 @@ export const useRouteAccess = () => {
             return true;
         }
 
-        return item.allowedRoles.includes(role);
+        // Role check
+        if (!item.allowedRoles.includes(role)) return false;
+
+        // Module check
+        if (item.requiredModule && !enabledModules.includes(item.requiredModule)) return false;
+
+        return true;
     };
 
     /**
@@ -45,6 +64,12 @@ export const useRouteAccess = () => {
         if (!role) return 'hidden';
         const item = navigationConfig.find(m => m.route === path);
         if (!item) return 'full';
+
+        // Module check for access mode
+        if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
+            return 'hidden';
+        }
+
         return item.accessMode[role] || 'hidden';
     };
 
@@ -52,7 +77,7 @@ export const useRouteAccess = () => {
      * Checks if current user can switch stores
      */
     const canManageStores = (): boolean => {
-        if (role === 'ADMIN') return true;
+        if (role === 'ADMIN' || role === 'BRAND_ADMIN') return true;
         if (role === 'STORE_MANAGER' && storeIds.length > 1) return true;
         return false;
     };
@@ -61,7 +86,7 @@ export const useRouteAccess = () => {
      * Checks if user is restricted to specific stores
      */
     const getManagedStoreIds = (): string[] | 'all' => {
-        if (role === 'ADMIN') return 'all';
+        if (role === 'ADMIN' || role === 'BRAND_ADMIN') return 'all';
         return storeIds;
     };
 

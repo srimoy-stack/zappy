@@ -650,6 +650,42 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/platform/brands/[brandId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/platform/brands/[brandId]">> = Specific
+  const handler = {} as typeof import("../../src/app/platform/brands/[brandId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/platform/brands/onboarding/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/platform/brands/onboarding">> = Specific
+  const handler = {} as typeof import("../../src/app/platform/brands/onboarding/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/platform/brands/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/platform/brands">> = Specific
+  const handler = {} as typeof import("../../src/app/platform/brands/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/platform/stores/[storeId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/platform/stores/[storeId]">> = Specific
+  const handler = {} as typeof import("../../src/app/platform/stores/[storeId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/pos/channel-selection/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/pos/channel-selection">> = Specific
@@ -919,6 +955,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
   const handler = {} as typeof import("../../src/app/layout.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/platform/layout.tsx
+{
+  type __IsExpected<Specific extends LayoutConfig<"/platform">> = Specific
+  const handler = {} as typeof import("../../src/app/platform/layout.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

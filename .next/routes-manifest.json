@@ -176,6 +176,22 @@
       "namedRegex": "^/kiosk/product/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/platform/brands/[brandId]",
+      "regex": "^/platform/brands/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbrandId": "nxtPbrandId"
+      },
+      "namedRegex": "^/platform/brands/(?<nxtPbrandId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/platform/stores/[storeId]",
+      "regex": "^/platform/stores/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPstoreId": "nxtPstoreId"
+      },
+      "namedRegex": "^/platform/stores/(?<nxtPstoreId>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/pos/order-details/[id]",
       "regex": "^/pos/order\\-details/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -498,6 +514,18 @@
       "regex": "^/kiosk/success(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/kiosk/success(?:/)?$"
+    },
+    {
+      "page": "/platform/brands",
+      "regex": "^/platform/brands(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/platform/brands(?:/)?$"
+    },
+    {
+      "page": "/platform/brands/onboarding",
+      "regex": "^/platform/brands/onboarding(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/platform/brands/onboarding(?:/)?$"
     },
     {
       "page": "/pos",

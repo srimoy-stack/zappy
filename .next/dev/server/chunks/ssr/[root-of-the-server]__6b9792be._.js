@@ -56,7 +56,7 @@ const AuthProvider = ({ children })=>{
             id: 'user-1',
             name: 'John Doe',
             email: 'admin@zyappy.com',
-            role: 'ADMIN',
+            role: 'PLATFORM_SUPER_ADMIN',
             tenantId: 'tenant-demo',
             storeIds: [
                 'store-01',
@@ -65,11 +65,16 @@ const AuthProvider = ({ children })=>{
         },
         isAuthenticated: true,
         isLoading: false,
-        role: 'ADMIN',
+        role: 'PLATFORM_SUPER_ADMIN',
         tenantId: 'tenant-demo',
         storeIds: [
             'store-01',
             'store-02'
+        ],
+        enabledModules: [
+            'pos',
+            'inventory',
+            'kiosk'
         ]
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
@@ -77,7 +82,7 @@ const AuthProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/providers/AuthProvider.tsx",
-        lineNumber: 48,
+        lineNumber: 50,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -116,7 +121,13 @@ const TenantStoreProvider = ({ children })=>{
         name: 'Flagship Store',
         code: 'FS-01',
         tenantId: 'tenant-demo',
-        timezone: 'America/New_York'
+        timezone: 'America/New_York',
+        city: 'New York',
+        province: 'New York',
+        status: 'Active',
+        paymentTerms: 'Net 30',
+        taxProfile: 'Inherit',
+        logoStatus: 'Default'
     });
     const [allStores] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([
         {
@@ -124,14 +135,26 @@ const TenantStoreProvider = ({ children })=>{
             name: 'Flagship Store',
             code: 'FS-01',
             tenantId: 'tenant-demo',
-            timezone: 'America/New_York'
+            timezone: 'America/New_York',
+            city: 'New York',
+            province: 'New York',
+            status: 'Active',
+            paymentTerms: 'Net 30',
+            taxProfile: 'Inherit',
+            logoStatus: 'Default'
         },
         {
             id: 'store-02',
             name: 'Warehouse Ops',
             code: 'WH-02',
             tenantId: 'tenant-demo',
-            timezone: 'America/New_York'
+            timezone: 'America/New_York',
+            city: 'Jersey City',
+            province: 'New Jersey',
+            status: 'Active',
+            paymentTerms: 'Net 15',
+            taxProfile: 'Inherit',
+            logoStatus: 'Default'
         }
     ]);
     const [isLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -147,7 +170,7 @@ const TenantStoreProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/providers/TenantStoreProvider.tsx",
-        lineNumber: 60,
+        lineNumber: 78,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

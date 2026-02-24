@@ -10,6 +10,7 @@ interface AuthContextType {
     role: UserRole | null;
     tenantId: string | null;
     storeIds: string[];
+    enabledModules: string[];
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,15 +34,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             id: 'user-1',
             name: 'John Doe',
             email: 'admin@zyappy.com',
-            role: 'ADMIN',
+            role: 'PLATFORM_SUPER_ADMIN',
             tenantId: 'tenant-demo',
             storeIds: ['store-01', 'store-02']
         },
         isAuthenticated: true,
         isLoading: false,
-        role: 'ADMIN',
+        role: 'PLATFORM_SUPER_ADMIN',
         tenantId: 'tenant-demo',
         storeIds: ['store-01', 'store-02'],
+        enabledModules: ['pos', 'inventory', 'kiosk'],
     };
 
     return (
