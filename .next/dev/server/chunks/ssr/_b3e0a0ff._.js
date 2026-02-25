@@ -21,6 +21,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-ssr] (ecmascript) <export default as Edit>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-ssr] (ecmascript) <export default as Clock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$panels$2d$top$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layout$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/panels-top-left.js [app-ssr] (ecmascript) <export default as Layout>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 'use client';
 ;
 ;
@@ -99,6 +100,7 @@ function StoreDetailPage() {
     const [store, setStore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [brand] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(MOCK_BRAND);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [isOverrideModalOpen, setIsOverrideModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         // Simulate API fetch
         const timer = setTimeout(()=>{
@@ -110,6 +112,19 @@ function StoreDetailPage() {
     }, [
         storeId
     ]);
+    const handleDeactivate = ()=>{
+        if (!store) return;
+        const confirmMsg = store.status === 'Active' ? `Are you sure you want to deactivate ${store.name}? This will suspend all terminal operations.` : `Reactiving ${store.name} will restore all system operations. Proceed?`;
+        if (window.confirm(confirmMsg)) {
+            setStore({
+                ...store,
+                status: store.status === 'Active' ? 'Inactive' : 'Active'
+            });
+        }
+    };
+    const handleViewLiveData = ()=>{
+        router.push(`/pos/dashboard?storeId=${storeId}`);
+    };
     if (isLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex h-[80vh] flex-col items-center justify-center gap-4",
@@ -118,7 +133,7 @@ function StoreDetailPage() {
                     className: "w-12 h-12 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin"
                 }, void 0, false, {
                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                    lineNumber: 90,
+                    lineNumber: 110,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -126,13 +141,13 @@ function StoreDetailPage() {
                     children: "Initialising Store Context..."
                 }, void 0, false, {
                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                    lineNumber: 91,
+                    lineNumber: 111,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-            lineNumber: 89,
+            lineNumber: 109,
             columnNumber: 13
         }, this);
     }
@@ -152,14 +167,14 @@ function StoreDetailPage() {
                                 children: "Platform"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 103,
+                                lineNumber: 123,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                 className: "w-3 h-3"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 104,
+                                lineNumber: 124,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -168,14 +183,14 @@ function StoreDetailPage() {
                                 children: "Acme Pizza Co."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 105,
+                                lineNumber: 125,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                 className: "w-3 h-3"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 106,
+                                lineNumber: 126,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -183,13 +198,13 @@ function StoreDetailPage() {
                                 children: "Store Node"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 107,
+                                lineNumber: 127,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 102,
+                        lineNumber: 122,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -205,12 +220,12 @@ function StoreDetailPage() {
                                             className: "w-5 h-5 text-slate-600 group-hover:-translate-x-1 transition-transform"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 116,
+                                            lineNumber: 136,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 132,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -224,7 +239,7 @@ function StoreDetailPage() {
                                                         children: store.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 120,
+                                                        lineNumber: 140,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -232,13 +247,13 @@ function StoreDetailPage() {
                                                         children: store.status
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 121,
+                                                        lineNumber: 141,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 119,
+                                                lineNumber: 139,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -250,7 +265,7 @@ function StoreDetailPage() {
                                                         children: store.id
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 126,
+                                                        lineNumber: 146,
                                                         columnNumber: 48
                                                     }, this),
                                                     " · Code: ",
@@ -259,25 +274,25 @@ function StoreDetailPage() {
                                                         children: store.code
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 126,
+                                                        lineNumber: 146,
                                                         columnNumber: 143
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 125,
+                                                lineNumber: 145,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 118,
+                                        lineNumber: 138,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 111,
+                                lineNumber: 131,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -289,31 +304,31 @@ function StoreDetailPage() {
                                             className: "w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 133,
+                                            lineNumber: 153,
                                             columnNumber: 29
                                         }, this),
                                         "Edit Configuration"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                    lineNumber: 132,
+                                    lineNumber: 152,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 131,
+                                lineNumber: 151,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 130,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                lineNumber: 101,
+                lineNumber: 121,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -334,7 +349,7 @@ function StoreDetailPage() {
                                                     className: "w-5 h-5 text-slate-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 148,
+                                                    lineNumber: 168,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -342,18 +357,18 @@ function StoreDetailPage() {
                                                     children: "Localization & Contact"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 149,
+                                                    lineNumber: 169,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 147,
+                                            lineNumber: 167,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 166,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -367,7 +382,7 @@ function StoreDetailPage() {
                                                     value: store.city
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 154,
+                                                    lineNumber: 174,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoItem, {
@@ -376,7 +391,7 @@ function StoreDetailPage() {
                                                     value: store.province
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 155,
+                                                    lineNumber: 175,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoItem, {
@@ -385,7 +400,7 @@ function StoreDetailPage() {
                                                     value: store.timezone
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 156,
+                                                    lineNumber: 176,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoItem, {
@@ -394,24 +409,24 @@ function StoreDetailPage() {
                                                     value: brand.currency
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 177,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 153,
+                                            lineNumber: 173,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 152,
+                                        lineNumber: 172,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 145,
+                                lineNumber: 165,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -426,7 +441,7 @@ function StoreDetailPage() {
                                                     className: "w-5 h-5 text-slate-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 165,
+                                                    lineNumber: 185,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -434,18 +449,18 @@ function StoreDetailPage() {
                                                     children: "Financial & Tax Policy"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 166,
+                                                    lineNumber: 186,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 164,
+                                            lineNumber: 184,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 163,
+                                        lineNumber: 183,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -461,7 +476,7 @@ function StoreDetailPage() {
                                                             children: "Payment Terms"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 172,
+                                                            lineNumber: 192,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -472,7 +487,7 @@ function StoreDetailPage() {
                                                                     children: store.paymentTerms
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                    lineNumber: 174,
+                                                                    lineNumber: 194,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 store.paymentTerms === brand.defaultPaymentTerms && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -482,26 +497,26 @@ function StoreDetailPage() {
                                                                             className: "w-3 h-3"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                            lineNumber: 179,
+                                                                            lineNumber: 199,
                                                                             columnNumber: 49
                                                                         }, this),
                                                                         " Inherited"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                    lineNumber: 178,
+                                                                    lineNumber: 198,
                                                                     columnNumber: 45
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 173,
+                                                            lineNumber: 193,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 171,
+                                                    lineNumber: 191,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -512,7 +527,7 @@ function StoreDetailPage() {
                                                             children: "Tax Profile"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 185,
+                                                            lineNumber: 205,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -525,35 +540,35 @@ function StoreDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                lineNumber: 187,
+                                                                lineNumber: 207,
                                                                 columnNumber: 41
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 186,
+                                                            lineNumber: 206,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 204,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 170,
+                                            lineNumber: 190,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 189,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 162,
+                                lineNumber: 182,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -566,12 +581,12 @@ function StoreDetailPage() {
                                             children: "Deployed Modules"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 202,
+                                            lineNumber: 222,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 221,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -609,12 +624,12 @@ function StoreDetailPage() {
                                                                         className: "w-5 h-5"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                        lineNumber: 214,
+                                                                        lineNumber: 234,
                                                                         columnNumber: 49
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                    lineNumber: 213,
+                                                                    lineNumber: 233,
                                                                     columnNumber: 45
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -624,7 +639,7 @@ function StoreDetailPage() {
                                                                             className: "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                            lineNumber: 217,
+                                                                            lineNumber: 237,
                                                                             columnNumber: 49
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -632,19 +647,19 @@ function StoreDetailPage() {
                                                                             children: "Operational"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                            lineNumber: 218,
+                                                                            lineNumber: 238,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                                    lineNumber: 216,
+                                                                    lineNumber: 236,
                                                                     columnNumber: 45
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 212,
+                                                            lineNumber: 232,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -652,35 +667,35 @@ function StoreDetailPage() {
                                                             children: mod.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                            lineNumber: 221,
+                                                            lineNumber: 241,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, mod.id, true, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 211,
+                                                    lineNumber: 231,
                                                     columnNumber: 37
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 205,
+                                            lineNumber: 225,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 224,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 200,
+                                lineNumber: 220,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 144,
+                        lineNumber: 164,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -695,7 +710,7 @@ function StoreDetailPage() {
                                             className: "w-10 h-10 text-slate-900"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 234,
+                                            lineNumber: 254,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex flex-col items-center gap-1 text-slate-300",
@@ -704,7 +719,7 @@ function StoreDetailPage() {
                                                     className: "w-10 h-10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 237,
+                                                    lineNumber: 257,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -712,18 +727,18 @@ function StoreDetailPage() {
                                                     children: "Default"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                    lineNumber: 238,
+                                                    lineNumber: 258,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 256,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 252,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -731,7 +746,7 @@ function StoreDetailPage() {
                                         children: store.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 262,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -743,7 +758,7 @@ function StoreDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 243,
+                                        lineNumber: 263,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -757,7 +772,7 @@ function StoreDetailPage() {
                                                         children: "Active Users"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 247,
+                                                        lineNumber: 267,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -765,13 +780,13 @@ function StoreDetailPage() {
                                                         children: "12"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 248,
+                                                        lineNumber: 268,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 246,
+                                                lineNumber: 266,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -782,7 +797,7 @@ function StoreDetailPage() {
                                                         children: "Transactions"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 251,
+                                                        lineNumber: 271,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -790,33 +805,34 @@ function StoreDetailPage() {
                                                         children: "4.2k"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                        lineNumber: 252,
+                                                        lineNumber: 272,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 250,
+                                                lineNumber: 270,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 245,
+                                        lineNumber: 265,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: handleViewLiveData,
                                         className: "w-full flex items-center justify-center gap-2 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-100 transition-all border border-emerald-200/50 active:scale-[0.98]",
                                         children: "View Store Live Data"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 256,
+                                        lineNumber: 276,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 231,
+                                lineNumber: 251,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -826,7 +842,7 @@ function StoreDetailPage() {
                                         className: "absolute -right-12 -bottom-12 w-48 h-48 text-white/[0.03] rotate-12"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 262,
+                                        lineNumber: 285,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -834,7 +850,7 @@ function StoreDetailPage() {
                                         children: "Administrative Help"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 286,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -842,56 +858,215 @@ function StoreDetailPage() {
                                         children: "Configure regional overrides for tax profiles, payment gateways, and store-specific operational hours."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 264,
+                                        lineNumber: 287,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "space-y-3 relative z-10",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setIsOverrideModalOpen(true),
                                                 className: "w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/5 backdrop-blur-md",
                                                 children: "Regional Overrides"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 268,
+                                                lineNumber: 291,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                className: "w-full py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-red-500/10",
-                                                children: "Deactivate Node"
+                                                onClick: handleDeactivate,
+                                                className: `w-full py-3 ${store.status === 'Active' ? 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/10' : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/10'} rounded-xl text-xs font-black uppercase tracking-widest transition-all border`,
+                                                children: store.status === 'Active' ? 'Deactivate Node' : 'Activate Node'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                                lineNumber: 271,
+                                                lineNumber: 297,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                        lineNumber: 267,
+                                        lineNumber: 290,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                                lineNumber: 261,
+                                lineNumber: 284,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 230,
+                        lineNumber: 250,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                lineNumber: 141,
+                lineNumber: 161,
                 columnNumber: 13
+            }, this),
+            isOverrideModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-10 space-y-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center justify-between",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-1",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "text-2xl font-black text-slate-900 tracking-tight",
+                                                children: "Regional Overrides"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                                lineNumber: 320,
+                                                columnNumber: 37
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-xs text-slate-400 font-bold uppercase tracking-widest",
+                                                children: "Configuration Engine"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                                lineNumber: 321,
+                                                columnNumber: 37
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 319,
+                                        columnNumber: 33
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setIsOverrideModalOpen(false),
+                                        className: "p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-all",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                            className: "w-6 h-6"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                            lineNumber: 324,
+                                            columnNumber: 37
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 323,
+                                        columnNumber: 33
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                lineNumber: 318,
+                                columnNumber: 29
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-6 bg-slate-50 border border-slate-100 rounded-2xl flex items-start gap-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
+                                        className: "w-6 h-6 text-slate-400 shrink-0 mt-1"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 329,
+                                        columnNumber: 33
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "space-y-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                className: "text-sm font-black text-slate-900",
+                                                children: "Governance Active"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                                lineNumber: 331,
+                                                columnNumber: 37
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-xs text-slate-500 leading-relaxed font-medium",
+                                                children: [
+                                                    "This node is currently inheriting ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "font-bold text-slate-900",
+                                                        children: "Brand Global Defaults"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                                        lineNumber: 333,
+                                                        columnNumber: 75
+                                                    }, this),
+                                                    ". Enabling overrides will disconnect this store from the global policy updates."
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                                lineNumber: 332,
+                                                columnNumber: 37
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 330,
+                                        columnNumber: 33
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                lineNumber: 328,
+                                columnNumber: 29
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-3",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        className: "w-full py-4 bg-slate-100 text-slate-400 rounded-xl text-xs font-black uppercase tracking-widest cursor-not-allowed border border-slate-200",
+                                        children: "Configure Tax Overrides"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 340,
+                                        columnNumber: 33
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        className: "w-full py-4 bg-slate-100 text-slate-400 rounded-xl text-xs font-black uppercase tracking-widest cursor-not-allowed border border-slate-200",
+                                        children: "Payment Gateway Rules"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 343,
+                                        columnNumber: 33
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        className: "w-full py-4 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-200",
+                                        children: "Enable Overrides Engine"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                        lineNumber: 346,
+                                        columnNumber: 33
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                                lineNumber: 339,
+                                columnNumber: 29
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                        lineNumber: 317,
+                        columnNumber: 25
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                    lineNumber: 316,
+                    columnNumber: 21
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
+                lineNumber: 315,
+                columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-        lineNumber: 99,
+        lineNumber: 119,
         columnNumber: 9
     }, this);
 }
@@ -905,12 +1080,12 @@ function InfoItem({ icon: Icon, label, value }) {
                     className: "w-4 h-4"
                 }, void 0, false, {
                     fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                    lineNumber: 288,
+                    lineNumber: 362,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                lineNumber: 287,
+                lineNumber: 361,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -921,7 +1096,7 @@ function InfoItem({ icon: Icon, label, value }) {
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 291,
+                        lineNumber: 365,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -929,19 +1104,19 @@ function InfoItem({ icon: Icon, label, value }) {
                         children: value
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                        lineNumber: 292,
+                        lineNumber: 366,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-                lineNumber: 290,
+                lineNumber: 364,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/stores/[storeId]/page.tsx",
-        lineNumber: 286,
+        lineNumber: 360,
         columnNumber: 9
     }, this);
 }

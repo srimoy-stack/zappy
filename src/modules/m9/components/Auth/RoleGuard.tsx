@@ -13,10 +13,27 @@ interface RoleGuardProps {
     mode?: 'redirect' | '403';
 }
 
+const IMPERSONATION_KEY = 'zyappy_impersonation_session';
+
+function hasValidImpersonationSession(): boolean {
+    if (typeof window === 'undefined') return false;
+    try {
+        const raw = sessionStorage.getItem(IMPERSONATION_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw);
+        return parsed?.expiresAt && Date.now() <= parsed.expiresAt;
+    } catch {
+        return false;
+    }
+}
+
 /**
  * RoleGuard Component
  * UX-level protection for unauthorized routes.
  * Redirects unauthorized users or returns a 403 state.
+ *
+ * Impersonation-aware: if a PLATFORM_SUPER_ADMIN holds a valid impersonation
+ * session token, they are granted pass-through access to all /backoffice/* routes.
  */
 export const RoleGuard: React.FC<RoleGuardProps> = ({
     children,
@@ -28,10 +45,18 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
     const pathname = usePathname();
     const router = useRouter();
 
+    // Super Admin impersonating a brand → grant full backoffice access
+    const isImpersonating =
+        role === 'PLATFORM_SUPER_ADMIN' &&
+        (pathname?.startsWith('/backoffice') ?? false) &&
+        hasValidImpersonationSession();
+
     // Check if user has permission
-    const isUserAuthorized = allowedRoles
-        ? (role && allowedRoles.includes(role))
-        : isAuthorized(pathname || '');
+    const isUserAuthorized = isImpersonating
+        ? true
+        : allowedRoles
+            ? (role && allowedRoles.includes(role))
+            : isAuthorized(pathname || '');
 
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
@@ -107,3 +132,4 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
 
     return <>{children}</>;
 };
+

@@ -184,6 +184,14 @@
       "namedRegex": "^/platform/brands/(?<nxtPbrandId>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/platform/brands/[brandId]/impersonate",
+      "regex": "^/platform/brands/([^/]+?)/impersonate(?:/)?$",
+      "routeKeys": {
+        "nxtPbrandId": "nxtPbrandId"
+      },
+      "namedRegex": "^/platform/brands/(?<nxtPbrandId>[^/]+?)/impersonate(?:/)?$"
+    },
+    {
       "page": "/platform/stores/[storeId]",
       "regex": "^/platform/stores/([^/]+?)(?:/)?$",
       "routeKeys": {

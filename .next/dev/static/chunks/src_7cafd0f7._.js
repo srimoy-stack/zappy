@@ -28,10 +28,12 @@ const navigationConfig = [
         route: '/backoffice/home',
         icon: 'Home',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -43,11 +45,13 @@ const navigationConfig = [
         route: '/backoffice/sales-activity',
         icon: 'TrendingUp',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER',
             'EMPLOYEE'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -60,10 +64,12 @@ const navigationConfig = [
         route: '/backoffice/reports',
         icon: 'FileText',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'read-only'
         },
@@ -75,10 +81,12 @@ const navigationConfig = [
         route: '/backoffice/finances',
         icon: 'DollarSign',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -90,11 +98,13 @@ const navigationConfig = [
         route: '/backoffice/items',
         icon: 'Package',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER',
             'EMPLOYEE'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -107,11 +117,13 @@ const navigationConfig = [
         route: '/backoffice/users',
         icon: 'Users',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER',
             'EMPLOYEE'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -124,11 +136,13 @@ const navigationConfig = [
         route: '/backoffice/customers',
         icon: 'UserCircle',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER',
             'EMPLOYEE'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full',
             EMPLOYEE: 'read-only'
@@ -141,14 +155,17 @@ const navigationConfig = [
         route: '/backoffice/inventory',
         icon: 'Warehouse',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
-        requiresStoreScope: true
+        requiresStoreScope: true,
+        requiredModule: 'inventory'
     },
     {
         id: 'web-shop',
@@ -156,14 +173,17 @@ const navigationConfig = [
         route: '/backoffice/shop',
         icon: 'LayoutGrid',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
-        requiresStoreScope: false
+        requiresStoreScope: false,
+        requiredModule: 'web-shop'
     },
     {
         id: 'business-operations',
@@ -171,10 +191,12 @@ const navigationConfig = [
         route: '/backoffice/settings/business-operations',
         icon: 'Settings',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -186,10 +208,12 @@ const navigationConfig = [
         route: '/backoffice/more',
         icon: 'MoreHorizontal',
         allowedRoles: [
+            'BRAND_ADMIN',
             'ADMIN',
             'STORE_MANAGER'
         ],
         accessMode: {
+            BRAND_ADMIN: 'full',
             ADMIN: 'full',
             STORE_MANAGER: 'full'
         },
@@ -349,12 +373,21 @@ var _s = __turbopack_context__.k.signature();
 ;
 const useRouteAccess = ()=>{
     _s();
-    const { role, storeIds, user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
+    const { role, storeIds, user, enabledModules } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     /**
-     * Gets visible menu items for the current role
+     * Gets visible menu items for the current role and active modules
      */ const getVisibleMenuItems = ()=>{
         if (!role) return [];
-        return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden');
+        return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
+            // Role check
+            const roleAllowed = item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
+            if (!roleAllowed) return false;
+            // Module check
+            if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
+                return false;
+            }
+            return true;
+        });
     };
     /**
      * Checks if a path is authorized
@@ -371,7 +404,11 @@ const useRouteAccess = ()=>{
             if (path === '/backoffice' || path === '/backoffice/') return true;
             return true;
         }
-        return item.allowedRoles.includes(role);
+        // Role check
+        if (!item.allowedRoles.includes(role)) return false;
+        // Module check
+        if (item.requiredModule && !enabledModules.includes(item.requiredModule)) return false;
+        return true;
     };
     /**
      * Gets access mode for a specific page
@@ -379,19 +416,23 @@ const useRouteAccess = ()=>{
         if (!role) return 'hidden';
         const item = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].find((m)=>m.route === path);
         if (!item) return 'full';
+        // Module check for access mode
+        if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
+            return 'hidden';
+        }
         return item.accessMode[role] || 'hidden';
     };
     /**
      * Checks if current user can switch stores
      */ const canManageStores = ()=>{
-        if (role === 'ADMIN') return true;
+        if (role === 'ADMIN' || role === 'BRAND_ADMIN') return true;
         if (role === 'STORE_MANAGER' && storeIds.length > 1) return true;
         return false;
     };
     /**
      * Checks if user is restricted to specific stores
      */ const getManagedStoreIds = ()=>{
-        if (role === 'ADMIN') return 'all';
+        if (role === 'ADMIN' || role === 'BRAND_ADMIN') return 'all';
         return storeIds;
     };
     return {
@@ -404,7 +445,7 @@ const useRouteAccess = ()=>{
         getManagedStoreIds
     };
 };
-_s(useRouteAccess, "oBi7vM5f0t2WttkWyW+KRYx4UDQ=", false, function() {
+_s(useRouteAccess, "s9yi5ABnNIYOJzR9vpj07+c8Eug=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
     ];
@@ -444,8 +485,8 @@ const Sidebar = ()=>{
     const { role, getVisibleMenuItems } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouteAccess"])();
     const menuItems = getVisibleMenuItems();
     const isPlatform = role === 'PLATFORM_SUPER_ADMIN';
-    // Primary action button allowed for ADMIN and STORE_MANAGER roles (hidden for Platform)
-    const showNewSale = (role === 'ADMIN' || role === 'STORE_MANAGER') && !isPlatform;
+    // Primary action button allowed for BRAND_ADMIN, ADMIN and STORE_MANAGER roles (hidden for Platform)
+    const showNewSale = (role === 'BRAND_ADMIN' || role === 'ADMIN' || role === 'STORE_MANAGER') && !isPlatform;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex flex-col bg-white fixed inset-y-0 z-50 border-r border-slate-200 transition-all duration-300', isCollapsed ? 'w-20' : 'w-64'),
         children: [
@@ -2072,6 +2113,8 @@ const Header = ()=>{
         switch(role){
             case 'PLATFORM_SUPER_ADMIN':
                 return 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-200';
+            case 'BRAND_ADMIN':
+                return 'bg-indigo-100 text-indigo-800 border-indigo-200';
             case 'ADMIN':
                 return 'bg-emerald-100 text-emerald-800 border-emerald-200';
             case 'STORE_MANAGER':
@@ -2095,7 +2138,7 @@ const Header = ()=>{
                                 className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 40,
+                                lineNumber: 41,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2103,24 +2146,24 @@ const Header = ()=>{
                                 children: "System Root"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 41,
+                                lineNumber: 42,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 39,
+                        lineNumber: 40,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Header$2f$StoreSelector$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["StoreSelector"], {}, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 44,
+                        lineNumber: 45,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "h-6 w-[1px] bg-slate-200 mx-1"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 47,
+                        lineNumber: 48,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2128,35 +2171,35 @@ const Header = ()=>{
                         children: role?.replace('_', ' ')
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 48,
+                        lineNumber: 49,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                lineNumber: 37,
+                lineNumber: 38,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex-1 flex justify-center max-w-2xl mx-8 text-center",
                 children: isShop ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$shop$2f$components$2f$ShopSearch$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ShopSearch"], {}, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                    lineNumber: 59,
+                    lineNumber: 60,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0)) : isPlatformRoot ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "animate-in fade-in duration-700"
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                    lineNumber: 61,
+                    lineNumber: 62,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Header$2f$DateRangePicker$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DateRangePicker"], {}, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                    lineNumber: 65,
+                    lineNumber: 66,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                lineNumber: 57,
+                lineNumber: 58,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2164,7 +2207,7 @@ const Header = ()=>{
                 children: [
                     isShop ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$shop$2f$components$2f$ShopCartTrigger$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ShopCartTrigger"], {}, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 72,
+                        lineNumber: 73,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>alert('Global Search Coming Soon!'),
@@ -2173,12 +2216,12 @@ const Header = ()=>{
                             className: "w-4 h-4"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                            lineNumber: 78,
+                            lineNumber: 79,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 74,
+                        lineNumber: 75,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2192,20 +2235,20 @@ const Header = ()=>{
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 90,
+                                        lineNumber: 91,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 92,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 83,
+                                lineNumber: 84,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             showNotifications && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2219,7 +2262,7 @@ const Header = ()=>{
                                                 children: "Notifications"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 97,
+                                                lineNumber: 98,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2227,13 +2270,13 @@ const Header = ()=>{
                                                 children: "Mark all as read"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 98,
+                                                lineNumber: 99,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 96,
+                                        lineNumber: 97,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2247,7 +2290,7 @@ const Header = ()=>{
                                                         children: "New Sale Recorded"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 102,
+                                                        lineNumber: 103,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2255,7 +2298,7 @@ const Header = ()=>{
                                                         children: "Sale #12940 was completed for $420.00"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 103,
+                                                        lineNumber: 104,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2263,13 +2306,13 @@ const Header = ()=>{
                                                         children: "2 MINUTES AGO"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 104,
+                                                        lineNumber: 105,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 101,
+                                                lineNumber: 102,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2280,7 +2323,7 @@ const Header = ()=>{
                                                         children: "Inventory Alert"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 107,
+                                                        lineNumber: 108,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2288,7 +2331,7 @@ const Header = ()=>{
                                                         children: 'Item "Z-Phone Case" is low on stock (5 left)'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 108,
+                                                        lineNumber: 109,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2296,19 +2339,19 @@ const Header = ()=>{
                                                         children: "1 HOUR AGO"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 110,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 106,
+                                                lineNumber: 107,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 101,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2318,31 +2361,31 @@ const Header = ()=>{
                                             children: "View All Notifications"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 114,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 113,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 95,
+                                lineNumber: 96,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 82,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "h-4 w-[1px] bg-slate-200 mx-1"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 118,
+                        lineNumber: 119,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2360,7 +2403,7 @@ const Header = ()=>{
                                                 children: user?.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 130,
+                                                lineNumber: 131,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2368,13 +2411,13 @@ const Header = ()=>{
                                                 children: role === 'PLATFORM_SUPER_ADMIN' ? 'Zyappy Global' : `Tenant: ${user?.tenantId}`
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 131,
+                                                lineNumber: 132,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 130,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2382,13 +2425,13 @@ const Header = ()=>{
                                         children: user?.name?.split(' ').map((n)=>n[0]).join('') || '?'
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                        lineNumber: 135,
+                                        lineNumber: 136,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 122,
+                                lineNumber: 123,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             showUserMenu && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2403,12 +2446,12 @@ const Header = ()=>{
                                                 children: "Account Settings"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                                lineNumber: 144,
+                                                lineNumber: 145,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 143,
+                                            lineNumber: 144,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2416,7 +2459,7 @@ const Header = ()=>{
                                             children: "Profile Settings"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 146,
+                                            lineNumber: 147,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2424,14 +2467,14 @@ const Header = ()=>{
                                             children: "Company Profile"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 149,
+                                            lineNumber: 150,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-px bg-slate-100 my-1 px-1"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 153,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2440,36 +2483,36 @@ const Header = ()=>{
                                             children: "Log Out"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                            lineNumber: 153,
+                                            lineNumber: 154,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 143,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                                lineNumber: 141,
+                                lineNumber: 142,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                        lineNumber: 121,
+                        lineNumber: 122,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-                lineNumber: 70,
+                lineNumber: 71,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Header/Header.tsx",
-        lineNumber: 35,
+        lineNumber: 36,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

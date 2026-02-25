@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { POSType, OrderChannel, POSSession, POSContextType, POSStore, POSTable, POSCartItem } from '../types/pos';
 import { POSCustomer, mockPOSUsers, mockStores, VALID_STORE_PINS, VALID_CALL_CENTER_USERS, mockPOSTables, mockPOSCustomers } from '../mock/posData';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const POSContext = createContext<POSContextType | undefined>(undefined);
 
@@ -16,8 +16,43 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [isSyncing, setIsSyncing] = useState(false);
     const [deviceId, setDeviceId] = useState('');
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    // Check online status
+    const updateSession = useCallback((updates: Partial<POSSession> | null) => {
+        console.log('💾 updateSession called with updates:', updates);
+        setSession(prev => {
+            if (updates === null) {
+                localStorage.removeItem('pos_session');
+                return null;
+            }
+            const updated = prev ? { ...prev, ...updates } : (updates as POSSession);
+            localStorage.setItem('pos_session', JSON.stringify(updated));
+            return updated;
+        });
+    }, []);
+
+    // Platform Auto-Login Bridge
+    useEffect(() => {
+        const platformStoreId = searchParams?.get('storeId');
+        if (platformStoreId && !session) {
+            console.log('🚀 Platform Auto-Login Init for Store:', platformStoreId);
+
+            // Map platform ID or just pick first store
+            const store = mockStores.find(s => s.id === 'S001') || mockStores[0]!;
+            const user = mockPOSUsers[0]!; // Default to first mock manager
+
+            const autoSession: POSSession = {
+                user,
+                posType: 'STORE',
+                store,
+                deviceId: 'PLATFORM-BRIDGE',
+                isOffline: false,
+                channel: 'Pickup'
+            };
+
+            updateSession(autoSession);
+        }
+    }, [searchParams, session, updateSession]);
     useEffect(() => {
         const updateStatus = () => setIsOffline(!navigator.onLine);
         window.addEventListener('online', updateStatus);
@@ -91,18 +126,7 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
     }, []);
 
-    const updateSession = useCallback((updates: Partial<POSSession> | null) => {
-        console.log('💾 updateSession called with updates:', updates);
-        setSession(prev => {
-            if (updates === null) {
-                localStorage.removeItem('pos_session');
-                return null;
-            }
-            const updated = prev ? { ...prev, ...updates } : (updates as POSSession);
-            localStorage.setItem('pos_session', JSON.stringify(updated));
-            return updated;
-        });
-    }, []);
+
 
     const updateTables = useCallback((newTables: POSTable[]) => {
         setTables(newTables);

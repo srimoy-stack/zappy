@@ -17,7 +17,7 @@
   "static/chunks/src_modules_m9_pages_4ed9fee5._.js",
   "static/chunks/src_modules_m9_5397568e._.js",
   "static/chunks/src_83c18412._.js",
-  "static/chunks/node_modules_892cdf35._.js"
+  "static/chunks/node_modules_0531266f._.js"
 ],
     source: "dynamic"
 });

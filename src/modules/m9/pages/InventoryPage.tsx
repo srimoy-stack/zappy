@@ -1,6 +1,7 @@
+'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
-;
 import {
     Package,
     FileText,
@@ -11,21 +12,17 @@ import {
     Plus,
     TrendingUp,
     AlertTriangle,
-    Scale
+    Scale,
+    Activity,
+    Zap,
+    ArrowUpRight,
+    Search,
+    ShieldCheck
 } from 'lucide-react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
 import { mockInventoryItems, mockInventoryEntries } from '../mock/inventory';
+import { cn, formatCurrency } from '@/utils';
 
-/**
- * Inventory Module - Main Dashboard
- * Top-level navigation hub for all inventory operations
- * 
- * Role-based access:
- * - Admin: Full access
- * - Inventory Manager: Full Inventory + View/Add Vendors
- * - Store Manager: Add/View Inventory + View Vendors
- * - Staff: No access
- */
 export const InventoryPage: React.FC = () => {
     const router = useRouter();
     const { role } = useRouteAccess();
@@ -37,238 +34,274 @@ export const InventoryPage: React.FC = () => {
 
     // Permission checks
     const canAddInventory = role === 'ADMIN' || role === 'STORE_MANAGER';
-    const canViewVendors = role === 'ADMIN' || role === 'STORE_MANAGER';
 
     return (
-        <div className="max-w-[1600px] mx-auto space-y-6 pb-24">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+        <div className="max-w-[1700px] mx-auto space-y-8 pb-32 px-4 pt-4">
+            {/* 1. Header: Operational Pulse */}
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 border-b border-slate-100 pb-8">
                 <div>
-                    <h1 className="text-2xl font-black text-slate-900 tracking-tight">Inventory Management</h1>
-                    <p className="text-sm text-slate-500 font-medium">
-                        System of record for stock movement, recipes, and vendor management
+                    <div className="flex items-center gap-3 mb-1">
+                        <div className="p-2 bg-slate-900 rounded-lg">
+                            <Activity className="w-5 h-5 text-emerald-400" />
+                        </div>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Stock Overwatch</h1>
+                    </div>
+                    <p className="text-sm text-slate-500 font-medium font-mono uppercase tracking-tight opacity-70">
+                        Live Supply Chain Velocity & Resource Monitoring
                     </p>
                 </div>
 
-                {canAddInventory && (
-                    <button
-                        onClick={() => router.push('/backoffice/inventory/add')}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all active:scale-95"
-                    >
-                        <Plus size={16} strokeWidth={3} />
-                        Add Inventory
-                    </button>
-                )}
-            </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-3xl border border-emerald-200 shadow-sm">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-emerald-600 rounded-2xl shadow-lg shadow-emerald-200">
-                            <Package size={20} className="text-white" />
+                <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex items-center gap-4 px-6 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                        <div className="flex flex-col">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Stock Confidence</span>
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-12 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                    <div className="w-[88%] h-full bg-emerald-500 rounded-full" />
+                                </div>
+                                <span className="text-xs font-black text-slate-900">88%</span>
+                            </div>
                         </div>
-                        <span className="text-xs font-black text-emerald-600 uppercase tracking-widest">Total Value</span>
-                    </div>
-                    <div className="text-3xl font-black text-emerald-900 tracking-tight">
-                        ${totalInventoryValue.toFixed(2)}
-                    </div>
-                    <div className="text-xs text-emerald-600 font-bold mt-1">
-                        {mockInventoryItems.length} Active Items
-                    </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-3xl border border-amber-200 shadow-sm">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-amber-600 rounded-2xl shadow-lg shadow-amber-200">
-                            <AlertTriangle size={20} className="text-white" />
+                        <div className="w-[1px] h-6 bg-slate-100 mx-2" />
+                        <div className="flex flex-col text-right">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Network Burn</span>
+                            <div className="text-xs font-black text-rose-500 flex items-center gap-1 justify-end">
+                                <TrendingUp size={12} strokeWidth={3} />
+                                High
+                            </div>
                         </div>
-                        <span className="text-xs font-black text-amber-600 uppercase tracking-widest">Low Stock</span>
                     </div>
-                    <div className="text-3xl font-black text-amber-900 tracking-tight">
-                        {lowStockItems.length}
-                    </div>
-                    <div className="text-xs text-amber-600 font-bold mt-1">
-                        Items Below Threshold
-                    </div>
-                </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-3xl border border-blue-200 shadow-sm">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200">
-                            <TrendingUp size={20} className="text-white" />
-                        </div>
-                        <span className="text-xs font-black text-blue-600 uppercase tracking-widest">Pending</span>
-                    </div>
-                    <div className="text-3xl font-black text-blue-900 tracking-tight">
-                        {pendingEntries.length}
-                    </div>
-                    <div className="text-xs text-blue-600 font-bold mt-1">
-                        Draft/Ordered Entries
-                    </div>
+                    {canAddInventory && (
+                        <button
+                            onClick={() => router.push('/backoffice/inventory/add')}
+                            className="flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 group"
+                        >
+                            <Plus size={16} strokeWidth={3} className="text-emerald-400 group-hover:rotate-90 transition-transform" />
+                            Dispatch Stock Inward
+                        </button>
+                    )}
                 </div>
             </div>
 
-            {/* Navigation Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Add Inventory */}
-                {canAddInventory && (
-                    <NavigationCard
-                        icon={Plus}
-                        title="Add Inventory"
-                        description="Create new stock inward entries"
-                        color="emerald"
-                        onClick={() => router.push('/backoffice/inventory/add')}
-                    />
-                )}
-
-                {/* Entries */}
-                <NavigationCard
-                    icon={FileText}
-                    title="Entries"
-                    description="View all stock inward transactions"
-                    color="blue"
-                    onClick={() => router.push('/backoffice/inventory/entries')}
+            {/* 2. Vital Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <VitalStatCard
+                    icon={Package}
+                    label="Asset Value"
+                    value={formatCurrency(totalInventoryValue)}
+                    sub={`${mockInventoryItems.length} Node SKUs`}
+                    color="emerald"
+                    trend="+1.2%"
                 />
-
-                {/* List Inventory */}
-                <NavigationCard
-                    icon={List}
-                    title="List Inventory"
-                    description="Canonical list of inventory items (ingredients)"
-                    color="violet"
-                    onClick={() => router.push('/backoffice/inventory/list')}
-                />
-
-                {/* Self Adjust */}
-                <NavigationCard
-                    icon={Scale}
-                    title="Self Adjust"
-                    description="Correct inventory count manually"
+                <VitalStatCard
+                    icon={AlertTriangle}
+                    label="Critical Thresholds"
+                    value={lowStockItems.length.toString()}
+                    sub="Items Below Min"
                     color="amber"
-                    onClick={() => router.push('/backoffice/inventory/list')}
+                    trend="Check KDS"
                 />
-
-                {/* Recipes */}
-                <NavigationCard
-                    icon={ChefHat}
-                    title="Recipes"
-                    description="Bill of Materials (BOM) and costing"
-                    color="orange"
-                    onClick={() => router.push('/backoffice/inventory/recipes')}
+                <VitalStatCard
+                    icon={TrendingUp}
+                    label="In-Transit Flux"
+                    value={pendingEntries.length.toString()}
+                    sub="Open Purchase Orders"
+                    color="blue"
+                    trend="On Track"
                 />
-
-                {/* List Returns */}
-                <NavigationCard
-                    icon={RotateCcw}
-                    title="List Returns"
-                    description="View returns, wastage, and adjustments"
-                    color="rose"
-                    onClick={() => router.push('/backoffice/inventory/returns')}
+                <VitalStatCard
+                    icon={ShieldCheck}
+                    label="Audit Integrity"
+                    value="100%"
+                    sub="All Counts Verified"
+                    color="violet"
+                    trend="Secure"
                 />
-
-                {/* Vendors */}
-                {canViewVendors && (
-                    <NavigationCard
-                        icon={Users}
-                        title="Vendors"
-                        description="Manage suppliers and vendor relationships"
-                        color="slate"
-                        onClick={() => router.push('/backoffice/inventory/vendors')}
-                    />
-                )}
             </div>
 
-            {/* Low Stock Alert */}
-            {lowStockItems.length > 0 && (
-                <div className="bg-amber-50 border border-amber-200 rounded-3xl p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="p-3 bg-amber-600 rounded-2xl shadow-lg shadow-amber-200">
-                            <AlertTriangle size={20} className="text-white" />
+            {/* 3. Operational Navigation & Insights */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Navigation Hub */}
+                <div className="lg:col-span-8 space-y-6">
+                    <div className="flex items-center justify-between px-2">
+                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Operational Dispatch</h3>
+                        <div className="flex items-center gap-2">
+                            <Search size={14} className="text-slate-300" />
+                            <span className="text-[10px] font-bold text-slate-300 uppercase">Quick Command</span>
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg font-black text-amber-900 tracking-tight mb-2">
-                                Low Stock Alert
-                            </h3>
-                            <p className="text-sm text-amber-700 font-medium mb-4">
-                                The following items are below their low stock threshold:
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <NavHubCard
+                            icon={List}
+                            title="List Inventory"
+                            sub="Canonical Ledger"
+                            desc="Real-time ingredient tracking and SKU management."
+                            color="violet"
+                            onClick={() => router.push('/backoffice/inventory/list')}
+                        />
+                        <NavHubCard
+                            icon={ChefHat}
+                            title="Recipe Engine"
+                            sub="BOM & Costing"
+                            desc="Configure bill of materials and track food cost drift."
+                            color="orange"
+                            onClick={() => router.push('/backoffice/inventory/recipes')}
+                        />
+                        <NavHubCard
+                            icon={Scale}
+                            title="Count Drift"
+                            sub="Self Adjust"
+                            desc="Manual correction and cycle counting protocols."
+                            color="amber"
+                            onClick={() => router.push('/backoffice/inventory/list')}
+                        />
+                        <NavHubCard
+                            icon={RotateCcw}
+                            title="Waste Log"
+                            sub="List Returns"
+                            desc="Monitor leakage, spoilage, and return velocity."
+                            color="rose"
+                            onClick={() => router.push('/backoffice/inventory/returns')}
+                        />
+                        <NavHubCard
+                            icon={Users}
+                            title="Supply Chain"
+                            sub="Vendors"
+                            desc="Manage supplier identities and procurement flows."
+                            color="slate"
+                            onClick={() => router.push('/backoffice/inventory/vendors')}
+                        />
+                        <NavHubCard
+                            icon={FileText}
+                            title="Entry Ledger"
+                            sub="Stock Inward"
+                            desc="Full history of stock inward and PO fulfillment."
+                            color="blue"
+                            onClick={() => router.push('/backoffice/inventory/entries')}
+                        />
+                    </div>
+                </div>
+
+                {/* Sidebar Alerts & Intelligence */}
+                <div className="lg:col-span-4 space-y-6">
+                    <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl">
+                        <Zap className="absolute -top-8 -right-8 w-40 h-40 text-emerald-500/10 rotate-12" />
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-6">
+                                <div className="p-2 bg-emerald-500 rounded-lg">
+                                    <Zap size={14} className="text-slate-900" />
+                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Inventory Alert</span>
+                            </div>
+                            <h4 className="text-2xl font-black tracking-tight mb-2 italic text-emerald-400">Low Stock Detected</h4>
+                            <p className="text-sm text-slate-400 font-medium leading-relaxed mb-8">
+                                <span className="text-white font-bold">{lowStockItems.length} SKUs</span> are operating below critical safety levels. Supply chain friction detected in Regional Zone 4.
                             </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {lowStockItems.slice(0, 6).map(item => (
-                                    <div key={item.id} className="bg-white p-3 rounded-xl border border-amber-200">
-                                        <div className="text-sm font-black text-slate-900">{item.name}</div>
-                                        <div className="text-xs text-slate-500 font-medium mt-1">
-                                            Stock: {item.currentStock} {item.baseUnit} (Threshold: {item.lowStockThreshold})
+                            <div className="space-y-3 mb-8">
+                                {lowStockItems.slice(0, 3).map(item => (
+                                    <div key={item.id} className="flex justify-between items-center p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group">
+                                        <div className="text-xs font-bold uppercase tracking-tight">{item.name}</div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-[10px] font-black text-rose-400">{item.currentStock} {item.baseUnit}</span>
+                                            <ArrowUpRight size={12} className="text-slate-600 group-hover:text-white" />
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            {lowStockItems.length > 6 && (
-                                <button
-                                    onClick={() => router.push('/backoffice/inventory/list')}
-                                    className="mt-4 text-xs font-black text-amber-600 uppercase tracking-widest hover:text-amber-700 transition-colors"
-                                >
-                                    View All {lowStockItems.length} Items →
-                                </button>
-                            )}
+                            <button className="w-full py-4 bg-emerald-500 text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-emerald-500/20">
+                                Rectify Shortages Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-6">Supply Integrity</span>
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
+                                    <ShieldCheck size={20} />
+                                </div>
+                                <div>
+                                    <h5 className="text-sm font-black text-slate-900 uppercase tracking-tight">System Validated</h5>
+                                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-1">All stock movement since 04:00 AM matches theoretical burn rate.</p>
+                                </div>
+                            </div>
+                            <div className="h-[1px] bg-slate-50" />
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-amber-50 text-amber-600 rounded-2xl">
+                                    <RotateCcw size={20} />
+                                </div>
+                                <div>
+                                    <h5 className="text-sm font-black text-slate-900 uppercase tracking-tight">Auto-Reconcile Ready</h5>
+                                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-1">End of month audit is 92% complete based on digital entries.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 };
 
-// Navigation Card Component
-interface NavigationCardProps {
-    icon: React.ElementType;
-    title: string;
-    description: string;
-    color: 'emerald' | 'blue' | 'violet' | 'orange' | 'rose' | 'slate' | 'amber';
-    onClick: () => void;
-}
-
-const NavigationCard: React.FC<NavigationCardProps> = ({ icon: Icon, title, description, color, onClick }) => {
-    const colorClasses = {
-        emerald: 'from-emerald-50 to-emerald-100 border-emerald-200 hover:border-emerald-400',
-        blue: 'from-blue-50 to-blue-100 border-blue-200 hover:border-blue-400',
-        violet: 'from-violet-50 to-violet-100 border-violet-200 hover:border-violet-400',
-        orange: 'from-orange-50 to-orange-100 border-orange-200 hover:border-orange-400',
-        rose: 'from-rose-50 to-rose-100 border-rose-200 hover:border-rose-400',
-        slate: 'from-slate-50 to-slate-100 border-slate-200 hover:border-slate-400',
-        amber: 'from-amber-50 to-amber-100 border-amber-200 hover:border-amber-400'
+function VitalStatCard({ icon: Icon, label, value, sub, color, trend }: any) {
+    const colors: any = {
+        emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
+        amber: "bg-amber-50 text-amber-600 border-amber-100",
+        blue: "bg-blue-50 text-blue-600 border-blue-100",
+        violet: "bg-violet-50 text-violet-600 border-violet-100"
     };
 
-    const iconColorClasses = {
-        emerald: 'bg-emerald-600 shadow-emerald-200',
-        blue: 'bg-blue-600 shadow-blue-200',
-        violet: 'bg-violet-600 shadow-violet-200',
-        orange: 'bg-orange-600 shadow-orange-200',
-        rose: 'bg-rose-600 shadow-rose-200',
-        slate: 'bg-slate-600 shadow-slate-200',
-        amber: 'bg-amber-600 shadow-amber-200'
+    return (
+        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-200 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all">
+            <div className="flex items-center justify-between mb-4">
+                <div className={cn("p-2.5 rounded-xl border shadow-sm", colors[color])}>
+                    <Icon size={18} />
+                </div>
+                <div className={cn(
+                    "text-[9px] font-black px-2 py-0.5 rounded-full border",
+                    trend.includes('-') ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"
+                )}>
+                    {trend}
+                </div>
+            </div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{label}</p>
+            <div className="text-2xl font-black text-slate-900 tracking-tight leading-none group-hover:scale-105 transition-transform origin-left">{value}</div>
+            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-tight mt-1.5">{sub}</p>
+        </div>
+    );
+}
+
+function NavHubCard({ icon: Icon, title, sub, desc, color, onClick }: any) {
+    const colors: any = {
+        violet: "text-violet-600 bg-violet-50 border-violet-100 group-hover:bg-violet-600 group-hover:text-white",
+        orange: "text-orange-600 bg-orange-50 border-orange-100 group-hover:bg-orange-600 group-hover:text-white",
+        amber: "text-amber-600 bg-amber-50 border-amber-100 group-hover:bg-amber-600 group-hover:text-white",
+        rose: "text-rose-600 bg-rose-50 border-rose-100 group-hover:bg-rose-600 group-hover:text-white",
+        slate: "text-slate-600 bg-slate-50 border-slate-100 group-hover:bg-slate-900 group-hover:text-white",
+        blue: "text-blue-600 bg-blue-50 border-blue-100 group-hover:bg-blue-600 group-hover:text-white"
     };
 
     return (
         <button
             onClick={onClick}
-            className={`bg-gradient-to-br ${colorClasses[color]} p-6 rounded-3xl border shadow-sm transition-all hover:shadow-lg hover:scale-105 active:scale-100 text-left group`}
+            className="p-8 bg-white border border-slate-200 rounded-[2.5rem] text-left hover:border-slate-900 group transition-all hover:shadow-xl hover:shadow-slate-200/50"
         >
-            <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 ${iconColorClasses[color]} rounded-2xl shadow-lg`}>
-                    <Icon size={20} className="text-white" />
+            <div className="flex items-start justify-between mb-8">
+                <div className={cn("p-4 rounded-[1.25rem] border shadow-sm transition-all duration-500", colors[color])}>
+                    <Icon size={24} strokeWidth={2.5} />
                 </div>
-                <svg
-                    className="w-5 h-5 text-slate-400 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <div className="p-2 bg-slate-50 rounded-xl group-hover:bg-slate-900 group-hover:text-white transition-all">
+                    <ArrowUpRight size={16} />
+                </div>
             </div>
-            <h3 className="text-lg font-black text-slate-900 tracking-tight mb-2">{title}</h3>
-            <p className="text-xs text-slate-600 font-medium leading-relaxed">{description}</p>
+            <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] block mb-2">{sub}</span>
+            <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-emerald-600 transition-colors">{title}</h4>
+            <p className="text-xs text-slate-500 font-medium leading-relaxed opacity-70">
+                {desc}
+            </p>
         </button>
     );
-};
+}

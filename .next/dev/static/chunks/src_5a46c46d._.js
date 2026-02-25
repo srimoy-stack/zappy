@@ -2551,14 +2551,29 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+const IMPERSONATION_KEY = 'zyappy_impersonation_session';
+function hasValidImpersonationSession() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        const raw = sessionStorage.getItem(IMPERSONATION_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw);
+        return parsed?.expiresAt && Date.now() <= parsed.expiresAt;
+    } catch  {
+        return false;
+    }
+}
 const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
     _s();
     const { isAuthenticated, isLoading, role } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     const { isAuthorized, getVisibleMenuItems } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouteAccess"])();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    // Super Admin impersonating a brand → grant full backoffice access
+    const isImpersonating = role === 'PLATFORM_SUPER_ADMIN' && (pathname?.startsWith('/backoffice') ?? false) && hasValidImpersonationSession();
     // Check if user has permission
-    const isUserAuthorized = allowedRoles ? role && allowedRoles.includes(role) : isAuthorized(pathname || '');
+    const isUserAuthorized = isImpersonating ? true : allowedRoles ? role && allowedRoles.includes(role) : isAuthorized(pathname || '');
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "RoleGuard.useEffect": ()=>{
             if (!isLoading && isAuthenticated) {
@@ -2590,12 +2605,12 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                lineNumber: 55,
+                lineNumber: 80,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-            lineNumber: 54,
+            lineNumber: 79,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -2607,12 +2622,12 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                lineNumber: 64,
+                lineNumber: 89,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-            lineNumber: 63,
+            lineNumber: 88,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -2631,12 +2646,12 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                                     className: "w-10 h-10 text-red-500"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                    lineNumber: 76,
+                                    lineNumber: 101,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                lineNumber: 75,
+                                lineNumber: 100,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2647,7 +2662,7 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                                         children: "Access Restricted"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 104,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2655,13 +2670,13 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                                         children: "You don't have the required administrative permissions to access the platform root. Please contact your system coordinator."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 105,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                lineNumber: 78,
+                                lineNumber: 103,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2675,14 +2690,14 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                                lineNumber: 90,
+                                                lineNumber: 115,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Return to Safety"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                        lineNumber: 86,
+                                        lineNumber: 111,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2690,29 +2705,29 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                                         children: "Error 403: Forbidden Identity"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                        lineNumber: 93,
+                                        lineNumber: 118,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                                lineNumber: 85,
+                                lineNumber: 110,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                        lineNumber: 74,
+                        lineNumber: 99,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                    lineNumber: 73,
+                    lineNumber: 98,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                lineNumber: 72,
+                lineNumber: 97,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0));
         }
@@ -2722,12 +2737,12 @@ const RoleGuard = ({ children, allowedRoles, mode = 'redirect' })=>{
                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-                lineNumber: 103,
+                lineNumber: 128,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/components/Auth/RoleGuard.tsx",
-            lineNumber: 102,
+            lineNumber: 127,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -2844,11 +2859,13 @@ __turbopack_context__.s([
     ()=>PlatformLayout
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Sidebar$2f$Sidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/components/Sidebar/Sidebar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Header$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/components/Header/Header.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Auth$2f$RoleGuard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/components/Auth/RoleGuard.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$shop$2f$context$2f$ToastContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/shop/context/ToastContext.tsx [app-client] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -2861,45 +2878,52 @@ function PlatformLayout({ children }) {
         ],
         mode: "403",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$shop$2f$context$2f$ToastContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ToastProvider"], {
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "min-h-screen bg-slate-50 flex",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Sidebar$2f$Sidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
-                        fileName: "[project]/src/app/platform/layout.tsx",
-                        lineNumber: 22,
-                        columnNumber: 21
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 flex flex-col min-h-screen ml-64 transition-all duration-300 min-w-0",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Header$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
-                                fileName: "[project]/src/app/platform/layout.tsx",
-                                lineNumber: 24,
-                                columnNumber: 25
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                                className: "flex-1 overflow-y-auto overflow-x-hidden p-6",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "animate-in fade-in duration-500",
-                                    children: children
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Suspense"], {
+                fallback: null,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "min-h-screen bg-slate-50 flex",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Sidebar$2f$Sidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
+                            fileName: "[project]/src/app/platform/layout.tsx",
+                            lineNumber: 23,
+                            columnNumber: 25
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 flex flex-col min-h-screen ml-64 transition-all duration-300 min-w-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Header$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
+                                    fileName: "[project]/src/app/platform/layout.tsx",
+                                    lineNumber: 25,
+                                    columnNumber: 29
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+                                    className: "flex-1 overflow-y-auto overflow-x-hidden p-6",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "animate-in fade-in duration-500",
+                                        children: children
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/layout.tsx",
+                                        lineNumber: 27,
+                                        columnNumber: 33
+                                    }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/layout.tsx",
                                     lineNumber: 26,
                                     columnNumber: 29
                                 }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/layout.tsx",
-                                lineNumber: 25,
-                                columnNumber: 25
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/layout.tsx",
-                        lineNumber: 23,
-                        columnNumber: 21
-                    }, this)
-                ]
-            }, void 0, true, {
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/platform/layout.tsx",
+                            lineNumber: 24,
+                            columnNumber: 25
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/platform/layout.tsx",
+                    lineNumber: 22,
+                    columnNumber: 21
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/src/app/platform/layout.tsx",
                 lineNumber: 21,
                 columnNumber: 17

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { POSProvider } from '@/modules/pos/context/POSContext';
 import { ToastProvider } from '@/modules/shop/context/ToastContext';
 
@@ -10,13 +10,15 @@ import { SyncingLoader } from '@/modules/pos/components/SyncingLoader';
 export default function POSLayout({ children }: { children: React.ReactNode }) {
     return (
         <ToastProvider>
-            <POSProvider>
-                <div className="min-h-screen bg-slate-900 overflow-x-hidden">
-                    {children}
-                    <ShiftOpeningModal />
-                    <SyncingLoader />
-                </div>
-            </POSProvider>
+            <Suspense fallback={null}>
+                <POSProvider>
+                    <div className="min-h-screen bg-slate-900 overflow-x-hidden">
+                        {children}
+                        <ShiftOpeningModal />
+                        <SyncingLoader />
+                    </div>
+                </POSProvider>
+            </Suspense>
         </ToastProvider>
     );
 }

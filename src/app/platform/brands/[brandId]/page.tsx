@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import {
+    Activity,
+    ChevronRight,
+    Zap,
+    ArrowUpRight,
     ArrowLeft,
     Building2,
     Package,
@@ -11,21 +15,17 @@ import {
     Mail,
     Phone,
     MapPin,
-    Calendar,
     Shield,
-    Edit,
     Globe,
     Coins,
     ShieldAlert,
     Upload,
-    User,
     FileText,
     Image as ImageIcon,
     AlertTriangle,
     Info,
     Plus,
     Eye,
-    Trash2,
     X,
     Pencil,
     Check,
@@ -37,6 +37,7 @@ import {
     ChevronUp,
     Terminal,
     UserPlus,
+    LogIn,
 } from 'lucide-react';
 
 import {
@@ -45,6 +46,7 @@ import {
     Store as StoreType,
     User as UserType
 } from '@/types';
+import { cn } from '@/utils';
 
 // ─── Types ──────────────────────────────────────────────────────────────────────
 
@@ -264,61 +266,116 @@ export default function BrandDetailPage() {
     const brand = localBrand;
 
     return (
-        <div className="space-y-6">
-            {/* ── Breadcrumb ───────────────────────────────────────────── */}
-            <nav className="flex items-center gap-2 text-xs font-medium text-slate-400">
+        <div className="max-w-[1700px] mx-auto space-y-8 pb-32 px-4 pt-4">
+            {/* ── Breadcrumb ── */}
+            <nav className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                 <button
                     onClick={() => router.push('/platform/brands')}
-                    className="flex items-center gap-1 hover:text-slate-700 transition-colors"
+                    className="flex items-center gap-1 hover:text-slate-900 transition-colors group"
                 >
-                    <ArrowLeft className="w-3.5 h-3.5" />
-                    Brands
+                    <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
+                    Network
                 </button>
-                <span>/</span>
-                <span className="text-slate-700 font-bold">{brand.brandName}</span>
+                <ChevronRight size={10} className="opacity-30" />
+                <span className="text-slate-900">{brand.brandName}</span>
             </nav>
 
-            {/* ── Page Header ──────────────────────────────────────────── */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-emerald-600" />
+            {/* ── 1. Header: Operational Pulse ── */}
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 border-b border-slate-100 pb-8">
+                <div className="flex items-center gap-5">
+                    <div className="w-16 h-16 rounded-[1.5rem] bg-slate-900 flex items-center justify-center shadow-2xl shadow-slate-200 group overflow-hidden relative">
+                        <Building2 className="w-8 h-8 text-emerald-400 z-10" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <div>
-                        <div className="flex items-center gap-3">
-                            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                        <div className="flex items-center gap-3 mb-1">
+                            <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none">
                                 {brand.brandName}
                             </h1>
                             <span
-                                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${brand.status === 'Active'
-                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                    : 'bg-red-50 text-red-700 border-red-200'
+                                className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all ${brand.status === 'Active'
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200 animate-pulse'
+                                    : 'bg-rose-50 text-rose-700 border-rose-200'
                                     }`}
                             >
-                                <span
-                                    className={`w-1.5 h-1.5 rounded-full mr-1.5 ${brand.status === 'Active' ? 'bg-emerald-500' : 'bg-red-500'
-                                        }`}
-                                />
+                                <div className={`w-1.5 h-1.5 rounded-full mr-2 ${brand.status === 'Active' ? 'bg-emerald-500' : 'bg-rose-500'}`} />
                                 {brand.status}
                             </span>
                         </div>
-                        <p className="text-sm text-slate-500 mt-0.5">
-                            {brand.tradeName} · <code className="px-1 py-0.5 rounded bg-slate-100 text-xs font-mono">{brandId}</code>
+                        <p className="text-xs text-slate-500 font-mono uppercase tracking-tight opacity-70 flex items-center gap-2">
+                            <Globe size={12} className="text-slate-400" />
+                            {brand.tradeName} · <span className="font-bold text-slate-900">{brandId}</span>
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
+
+                <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex items-center gap-4 px-6 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                        <div className="flex flex-col">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 text-right">System Health</span>
+                            <div className="flex items-center gap-1.5 justify-end">
+                                <span className="text-xs font-black text-slate-900">Stable</span>
+                                <div className="flex items-center gap-0.5">
+                                    {[1, 2, 3, 4].map(i => (
+                                        <div key={i} className="w-1 h-3 bg-emerald-500 rounded-full" />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Access Brand Admin — Impersonation entry point */}
+                    <button
+                        id={`access-brand-admin-${brandId}`}
+                        onClick={() => router.push(`/platform/brands/${brandId}/impersonate`)}
+                        className="flex items-center gap-3 px-8 py-4 bg-amber-500 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-amber-200 hover:bg-amber-600 transition-all active:scale-95 group"
+                    >
+                        <LogIn size={14} className="group-hover:scale-125 transition-transform" />
+                        Access Brand Admin
+                    </button>
+
                     <button
                         onClick={() => router.push(`/platform/brands/${brandId}?edit=true`)}
-                        className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800 transition-all active:scale-95"
+                        className="flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 group"
                     >
-                        <Pencil className="w-4 h-4" />
-                        Edit Brand
+                        <Pencil size={14} className="text-emerald-400 group-hover:scale-125 transition-transform" />
+                        Modify Protocol
                     </button>
                 </div>
             </div>
 
-            {/* ── Edit Brand Modal ─────────────────────────────────────── */}
+            {/* ── 2. Navigation Tabs ── */}
+            <div className="flex items-center gap-1 p-1 bg-slate-100/50 backdrop-blur-md rounded-2xl w-fit border border-slate-200 overflow-x-auto">
+                {TABS.map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`px-8 py-3 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${activeTab === tab.id
+                            ? 'bg-white text-slate-900 shadow-sm border border-slate-200 ring-4 ring-slate-100/50'
+                            : 'text-slate-400 hover:text-slate-600'
+                            }`}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
+            {/* ── 3. Tab Content ── */}
+            <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+                {activeTab === 'overview' && (
+                    <OverviewSection
+                        brand={brand}
+                        onSuspend={handleSuspend}
+                        onReactivate={handleReactivate}
+                    />
+                )}
+                {activeTab === 'modules' && <ModulesSection />}
+                {activeTab === 'stores' && <StoresSection brand={brand} />}
+                {activeTab === 'users' && <UsersSection />}
+                {activeTab === 'audit-log' && <AuditLogSection />}
+            </div>
+
+            {/* Edit Brand Modal */}
             {isEditing && (
                 <EditBrandModal
                     brand={brand}
@@ -326,68 +383,6 @@ export default function BrandDetailPage() {
                     onSave={handleUpdateBrand}
                 />
             )}
-
-            {/* ── Tabs ─────────────────────────────────────────────────── */}
-            <div className="flex items-center border-b border-slate-200">
-                <div className="flex items-center gap-8">
-                    {TABS.map((tab) => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`relative py-3 text-[13px] font-bold tracking-wide transition-all ${activeTab === tab.id
-                                ? 'text-black'
-                                : 'text-slate-400 hover:text-slate-600'
-                                }`}
-                        >
-                            {tab.label}
-                            {activeTab === tab.id && (
-                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
-                            )}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Actions Bar */}
-            <div className="flex flex-wrap items-center gap-3">
-                <button
-                    onClick={() => router.push(`/platform/brands/${brandId}?edit=true`)}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all active:scale-[0.98] shadow-sm"
-                >
-                    <Edit className="w-4 h-4" />
-                    Edit Details
-                </button>
-                {brand.status === 'Active' ? (
-                    <button
-                        onClick={handleSuspend}
-                        className="flex items-center gap-2 px-6 py-2.5 bg-red-50 border border-red-100 text-red-700 rounded-xl text-sm font-bold hover:bg-red-100 transition-all active:scale-[0.98]"
-                    >
-                        <Ban className="w-4 h-4" />
-                        Suspend Brand
-                    </button>
-                ) : (
-                    <button
-                        onClick={handleReactivate}
-                        className="flex items-center gap-2 px-6 py-2.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-xl text-sm font-bold hover:bg-emerald-100 transition-all active:scale-[0.98]"
-                    >
-                        <RefreshCw className="w-4 h-4" />
-                        Reactivate Brand
-                    </button>
-                )}
-            </div>
-
-            {/* ── Tab Content ──────────────────────────────────────────── */}
-            {activeTab === 'overview' && (
-                <OverviewSection
-                    brand={brand}
-                    onSuspend={handleSuspend}
-                    onReactivate={handleReactivate}
-                />
-            )}
-            {activeTab === 'modules' && <ModulesSection />}
-            {activeTab === 'stores' && <StoresSection brand={brand} />}
-            {activeTab === 'users' && <UsersSection />}
-            {activeTab === 'audit-log' && <AuditLogSection />}
         </div>
     );
 }
@@ -406,178 +401,239 @@ function OverviewSection({
     const brandId = params?.brandId as string | undefined;
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-500">
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                    { label: 'Total Stores', value: brand.totalStores, icon: Store },
-                    { label: 'Active Modules', value: brand.modulesPurchasedCount, icon: Package },
-                    { label: 'Total Users', value: MOCK_USERS.length, icon: Users },
-                    { label: 'Plan', value: brand.plan, icon: Shield },
-                ].map((kpi) => (
-                    <div key={kpi.label} className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                        <div className="flex items-center justify-between mb-3">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                {kpi.label}
-                            </span>
-                            <kpi.icon className="w-4 h-4 text-slate-300" />
-                        </div>
-                        <p className="text-2xl font-bold text-slate-900">{kpi.value}</p>
-                    </div>
-                ))}
+        <div className="space-y-8">
+            {/* Vital Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <VitalStatCard
+                    icon={Store}
+                    label="Network Nodes"
+                    value={brand.totalStores.toString()}
+                    sub="Active Storefronts"
+                    color="blue"
+                    trend="+1"
+                />
+                <VitalStatCard
+                    icon={Package}
+                    label="Module Flux"
+                    value={brand.modulesPurchasedCount.toString()}
+                    sub="Protocol Integrity"
+                    color="emerald"
+                    trend="Stable"
+                />
+                <VitalStatCard
+                    icon={Users}
+                    label="Team Capacity"
+                    value={MOCK_USERS.length.toString()}
+                    sub="Active Personas"
+                    color="violet"
+                    trend="+2"
+                />
+                <VitalStatCard
+                    icon={Shield}
+                    label="Protocol"
+                    value={brand.plan.toUpperCase()}
+                    sub="Governance Tier"
+                    color="amber"
+                    trend="Secure"
+                />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Column 1: Core Information */}
-                <div className="space-y-6">
-                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/30">
-                            <h3 className="text-[13px] font-bold text-slate-800 uppercase tracking-wider">
-                                Brand Identity & Details
-                            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Column 1: Core Architecture */}
+                <div className="lg:col-span-8 space-y-8">
+                    {/* Identity Matrix */}
+                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-sm relative overflow-hidden group hover:border-slate-300 transition-all">
+                        <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+                            <Building2 className="w-64 h-64 text-slate-900" />
                         </div>
-                        <div className="p-6 space-y-6">
-                            <div className="grid grid-cols-1 gap-6">
-                                <InfoRow icon={FileText} label="Brand Legal Name" value={brand.brandLegalName} />
-                                <div className="grid grid-cols-2 gap-6">
-                                    <InfoRow icon={Building2} label="Brand Name" value={brand.brandName} />
-                                    <InfoRow icon={Building2} label="Trade Name" value={brand.tradeName} />
+
+                        <div className="relative z-10 space-y-10">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-slate-900 rounded-2xl shadow-lg">
+                                    <Building2 className="w-6 h-6 text-emerald-400" />
                                 </div>
-                                <InfoRow icon={MapPin} label="Full Brand Address" value={brand.address} />
-                                <div className="grid grid-cols-2 gap-6">
-                                    <InfoRow icon={Globe} label="Timezone" value={brand.timezone} />
-                                    <InfoRow icon={Coins} label="Currency" value={brand.currency} />
+                                <div>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase">Identity Matrix</h3>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Core Legal & Operational Definitions</p>
                                 </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                                <ArchitectureRow label="Legal Name" value={brand.brandLegalName} icon={FileText} />
+                                <ArchitectureRow label="Brand Signature" value={brand.brandName} icon={Terminal} />
+                                <ArchitectureRow label="Trade Designation" value={brand.tradeName} icon={Globe} />
+                                <ArchitectureRow label="Network Node Slug" value={brand.slug || '—'} icon={Code} mono />
+                                <ArchitectureRow label="Geographic Anchor" value={brand.address} icon={MapPin} className="md:col-span-2" />
+                            </div>
+
+                            <div className="h-[1px] bg-slate-100" />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                                <ArchitectureRow label="Temporal Zone" value={brand.timezone} icon={Globe} />
+                                <ArchitectureRow label="Fiscal Denominator" value={brand.currency} icon={Coins} />
+                                <ArchitectureRow label="Contact Vector" value={brand.primaryContact} icon={Mail} />
+                                <ArchitectureRow label="Operational Pulse" value={brand.contactPhone} icon={Phone} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/30">
-                            <h3 className="text-[13px] font-bold text-slate-800 uppercase tracking-wider">
-                                Contact & Admin
-                            </h3>
-                        </div>
-                        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <InfoRow icon={Mail} label="Contact Email" value={brand.primaryContact} />
-                            <InfoRow icon={Phone} label="Contact Phone" value={brand.contactPhone} />
-                            <InfoRow icon={Shield} label="Status" value={brand.status} />
-                            <InfoRow icon={Calendar} label="Created Date" value={formatDate(brand.createdDate)} />
-                            <InfoRow icon={User} label="Created By" value={brand.createdBy} />
-                        </div>
-                    </div>
+                    {/* Fiscal Governance */}
+                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-sm relative overflow-hidden">
+                        <div className="relative z-10 space-y-8">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-slate-900 rounded-2xl shadow-lg">
+                                    <ShieldAlert className="w-6 h-6 text-amber-400" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase">Fiscal Governance</h3>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Network-wide default policies</p>
+                                </div>
+                            </div>
 
-                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/30">
-                            <h3 className="text-[13px] font-bold text-slate-800 uppercase tracking-wider">
-                                Global Financial Defaults
-                            </h3>
-                        </div>
-                        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <InfoRow icon={Coins} label="Default Payment Terms" value={brand.defaultPaymentTerms || '—'} />
-                            <InfoRow icon={Shield} label="Default Tax Scheme" value={`${brand.defaultTaxScheme} (${brand.defaultTaxRate}%)` || '—'} />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="p-6 bg-slate-50 border border-slate-100 rounded-3xl group hover:border-slate-900 transition-all cursor-pointer">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Default Terms</span>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xl font-black text-slate-900">{brand.defaultPaymentTerms || '—'}</span>
+                                        <ChevronRight size={16} className="text-slate-300 group-hover:text-slate-900" />
+                                    </div>
+                                </div>
+                                <div className="p-6 bg-slate-50 border border-slate-100 rounded-3xl group hover:border-slate-900 transition-all cursor-pointer">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Tax Architecture</span>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xl font-black text-slate-900">{brand.defaultTaxScheme} ({brand.defaultTaxRate}%)</span>
+                                        <ChevronRight size={16} className="text-slate-300 group-hover:text-slate-900" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Column 2: Logos & UI Branding */}
-                <div className="space-y-6">
-                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/30">
-                            <h3 className="text-[13px] font-bold text-slate-800 uppercase tracking-wider">
-                                Brand Logos & Assets
-                            </h3>
+                {/* Column 2: Identity Assets & Actions */}
+                <div className="lg:col-span-4 space-y-8">
+                    {/* Visual DNA */}
+                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm space-y-8">
+                        <div>
+                            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Visual DNA</h3>
+
+                            <div className="space-y-6">
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between px-2">
+                                        <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Phototropic (Light)</span>
+                                        <button className="text-[9px] font-black text-emerald-500 uppercase tracking-widest hover:underline flex items-center gap-1">
+                                            <Upload size={10} /> Sync Asset
+                                        </button>
+                                    </div>
+                                    <div className="w-full h-40 rounded-[2rem] bg-slate-50 border border-slate-100 flex items-center justify-center p-8 group hover:border-slate-900 transition-all">
+                                        {brand.lightLogo ? (
+                                            <img src={brand.lightLogo} alt="Light" className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                                        ) : (
+                                            <ImageIcon className="w-10 h-10 text-slate-200" />
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between px-2">
+                                        <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Scototropic (Dark)</span>
+                                        <button className="text-[9px] font-black text-emerald-500 uppercase tracking-widest hover:underline flex items-center gap-1">
+                                            <Upload size={10} /> Sync Asset
+                                        </button>
+                                    </div>
+                                    <div className="w-full h-40 rounded-[2rem] bg-slate-900 border border-white/5 flex items-center justify-center p-8 group hover:border-emerald-500 transition-all shadow-2xl">
+                                        {brand.darkLogo ? (
+                                            <img src={brand.darkLogo} alt="Dark" className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                                        ) : (
+                                            <ImageIcon className="w-10 h-10 text-slate-700" />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-6 space-y-8">
-                            {/* Light Logo Box */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                                        Light Logo Preview
-                                    </span>
-                                    <button className="flex items-center gap-1.5 text-[10px] font-black text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-widest">
-                                        <Upload className="w-3 h-3" />
-                                        Upload / Replace
-                                    </button>
-                                </div>
-                                <div className="w-full h-32 rounded-2xl border border-slate-100 bg-slate-50 flex items-center justify-center overflow-hidden p-6 group relative">
-                                    {brand.lightLogo ? (
-                                        <img src={brand.lightLogo} alt="Light Logo" className="max-w-full max-h-full object-contain" />
-                                    ) : (
-                                        <div className="text-slate-300 flex flex-col items-center gap-1">
-                                            <ImageIcon className="w-8 h-8" />
-                                            <span className="text-[10px] font-bold uppercase">No Light Logo</span>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
 
-                            {/* Dark Logo Box */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                                        Dark Logo Preview
-                                    </span>
-                                    <button className="flex items-center gap-1.5 text-[10px] font-black text-sky-400 hover:text-sky-300 transition-colors uppercase tracking-widest">
-                                        <Upload className="w-3 h-3" />
-                                        Upload / Replace
-                                    </button>
+                        <div className="p-5 bg-slate-50 border border-slate-100 rounded-3xl">
+                            <div className="flex gap-4">
+                                <div className="p-2 bg-white rounded-xl h-fit border border-slate-100">
+                                    <Info size={14} className="text-slate-400" />
                                 </div>
-                                <div className="w-full h-32 rounded-2xl border border-slate-800 bg-slate-900 flex items-center justify-center overflow-hidden p-6">
-                                    {brand.darkLogo ? (
-                                        <img src={brand.darkLogo} alt="Dark Logo" className="max-w-full max-h-full object-contain" />
-                                    ) : (
-                                        <div className="text-slate-500 flex flex-col items-center gap-1">
-                                            <ImageIcon className="w-8 h-8" />
-                                            <span className="text-[10px] font-bold uppercase">No Dark Logo</span>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl">
-                                <div className="flex gap-3">
-                                    <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                                    <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-                                        Assets should be high-resolution <span className="text-slate-900 font-bold">PNG or SVG</span> with transparent backgrounds. Max file size: <span className="text-slate-900 font-bold">2MB</span> per asset.
-                                    </p>
-                                </div>
+                                <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                                    Identity assets are distributed via CDN at <span className="text-slate-900 font-bold">edge nodes</span> for sub-50ms latency in POS terminals.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Quick Access Card for Actions */}
-                    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 text-white shadow-2xl overflow-hidden relative border border-white/5">
-                        <Building2 className="absolute -right-12 -bottom-12 w-48 h-48 text-white/[0.03] rotate-12" />
-                        <div className="relative z-10">
-                            <h4 className="text-lg font-black tracking-tight mb-2">Administrative Actions</h4>
-                            <p className="text-sm text-slate-400 mb-6 font-medium leading-relaxed">Modify brand visibility or profile credentials across the global network.</p>
-                            <div className="flex flex-col gap-3">
+                    {/* Overwatch Actions */}
+                    <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl">
+                        <Zap className="absolute -top-12 -right-12 w-48 h-48 text-emerald-500/10 rotate-12" />
+                        <div className="relative z-10 space-y-8">
+                            <div>
+                                <h3 className="text-2xl font-black tracking-tight mb-2 uppercase italic text-emerald-400">Overwatch Actions</h3>
+                                <p className="text-sm text-slate-400 font-medium">Platform-level governance overrides.</p>
+                            </div>
+
+                            <div className="space-y-3">
                                 <button
                                     onClick={() => router.push(`/platform/brands/${brandId}?edit=true`)}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-black transition-all backdrop-blur-md border border-white/10 shadow-lg"
+                                    className="w-full flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all group"
                                 >
-                                    <Pencil className="w-4 h-4 text-emerald-400" />
-                                    Edit Brand Profile
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-emerald-500/20 rounded-lg">
+                                            <Pencil size={14} className="text-emerald-400" />
+                                        </div>
+                                        <span className="text-xs font-black uppercase tracking-widest">Recalibrate Profile</span>
+                                    </div>
+                                    <ArrowUpRight size={16} className="text-slate-600 group-hover:text-white" />
                                 </button>
+
+                                {/* Access Brand Admin — Impersonation */}
+                                <button
+                                    id={`overwatch-access-brand-admin-${brandId}`}
+                                    onClick={() => router.push(`/platform/brands/${brandId}/impersonate`)}
+                                    className="w-full flex items-center justify-between p-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl hover:bg-amber-500/20 transition-all group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-amber-500/20 rounded-lg">
+                                            <LogIn size={14} className="text-amber-400" />
+                                        </div>
+                                        <div>
+                                            <span className="text-xs font-black uppercase tracking-widest text-amber-100 block">Access Brand Admin</span>
+                                            <span className="text-[10px] text-slate-500 font-medium mt-0.5 block">Secure impersonation · Time-limited</span>
+                                        </div>
+                                    </div>
+                                    <ArrowUpRight size={16} className="text-amber-600 group-hover:text-amber-400 transition-colors" />
+                                </button>
+
                                 {brand.status === 'Active' ? (
                                     <button
                                         onClick={onSuspend}
-                                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-black transition-all border border-red-500/20"
+                                        className="w-full flex items-center justify-between p-5 bg-red-500/10 border border-red-500/20 rounded-2xl hover:bg-red-500/20 transition-all group"
                                     >
-                                        <Ban className="w-4 h-4" />
-                                        Suspend Brand
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-red-500/20 rounded-lg">
+                                                <Ban size={14} className="text-red-400" />
+                                            </div>
+                                            <span className="text-xs font-black uppercase tracking-widest text-red-100">Suspend Network</span>
+                                        </div>
+                                        <ShieldAlert size={16} className="text-red-400 group-hover:scale-110 transition-transform" />
                                     </button>
                                 ) : (
                                     <button
                                         onClick={onReactivate}
-                                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl text-sm font-black transition-all border border-emerald-500/20"
+                                        className="w-full flex items-center justify-between p-5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl hover:bg-emerald-500/20 transition-all group"
                                     >
-                                        <RefreshCw className="w-4 h-4" />
-                                        Reactivate Brand
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-emerald-500/20 rounded-lg">
+                                                <RefreshCw size={14} className="text-emerald-400" />
+                                            </div>
+                                            <span className="text-xs font-black uppercase tracking-widest text-emerald-100">Restore Network</span>
+                                        </div>
+                                        <Zap size={16} className="text-emerald-400 group-hover:scale-110 transition-transform" />
                                     </button>
                                 )}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -586,31 +642,65 @@ function OverviewSection({
     );
 }
 
-function InfoRow({
-    icon: Icon,
-    label,
-    value,
-    mono = false,
-}: {
-    icon: typeof Building2;
-    label: string;
-    value: string;
-    mono?: boolean;
-}) {
+function ArchitectureRow({ label, value, icon: Icon, mono = false, className = "" }: any) {
     return (
-        <div className="flex items-start gap-3">
-            <Icon className="w-4 h-4 text-slate-300 mt-0.5 shrink-0" />
-            <div>
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                    {label}
-                </span>
-                <span className={`text-sm text-slate-900 mt-0.5 block ${mono ? 'font-mono bg-slate-50 px-1.5 py-0.5 rounded text-xs' : 'font-medium'}`}>
-                    {value}
-                </span>
+        <div className={cn("space-y-1.5", className)}>
+            <div className="flex items-center gap-2">
+                <Icon size={12} className="text-slate-300" />
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</span>
+            </div>
+            <div className={cn(
+                "text-sm font-bold text-slate-900 border-b border-slate-50 pb-2 flex items-center gap-2",
+                mono ? "font-mono text-[11px] bg-slate-50 px-2 py-1 rounded-lg border-none" : ""
+            )}>
+                {value}
             </div>
         </div>
     );
 }
+
+function VitalStatCard({
+    icon: Icon,
+    label,
+    value,
+    sub,
+    color,
+    trend,
+}: {
+    icon: any;
+    label: string;
+    value: string;
+    sub: string;
+    color: 'blue' | 'emerald' | 'violet' | 'amber';
+    trend: string;
+}) {
+    const colorMap = {
+        blue: { bg: 'bg-blue-50', border: 'border-blue-100', icon: 'bg-blue-900', iconText: 'text-blue-400', text: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
+        emerald: { bg: 'bg-emerald-50', border: 'border-emerald-100', icon: 'bg-emerald-900', iconText: 'text-emerald-400', text: 'text-emerald-700', badge: 'bg-emerald-100 text-emerald-700' },
+        violet: { bg: 'bg-violet-50', border: 'border-violet-100', icon: 'bg-violet-900', iconText: 'text-violet-400', text: 'text-violet-700', badge: 'bg-violet-100 text-violet-700' },
+        amber: { bg: 'bg-amber-50', border: 'border-amber-100', icon: 'bg-amber-900', iconText: 'text-amber-400', text: 'text-amber-700', badge: 'bg-amber-100 text-amber-700' },
+    };
+    const c = colorMap[color];
+    return (
+        <div className={`${c.bg} border ${c.border} rounded-[2rem] p-6 flex flex-col gap-4 hover:shadow-md transition-all`}>
+            <div className="flex items-center justify-between">
+                <div className={`p-3 ${c.icon} rounded-2xl shadow-lg`}>
+                    <Icon className={`w-5 h-5 ${c.iconText}`} />
+                </div>
+                <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full ${c.badge}`}>
+                    {trend}
+                </span>
+            </div>
+            <div>
+                <p className="text-3xl font-black text-slate-900 tracking-tight">{value}</p>
+                <p className={`text-[10px] font-black uppercase tracking-widest mt-1 ${c.text}`}>{label}</p>
+                <p className="text-[11px] text-slate-400 font-medium mt-0.5">{sub}</p>
+            </div>
+        </div>
+    );
+}
+
+
 
 // ─── TAB: Modules ───────────────────────────────────────────────────────────────
 
@@ -836,10 +926,7 @@ function StoresSection({ brand }: { brand: Brand }) {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingStore, setEditingStore] = useState<StoreType | null>(null);
 
-    const handleDeleteStore = (id: string, name: string) => {
-        if (!window.confirm(`Are you sure you want to delete ${name}? This action cannot be undone.`)) return;
-        setStores(prev => prev.filter(s => s.id !== id));
-    };
+
 
     const handleViewStore = (id: string) => {
         router.push(`/platform/stores/${id}`);
@@ -885,125 +972,106 @@ function StoresSection({ brand }: { brand: Brand }) {
         };
         setStores([newStore, ...stores]);
         setIsAddModalOpen(false);
-        // Reset form...
     };
 
     return (
-        <div className="space-y-4 animate-in fade-in duration-500">
-            <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                    <h2 className="text-lg font-bold text-slate-900">Stores</h2>
-                    <p className="text-[13px] text-slate-500">
-                        All store locations operating under this brand.
+        <div className="space-y-8 animate-in fade-in duration-500">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Network Topology</h2>
+                    <p className="text-sm text-slate-500 font-medium">
+                        Active store nodes and regional operational status.
                     </p>
                 </div>
-                <button
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-all active:scale-95 shadow-sm"
-                >
-                    <Plus className="w-4 h-4" />
-                    Add Store
-                </button>
-            </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/30 flex items-center gap-3">
-                    <h3 className="text-[13px] font-bold text-slate-800 uppercase tracking-wider">Store List</h3>
-                    <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full">
-                        {stores.length}
-                    </span>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[1000px]">
-                        <thead>
-                            <tr className="border-b border-slate-100 bg-slate-50/40">
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Store Name</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">City</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Province</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Status</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Payment Terms</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Tax Profile</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Logo Status</th>
-                                <th className="px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stores.map((store) => (
-                                <tr key={store.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                    <td className="px-6 py-3.5">
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-slate-900">{store.name}</span>
-                                            <span className="text-[10px] font-mono text-slate-400">{store.code}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-3.5 text-sm text-slate-600">{store.city}</td>
-                                    <td className="px-6 py-3.5 text-sm text-slate-600">{store.province}</td>
-                                    <td className="px-6 py-3.5">
-                                        <MiniStatusBadge status={store.status} />
-                                    </td>
-                                    <td className="px-6 py-3.5">
-                                        <div className="flex flex-col">
-                                            <span className="px-2 py-0.5 rounded bg-slate-100 text-[11px] font-bold text-slate-600 border border-slate-200 w-fit">
-                                                {store.paymentTerms}
-                                            </span>
-                                            {store.paymentTerms === brand.defaultPaymentTerms && (
-                                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter mt-1 italic ml-1">Inherited from Brand</span>
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-3.5">
-                                        <span className={`px-2 py-0.5 rounded text-[11px] font-bold border ${store.taxProfile === 'Inherit'
-                                            ? 'bg-blue-50 text-blue-700 border-blue-100'
-                                            : 'bg-amber-50 text-amber-700 border-amber-100'
-                                            }`}>
-                                            {store.taxProfile}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-3.5">
-                                        <span className={`flex items-center gap-1.5 text-[11px] font-bold ${store.logoStatus === 'Set' ? 'text-emerald-600' : 'text-slate-400'
-                                            }`}>
-                                            <div className={`w-1.5 h-1.5 rounded-full ${store.logoStatus === 'Set' ? 'bg-emerald-500' : 'bg-slate-300'
-                                                }`} />
-                                            {store.logoStatus}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-3.5">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); handleViewStore(store.id); }}
-                                                className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all"
-                                                title="View Store"
-                                            >
-                                                <Eye className="w-4 h-4" />
-                                            </button>
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); setEditingStore(store); }}
-                                                className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
-                                                title="Edit Store"
-                                            >
-                                                <Pencil className="w-4 h-4" />
-                                            </button>
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); handleDeleteStore(store.id, store.name); }}
-                                                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-                                                title="Delete Store"
-                                            >
-                                                <Trash2 className="w-4 h-4" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-
-                {stores.length === 0 && (
-                    <div className="flex flex-col items-center justify-center py-20 text-slate-400 italic text-[13px]">
-                        No stores found.
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-sm">
+                        <Activity className="w-4 h-4 text-emerald-500" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Logic Nodes:</span>
+                        <span className="text-sm font-black text-slate-900">{stores.length}</span>
                     </div>
-                )}
+                    <button
+                        onClick={() => setIsAddModalOpen(true)}
+                        className="flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 group"
+                    >
+                        <Plus size={16} strokeWidth={3} className="text-emerald-400 group-hover:rotate-90 transition-transform" />
+                        Deploy New Node
+                    </button>
+                </div>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {stores.map((store) => (
+                    <div key={store.id} className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm hover:border-slate-900 hover:shadow-xl hover:shadow-slate-200/50 transition-all group relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-125 transition-transform duration-700">
+                            <Store className="w-32 h-32 text-slate-900" />
+                        </div>
+
+                        <div className="flex items-start justify-between mb-8">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center group-hover:bg-slate-900 transition-colors duration-500">
+                                    <Store className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight group-hover:text-emerald-600 transition-colors">{store.name}</h4>
+                                    <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">{store.code}</p>
+                                </div>
+                            </div>
+                            <MiniStatusBadge status={store.status} />
+                        </div>
+
+                        <div className="space-y-4 mb-8">
+                            <div className="flex items-center justify-between text-[11px] font-bold">
+                                <span className="text-slate-400 flex items-center gap-2">
+                                    <MapPin size={12} /> Regional Zone
+                                </span>
+                                <span className="text-slate-900">{store.city}, {store.province}</span>
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] font-bold">
+                                <span className="text-slate-400 flex items-center gap-2">
+                                    <Coins size={12} /> Fiscal Terms
+                                </span>
+                                <span className="px-2 py-0.5 bg-slate-100 rounded text-[9px] font-black uppercase border border-slate-200">
+                                    {store.paymentTerms}
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] font-bold">
+                                <span className="text-slate-400 flex items-center gap-2">
+                                    <Shield size={12} /> Tax Profile
+                                </span>
+                                <span className={cn(
+                                    "px-2 py-0.5 rounded text-[9px] font-black uppercase border",
+                                    store.taxProfile === 'Inherit' ? "bg-blue-50 text-blue-700 border-blue-100" : "bg-amber-50 text-amber-700 border-amber-100"
+                                )}>
+                                    {store.taxProfile}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                onClick={() => handleViewStore(store.id)}
+                                className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all border border-transparent hover:border-white/10"
+                            >
+                                <Eye size={12} /> Enter Node
+                            </button>
+                            <button
+                                onClick={() => setEditingStore(store)}
+                                className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all border border-transparent hover:border-white/10"
+                            >
+                                <Pencil size={12} /> Recalibrate
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {stores.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-20 text-slate-400 bg-white border border-slate-200 border-dashed rounded-[2.5rem]">
+                    <Store size={48} className="text-slate-100 mb-4" />
+                    <p className="text-sm font-bold uppercase tracking-widest italic">No Logic Nodes Discovered</p>
+                </div>
+            )}
 
             {/* Add Store Modal */}
             {isAddModalOpen && (
@@ -1030,8 +1098,6 @@ function StoresSection({ brand }: { brand: Brand }) {
 
                         {/* Modal Body */}
                         <form onSubmit={handleAddStore} className="flex-1 overflow-y-auto p-8 space-y-10 bg-white">
-
-                            {/* Section: Store Identity */}
                             <div className="space-y-6">
                                 <FormSectionTitle icon={Building2} title="Store Identity" />
                                 <div className="grid grid-cols-2 gap-6">
@@ -1056,7 +1122,6 @@ function StoresSection({ brand }: { brand: Brand }) {
                                 </div>
                             </div>
 
-                            {/* Section: Store Address */}
                             <div className="space-y-6">
                                 <FormSectionTitle icon={MapPin} title="Store Address" />
                                 <div className="grid grid-cols-1 gap-4">
@@ -1098,7 +1163,6 @@ function StoresSection({ brand }: { brand: Brand }) {
                                 </div>
                             </div>
 
-                            {/* Section: Store Branding */}
                             <div className="space-y-6">
                                 <FormSectionTitle icon={ImageIcon} title="Store Branding" />
                                 <div className="p-8 border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50/30 flex flex-col items-center justify-center group hover:border-emerald-400 hover:bg-emerald-50/20 transition-all cursor-pointer">
@@ -1110,7 +1174,6 @@ function StoresSection({ brand }: { brand: Brand }) {
                                 </div>
                             </div>
 
-                            {/* Section: Payment Terms (Radio Logic) */}
                             <div className="space-y-6">
                                 <FormSectionTitle icon={Coins} title="Payment Terms" />
                                 <div className="space-y-4">
@@ -1158,7 +1221,6 @@ function StoresSection({ brand }: { brand: Brand }) {
                                 </div>
                             </div>
 
-                            {/* Section: Tax Setup (Override Logic) */}
                             <div className="space-y-6">
                                 <FormSectionTitle icon={Shield} title="Tax Configuration" />
                                 <div className="space-y-4">
@@ -1177,11 +1239,7 @@ function StoresSection({ brand }: { brand: Brand }) {
                                                     }`}
                                             >
                                                 <span className="text-xs font-bold uppercase tracking-wider">{opt.label}</span>
-                                                {form.taxSetup === opt.id ? (
-                                                    <Check className="w-5 h-5" />
-                                                ) : (
-                                                    <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
-                                                )}
+                                                {form.taxSetup === opt.id && <Check className="w-5 h-5" />}
                                             </button>
                                         ))}
                                     </div>
@@ -1225,7 +1283,6 @@ function StoresSection({ brand }: { brand: Brand }) {
                                     )}
                                 </div>
                             </div>
-
                         </form>
 
                         {/* Modal Footer */}

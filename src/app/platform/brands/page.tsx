@@ -14,6 +14,7 @@ import {
     Building2,
     ChevronLeft,
     ChevronRight,
+    LogIn,
 } from 'lucide-react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────────
@@ -554,7 +555,7 @@ export default function BrandsPage() {
                                                     >
                                                         <button
                                                             onClick={() => handleRowClick(brand)}
-                                                            title="View"
+                                                            title="View Brand"
                                                             className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all"
                                                         >
                                                             <Eye className="w-4 h-4" />
@@ -565,7 +566,7 @@ export default function BrandsPage() {
                                                                     `/platform/brands/${brand.id}?edit=true`,
                                                                 )
                                                             }
-                                                            title="Edit"
+                                                            title="Edit Brand"
                                                             className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                                                         >
                                                             <Pencil className="w-4 h-4" />
@@ -574,8 +575,8 @@ export default function BrandsPage() {
                                                             onClick={() => setSuspendTarget(brand)}
                                                             title={
                                                                 brand.status === 'Active'
-                                                                    ? 'Suspend'
-                                                                    : 'Activate'
+                                                                    ? 'Suspend Brand'
+                                                                    : 'Activate Brand'
                                                             }
                                                             className={`p-1.5 rounded-lg transition-all ${brand.status === 'Active'
                                                                 ? 'text-slate-400 hover:text-red-600 hover:bg-red-50'
@@ -583,6 +584,21 @@ export default function BrandsPage() {
                                                                 }`}
                                                         >
                                                             <ShieldBan className="w-4 h-4" />
+                                                        </button>
+                                                        {/* ── Access Brand Admin (Impersonation) ── */}
+                                                        <button
+                                                            id={`access-brand-admin-${brand.id}`}
+                                                            onClick={() =>
+                                                                router.push(`/platform/brands/${brand.id}/impersonate`)
+                                                            }
+                                                            title="Access Brand Admin"
+                                                            className="
+                                                                p-1.5 rounded-lg transition-all
+                                                                text-slate-400 hover:text-amber-600 hover:bg-amber-50
+                                                                border border-transparent hover:border-amber-100
+                                                            "
+                                                        >
+                                                            <LogIn className="w-4 h-4" />
                                                         </button>
                                                     </div>
                                                 </td>

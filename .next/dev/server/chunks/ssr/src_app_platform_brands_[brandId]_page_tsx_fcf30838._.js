@@ -9,6 +9,10 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$activity$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Activity$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/activity.js [app-ssr] (ecmascript) <export default as Activity>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/zap.js [app-ssr] (ecmascript) <export default as Zap>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-up-right.js [app-ssr] (ecmascript) <export default as ArrowUpRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-ssr] (ecmascript) <export default as ArrowLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/building-2.js [app-ssr] (ecmascript) <export default as Building2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/package.js [app-ssr] (ecmascript) <export default as Package>");
@@ -17,21 +21,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mail.js [app-ssr] (ecmascript) <export default as Mail>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/phone.js [app-ssr] (ecmascript) <export default as Phone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-ssr] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shield.js [app-ssr] (ecmascript) <export default as Shield>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-ssr] (ecmascript) <export default as Edit>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/globe.js [app-ssr] (ecmascript) <export default as Globe>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$coins$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Coins$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/coins.js [app-ssr] (ecmascript) <export default as Coins>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldAlert$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shield-alert.js [app-ssr] (ecmascript) <export default as ShieldAlert>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/upload.js [app-ssr] (ecmascript) <export default as Upload>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user.js [app-ssr] (ecmascript) <export default as User>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-ssr] (ecmascript) <export default as FileText>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/image.js [app-ssr] (ecmascript) <export default as Image>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$triangle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertTriangle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/triangle-alert.js [app-ssr] (ecmascript) <export default as AlertTriangle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/info.js [app-ssr] (ecmascript) <export default as Info>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/eye.js [app-ssr] (ecmascript) <export default as Eye>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pencil.js [app-ssr] (ecmascript) <export default as Pencil>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
@@ -43,7 +43,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-up.js [app-ssr] (ecmascript) <export default as ChevronUp>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/terminal.js [app-ssr] (ecmascript) <export default as Terminal>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user-plus.js [app-ssr] (ecmascript) <export default as UserPlus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$in$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LogIn$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/log-in.js [app-ssr] (ecmascript) <export default as LogIn>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/index.ts [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -416,7 +419,7 @@ function FormSectionTitle({ icon: Icon, title }) {
                 className: "w-4 h-4 text-slate-400"
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 214,
+                lineNumber: 216,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -424,13 +427,13 @@ function FormSectionTitle({ icon: Icon, title }) {
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 215,
+                lineNumber: 217,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 213,
+        lineNumber: 215,
         columnNumber: 9
     }, this);
 }
@@ -447,20 +450,20 @@ function InputWrapper({ label, required, children }) {
                         children: "*"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 225,
+                        lineNumber: 227,
                         columnNumber: 30
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 223,
+                lineNumber: 225,
                 columnNumber: 13
             }, this),
             children
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 222,
+        lineNumber: 224,
         columnNumber: 9
     }, this);
 }
@@ -498,117 +501,135 @@ function BrandDetailPage() {
     };
     const brand = localBrand;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-6",
+        className: "max-w-[1700px] mx-auto space-y-8 pb-32 px-4 pt-4",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                className: "flex items-center gap-2 text-xs font-medium text-slate-400",
+                className: "flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>router.push('/platform/brands'),
-                        className: "flex items-center gap-1 hover:text-slate-700 transition-colors",
+                        className: "flex items-center gap-1 hover:text-slate-900 transition-colors group",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
-                                className: "w-3.5 h-3.5"
+                                className: "w-3 h-3 group-hover:-translate-x-0.5 transition-transform"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 274,
+                                lineNumber: 276,
                                 columnNumber: 21
                             }, this),
-                            "Brands"
+                            "Network"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 270,
+                        lineNumber: 272,
                         columnNumber: 17
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        children: "/"
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                        size: 10,
+                        className: "opacity-30"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 277,
+                        lineNumber: 279,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-slate-700 font-bold",
+                        className: "text-slate-900",
                         children: brand.brandName
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 278,
+                        lineNumber: 280,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 269,
+                lineNumber: 271,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col md:flex-row md:items-center justify-between gap-4",
+                className: "flex flex-col xl:flex-row xl:items-center justify-between gap-6 border-b border-slate-100 pb-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-4",
+                        className: "flex items-center gap-5",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"], {
-                                    className: "w-6 h-6 text-emerald-600"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 285,
-                                    columnNumber: 25
-                                }, this)
-                            }, void 0, false, {
+                                className: "w-16 h-16 rounded-[1.5rem] bg-slate-900 flex items-center justify-center shadow-2xl shadow-slate-200 group overflow-hidden relative",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"], {
+                                        className: "w-8 h-8 text-emerald-400 z-10"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 287,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 288,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 284,
+                                lineNumber: 286,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center gap-3",
+                                        className: "flex items-center gap-3 mb-1",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                                className: "text-2xl font-bold text-slate-900 tracking-tight",
+                                                className: "text-3xl font-black text-slate-900 tracking-tight leading-none",
                                                 children: brand.brandName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 289,
+                                                lineNumber: 292,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: `inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${brand.status === 'Active' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-red-50 text-red-700 border-red-200'}`,
+                                                className: `inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all ${brand.status === 'Active' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 animate-pulse' : 'bg-rose-50 text-rose-700 border-rose-200'}`,
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `w-1.5 h-1.5 rounded-full mr-1.5 ${brand.status === 'Active' ? 'bg-emerald-500' : 'bg-red-500'}`
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: `w-1.5 h-1.5 rounded-full mr-2 ${brand.status === 'Active' ? 'bg-emerald-500' : 'bg-rose-500'}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 298,
+                                                        lineNumber: 301,
                                                         columnNumber: 33
                                                     }, this),
                                                     brand.status
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 292,
+                                                lineNumber: 295,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 288,
+                                        lineNumber: 291,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-slate-500 mt-0.5",
+                                        className: "text-xs text-slate-500 font-mono uppercase tracking-tight opacity-70 flex items-center gap-2",
                                         children: [
-                                            brand.tradeName,
-                                            " · ",
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
-                                                className: "px-1 py-0.5 rounded bg-slate-100 text-xs font-mono",
-                                                children: brandId
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__["Globe"], {
+                                                size: 12,
+                                                className: "text-slate-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
                                                 lineNumber: 306,
+                                                columnNumber: 29
+                                            }, this),
+                                            brand.tradeName,
+                                            " · ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "font-bold text-slate-900",
+                                                children: brandId
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 307,
                                                 columnNumber: 49
                                             }, this)
                                         ]
@@ -620,44 +641,183 @@ function BrandDetailPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 287,
+                                lineNumber: 290,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 283,
+                        lineNumber: 285,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-3",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: ()=>router.push(`/platform/brands/${brandId}?edit=true`),
-                            className: "flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800 transition-all active:scale-95",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
-                                    className: "w-4 h-4"
-                                }, void 0, false, {
+                        className: "flex flex-wrap items-center gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-4 px-6 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex flex-col",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 text-right",
+                                            children: "System Health"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                            lineNumber: 315,
+                                            columnNumber: 29
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-1.5 justify-end",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-xs font-black text-slate-900",
+                                                    children: "Stable"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 317,
+                                                    columnNumber: 33
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex items-center gap-0.5",
+                                                    children: [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                    ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "w-1 h-3 bg-emerald-500 rounded-full"
+                                                        }, i, false, {
+                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                            lineNumber: 320,
+                                                            columnNumber: 41
+                                                        }, this))
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 318,
+                                                    columnNumber: 33
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                            lineNumber: 316,
+                                            columnNumber: 29
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 315,
+                                    lineNumber: 314,
                                     columnNumber: 25
-                                }, this),
-                                "Edit Brand"
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 311,
-                            columnNumber: 21
-                        }, this)
-                    }, void 0, false, {
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 313,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                id: `access-brand-admin-${brandId}`,
+                                onClick: ()=>router.push(`/platform/brands/${brandId}/impersonate`),
+                                className: "flex items-center gap-3 px-8 py-4 bg-amber-500 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-amber-200 hover:bg-amber-600 transition-all active:scale-95 group",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$in$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LogIn$3e$__["LogIn"], {
+                                        size: 14,
+                                        className: "group-hover:scale-125 transition-transform"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 333,
+                                        columnNumber: 25
+                                    }, this),
+                                    "Access Brand Admin"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 328,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>router.push(`/platform/brands/${brandId}?edit=true`),
+                                className: "flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 group",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
+                                        size: 14,
+                                        className: "text-emerald-400 group-hover:scale-125 transition-transform"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 341,
+                                        columnNumber: 25
+                                    }, this),
+                                    "Modify Protocol"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 337,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 310,
+                        lineNumber: 312,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 282,
+                lineNumber: 284,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-1 p-1 bg-slate-100/50 backdrop-blur-md rounded-2xl w-fit border border-slate-200 overflow-x-auto",
+                children: TABS.map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>setActiveTab(tab.id),
+                        className: `px-8 py-3 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-white text-slate-900 shadow-sm border border-slate-200 ring-4 ring-slate-100/50' : 'text-slate-400 hover:text-slate-600'}`,
+                        children: tab.label
+                    }, tab.id, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 350,
+                        columnNumber: 21
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                lineNumber: 348,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "animate-in fade-in slide-in-from-top-4 duration-500",
+                children: [
+                    activeTab === 'overview' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(OverviewSection, {
+                        brand: brand,
+                        onSuspend: handleSuspend,
+                        onReactivate: handleReactivate
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 366,
+                        columnNumber: 21
+                    }, this),
+                    activeTab === 'modules' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ModulesSection, {}, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 372,
+                        columnNumber: 45
+                    }, this),
+                    activeTab === 'stores' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StoresSection, {
+                        brand: brand
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 373,
+                        columnNumber: 44
+                    }, this),
+                    activeTab === 'users' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(UsersSection, {}, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 374,
+                        columnNumber: 43
+                    }, this),
+                    activeTab === 'audit-log' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuditLogSection, {}, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 375,
+                        columnNumber: 47
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                lineNumber: 364,
                 columnNumber: 13
             }, this),
             isEditing && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditBrandModal, {
@@ -666,138 +826,13 @@ function BrandDetailPage() {
                 onSave: handleUpdateBrand
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 323,
+                lineNumber: 380,
                 columnNumber: 17
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex items-center border-b border-slate-200",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center gap-8",
-                    children: TABS.map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: ()=>setActiveTab(tab.id),
-                            className: `relative py-3 text-[13px] font-bold tracking-wide transition-all ${activeTab === tab.id ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`,
-                            children: [
-                                tab.label,
-                                activeTab === tab.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute bottom-0 left-0 right-0 h-0.5 bg-black"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 344,
-                                    columnNumber: 33
-                                }, this)
-                            ]
-                        }, tab.id, true, {
-                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 334,
-                            columnNumber: 25
-                        }, this))
-                }, void 0, false, {
-                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 332,
-                    columnNumber: 17
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 331,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-wrap items-center gap-3",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>router.push(`/platform/brands/${brandId}?edit=true`),
-                        className: "flex items-center gap-2 px-6 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all active:scale-[0.98] shadow-sm",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__["Edit"], {
-                                className: "w-4 h-4"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 357,
-                                columnNumber: 21
-                            }, this),
-                            "Edit Details"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 353,
-                        columnNumber: 17
-                    }, this),
-                    brand.status === 'Active' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: handleSuspend,
-                        className: "flex items-center gap-2 px-6 py-2.5 bg-red-50 border border-red-100 text-red-700 rounded-xl text-sm font-bold hover:bg-red-100 transition-all active:scale-[0.98]",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ban$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Ban$3e$__["Ban"], {
-                                className: "w-4 h-4"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 365,
-                                columnNumber: 25
-                            }, this),
-                            "Suspend Brand"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 361,
-                        columnNumber: 21
-                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: handleReactivate,
-                        className: "flex items-center gap-2 px-6 py-2.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-xl text-sm font-bold hover:bg-emerald-100 transition-all active:scale-[0.98]",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
-                                className: "w-4 h-4"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 373,
-                                columnNumber: 25
-                            }, this),
-                            "Reactivate Brand"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 369,
-                        columnNumber: 21
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 352,
-                columnNumber: 13
-            }, this),
-            activeTab === 'overview' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(OverviewSection, {
-                brand: brand,
-                onSuspend: handleSuspend,
-                onReactivate: handleReactivate
-            }, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 381,
-                columnNumber: 17
-            }, this),
-            activeTab === 'modules' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ModulesSection, {}, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 387,
-                columnNumber: 41
-            }, this),
-            activeTab === 'stores' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StoresSection, {
-                brand: brand
-            }, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 388,
-                columnNumber: 40
-            }, this),
-            activeTab === 'users' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(UsersSection, {}, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 389,
-                columnNumber: 39
-            }, this),
-            activeTab === 'audit-log' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuditLogSection, {}, void 0, false, {
-                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 390,
-                columnNumber: 43
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 267,
+        lineNumber: 269,
         columnNumber: 9
     }, this);
 }
@@ -806,742 +841,1085 @@ function OverviewSection({ brand, onSuspend, onReactivate }) {
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
     const brandId = params?.brandId;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-6 animate-in fade-in duration-500",
+        className: "space-y-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4",
+                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4",
                 children: [
-                    {
-                        label: 'Total Stores',
-                        value: brand.totalStores,
-                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$store$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Store$3e$__["Store"]
-                    },
-                    {
-                        label: 'Active Modules',
-                        value: brand.modulesPurchasedCount,
-                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"]
-                    },
-                    {
-                        label: 'Total Users',
-                        value: MOCK_USERS.length,
-                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"]
-                    },
-                    {
-                        label: 'Plan',
-                        value: brand.plan,
-                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"]
-                    }
-                ].map((kpi)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white border border-slate-200 rounded-xl p-5 shadow-sm",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between mb-3",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-[10px] font-black text-slate-400 uppercase tracking-widest",
-                                        children: kpi.label
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 420,
-                                        columnNumber: 29
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(kpi.icon, {
-                                        className: "w-4 h-4 text-slate-300"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 423,
-                                        columnNumber: 29
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 419,
-                                columnNumber: 25
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-2xl font-bold text-slate-900",
-                                children: kpi.value
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 425,
-                                columnNumber: 25
-                            }, this)
-                        ]
-                    }, kpi.label, true, {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(VitalStatCard, {
+                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$store$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Store$3e$__["Store"],
+                        label: "Network Nodes",
+                        value: brand.totalStores.toString(),
+                        sub: "Active Storefronts",
+                        color: "blue",
+                        trend: "+1"
+                    }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 418,
-                        columnNumber: 21
-                    }, this))
-            }, void 0, false, {
+                        lineNumber: 407,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(VitalStatCard, {
+                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"],
+                        label: "Module Flux",
+                        value: brand.modulesPurchasedCount.toString(),
+                        sub: "Protocol Integrity",
+                        color: "emerald",
+                        trend: "Stable"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 415,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(VitalStatCard, {
+                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"],
+                        label: "Team Capacity",
+                        value: MOCK_USERS.length.toString(),
+                        sub: "Active Personas",
+                        color: "violet",
+                        trend: "+2"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 423,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(VitalStatCard, {
+                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"],
+                        label: "Protocol",
+                        value: brand.plan.toUpperCase(),
+                        sub: "Governance Tier",
+                        color: "amber",
+                        trend: "Secure"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 431,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 411,
+                lineNumber: 406,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-1 lg:grid-cols-2 gap-6",
+                className: "grid grid-cols-1 lg:grid-cols-12 gap-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-6",
+                        className: "lg:col-span-8 space-y-8",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm",
+                                className: "bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-sm relative overflow-hidden group hover:border-slate-300 transition-all",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "px-6 py-4 border-b border-slate-100 bg-slate-50/30",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-[13px] font-bold text-slate-800 uppercase tracking-wider",
-                                            children: "Brand Identity & Details"
+                                        className: "absolute top-0 right-0 p-10 opacity-[0.03] group-hover:scale-110 transition-transform duration-700",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"], {
+                                            className: "w-64 h-64 text-slate-900"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 435,
+                                            lineNumber: 447,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 434,
+                                        lineNumber: 446,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-6 space-y-6",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "grid grid-cols-1 gap-6",
+                                        className: "relative z-10 space-y-10",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "p-3 bg-slate-900 rounded-2xl shadow-lg",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"], {
+                                                            className: "w-6 h-6 text-emerald-400"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                            lineNumber: 453,
+                                                            columnNumber: 37
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 452,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                className: "text-xl font-black text-slate-900 tracking-tight uppercase",
+                                                                children: "Identity Matrix"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 456,
+                                                                columnNumber: 37
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                className: "text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1",
+                                                                children: "Core Legal & Operational Definitions"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 457,
+                                                                columnNumber: 37
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 455,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 451,
+                                                columnNumber: 29
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Legal Name",
+                                                        value: brand.brandLegalName,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 462,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Brand Signature",
+                                                        value: brand.brandName,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__["Terminal"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 463,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Trade Designation",
+                                                        value: brand.tradeName,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__["Globe"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 464,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Network Node Slug",
+                                                        value: brand.slug || '—',
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code$3e$__["Code"],
+                                                        mono: true
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 465,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Geographic Anchor",
+                                                        value: brand.address,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"],
+                                                        className: "md:col-span-2"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 466,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 461,
+                                                columnNumber: 29
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "h-[1px] bg-slate-100"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 469,
+                                                columnNumber: 29
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Temporal Zone",
+                                                        value: brand.timezone,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__["Globe"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 472,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Fiscal Denominator",
+                                                        value: brand.currency,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$coins$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Coins$3e$__["Coins"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 473,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Contact Vector",
+                                                        value: brand.primaryContact,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 474,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ArchitectureRow, {
+                                                        label: "Operational Pulse",
+                                                        value: brand.contactPhone,
+                                                        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"]
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 475,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 471,
+                                                columnNumber: 29
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 450,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 445,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-sm relative overflow-hidden",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative z-10 space-y-8",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-4",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                    icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"],
-                                                    label: "Brand Legal Name",
-                                                    value: brand.brandLegalName
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-3 bg-slate-900 rounded-2xl shadow-lg",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldAlert$3e$__["ShieldAlert"], {
+                                                        className: "w-6 h-6 text-amber-400"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 485,
+                                                        columnNumber: 37
+                                                    }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 441,
+                                                    lineNumber: 484,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "grid grid-cols-2 gap-6",
                                                     children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"],
-                                                            label: "Brand Name",
-                                                            value: brand.brandName
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                            className: "text-xl font-black text-slate-900 tracking-tight uppercase",
+                                                            children: "Fiscal Governance"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 443,
+                                                            lineNumber: 488,
                                                             columnNumber: 37
                                                         }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"],
-                                                            label: "Trade Name",
-                                                            value: brand.tradeName
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1",
+                                                            children: "Network-wide default policies"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 444,
+                                                            lineNumber: 489,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 442,
-                                                    columnNumber: 33
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                    icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"],
-                                                    label: "Full Brand Address",
-                                                    value: brand.address
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 446,
-                                                    columnNumber: 33
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "grid grid-cols-2 gap-6",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__["Globe"],
-                                                            label: "Timezone",
-                                                            value: brand.timezone
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 448,
-                                                            columnNumber: 37
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$coins$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Coins$3e$__["Coins"],
-                                                            label: "Currency",
-                                                            value: brand.currency
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 449,
-                                                            columnNumber: 37
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 447,
+                                                    lineNumber: 487,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 440,
+                                            lineNumber: 483,
                                             columnNumber: 29
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 439,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 433,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "px-6 py-4 border-b border-slate-100 bg-slate-50/30",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-[13px] font-bold text-slate-800 uppercase tracking-wider",
-                                            children: "Contact & Admin"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 457,
-                                            columnNumber: 29
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 456,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-6 grid grid-cols-1 sm:grid-cols-2 gap-6",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"],
-                                                label: "Contact Email",
-                                                value: brand.primaryContact
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 462,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"],
-                                                label: "Contact Phone",
-                                                value: brand.contactPhone
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 463,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"],
-                                                label: "Status",
-                                                value: brand.status
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 464,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"],
-                                                label: "Created Date",
-                                                value: formatDate(brand.createdDate)
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 465,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"],
-                                                label: "Created By",
-                                                value: brand.createdBy
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 466,
-                                                columnNumber: 29
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 461,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 455,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "px-6 py-4 border-b border-slate-100 bg-slate-50/30",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-[13px] font-bold text-slate-800 uppercase tracking-wider",
-                                            children: "Global Financial Defaults"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 472,
-                                            columnNumber: 29
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 471,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-6 grid grid-cols-1 sm:grid-cols-2 gap-6",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$coins$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Coins$3e$__["Coins"],
-                                                label: "Default Payment Terms",
-                                                value: brand.defaultPaymentTerms || '—'
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 477,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InfoRow, {
-                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"],
-                                                label: "Default Tax Scheme",
-                                                value: `${brand.defaultTaxScheme} (${brand.defaultTaxRate}%)` || '—'
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 478,
-                                                columnNumber: 29
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 476,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 470,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 432,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-6",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "px-6 py-4 border-b border-slate-100 bg-slate-50/30",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-[13px] font-bold text-slate-800 uppercase tracking-wider",
-                                            children: "Brand Logos & Assets"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 487,
-                                            columnNumber: 29
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 486,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-6 space-y-8",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-3",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center justify-between",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-[10px] font-black text-slate-400 uppercase tracking-widest block",
-                                                                children: "Light Logo Preview"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 495,
-                                                                columnNumber: 37
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                className: "flex items-center gap-1.5 text-[10px] font-black text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-widest",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
-                                                                        className: "w-3 h-3"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 499,
-                                                                        columnNumber: 41
-                                                                    }, this),
-                                                                    "Upload / Replace"
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 498,
-                                                                columnNumber: 37
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 494,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-full h-32 rounded-2xl border border-slate-100 bg-slate-50 flex items-center justify-center overflow-hidden p-6 group relative",
-                                                        children: brand.lightLogo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                            src: brand.lightLogo,
-                                                            alt: "Light Logo",
-                                                            className: "max-w-full max-h-full object-contain"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 505,
-                                                            columnNumber: 41
-                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "text-slate-300 flex flex-col items-center gap-1",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
-                                                                    className: "w-8 h-8"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 508,
-                                                                    columnNumber: 45
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[10px] font-bold uppercase",
-                                                                    children: "No Light Logo"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 509,
-                                                                    columnNumber: 45
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 507,
-                                                            columnNumber: 41
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 503,
-                                                        columnNumber: 33
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 493,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-3",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center justify-between",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-[10px] font-black text-slate-400 uppercase tracking-widest block",
-                                                                children: "Dark Logo Preview"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 518,
-                                                                columnNumber: 37
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                className: "flex items-center gap-1.5 text-[10px] font-black text-sky-400 hover:text-sky-300 transition-colors uppercase tracking-widest",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
-                                                                        className: "w-3 h-3"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 522,
-                                                                        columnNumber: 41
-                                                                    }, this),
-                                                                    "Upload / Replace"
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 521,
-                                                                columnNumber: 37
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 517,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-full h-32 rounded-2xl border border-slate-800 bg-slate-900 flex items-center justify-center overflow-hidden p-6",
-                                                        children: brand.darkLogo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                            src: brand.darkLogo,
-                                                            alt: "Dark Logo",
-                                                            className: "max-w-full max-h-full object-contain"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 528,
-                                                            columnNumber: 41
-                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "text-slate-500 flex flex-col items-center gap-1",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
-                                                                    className: "w-8 h-8"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 531,
-                                                                    columnNumber: 45
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[10px] font-bold uppercase",
-                                                                    children: "No Dark Logo"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 532,
-                                                                    columnNumber: 45
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 530,
-                                                            columnNumber: 41
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 526,
-                                                        columnNumber: 33
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 516,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "p-4 bg-slate-50 border border-slate-100 rounded-xl",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex gap-3",
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-6 bg-slate-50 border border-slate-100 rounded-3xl group hover:border-slate-900 transition-all cursor-pointer",
                                                     children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
-                                                            className: "w-4 h-4 text-slate-400 shrink-0 mt-0.5"
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1",
+                                                            children: "Default Terms"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 540,
+                                                            lineNumber: 495,
                                                             columnNumber: 37
                                                         }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-[11px] text-slate-500 leading-relaxed font-medium",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center justify-between",
                                                             children: [
-                                                                "Assets should be high-resolution ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-slate-900 font-bold",
-                                                                    children: "PNG or SVG"
+                                                                    className: "text-xl font-black text-slate-900",
+                                                                    children: brand.defaultPaymentTerms || '—'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 542,
-                                                                    columnNumber: 74
+                                                                    lineNumber: 497,
+                                                                    columnNumber: 41
                                                                 }, this),
-                                                                " with transparent backgrounds. Max file size: ",
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-slate-900 font-bold",
-                                                                    children: "2MB"
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                                                    size: 16,
+                                                                    className: "text-slate-300 group-hover:text-slate-900"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 542,
-                                                                    columnNumber: 180
-                                                                }, this),
-                                                                " per asset."
+                                                                    lineNumber: 498,
+                                                                    columnNumber: 41
+                                                                }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 541,
+                                                            lineNumber: 496,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 539,
+                                                    lineNumber: 494,
+                                                    columnNumber: 33
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-6 bg-slate-50 border border-slate-100 rounded-3xl group hover:border-slate-900 transition-all cursor-pointer",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1",
+                                                            children: "Tax Architecture"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                            lineNumber: 502,
+                                                            columnNumber: 37
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center justify-between",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "text-xl font-black text-slate-900",
+                                                                    children: [
+                                                                        brand.defaultTaxScheme,
+                                                                        " (",
+                                                                        brand.defaultTaxRate,
+                                                                        "%)"
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 504,
+                                                                    columnNumber: 41
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                                                    size: 16,
+                                                                    className: "text-slate-300 group-hover:text-slate-900"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 505,
+                                                                    columnNumber: 41
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                            lineNumber: 503,
+                                                            columnNumber: 37
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 501,
                                                     columnNumber: 33
                                                 }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 538,
-                                                columnNumber: 29
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 491,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                            lineNumber: 493,
+                                            columnNumber: 29
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                    lineNumber: 482,
+                                    columnNumber: 25
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 485,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 text-white shadow-2xl overflow-hidden relative border border-white/5",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"], {
-                                        className: "absolute -right-12 -bottom-12 w-48 h-48 text-white/[0.03] rotate-12"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 551,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative z-10",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                className: "text-lg font-black tracking-tight mb-2",
-                                                children: "Administrative Actions"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 553,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-slate-400 mb-6 font-medium leading-relaxed",
-                                                children: "Modify brand visibility or profile credentials across the global network."
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 554,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex flex-col gap-3",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: ()=>router.push(`/platform/brands/${brandId}?edit=true`),
-                                                        className: "w-full flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-black transition-all backdrop-blur-md border border-white/10 shadow-lg",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
-                                                                className: "w-4 h-4 text-emerald-400"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 560,
-                                                                columnNumber: 37
-                                                            }, this),
-                                                            "Edit Brand Profile"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 556,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    brand.status === 'Active' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: onSuspend,
-                                                        className: "w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-black transition-all border border-red-500/20",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ban$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Ban$3e$__["Ban"], {
-                                                                className: "w-4 h-4"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 568,
-                                                                columnNumber: 41
-                                                            }, this),
-                                                            "Suspend Brand"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 564,
-                                                        columnNumber: 37
-                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: onReactivate,
-                                                        className: "w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl text-sm font-black transition-all border border-emerald-500/20",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
-                                                                className: "w-4 h-4"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 576,
-                                                                columnNumber: 41
-                                                            }, this),
-                                                            "Reactivate Brand"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 572,
-                                                        columnNumber: 37
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 555,
-                                                columnNumber: 29
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 552,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 550,
+                                lineNumber: 481,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 484,
+                        lineNumber: 443,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "lg:col-span-4 space-y-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm space-y-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6",
+                                                children: "Visual DNA"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 518,
+                                                columnNumber: 29
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "space-y-6",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "space-y-3",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center justify-between px-2",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-[9px] font-black text-slate-300 uppercase tracking-widest",
+                                                                        children: "Phototropic (Light)"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 523,
+                                                                        columnNumber: 41
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                        className: "text-[9px] font-black text-emerald-500 uppercase tracking-widest hover:underline flex items-center gap-1",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
+                                                                                size: 10
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                                lineNumber: 525,
+                                                                                columnNumber: 45
+                                                                            }, this),
+                                                                            " Sync Asset"
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 524,
+                                                                        columnNumber: 41
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 522,
+                                                                columnNumber: 37
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "w-full h-40 rounded-[2rem] bg-slate-50 border border-slate-100 flex items-center justify-center p-8 group hover:border-slate-900 transition-all",
+                                                                children: brand.lightLogo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                                    src: brand.lightLogo,
+                                                                    alt: "Light",
+                                                                    className: "max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 530,
+                                                                    columnNumber: 45
+                                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                                                    className: "w-10 h-10 text-slate-200"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 532,
+                                                                    columnNumber: 45
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 528,
+                                                                columnNumber: 37
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 521,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "space-y-3",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center justify-between px-2",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-[9px] font-black text-slate-300 uppercase tracking-widest",
+                                                                        children: "Scototropic (Dark)"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 539,
+                                                                        columnNumber: 41
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                        className: "text-[9px] font-black text-emerald-500 uppercase tracking-widest hover:underline flex items-center gap-1",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
+                                                                                size: 10
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                                lineNumber: 541,
+                                                                                columnNumber: 45
+                                                                            }, this),
+                                                                            " Sync Asset"
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 540,
+                                                                        columnNumber: 41
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 538,
+                                                                columnNumber: 37
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "w-full h-40 rounded-[2rem] bg-slate-900 border border-white/5 flex items-center justify-center p-8 group hover:border-emerald-500 transition-all shadow-2xl",
+                                                                children: brand.darkLogo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                                    src: brand.darkLogo,
+                                                                    alt: "Dark",
+                                                                    className: "max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 546,
+                                                                    columnNumber: 45
+                                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                                                    className: "w-10 h-10 text-slate-700"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                    lineNumber: 548,
+                                                                    columnNumber: 45
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 544,
+                                                                columnNumber: 37
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 537,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 520,
+                                                columnNumber: 29
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 517,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-5 bg-slate-50 border border-slate-100 rounded-3xl",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex gap-4",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-2 bg-white rounded-xl h-fit border border-slate-100",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
+                                                        size: 14,
+                                                        className: "text-slate-400"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 558,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 557,
+                                                    columnNumber: 33
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "text-[11px] text-slate-500 font-medium leading-relaxed",
+                                                    children: [
+                                                        "Identity assets are distributed via CDN at ",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-slate-900 font-bold",
+                                                            children: "edge nodes"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                            lineNumber: 561,
+                                                            columnNumber: 80
+                                                        }, this),
+                                                        " for sub-50ms latency in POS terminals."
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 560,
+                                                    columnNumber: 33
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                            lineNumber: 556,
+                                            columnNumber: 29
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 555,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 516,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"], {
+                                        className: "absolute -top-12 -right-12 w-48 h-48 text-emerald-500/10 rotate-12"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 569,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "relative z-10 space-y-8",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        className: "text-2xl font-black tracking-tight mb-2 uppercase italic text-emerald-400",
+                                                        children: "Overwatch Actions"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 572,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-sm text-slate-400 font-medium",
+                                                        children: "Platform-level governance overrides."
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 573,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 571,
+                                                columnNumber: 29
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "space-y-3",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>router.push(`/platform/brands/${brandId}?edit=true`),
+                                                        className: "w-full flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all group",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-3",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "p-2 bg-emerald-500/20 rounded-lg",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
+                                                                            size: 14,
+                                                                            className: "text-emerald-400"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                            lineNumber: 583,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 582,
+                                                                        columnNumber: 41
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-xs font-black uppercase tracking-widest",
+                                                                        children: "Recalibrate Profile"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 585,
+                                                                        columnNumber: 41
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 581,
+                                                                columnNumber: 37
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
+                                                                size: 16,
+                                                                className: "text-slate-600 group-hover:text-white"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 587,
+                                                                columnNumber: 37
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 577,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        id: `overwatch-access-brand-admin-${brandId}`,
+                                                        onClick: ()=>router.push(`/platform/brands/${brandId}/impersonate`),
+                                                        className: "w-full flex items-center justify-between p-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl hover:bg-amber-500/20 transition-all group",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-3",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "p-2 bg-amber-500/20 rounded-lg",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$in$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LogIn$3e$__["LogIn"], {
+                                                                            size: 14,
+                                                                            className: "text-amber-400"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                            lineNumber: 598,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 597,
+                                                                        columnNumber: 41
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                className: "text-xs font-black uppercase tracking-widest text-amber-100 block",
+                                                                                children: "Access Brand Admin"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                                lineNumber: 601,
+                                                                                columnNumber: 45
+                                                                            }, this),
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                className: "text-[10px] text-slate-500 font-medium mt-0.5 block",
+                                                                                children: "Secure impersonation · Time-limited"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                                lineNumber: 602,
+                                                                                columnNumber: 45
+                                                                            }, this)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 600,
+                                                                        columnNumber: 41
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 596,
+                                                                columnNumber: 37
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
+                                                                size: 16,
+                                                                className: "text-amber-600 group-hover:text-amber-400 transition-colors"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 605,
+                                                                columnNumber: 37
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 591,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    brand.status === 'Active' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: onSuspend,
+                                                        className: "w-full flex items-center justify-between p-5 bg-red-500/10 border border-red-500/20 rounded-2xl hover:bg-red-500/20 transition-all group",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-3",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "p-2 bg-red-500/20 rounded-lg",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ban$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Ban$3e$__["Ban"], {
+                                                                            size: 14,
+                                                                            className: "text-red-400"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                            lineNumber: 615,
+                                                                            columnNumber: 49
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 614,
+                                                                        columnNumber: 45
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-xs font-black uppercase tracking-widest text-red-100",
+                                                                        children: "Suspend Network"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 617,
+                                                                        columnNumber: 45
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 613,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldAlert$3e$__["ShieldAlert"], {
+                                                                size: 16,
+                                                                className: "text-red-400 group-hover:scale-110 transition-transform"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 619,
+                                                                columnNumber: 41
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 609,
+                                                        columnNumber: 37
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: onReactivate,
+                                                        className: "w-full flex items-center justify-between p-5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl hover:bg-emerald-500/20 transition-all group",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-3",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "p-2 bg-emerald-500/20 rounded-lg",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
+                                                                            size: 14,
+                                                                            className: "text-emerald-400"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                            lineNumber: 628,
+                                                                            columnNumber: 49
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 627,
+                                                                        columnNumber: 45
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-xs font-black uppercase tracking-widest text-emerald-100",
+                                                                        children: "Restore Network"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                        lineNumber: 630,
+                                                                        columnNumber: 45
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 626,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"], {
+                                                                size: 16,
+                                                                className: "text-emerald-400 group-hover:scale-110 transition-transform"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                                lineNumber: 632,
+                                                                columnNumber: 41
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 622,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 576,
+                                                columnNumber: 29
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 570,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 568,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 514,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 430,
+                lineNumber: 441,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 409,
+        lineNumber: 404,
         columnNumber: 9
     }, this);
 }
-function InfoRow({ icon: Icon, label, value, mono = false }) {
+function ArchitectureRow({ label, value, icon: Icon, mono = false, className = "" }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex items-start gap-3",
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("space-y-1.5", className),
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
-                className: "w-4 h-4 text-slate-300 mt-0.5 shrink-0"
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                        size: 12,
+                        className: "text-slate-300"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 649,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-[10px] font-black text-slate-400 uppercase tracking-widest",
+                        children: label
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 650,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                lineNumber: 648,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("text-sm font-bold text-slate-900 border-b border-slate-50 pb-2 flex items-center gap-2", mono ? "font-mono text-[11px] bg-slate-50 px-2 py-1 rounded-lg border-none" : ""),
+                children: value
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 602,
+                lineNumber: 652,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+        lineNumber: 647,
+        columnNumber: 9
+    }, this);
+}
+function VitalStatCard({ icon: Icon, label, value, sub, color, trend }) {
+    const colorMap = {
+        blue: {
+            bg: 'bg-blue-50',
+            border: 'border-blue-100',
+            icon: 'bg-blue-900',
+            iconText: 'text-blue-400',
+            text: 'text-blue-700',
+            badge: 'bg-blue-100 text-blue-700'
+        },
+        emerald: {
+            bg: 'bg-emerald-50',
+            border: 'border-emerald-100',
+            icon: 'bg-emerald-900',
+            iconText: 'text-emerald-400',
+            text: 'text-emerald-700',
+            badge: 'bg-emerald-100 text-emerald-700'
+        },
+        violet: {
+            bg: 'bg-violet-50',
+            border: 'border-violet-100',
+            icon: 'bg-violet-900',
+            iconText: 'text-violet-400',
+            text: 'text-violet-700',
+            badge: 'bg-violet-100 text-violet-700'
+        },
+        amber: {
+            bg: 'bg-amber-50',
+            border: 'border-amber-100',
+            icon: 'bg-amber-900',
+            iconText: 'text-amber-400',
+            text: 'text-amber-700',
+            badge: 'bg-amber-100 text-amber-700'
+        }
+    };
+    const c = colorMap[color];
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: `${c.bg} border ${c.border} rounded-[2rem] p-6 flex flex-col gap-4 hover:shadow-md transition-all`,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center justify-between",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `p-3 ${c.icon} rounded-2xl shadow-lg`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                            className: `w-5 h-5 ${c.iconText}`
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                            lineNumber: 688,
+                            columnNumber: 21
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 687,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: `text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full ${c.badge}`,
+                        children: trend
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 690,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                lineNumber: 686,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-[10px] font-black text-slate-400 uppercase tracking-widest block",
-                        children: label
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 604,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: `text-sm text-slate-900 mt-0.5 block ${mono ? 'font-mono bg-slate-50 px-1.5 py-0.5 rounded text-xs' : 'font-medium'}`,
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-3xl font-black text-slate-900 tracking-tight",
                         children: value
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 607,
+                        lineNumber: 695,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: `text-[10px] font-black uppercase tracking-widest mt-1 ${c.text}`,
+                        children: label
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 696,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-[11px] text-slate-400 font-medium mt-0.5",
+                        children: sub
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 697,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 603,
+                lineNumber: 694,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 601,
+        lineNumber: 685,
         columnNumber: 9
     }, this);
 }
@@ -1603,7 +1981,7 @@ function ModulesSection() {
                             children: "Brand Modules"
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 670,
+                            lineNumber: 760,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1611,18 +1989,18 @@ function ModulesSection() {
                             children: "Manage contracted and operational modules for this brand."
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 671,
+                            lineNumber: 761,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 669,
+                    lineNumber: 759,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 668,
+                lineNumber: 758,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1636,7 +2014,7 @@ function ModulesSection() {
                                 children: "Module Configuration"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 679,
+                                lineNumber: 769,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1644,13 +2022,13 @@ function ModulesSection() {
                                 children: modules.length
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 680,
+                                lineNumber: 770,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 678,
+                        lineNumber: 768,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1667,7 +2045,7 @@ function ModulesSection() {
                                                 children: "Module"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 688,
+                                                lineNumber: 778,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1675,7 +2053,7 @@ function ModulesSection() {
                                                 children: "Purchased (Contract)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 689,
+                                                lineNumber: 779,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1683,7 +2061,7 @@ function ModulesSection() {
                                                 children: "Enabled (Operational)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 690,
+                                                lineNumber: 780,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1691,7 +2069,7 @@ function ModulesSection() {
                                                 children: "Start Date"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 691,
+                                                lineNumber: 781,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1699,18 +2077,18 @@ function ModulesSection() {
                                                 children: "Notes"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 692,
+                                                lineNumber: 782,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 687,
+                                        lineNumber: 777,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 686,
+                                    lineNumber: 776,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1727,7 +2105,7 @@ function ModulesSection() {
                                                                 children: mod.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 700,
+                                                                lineNumber: 790,
                                                                 columnNumber: 45
                                                             }, this),
                                                             mod.isCore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1735,18 +2113,18 @@ function ModulesSection() {
                                                                 children: "Core"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 702,
+                                                                lineNumber: 792,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 699,
+                                                        lineNumber: 789,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 698,
+                                                    lineNumber: 788,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1760,7 +2138,7 @@ function ModulesSection() {
                                                                 color: "emerald"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 708,
+                                                                lineNumber: 798,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1768,18 +2146,18 @@ function ModulesSection() {
                                                                 children: mod.purchased ? 'Contract Active' : 'No Contract'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 713,
+                                                                lineNumber: 803,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 707,
+                                                        lineNumber: 797,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 706,
+                                                    lineNumber: 796,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1794,7 +2172,7 @@ function ModulesSection() {
                                                                 color: "blue"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 720,
+                                                                lineNumber: 810,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1802,7 +2180,7 @@ function ModulesSection() {
                                                                 children: mod.enabled ? 'Enabled' : 'Disabled'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 726,
+                                                                lineNumber: 816,
                                                                 columnNumber: 45
                                                             }, this),
                                                             !mod.purchased && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1812,7 +2190,7 @@ function ModulesSection() {
                                                                         className: "w-3 h-3 text-amber-400"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 733,
+                                                                        lineNumber: 823,
                                                                         columnNumber: 53
                                                                     }, this),
                                                                     "Cannot enable without active contract",
@@ -1820,13 +2198,13 @@ function ModulesSection() {
                                                                         className: "absolute bottom-[-4px] left-1/2 -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 735,
+                                                                        lineNumber: 825,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 732,
+                                                                lineNumber: 822,
                                                                 columnNumber: 49
                                                             }, this),
                                                             mod.isCore && mod.enabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1836,7 +2214,7 @@ function ModulesSection() {
                                                                         className: "w-3 h-3 text-blue-400"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 740,
+                                                                        lineNumber: 830,
                                                                         columnNumber: 53
                                                                     }, this),
                                                                     "Core POS cannot be disabled",
@@ -1844,24 +2222,24 @@ function ModulesSection() {
                                                                         className: "absolute bottom-[-4px] left-1/2 -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 742,
+                                                                        lineNumber: 832,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 739,
+                                                                lineNumber: 829,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 719,
+                                                        lineNumber: 809,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 718,
+                                                    lineNumber: 808,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1869,7 +2247,7 @@ function ModulesSection() {
                                                     children: !mod.startDate || mod.startDate === '—' ? '—' : formatDate(mod.startDate)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 747,
+                                                    lineNumber: 837,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1879,40 +2257,40 @@ function ModulesSection() {
                                                         children: mod.notes
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 751,
+                                                        lineNumber: 841,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 750,
+                                                    lineNumber: 840,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, mod.id, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 697,
+                                            lineNumber: 787,
                                             columnNumber: 33
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 695,
+                                    lineNumber: 785,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 685,
+                            lineNumber: 775,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 684,
+                        lineNumber: 774,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 677,
+                lineNumber: 767,
                 columnNumber: 13
             }, this),
             pendingChange && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1928,12 +2306,12 @@ function ModulesSection() {
                                     className: "w-6 h-6 text-amber-600"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 768,
+                                    lineNumber: 858,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 767,
+                                lineNumber: 857,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1941,7 +2319,7 @@ function ModulesSection() {
                                 children: "Confirm Module Update"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 770,
+                                lineNumber: 860,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1955,7 +2333,7 @@ function ModulesSection() {
                                         children: modules.find((m)=>m.id === pendingChange.moduleId)?.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 772,
+                                        lineNumber: 862,
                                         columnNumber: 107
                                     }, this),
                                     " ",
@@ -1966,13 +2344,13 @@ function ModulesSection() {
                                         children: "Warning: This will also disable the module operationally."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 774,
+                                        lineNumber: 864,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 771,
+                                lineNumber: 861,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1984,7 +2362,7 @@ function ModulesSection() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 780,
+                                        lineNumber: 870,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1993,35 +2371,35 @@ function ModulesSection() {
                                         children: "Confirm Change"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 786,
+                                        lineNumber: 876,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 779,
+                                lineNumber: 869,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 766,
+                        lineNumber: 856,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 765,
+                    lineNumber: 855,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 764,
+                lineNumber: 854,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 667,
+        lineNumber: 757,
         columnNumber: 9
     }, this);
 }
@@ -2043,12 +2421,12 @@ function Switch({ checked, onChange, disabled, color = 'emerald' }) {
                 `
         }, void 0, false, {
             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-            lineNumber: 821,
+            lineNumber: 911,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 812,
+        lineNumber: 902,
         columnNumber: 9
     }, this);
 }
@@ -2058,10 +2436,6 @@ function StoresSection({ brand }) {
     const [stores, setStores] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(MOCK_STORES);
     const [isAddModalOpen, setIsAddModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [editingStore, setEditingStore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const handleDeleteStore = (id, name)=>{
-        if (!window.confirm(`Are you sure you want to delete ${name}? This action cannot be undone.`)) return;
-        setStores((prev)=>prev.filter((s)=>s.id !== id));
-    };
     const handleViewStore = (id)=>{
         router.push(`/platform/stores/${id}`);
     };
@@ -2106,420 +2480,381 @@ function StoresSection({ brand }) {
             ...stores
         ]);
         setIsAddModalOpen(false);
-    // Reset form...
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-4 animate-in fade-in duration-500",
+        className: "space-y-8 animate-in fade-in duration-500",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex items-center justify-between",
+                className: "flex flex-col md:flex-row md:items-center justify-between gap-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-1",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-bold text-slate-900",
-                                children: "Stores"
+                                className: "text-2xl font-black text-slate-900 tracking-tight",
+                                children: "Network Topology"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 895,
+                                lineNumber: 981,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-[13px] text-slate-500",
-                                children: "All store locations operating under this brand."
+                                className: "text-sm text-slate-500 font-medium",
+                                children: "Active store nodes and regional operational status."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 896,
+                                lineNumber: 982,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 894,
+                        lineNumber: 980,
                         columnNumber: 17
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>setIsAddModalOpen(true),
-                        className: "flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-all active:scale-95 shadow-sm",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-4",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                                className: "w-4 h-4"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-sm",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$activity$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Activity$3e$__["Activity"], {
+                                        className: "w-4 h-4 text-emerald-500"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 989,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] font-black uppercase tracking-widest text-slate-400",
+                                        children: "Total Logic Nodes:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 990,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-sm font-black text-slate-900",
+                                        children: stores.length
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 991,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 904,
+                                lineNumber: 988,
                                 columnNumber: 21
                             }, this),
-                            "Add Store"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setIsAddModalOpen(true),
+                                className: "flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 group",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                        size: 16,
+                                        strokeWidth: 3,
+                                        className: "text-emerald-400 group-hover:rotate-90 transition-transform"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 997,
+                                        columnNumber: 25
+                                    }, this),
+                                    "Deploy New Node"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 993,
+                                columnNumber: 21
+                            }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 900,
+                        lineNumber: 987,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 893,
+                lineNumber: 979,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "px-6 py-4 border-b border-slate-100 bg-slate-50/30 flex items-center gap-3",
+                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+                children: stores.map((store)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm hover:border-slate-900 hover:shadow-xl hover:shadow-slate-200/50 transition-all group relative overflow-hidden",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-[13px] font-bold text-slate-800 uppercase tracking-wider",
-                                children: "Store List"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-125 transition-transform duration-700",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$store$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Store$3e$__["Store"], {
+                                    className: "w-32 h-32 text-slate-900"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                    lineNumber: 1007,
+                                    columnNumber: 29
+                                }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 911,
-                                columnNumber: 21
+                                lineNumber: 1006,
+                                columnNumber: 25
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "px-2 py-0.5 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full",
-                                children: stores.length
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 912,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 910,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "overflow-x-auto",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                            className: "w-full text-left min-w-[1000px]",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                        className: "border-b border-slate-100 bg-slate-50/40",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-start justify-between mb-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-4",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Store Name"
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center group-hover:bg-slate-900 transition-colors duration-500",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$store$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Store$3e$__["Store"], {
+                                                    className: "w-6 h-6 text-slate-400 group-hover:text-white transition-colors"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                    lineNumber: 1013,
+                                                    columnNumber: 37
+                                                }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 920,
+                                                lineNumber: 1012,
                                                 columnNumber: 33
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "City"
-                                            }, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                        className: "text-lg font-black text-slate-900 uppercase tracking-tight group-hover:text-emerald-600 transition-colors",
+                                                        children: store.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 1016,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest",
+                                                        children: store.code
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                        lineNumber: 1017,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 921,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Province"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 922,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Status"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 923,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Payment Terms"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 924,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Tax Profile"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 925,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap",
-                                                children: "Logo Status"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 926,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap text-right",
-                                                children: "Actions"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 927,
+                                                lineNumber: 1015,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 919,
+                                        lineNumber: 1011,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MiniStatusBadge, {
+                                        status: store.status
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1020,
                                         columnNumber: 29
                                     }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 918,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                    children: stores.map((store)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                            className: "border-b border-slate-50 hover:bg-slate-50/50 transition-colors",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex flex-col",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-sm font-semibold text-slate-900",
-                                                                children: store.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 935,
-                                                                columnNumber: 45
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-[10px] font-mono text-slate-400",
-                                                                children: store.code
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 936,
-                                                                columnNumber: 45
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 934,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 933,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5 text-sm text-slate-600",
-                                                    children: store.city
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 939,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5 text-sm text-slate-600",
-                                                    children: store.province
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 940,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MiniStatusBadge, {
-                                                        status: store.status
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 1010,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-4 mb-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between text-[11px] font-bold",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-slate-400 flex items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
+                                                        size: 12
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 942,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 941,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex flex-col",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "px-2 py-0.5 rounded bg-slate-100 text-[11px] font-bold text-slate-600 border border-slate-200 w-fit",
-                                                                children: store.paymentTerms
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 946,
-                                                                columnNumber: 45
-                                                            }, this),
-                                                            store.paymentTerms === brand.defaultPaymentTerms && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-[9px] font-black text-slate-400 uppercase tracking-tighter mt-1 italic ml-1",
-                                                                children: "Inherited from Brand"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 950,
-                                                                columnNumber: 49
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 945,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 944,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `px-2 py-0.5 rounded text-[11px] font-bold border ${store.taxProfile === 'Inherit' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-amber-50 text-amber-700 border-amber-100'}`,
-                                                        children: store.taxProfile
+                                                        lineNumber: 1026,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    " Regional Zone"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1025,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-slate-900",
+                                                children: [
+                                                    store.city,
+                                                    ", ",
+                                                    store.province
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1028,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1024,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between text-[11px] font-bold",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-slate-400 flex items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$coins$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Coins$3e$__["Coins"], {
+                                                        size: 12
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 955,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 954,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `flex items-center gap-1.5 text-[11px] font-bold ${store.logoStatus === 'Set' ? 'text-emerald-600' : 'text-slate-400'}`,
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: `w-1.5 h-1.5 rounded-full ${store.logoStatus === 'Set' ? 'bg-emerald-500' : 'bg-slate-300'}`
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 965,
-                                                                columnNumber: 45
-                                                            }, this),
-                                                            store.logoStatus
-                                                        ]
-                                                    }, void 0, true, {
+                                                        lineNumber: 1032,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    " Fiscal Terms"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1031,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "px-2 py-0.5 bg-slate-100 rounded text-[9px] font-black uppercase border border-slate-200",
+                                                children: store.paymentTerms
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1034,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1030,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between text-[11px] font-bold",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-slate-400 flex items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
+                                                        size: 12
+                                                    }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 963,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 962,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-3.5",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center justify-end gap-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: (e)=>{
-                                                                    e.stopPropagation();
-                                                                    handleViewStore(store.id);
-                                                                },
-                                                                className: "p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all",
-                                                                title: "View Store",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
-                                                                    className: "w-4 h-4"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 977,
-                                                                    columnNumber: 49
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 972,
-                                                                columnNumber: 45
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: (e)=>{
-                                                                    e.stopPropagation();
-                                                                    setEditingStore(store);
-                                                                },
-                                                                className: "p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all",
-                                                                title: "Edit Store",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
-                                                                    className: "w-4 h-4"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 984,
-                                                                    columnNumber: 49
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 979,
-                                                                columnNumber: 45
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: (e)=>{
-                                                                    e.stopPropagation();
-                                                                    handleDeleteStore(store.id, store.name);
-                                                                },
-                                                                className: "p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all",
-                                                                title: "Delete Store",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                                    className: "w-4 h-4"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 991,
-                                                                    columnNumber: 49
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 986,
-                                                                columnNumber: 45
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 971,
-                                                        columnNumber: 41
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 970,
-                                                    columnNumber: 37
-                                                }, this)
-                                            ]
-                                        }, store.id, true, {
-                                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 932,
-                                            columnNumber: 33
-                                        }, this))
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 930,
-                                    columnNumber: 25
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 917,
-                            columnNumber: 21
-                        }, this)
+                                                        lineNumber: 1040,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    " Tax Profile"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1039,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("px-2 py-0.5 rounded text-[9px] font-black uppercase border", store.taxProfile === 'Inherit' ? "bg-blue-50 text-blue-700 border-blue-100" : "bg-amber-50 text-amber-700 border-amber-100"),
+                                                children: store.taxProfile
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1042,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1038,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 1023,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-2 gap-3",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>handleViewStore(store.id),
+                                        className: "flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all border border-transparent hover:border-white/10",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                                size: 12
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1056,
+                                                columnNumber: 33
+                                            }, this),
+                                            " Enter Node"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1052,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setEditingStore(store),
+                                        className: "flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all border border-transparent hover:border-white/10",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pencil$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pencil$3e$__["Pencil"], {
+                                                size: 12
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                                lineNumber: 1062,
+                                                columnNumber: 33
+                                            }, this),
+                                            " Recalibrate"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                        lineNumber: 1058,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                                lineNumber: 1051,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, store.id, true, {
+                        fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                        lineNumber: 1005,
+                        columnNumber: 21
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
+                lineNumber: 1003,
+                columnNumber: 13
+            }, this),
+            stores.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-col items-center justify-center py-20 text-slate-400 bg-white border border-slate-200 border-dashed rounded-[2.5rem]",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$store$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Store$3e$__["Store"], {
+                        size: 48,
+                        className: "text-slate-100 mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 916,
-                        columnNumber: 17
+                        lineNumber: 1071,
+                        columnNumber: 21
                     }, this),
-                    stores.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex flex-col items-center justify-center py-20 text-slate-400 italic text-[13px]",
-                        children: "No stores found."
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-sm font-bold uppercase tracking-widest italic",
+                        children: "No Logic Nodes Discovered"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1002,
+                        lineNumber: 1072,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 909,
-                columnNumber: 13
+                lineNumber: 1070,
+                columnNumber: 17
             }, this),
             isAddModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-300",
@@ -2538,12 +2873,12 @@ function StoresSection({ brand }) {
                                                 className: "w-5 h-5 text-emerald-600"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1016,
+                                                lineNumber: 1084,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1015,
+                                            lineNumber: 1083,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2553,7 +2888,7 @@ function StoresSection({ brand }) {
                                                     children: "Add New Store"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1019,
+                                                    lineNumber: 1087,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2561,19 +2896,19 @@ function StoresSection({ brand }) {
                                                     children: "Store Onboarding"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1020,
+                                                    lineNumber: 1088,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1018,
+                                            lineNumber: 1086,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1014,
+                                    lineNumber: 1082,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2583,18 +2918,18 @@ function StoresSection({ brand }) {
                                         className: "w-6 h-6"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1027,
+                                        lineNumber: 1095,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1023,
+                                    lineNumber: 1091,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1013,
+                            lineNumber: 1081,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2609,7 +2944,7 @@ function StoresSection({ brand }) {
                                             title: "Store Identity"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1036,
+                                            lineNumber: 1102,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2629,12 +2964,12 @@ function StoresSection({ brand }) {
                                                         placeholder: "Flagship Toronto"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1039,
+                                                        lineNumber: 1105,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1038,
+                                                    lineNumber: 1104,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -2651,24 +2986,24 @@ function StoresSection({ brand }) {
                                                         placeholder: "TOR-01"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1048,
+                                                        lineNumber: 1114,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1047,
+                                                    lineNumber: 1113,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1037,
+                                            lineNumber: 1103,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1035,
+                                    lineNumber: 1101,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2679,7 +3014,7 @@ function StoresSection({ brand }) {
                                             title: "Store Address"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1061,
+                                            lineNumber: 1126,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2699,12 +3034,12 @@ function StoresSection({ brand }) {
                                                         placeholder: "123 King Street West"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1064,
+                                                        lineNumber: 1129,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1063,
+                                                    lineNumber: 1128,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -2719,12 +3054,12 @@ function StoresSection({ brand }) {
                                                         placeholder: "Suite 400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1067,
+                                                        lineNumber: 1132,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1066,
+                                                    lineNumber: 1131,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2744,12 +3079,12 @@ function StoresSection({ brand }) {
                                                                 placeholder: "Toronto"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1071,
+                                                                lineNumber: 1136,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1070,
+                                                            lineNumber: 1135,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -2767,45 +3102,45 @@ function StoresSection({ brand }) {
                                                                         children: "Ontario"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1075,
+                                                                        lineNumber: 1140,
                                                                         columnNumber: 49
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                         children: "British Columbia"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1076,
+                                                                        lineNumber: 1141,
                                                                         columnNumber: 49
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                         children: "Alberta"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1077,
+                                                                        lineNumber: 1142,
                                                                         columnNumber: 49
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                         children: "Quebec"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1078,
+                                                                        lineNumber: 1143,
                                                                         columnNumber: 49
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1074,
+                                                                lineNumber: 1139,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1073,
+                                                            lineNumber: 1138,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1069,
+                                                    lineNumber: 1134,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2825,12 +3160,12 @@ function StoresSection({ brand }) {
                                                                 placeholder: "M5V 1J2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1084,
+                                                                lineNumber: 1149,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1083,
+                                                            lineNumber: 1148,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -2842,18 +3177,18 @@ function StoresSection({ brand }) {
                                                                 className: "w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm opacity-60 cursor-not-allowed"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1087,
+                                                                lineNumber: 1152,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1086,
+                                                            lineNumber: 1151,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1082,
+                                                    lineNumber: 1147,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2873,12 +3208,12 @@ function StoresSection({ brand }) {
                                                                 placeholder: "+1 (416) 000-0000"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1092,
+                                                                lineNumber: 1157,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1091,
+                                                            lineNumber: 1156,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -2896,30 +3231,30 @@ function StoresSection({ brand }) {
                                                                 placeholder: "store@brand.com"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1095,
+                                                                lineNumber: 1160,
                                                                 columnNumber: 45
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1094,
+                                                            lineNumber: 1159,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1090,
+                                                    lineNumber: 1155,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1062,
+                                            lineNumber: 1127,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1060,
+                                    lineNumber: 1125,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2930,7 +3265,7 @@ function StoresSection({ brand }) {
                                             title: "Store Branding"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1103,
+                                            lineNumber: 1167,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2942,12 +3277,12 @@ function StoresSection({ brand }) {
                                                         className: "w-6 h-6 text-slate-400 group-hover:text-emerald-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1106,
+                                                        lineNumber: 1170,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1105,
+                                                    lineNumber: 1169,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2955,7 +3290,7 @@ function StoresSection({ brand }) {
                                                     children: "Upload Store Logo"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1108,
+                                                    lineNumber: 1172,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2963,19 +3298,19 @@ function StoresSection({ brand }) {
                                                     children: "PNG, SVG or JPG (Max 2MB)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1109,
+                                                    lineNumber: 1173,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1104,
+                                            lineNumber: 1168,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1102,
+                                    lineNumber: 1166,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2986,7 +3321,7 @@ function StoresSection({ brand }) {
                                             title: "Payment Terms"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1115,
+                                            lineNumber: 1178,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3025,12 +3360,12 @@ function StoresSection({ brand }) {
                                                                         className: "w-1.5 h-1.5 rounded-full bg-slate-900"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1135,
+                                                                        lineNumber: 1198,
                                                                         columnNumber: 86
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1133,
+                                                                    lineNumber: 1196,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3038,18 +3373,18 @@ function StoresSection({ brand }) {
                                                                     children: opt.label
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1137,
+                                                                    lineNumber: 1200,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, opt.id, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1124,
+                                                            lineNumber: 1187,
                                                             columnNumber: 45
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1117,
+                                                    lineNumber: 1180,
                                                     columnNumber: 37
                                                 }, this),
                                                 form.paymentTerms === 'NET_DAYS' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3070,7 +3405,7 @@ function StoresSection({ brand }) {
                                                                     min: "1"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1146,
+                                                                    lineNumber: 1209,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3078,35 +3413,35 @@ function StoresSection({ brand }) {
                                                                     children: "Days after invoice"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1153,
+                                                                    lineNumber: 1216,
                                                                     columnNumber: 53
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1145,
+                                                            lineNumber: 1208,
                                                             columnNumber: 49
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1144,
+                                                        lineNumber: 1207,
                                                         columnNumber: 45
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1143,
+                                                    lineNumber: 1206,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1116,
+                                            lineNumber: 1179,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1114,
+                                    lineNumber: 1177,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3117,7 +3452,7 @@ function StoresSection({ brand }) {
                                             title: "Tax Configuration"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1163,
+                                            lineNumber: 1225,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3147,31 +3482,25 @@ function StoresSection({ brand }) {
                                                                     children: opt.label
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1179,
+                                                                    lineNumber: 1241,
                                                                     columnNumber: 49
                                                                 }, this),
-                                                                form.taxSetup === opt.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                                form.taxSetup === opt.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                     className: "w-5 h-5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1181,
-                                                                    columnNumber: 53
-                                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "w-5 h-5 rounded-full border-2 border-slate-200"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1183,
-                                                                    columnNumber: 53
+                                                                    lineNumber: 1242,
+                                                                    columnNumber: 78
                                                                 }, this)
                                                             ]
                                                         }, opt.id, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1170,
+                                                            lineNumber: 1232,
                                                             columnNumber: 45
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1165,
+                                                    lineNumber: 1227,
                                                     columnNumber: 37
                                                 }, this),
                                                 form.taxSetup === 'OVERRIDE' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3183,12 +3512,12 @@ function StoresSection({ brand }) {
                                                                 className: "w-24 h-24 text-amber-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1192,
+                                                                lineNumber: 1250,
                                                                 columnNumber: 49
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1191,
+                                                            lineNumber: 1249,
                                                             columnNumber: 45
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3208,39 +3537,39 @@ function StoresSection({ brand }) {
                                                                                 children: "HST (Ontario)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1201,
+                                                                                lineNumber: 1259,
                                                                                 columnNumber: 57
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                 children: "GST + PST (BC)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1202,
+                                                                                lineNumber: 1260,
                                                                                 columnNumber: 57
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                 children: "QST (Quebec)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1203,
+                                                                                lineNumber: 1261,
                                                                                 columnNumber: 57
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                 children: "Manual Override"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1204,
+                                                                                lineNumber: 1262,
                                                                                 columnNumber: 57
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1196,
+                                                                        lineNumber: 1254,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1195,
+                                                                    lineNumber: 1253,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -3259,7 +3588,7 @@ function StoresSection({ brand }) {
                                                                                 step: "0.01"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1209,
+                                                                                lineNumber: 1267,
                                                                                 columnNumber: 57
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3267,24 +3596,24 @@ function StoresSection({ brand }) {
                                                                                 children: "%"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1216,
+                                                                                lineNumber: 1274,
                                                                                 columnNumber: 57
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1208,
+                                                                        lineNumber: 1266,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1207,
+                                                                    lineNumber: 1265,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1194,
+                                                            lineNumber: 1252,
                                                             columnNumber: 45
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3294,38 +3623,38 @@ function StoresSection({ brand }) {
                                                                     className: "w-3.5 h-3.5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1221,
+                                                                    lineNumber: 1279,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 "Custom override will bypass brand-level tax inheritance for this store."
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1220,
+                                                            lineNumber: 1278,
                                                             columnNumber: 45
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1190,
+                                                    lineNumber: 1248,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1164,
+                                            lineNumber: 1226,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1162,
+                                    lineNumber: 1224,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1032,
+                            lineNumber: 1100,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3338,7 +3667,7 @@ function StoresSection({ brand }) {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1233,
+                                    lineNumber: 1290,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3349,31 +3678,31 @@ function StoresSection({ brand }) {
                                             className: "w-5 h-5 group-hover:scale-110 transition-transform text-emerald-400"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1244,
+                                            lineNumber: 1301,
                                             columnNumber: 33
                                         }, this),
                                         "Create Store Node"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1240,
+                                    lineNumber: 1297,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1232,
+                            lineNumber: 1289,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1011,
+                    lineNumber: 1079,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1010,
+                lineNumber: 1078,
                 columnNumber: 17
             }, this),
             editingStore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditStoreModal, {
@@ -3383,13 +3712,13 @@ function StoresSection({ brand }) {
                 onSave: handleUpdateStore
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1254,
+                lineNumber: 1311,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 892,
+        lineNumber: 978,
         columnNumber: 9
     }, this);
 }
@@ -3474,12 +3803,12 @@ function UsersSection() {
                             className: "w-5 h-5 text-amber-600"
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1326,
+                            lineNumber: 1383,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1325,
+                        lineNumber: 1382,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3487,13 +3816,13 @@ function UsersSection() {
                         children: inviteRateLimitWarning
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1328,
+                        lineNumber: 1385,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1324,
+                lineNumber: 1381,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3507,7 +3836,7 @@ function UsersSection() {
                                 children: "User Management"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1334,
+                                lineNumber: 1391,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3515,13 +3844,13 @@ function UsersSection() {
                                 children: "Control brand-level and store-level access for your enterprise team."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1335,
+                                lineNumber: 1392,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1333,
+                        lineNumber: 1390,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3532,20 +3861,20 @@ function UsersSection() {
                                 className: "w-5 h-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1343,
+                                lineNumber: 1400,
                                 columnNumber: 21
                             }, this),
                             "Enroll New Member"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1339,
+                        lineNumber: 1396,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1332,
+                lineNumber: 1389,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3561,7 +3890,7 @@ function UsersSection() {
                                     children: "Active Team Members"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1351,
+                                    lineNumber: 1408,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3572,18 +3901,18 @@ function UsersSection() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1352,
+                                    lineNumber: 1409,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1350,
+                            lineNumber: 1407,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1349,
+                        lineNumber: 1406,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3600,7 +3929,7 @@ function UsersSection() {
                                                 children: "Identify / Contact"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1361,
+                                                lineNumber: 1418,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3608,7 +3937,7 @@ function UsersSection() {
                                                 children: "User Type"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1362,
+                                                lineNumber: 1419,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3616,7 +3945,7 @@ function UsersSection() {
                                                 children: "System Role"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1363,
+                                                lineNumber: 1420,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3624,7 +3953,7 @@ function UsersSection() {
                                                 children: "Store Access"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1364,
+                                                lineNumber: 1421,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3632,7 +3961,7 @@ function UsersSection() {
                                                 children: "Account Status"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1365,
+                                                lineNumber: 1422,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3640,7 +3969,7 @@ function UsersSection() {
                                                 children: "Last Activity"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1366,
+                                                lineNumber: 1423,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3648,18 +3977,18 @@ function UsersSection() {
                                                 children: "Actions"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1367,
+                                                lineNumber: 1424,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1360,
+                                        lineNumber: 1417,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1359,
+                                    lineNumber: 1416,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -3677,7 +4006,7 @@ function UsersSection() {
                                                                 children: user.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1375,
+                                                                lineNumber: 1432,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3685,18 +4014,18 @@ function UsersSection() {
                                                                 children: user.email
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1376,
+                                                                lineNumber: 1433,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1374,
+                                                        lineNumber: 1431,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1373,
+                                                    lineNumber: 1430,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3706,12 +4035,12 @@ function UsersSection() {
                                                         children: user.userType
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1380,
+                                                        lineNumber: 1437,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1379,
+                                                    lineNumber: 1436,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3720,12 +4049,12 @@ function UsersSection() {
                                                         role: user.role
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1385,
+                                                        lineNumber: 1442,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1384,
+                                                    lineNumber: 1441,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3737,7 +4066,7 @@ function UsersSection() {
                                                                 className: "w-3.5 h-3.5 text-slate-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1389,
+                                                                lineNumber: 1446,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3745,18 +4074,18 @@ function UsersSection() {
                                                                 children: user.storeAccess
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1390,
+                                                                lineNumber: 1447,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1388,
+                                                        lineNumber: 1445,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1387,
+                                                    lineNumber: 1444,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3765,12 +4094,12 @@ function UsersSection() {
                                                         status: user.status
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1394,
+                                                        lineNumber: 1451,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1393,
+                                                    lineNumber: 1450,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3778,7 +4107,7 @@ function UsersSection() {
                                                     children: formatDate(user.lastLogin)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1396,
+                                                    lineNumber: 1453,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3794,12 +4123,12 @@ function UsersSection() {
                                                                     className: "w-4 h-4 group-hover/btn:scale-110 transition-transform"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1406,
+                                                                    lineNumber: 1463,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1401,
+                                                                lineNumber: 1458,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3809,12 +4138,12 @@ function UsersSection() {
                                                                     className: "w-4 h-4 group-hover/btn:rotate-180 transition-transform duration-500"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1412,
+                                                                    lineNumber: 1469,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1408,
+                                                                lineNumber: 1465,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3825,51 +4154,51 @@ function UsersSection() {
                                                                     className: "w-4 h-4 group-hover/btn:scale-110 transition-transform"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                    lineNumber: 1419,
+                                                                    lineNumber: 1476,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1414,
+                                                                lineNumber: 1471,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1400,
+                                                        lineNumber: 1457,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1399,
+                                                    lineNumber: 1456,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, user.id, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1372,
+                                            lineNumber: 1429,
                                             columnNumber: 33
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1370,
+                                    lineNumber: 1427,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1358,
+                            lineNumber: 1415,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1357,
+                        lineNumber: 1414,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1348,
+                lineNumber: 1405,
                 columnNumber: 13
             }, this),
             userToDisable && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3885,12 +4214,12 @@ function UsersSection() {
                                     className: "w-10 h-10 text-red-600"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1436,
+                                    lineNumber: 1493,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1435,
+                                lineNumber: 1492,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3901,7 +4230,7 @@ function UsersSection() {
                                         children: "Deactivate Member?"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1439,
+                                        lineNumber: 1496,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3913,20 +4242,20 @@ function UsersSection() {
                                                 children: userToDisable.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1441,
+                                                lineNumber: 1498,
                                                 columnNumber: 84
                                             }, this),
                                             "? All current sessions will be terminated."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1440,
+                                        lineNumber: 1497,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1438,
+                                lineNumber: 1495,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3938,7 +4267,7 @@ function UsersSection() {
                                         children: "Confirm Deactivation"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1446,
+                                        lineNumber: 1503,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3947,29 +4276,29 @@ function UsersSection() {
                                         children: "Cancel & Return"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1452,
+                                        lineNumber: 1509,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1445,
+                                lineNumber: 1502,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1434,
+                        lineNumber: 1491,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1433,
+                    lineNumber: 1490,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1432,
+                lineNumber: 1489,
                 columnNumber: 17
             }, this),
             isEnrollModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3989,12 +4318,12 @@ function UsersSection() {
                                                 className: "w-5 h-5 text-slate-900"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1470,
+                                                lineNumber: 1527,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1469,
+                                            lineNumber: 1526,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4004,7 +4333,7 @@ function UsersSection() {
                                                     children: "Enroll Member"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1473,
+                                                    lineNumber: 1530,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4012,19 +4341,19 @@ function UsersSection() {
                                                     children: "Brand Team Addition"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1474,
+                                                    lineNumber: 1531,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1472,
+                                            lineNumber: 1529,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1468,
+                                    lineNumber: 1525,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4034,18 +4363,18 @@ function UsersSection() {
                                         className: "w-6 h-6"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1478,
+                                        lineNumber: 1535,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1477,
+                                    lineNumber: 1534,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1467,
+                            lineNumber: 1524,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -4066,12 +4395,12 @@ function UsersSection() {
                                         placeholder: "e.g. Michael Scott"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1484,
+                                        lineNumber: 1541,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1483,
+                                    lineNumber: 1540,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -4089,12 +4418,12 @@ function UsersSection() {
                                         placeholder: "michael@brand.com"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1493,
+                                        lineNumber: 1550,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1492,
+                                    lineNumber: 1549,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4115,25 +4444,25 @@ function UsersSection() {
                                                         children: "Internal"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1509,
+                                                        lineNumber: 1566,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "External"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1510,
+                                                        lineNumber: 1567,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1504,
+                                                lineNumber: 1561,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1503,
+                                            lineNumber: 1560,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -4152,7 +4481,7 @@ function UsersSection() {
                                                         children: "ADMIN"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1519,
+                                                        lineNumber: 1576,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4160,7 +4489,7 @@ function UsersSection() {
                                                         children: "STORE MANAGER"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1520,
+                                                        lineNumber: 1577,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4168,24 +4497,24 @@ function UsersSection() {
                                                         children: "EMPLOYEE"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1521,
+                                                        lineNumber: 1578,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1514,
+                                                lineNumber: 1571,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1513,
+                                            lineNumber: 1570,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1502,
+                                    lineNumber: 1559,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -4203,32 +4532,32 @@ function UsersSection() {
                                                 children: "All Stores"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1531,
+                                                lineNumber: 1588,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 children: "Primary Node"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1532,
+                                                lineNumber: 1589,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 children: "Warehouse Only"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1533,
+                                                lineNumber: 1590,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1526,
+                                        lineNumber: 1583,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1525,
+                                    lineNumber: 1582,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4241,7 +4570,7 @@ function UsersSection() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1538,
+                                            lineNumber: 1595,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4252,43 +4581,43 @@ function UsersSection() {
                                                     className: "w-4 h-4 text-emerald-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1549,
+                                                    lineNumber: 1606,
                                                     columnNumber: 37
                                                 }, this),
                                                 "Confirm Enrollment"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1545,
+                                            lineNumber: 1602,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1537,
+                                    lineNumber: 1594,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1482,
+                            lineNumber: 1539,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1466,
+                    lineNumber: 1523,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1465,
+                lineNumber: 1522,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1322,
+        lineNumber: 1379,
         columnNumber: 9
     }, this);
 }
@@ -4321,7 +4650,7 @@ function AuditLogSection() {
                                 children: "System Audit Lineage"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1591,
+                                lineNumber: 1648,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4329,13 +4658,13 @@ function AuditLogSection() {
                                 children: "Immutable record of all platform-level operations."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1592,
+                                lineNumber: 1649,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1590,
+                        lineNumber: 1647,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4345,7 +4674,7 @@ function AuditLogSection() {
                                 className: "absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-emerald-500 transition-colors"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1596,
+                                lineNumber: 1653,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4359,19 +4688,19 @@ function AuditLogSection() {
                                 className: "w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all font-medium"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1597,
+                                lineNumber: 1654,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1595,
+                        lineNumber: 1652,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1589,
+                lineNumber: 1646,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4388,12 +4717,12 @@ function AuditLogSection() {
                                         event: log.event
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1614,
+                                        lineNumber: 1671,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1613,
+                                    lineNumber: 1670,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4415,7 +4744,7 @@ function AuditLogSection() {
                                                                         children: log.event.replace(/_/g, ' ')
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1622,
+                                                                        lineNumber: 1679,
                                                                         columnNumber: 49
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4425,7 +4754,7 @@ function AuditLogSection() {
                                                                                 children: "by"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1626,
+                                                                                lineNumber: 1683,
                                                                                 columnNumber: 53
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4433,19 +4762,19 @@ function AuditLogSection() {
                                                                                 children: log.actor
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                                lineNumber: 1627,
+                                                                                lineNumber: 1684,
                                                                                 columnNumber: 53
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1625,
+                                                                        lineNumber: 1682,
                                                                         columnNumber: 49
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1621,
+                                                                lineNumber: 1678,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4453,13 +4782,13 @@ function AuditLogSection() {
                                                                 children: log.details
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1630,
+                                                                lineNumber: 1687,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1620,
+                                                        lineNumber: 1677,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4470,7 +4799,7 @@ function AuditLogSection() {
                                                                 children: formatTimestamp(log.timestamp)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1636,
+                                                                lineNumber: 1693,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4481,13 +4810,13 @@ function AuditLogSection() {
                                                                         className: "w-3 h-3"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1643,
+                                                                        lineNumber: 1700,
                                                                         columnNumber: 63
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__["Terminal"], {
                                                                         className: "w-3 h-3"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1643,
+                                                                        lineNumber: 1700,
                                                                         columnNumber: 94
                                                                     }, this),
                                                                     isExpanded ? 'Hide Payload' : 'View Payload',
@@ -4495,31 +4824,31 @@ function AuditLogSection() {
                                                                         className: "w-3 h-3 ml-0.5"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1645,
+                                                                        lineNumber: 1702,
                                                                         columnNumber: 63
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                                         className: "w-3 h-3 ml-0.5"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                        lineNumber: 1645,
+                                                                        lineNumber: 1702,
                                                                         columnNumber: 106
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1639,
+                                                                lineNumber: 1696,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1635,
+                                                        lineNumber: 1692,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1619,
+                                                lineNumber: 1676,
                                                 columnNumber: 37
                                             }, this),
                                             isExpanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4533,12 +4862,12 @@ function AuditLogSection() {
                                                                 className: "w-12 h-12 text-emerald-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1654,
+                                                                lineNumber: 1711,
                                                                 columnNumber: 53
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1653,
+                                                            lineNumber: 1710,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("pre", {
@@ -4547,40 +4876,40 @@ function AuditLogSection() {
                                                                 children: JSON.stringify(log.payload, null, 2)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1657,
+                                                                lineNumber: 1714,
                                                                 columnNumber: 53
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                            lineNumber: 1656,
+                                                            lineNumber: 1713,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1652,
+                                                    lineNumber: 1709,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1651,
+                                                lineNumber: 1708,
                                                 columnNumber: 41
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1618,
+                                        lineNumber: 1675,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1617,
+                                    lineNumber: 1674,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, log.id, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1611,
+                            lineNumber: 1668,
                             columnNumber: 25
                         }, this);
                     }),
@@ -4593,12 +4922,12 @@ function AuditLogSection() {
                                     className: "w-6 h-6 text-slate-300"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1671,
+                                    lineNumber: 1728,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1670,
+                                lineNumber: 1727,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4609,7 +4938,7 @@ function AuditLogSection() {
                                         children: "No matching events found"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1674,
+                                        lineNumber: 1731,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4617,25 +4946,25 @@ function AuditLogSection() {
                                         children: "Try adjusting your search query or event filters."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1675,
+                                        lineNumber: 1732,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1673,
+                                lineNumber: 1730,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1669,
+                        lineNumber: 1726,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1607,
+                lineNumber: 1664,
                 columnNumber: 13
             }, this),
             totalPages > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4648,7 +4977,7 @@ function AuditLogSection() {
                         children: "Previous"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1684,
+                        lineNumber: 1741,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4661,12 +4990,12 @@ function AuditLogSection() {
                                 children: i + 1
                             }, i, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1693,
+                                lineNumber: 1750,
                                 columnNumber: 29
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1691,
+                        lineNumber: 1748,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4676,19 +5005,19 @@ function AuditLogSection() {
                         children: "Next"
                     }, void 0, false, {
                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                        lineNumber: 1702,
+                        lineNumber: 1759,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1683,
+                lineNumber: 1740,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1588,
+        lineNumber: 1645,
         columnNumber: 9
     }, this);
 }
@@ -4704,12 +5033,12 @@ function EventTimelineDot({ event }) {
             className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse"
         }, void 0, false, {
             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-            lineNumber: 1724,
+            lineNumber: 1781,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1723,
+        lineNumber: 1780,
         columnNumber: 9
     }, this);
 }
@@ -4737,14 +5066,14 @@ function MiniStatusBadge({ status }) {
                 className: `w-1.5 h-1.5 rounded-full mr-1.5 ${dotColor}`
             }, void 0, false, {
                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                lineNumber: 1753,
+                lineNumber: 1810,
                 columnNumber: 13
             }, this),
             status
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1752,
+        lineNumber: 1809,
         columnNumber: 9
     }, this);
 }
@@ -4760,7 +5089,7 @@ function RoleBadge({ role }) {
         children: role.replace(/_/g, ' ')
     }, void 0, false, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1768,
+        lineNumber: 1825,
         columnNumber: 9
     }, this);
 }
@@ -4795,12 +5124,12 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                         className: "w-5 h-5 text-emerald-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1805,
+                                        lineNumber: 1862,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1804,
+                                    lineNumber: 1861,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4810,7 +5139,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                             children: "Edit Brand Details"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1808,
+                                            lineNumber: 1865,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4818,19 +5147,19 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                             children: "Configuration Engine"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1809,
+                                            lineNumber: 1866,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1807,
+                                    lineNumber: 1864,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1803,
+                            lineNumber: 1860,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4840,18 +5169,18 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                 className: "w-6 h-6"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1816,
+                                lineNumber: 1873,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1812,
+                            lineNumber: 1869,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1802,
+                    lineNumber: 1859,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -4867,7 +5196,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                     title: "Trade Identity"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1824,
+                                    lineNumber: 1881,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4886,12 +5215,12 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-bold"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1827,
+                                                lineNumber: 1884,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1826,
+                                            lineNumber: 1883,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4910,12 +5239,12 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                         className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1836,
+                                                        lineNumber: 1893,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1835,
+                                                    lineNumber: 1892,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -4931,30 +5260,30 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                         className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1844,
+                                                        lineNumber: 1901,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1843,
+                                                    lineNumber: 1900,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1834,
+                                            lineNumber: 1891,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1825,
+                                    lineNumber: 1882,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1823,
+                            lineNumber: 1880,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4965,7 +5294,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                     title: "Globalization & Locale"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1857,
+                                    lineNumber: 1914,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4986,39 +5315,39 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                         children: "Eastern Standard Time (EST)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1865,
+                                                        lineNumber: 1922,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Pacific Standard Time (PST)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1866,
+                                                        lineNumber: 1923,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Mountain Standard Time (MST)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1867,
+                                                        lineNumber: 1924,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Central Standard Time (CST)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1868,
+                                                        lineNumber: 1925,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1860,
+                                                lineNumber: 1917,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1859,
+                                            lineNumber: 1916,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5036,51 +5365,51 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                         children: "CAD ($)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1877,
+                                                        lineNumber: 1934,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "USD ($)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1878,
+                                                        lineNumber: 1935,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "GBP (£)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1879,
+                                                        lineNumber: 1936,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "EUR (€)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1880,
+                                                        lineNumber: 1937,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1872,
+                                                lineNumber: 1929,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1871,
+                                            lineNumber: 1928,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1858,
+                                    lineNumber: 1915,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1856,
+                            lineNumber: 1913,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5091,7 +5420,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                     title: "Administrative Contact"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1888,
+                                    lineNumber: 1945,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5111,12 +5440,12 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1891,
+                                                lineNumber: 1948,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1890,
+                                            lineNumber: 1947,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5132,18 +5461,18 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-mono"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1900,
+                                                lineNumber: 1957,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1899,
+                                            lineNumber: 1956,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1889,
+                                    lineNumber: 1946,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5160,18 +5489,18 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                         className: "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all resize-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1909,
+                                        lineNumber: 1966,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1908,
+                                    lineNumber: 1965,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1887,
+                            lineNumber: 1944,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5182,7 +5511,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                     title: "Global Financial Defaults"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1921,
+                                    lineNumber: 1978,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5203,53 +5532,53 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                         children: "Net 15"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1929,
+                                                        lineNumber: 1986,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Net 30"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1930,
+                                                        lineNumber: 1987,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Net 45"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1931,
+                                                        lineNumber: 1988,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Net 60"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1932,
+                                                        lineNumber: 1989,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Prepaid"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1933,
+                                                        lineNumber: 1990,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Due on Receipt"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1934,
+                                                        lineNumber: 1991,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 1924,
+                                                lineNumber: 1981,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1923,
+                                            lineNumber: 1980,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5270,39 +5599,39 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                                 children: "HST (Ontario)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1944,
+                                                                lineNumber: 2001,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "GST + PST (BC)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1945,
+                                                                lineNumber: 2002,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "GST only (Alberta)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1946,
+                                                                lineNumber: 2003,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "QST (Quebec)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1947,
+                                                                lineNumber: 2004,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1939,
+                                                        lineNumber: 1996,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1938,
+                                                    lineNumber: 1995,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5322,7 +5651,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                                 step: "0.01"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1952,
+                                                                lineNumber: 2009,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5330,42 +5659,42 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                                                 children: "%"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                                lineNumber: 1959,
+                                                                lineNumber: 2016,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 1951,
+                                                        lineNumber: 2008,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 1950,
+                                                    lineNumber: 2007,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 1937,
+                                            lineNumber: 1994,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 1922,
+                                    lineNumber: 1979,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1920,
+                            lineNumber: 1977,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1821,
+                    lineNumber: 1878,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5379,7 +5708,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                             children: "Cancel"
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1969,
+                            lineNumber: 2026,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5391,7 +5720,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                 className: "w-5 h-5 animate-spin"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 1984,
+                                lineNumber: 2041,
                                 columnNumber: 29
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -5399,7 +5728,7 @@ function EditBrandModal({ brand, onClose, onSave }) {
                                         className: "w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 1987,
+                                        lineNumber: 2044,
                                         columnNumber: 33
                                     }, this),
                                     "Save Changes"
@@ -5407,24 +5736,24 @@ function EditBrandModal({ brand, onClose, onSave }) {
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 1977,
+                            lineNumber: 2034,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 1968,
+                    lineNumber: 2025,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-            lineNumber: 1800,
+            lineNumber: 1857,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 1799,
+        lineNumber: 1856,
         columnNumber: 9
     }, this);
 }
@@ -5472,12 +5801,12 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                         className: "w-5 h-5 text-blue-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 2044,
+                                        lineNumber: 2101,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2043,
+                                    lineNumber: 2100,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5487,7 +5816,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                             children: "Edit Store Node"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2047,
+                                            lineNumber: 2104,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5495,19 +5824,19 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                             children: store.code
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2048,
+                                            lineNumber: 2105,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2046,
+                                    lineNumber: 2103,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2042,
+                            lineNumber: 2099,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5517,18 +5846,18 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                 className: "w-6 h-6"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 2052,
+                                lineNumber: 2109,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2051,
+                            lineNumber: 2108,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 2041,
+                    lineNumber: 2098,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -5544,7 +5873,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                     title: "Basic Information"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2058,
+                                    lineNumber: 2115,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5563,12 +5892,12 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2061,
+                                                lineNumber: 2118,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2060,
+                                            lineNumber: 2117,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5584,24 +5913,24 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono uppercase"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2064,
+                                                lineNumber: 2121,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2063,
+                                            lineNumber: 2120,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2059,
+                                    lineNumber: 2116,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2057,
+                            lineNumber: 2114,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5612,7 +5941,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                     title: "Localization"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2070,
+                                    lineNumber: 2127,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5631,12 +5960,12 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2073,
+                                                lineNumber: 2130,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2072,
+                                            lineNumber: 2129,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5654,51 +5983,51 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                         children: "Ontario"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2077,
+                                                        lineNumber: 2134,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "British Columbia"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2078,
+                                                        lineNumber: 2135,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Alberta"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2079,
+                                                        lineNumber: 2136,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Quebec"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2080,
+                                                        lineNumber: 2137,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2076,
+                                                lineNumber: 2133,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2075,
+                                            lineNumber: 2132,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2071,
+                                    lineNumber: 2128,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2069,
+                            lineNumber: 2126,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5709,7 +6038,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                     title: "Payment Terms"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2087,
+                                    lineNumber: 2144,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5745,12 +6074,12 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                         className: "w-1.5 h-1.5 rounded-full bg-slate-900"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2105,
+                                                        lineNumber: 2162,
                                                         columnNumber: 81
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 2104,
+                                                    lineNumber: 2161,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5758,18 +6087,18 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                     children: opt.label
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 2107,
+                                                    lineNumber: 2164,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, opt.id, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2095,
+                                            lineNumber: 2152,
                                             columnNumber: 33
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2088,
+                                    lineNumber: 2145,
                                     columnNumber: 25
                                 }, this),
                                 formData.paymentTermType === 'NET_DAYS' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5787,23 +6116,23 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                             min: "1"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2114,
+                                            lineNumber: 2171,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 2113,
+                                        lineNumber: 2170,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2112,
+                                    lineNumber: 2169,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2086,
+                            lineNumber: 2143,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5814,7 +6143,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                     title: "Tax Configuration"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2121,
+                                    lineNumber: 2178,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5841,31 +6170,31 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                     children: opt.label
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 2136,
+                                                    lineNumber: 2193,
                                                     columnNumber: 37
                                                 }, this),
                                                 formData.taxSetup === opt.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                     className: "w-5 h-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 2137,
+                                                    lineNumber: 2194,
                                                     columnNumber: 69
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "w-5 h-5 rounded-full border-2 border-slate-200"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                    lineNumber: 2137,
+                                                    lineNumber: 2194,
                                                     columnNumber: 101
                                                 }, this)
                                             ]
                                         }, opt.id, true, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2127,
+                                            lineNumber: 2184,
                                             columnNumber: 33
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2122,
+                                    lineNumber: 2179,
                                     columnNumber: 25
                                 }, this),
                                 formData.taxSetup === 'OVERRIDE' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5885,39 +6214,39 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                         children: "HST (Ontario)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2145,
+                                                        lineNumber: 2202,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "GST + PST (BC)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2146,
+                                                        lineNumber: 2203,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "QST (Quebec)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2147,
+                                                        lineNumber: 2204,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         children: "Manual Override"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                        lineNumber: 2148,
+                                                        lineNumber: 2205,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2144,
+                                                lineNumber: 2201,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2143,
+                                            lineNumber: 2200,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InputWrapper, {
@@ -5933,30 +6262,30 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                                 className: "w-full px-4 py-3 bg-white border border-amber-200 rounded-xl text-sm font-black text-amber-900"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                                lineNumber: 2152,
+                                                lineNumber: 2209,
                                                 columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                            lineNumber: 2151,
+                                            lineNumber: 2208,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                    lineNumber: 2142,
+                                    lineNumber: 2199,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2120,
+                            lineNumber: 2177,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 2056,
+                    lineNumber: 2113,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5969,7 +6298,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                             children: "Cancel"
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2160,
+                            lineNumber: 2217,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5981,7 +6310,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                 className: "w-5 h-5 animate-spin"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                lineNumber: 2162,
+                                lineNumber: 2219,
                                 columnNumber: 37
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -5989,7 +6318,7 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                                         className: "w-5 h-5 text-emerald-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                                        lineNumber: 2162,
+                                        lineNumber: 2219,
                                         columnNumber: 88
                                     }, this),
                                     "Save Changes"
@@ -5997,24 +6326,24 @@ function EditStoreModal({ store, brand, onClose, onSave }) {
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                            lineNumber: 2161,
+                            lineNumber: 2218,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-                    lineNumber: 2159,
+                    lineNumber: 2216,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-            lineNumber: 2040,
+            lineNumber: 2097,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/platform/brands/[brandId]/page.tsx",
-        lineNumber: 2039,
+        lineNumber: 2096,
         columnNumber: 9
     }, this);
 }

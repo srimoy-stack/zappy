@@ -14,7 +14,8 @@ import {
     ChevronRight,
     Edit,
     Clock,
-    Layout
+    Layout,
+    X
 } from 'lucide-react';
 import { Store as StoreType, Brand } from '@/types';
 
@@ -73,6 +74,7 @@ export default function StoreDetailPage() {
     const [store, setStore] = useState<StoreType | null>(null);
     const [brand] = useState<Brand>(MOCK_BRAND);
     const [isLoading, setIsLoading] = useState(true);
+    const [isOverrideModalOpen, setIsOverrideModalOpen] = useState(false);
 
     useEffect(() => {
         // Simulate API fetch
@@ -83,6 +85,24 @@ export default function StoreDetailPage() {
         }, 500);
         return () => clearTimeout(timer);
     }, [storeId]);
+
+    const handleDeactivate = () => {
+        if (!store) return;
+        const confirmMsg = store.status === 'Active'
+            ? `Are you sure you want to deactivate ${store.name}? This will suspend all terminal operations.`
+            : `Reactiving ${store.name} will restore all system operations. Proceed?`;
+
+        if (window.confirm(confirmMsg)) {
+            setStore({
+                ...store,
+                status: store.status === 'Active' ? 'Inactive' : 'Active'
+            } as StoreType);
+        }
+    };
+
+    const handleViewLiveData = () => {
+        router.push(`/pos/dashboard?storeId=${storeId}`);
+    };
 
     if (isLoading) {
         return (
@@ -253,7 +273,10 @@ export default function StoreDetailPage() {
                             </div>
                         </div>
 
-                        <button className="w-full flex items-center justify-center gap-2 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-100 transition-all border border-emerald-200/50 active:scale-[0.98]">
+                        <button
+                            onClick={handleViewLiveData}
+                            className="w-full flex items-center justify-center gap-2 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-100 transition-all border border-emerald-200/50 active:scale-[0.98]"
+                        >
                             View Store Live Data
                         </button>
                     </div>
@@ -265,11 +288,20 @@ export default function StoreDetailPage() {
                             Configure regional overrides for tax profiles, payment gateways, and store-specific operational hours.
                         </p>
                         <div className="space-y-3 relative z-10">
-                            <button className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/5 backdrop-blur-md">
+                            <button
+                                onClick={() => setIsOverrideModalOpen(true)}
+                                className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/5 backdrop-blur-md"
+                            >
                                 Regional Overrides
                             </button>
-                            <button className="w-full py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-red-500/10">
-                                Deactivate Node
+                            <button
+                                onClick={handleDeactivate}
+                                className={`w-full py-3 ${store.status === 'Active'
+                                    ? 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/10'
+                                    : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/10'
+                                    } rounded-xl text-xs font-black uppercase tracking-widest transition-all border`}
+                            >
+                                {store.status === 'Active' ? 'Deactivate Node' : 'Activate Node'}
                             </button>
                         </div>
                     </div>
@@ -277,6 +309,48 @@ export default function StoreDetailPage() {
                 </div>
 
             </div>
+
+            {/* Override Modal Placeholder */}
+            {isOverrideModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300">
+                        <div className="p-10 space-y-8">
+                            <div className="flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">Regional Overrides</h3>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Configuration Engine</p>
+                                </div>
+                                <button onClick={() => setIsOverrideModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+                                    <X className="w-6 h-6" />
+                                </button>
+                            </div>
+
+                            <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl flex items-start gap-4">
+                                <Shield className="w-6 h-6 text-slate-400 shrink-0 mt-1" />
+                                <div className="space-y-2">
+                                    <h4 className="text-sm font-black text-slate-900">Governance Active</h4>
+                                    <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                                        This node is currently inheriting <span className="font-bold text-slate-900">Brand Global Defaults</span>.
+                                        Enabling overrides will disconnect this store from the global policy updates.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <button className="w-full py-4 bg-slate-100 text-slate-400 rounded-xl text-xs font-black uppercase tracking-widest cursor-not-allowed border border-slate-200">
+                                    Configure Tax Overrides
+                                </button>
+                                <button className="w-full py-4 bg-slate-100 text-slate-400 rounded-xl text-xs font-black uppercase tracking-widest cursor-not-allowed border border-slate-200">
+                                    Payment Gateway Rules
+                                </button>
+                                <button className="w-full py-4 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-200">
+                                    Enable Overrides Engine
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import KioskViewController from '@/modules/kiosk/KioskViewController';
 
 // Kiosk SPA Styles (bundled via JS imports)
@@ -70,15 +70,17 @@ export default function KioskLayout({
     }, []);
 
     return (
-        <div
-            className="kiosk-root"
-            onContextMenu={(e) => e.preventDefault()}
-        >
-            <div className="kiosk-frame">
-                <KioskViewController />
-                {/* {children} is included so Next.js doesn't complain, but is unused */}
-                <div style={{ display: 'none' }}>{children}</div>
+        <Suspense fallback={null}>
+            <div
+                className="kiosk-root"
+                onContextMenu={(e) => e.preventDefault()}
+            >
+                <div className="kiosk-frame">
+                    <KioskViewController />
+                    {/* {children} is included so Next.js doesn't complain, but is unused */}
+                    <div style={{ display: 'none' }}>{children}</div>
+                </div>
             </div>
-        </div>
+        </Suspense>
     );
 }

@@ -69,6 +69,7 @@
   "/callcenter/payment/page": "/callcenter/payment",
   "/callcenter/promotions/page": "/callcenter/promotions",
   "/page": "/",
+  "/platform/brands/[brandId]/impersonate/page": "/platform/brands/[brandId]/impersonate",
   "/platform/brands/[brandId]/page": "/platform/brands/[brandId]",
   "/platform/brands/onboarding/page": "/platform/brands/onboarding",
   "/platform/brands/page": "/platform/brands",

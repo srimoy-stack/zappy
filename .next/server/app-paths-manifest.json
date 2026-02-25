@@ -69,6 +69,7 @@
   "/callcenter/payment/page": "app/callcenter/payment/page.js",
   "/callcenter/promotions/page": "app/callcenter/promotions/page.js",
   "/page": "app/page.js",
+  "/platform/brands/[brandId]/impersonate/page": "app/platform/brands/[brandId]/impersonate/page.js",
   "/platform/brands/[brandId]/page": "app/platform/brands/[brandId]/page.js",
   "/platform/brands/onboarding/page": "app/platform/brands/onboarding/page.js",
   "/platform/brands/page": "app/platform/brands/page.js",
