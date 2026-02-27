@@ -19,3 +19,8 @@ export * from './users';
 
 // Settings
 export { BusinessOperationsPage } from './settings/BusinessOperationsPage';
+
+// Integrations
+export { AggregatorIntegrationsPage } from './integrations/AggregatorIntegrationsPage';
+export { CatalogMappingPage } from './integrations/catalog-mapping/CatalogMappingPage';
+export { ExternalOrdersAuditPage } from './integrations/external-orders/ExternalOrdersAuditPage';

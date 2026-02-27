@@ -186,8 +186,25 @@ const navigationConfig = [
         requiredModule: 'web-shop'
     },
     {
+        id: 'integrations',
+        label: 'Integrations',
+        route: '/backoffice/settings/integrations',
+        icon: 'LayoutGrid',
+        allowedRoles: [
+            'BRAND_ADMIN',
+            'ADMIN',
+            'STORE_MANAGER'
+        ],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
+    },
+    {
         id: 'business-operations',
-        label: 'Settings',
+        label: 'Business Settings',
         route: '/backoffice/settings/business-operations',
         icon: 'Settings',
         allowedRoles: [
@@ -377,7 +394,8 @@ const useRouteAccess = ()=>{
         if (!role) return [];
         return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
             // Role check
-            const roleAllowed = item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
+            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+            const roleAllowed = isSuperAdmin || item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
             if (!roleAllowed) return false;
             // Module check
             if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
@@ -394,6 +412,8 @@ const useRouteAccess = ()=>{
         if (path.startsWith('/platform')) {
             return role === 'PLATFORM_SUPER_ADMIN';
         }
+        // Global pass-through for Super Admin to all backoffice routes
+        if (role === 'PLATFORM_SUPER_ADMIN') return true;
         // If it's a direct backoffice subpath, check config
         const item = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navigationConfig"].find((m)=>m.route === path);
         if (!item) {
@@ -417,6 +437,7 @@ const useRouteAccess = ()=>{
         if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
             return 'hidden';
         }
+        if (role === 'PLATFORM_SUPER_ADMIN') return 'full';
         return item.accessMode[role] || 'hidden';
     };
     /**

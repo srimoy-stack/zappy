@@ -10,7 +10,9 @@ import {
     Warehouse,
     Settings,
     LayoutGrid,
-    Building2
+    Building2,
+    Monitor,
+    Tv
 } from 'lucide-react';
 import { UserRole, ModuleId } from '@/types';
 
@@ -156,8 +158,21 @@ export const navigationConfig: MenuConfig[] = [
         requiredModule: 'web-shop'
     },
     {
+        id: 'integrations',
+        label: 'Integrations',
+        route: '/backoffice/settings/integrations',
+        icon: 'LayoutGrid',
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
+    },
+    {
         id: 'business-operations',
-        label: 'Settings',
+        label: 'Business Settings',
         route: '/backoffice/settings/business-operations',
         icon: 'Settings',
         allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER'],
@@ -193,6 +208,37 @@ export const navigationConfig: MenuConfig[] = [
             PLATFORM_SUPER_ADMIN: 'full'
         },
         requiresStoreScope: false
+    },
+    // ── KDS Section ─────────────────────────────────────────────────────
+    {
+        id: 'kds-master',
+        label: 'KDS Master',
+        route: '/kds/master',
+        icon: 'Monitor',
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'KDS_USER'],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full',
+            KDS_USER: 'full'
+        },
+        requiresStoreScope: true,
+        requiredModule: 'kds'
+    },
+    {
+        id: 'kds-expo',
+        label: 'KDS Expo',
+        route: '/kds/expo',
+        icon: 'Tv',
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN', 'STORE_MANAGER', 'KDS_USER'],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full',
+            KDS_USER: 'full'
+        },
+        requiresStoreScope: true,
+        requiredModule: 'kds'
     }
 ];
 
@@ -210,4 +256,6 @@ export const iconMap = {
     Settings,
     LayoutGrid,
     Building2,
+    Monitor,
+    Tv
 };

@@ -20,6 +20,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings.js [app-client] (ecmascript) <export default as Settings>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-grid.js [app-client] (ecmascript) <export default as LayoutGrid>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/building-2.js [app-client] (ecmascript) <export default as Building2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/monitor.js [app-client] (ecmascript) <export default as Monitor>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tv$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Tv$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/tv.js [app-client] (ecmascript) <export default as Tv>");
 ;
 const navigationConfig = [
     {
@@ -186,8 +188,25 @@ const navigationConfig = [
         requiredModule: 'web-shop'
     },
     {
+        id: 'integrations',
+        label: 'Integrations',
+        route: '/backoffice/settings/integrations',
+        icon: 'LayoutGrid',
+        allowedRoles: [
+            'BRAND_ADMIN',
+            'ADMIN',
+            'STORE_MANAGER'
+        ],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full'
+        },
+        requiresStoreScope: false
+    },
+    {
         id: 'business-operations',
-        label: 'Settings',
+        label: 'Business Settings',
         route: '/backoffice/settings/business-operations',
         icon: 'Settings',
         allowedRoles: [
@@ -232,6 +251,47 @@ const navigationConfig = [
             PLATFORM_SUPER_ADMIN: 'full'
         },
         requiresStoreScope: false
+    },
+    // ── KDS Section ─────────────────────────────────────────────────────
+    {
+        id: 'kds-master',
+        label: 'KDS Master',
+        route: '/kds/master',
+        icon: 'Monitor',
+        allowedRoles: [
+            'BRAND_ADMIN',
+            'ADMIN',
+            'STORE_MANAGER',
+            'KDS_USER'
+        ],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full',
+            KDS_USER: 'full'
+        },
+        requiresStoreScope: true,
+        requiredModule: 'kds'
+    },
+    {
+        id: 'kds-expo',
+        label: 'KDS Expo',
+        route: '/kds/expo',
+        icon: 'Tv',
+        allowedRoles: [
+            'BRAND_ADMIN',
+            'ADMIN',
+            'STORE_MANAGER',
+            'KDS_USER'
+        ],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full',
+            STORE_MANAGER: 'full',
+            KDS_USER: 'full'
+        },
+        requiresStoreScope: true,
+        requiredModule: 'kds'
     }
 ];
 const iconMap = {
@@ -246,7 +306,9 @@ const iconMap = {
     Warehouse: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$warehouse$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Warehouse$3e$__["Warehouse"],
     Settings: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"],
     LayoutGrid: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__["LayoutGrid"],
-    Building2: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"]
+    Building2: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$building$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Building2$3e$__["Building2"],
+    Monitor: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"],
+    Tv: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tv$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Tv$3e$__["Tv"]
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -380,7 +442,8 @@ const useRouteAccess = ()=>{
         if (!role) return [];
         return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
             // Role check
-            const roleAllowed = item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
+            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+            const roleAllowed = isSuperAdmin || item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
             if (!roleAllowed) return false;
             // Module check
             if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
@@ -397,6 +460,8 @@ const useRouteAccess = ()=>{
         if (path.startsWith('/platform')) {
             return role === 'PLATFORM_SUPER_ADMIN';
         }
+        // Global pass-through for Super Admin to all backoffice routes
+        if (role === 'PLATFORM_SUPER_ADMIN') return true;
         // If it's a direct backoffice subpath, check config
         const item = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].find((m)=>m.route === path);
         if (!item) {
@@ -420,6 +485,7 @@ const useRouteAccess = ()=>{
         if (item.requiredModule && !enabledModules.includes(item.requiredModule)) {
             return 'hidden';
         }
+        if (role === 'PLATFORM_SUPER_ADMIN') return 'full';
         return item.accessMode[role] || 'hidden';
     };
     /**

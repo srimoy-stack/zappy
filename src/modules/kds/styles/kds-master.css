@@ -1,0 +1,377 @@
+/* ========================================
+   KDS MASTER DESIGN SYSTEM
+   Dark theme optimized for kitchen environments
+   High contrast, 1920px optimized, zero scroll
+   ======================================== */
+
+@import "../../pos/styles/pos-rush.css";
+
+:root {
+  /* KDS DARK INDUSTRY THEME (#1C1C1E style) */
+  --kds-bg-main: #121212;
+  --kds-bg-surface: #1C1C1E;
+  --kds-bg-card: #242426;
+  --kds-border: #2C2C2E;
+  
+  --kds-text-primary: #FFFFFF;
+  --kds-text-secondary: #AEAEB2;
+  --kds-text-muted: #636366;
+  
+  /* STATUS COLORS (Flat) */
+  --kds-status-new: #0A84FF;      /* Blue */
+  --kds-status-prep: #FFD60A;     /* Yellow/Amber */
+  --kds-status-on-time: #32D74B;  /* Green */
+  --kds-status-warning: #FF9F0A;  /* Orange/Yellow */
+  --kds-status-late: #FF453A;     /* Red */
+  --kds-status-complete: #48484A; /* Greyed */
+
+  /* INDUSTRY TYPE SCALE (Distance Readable at 6-8 feet) */
+  --kds-font-number: 48px;
+  --kds-font-timer: 36px;
+  --kds-font-item: 28px;
+  --kds-font-modifier: 22px;
+  --kds-font-notes: 24px;
+  --kds-font-main: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+  /* DISPLAY HARDWARE STANDARDS */
+}
+
+/* Root container – enforce 16:9 aspect ratio and max 1920×1080 */
+.kds-root {
+  background-color: var(--kds-bg-main);
+  color: var(--kds-text-primary);
+  height: 100vh;
+  width: 100vw;
+  max-width: 1920px;               /* Prevent ultrawide */
+  aspect-ratio: 16 / 9;            /* Enforce 16:9 */
+  margin: 0 auto;                  /* Center on larger screens */
+  overflow: hidden;
+  font-family: var(--kds-font-main);
+  /* Matte anti‑glare – subtle texture via a low‑opacity overlay */
+  background-image: linear-gradient(rgba(0,0,0,0.02), rgba(0,0,0,0.02));
+  /* Apply brightness/contrast filters for consistent visual output */
+  filter: brightness(var(--kds-display-brightness)) contrast(var(--kds-display-contrast));
+}
+
+/* Ensure child panels inherit the matte look without extra glare */
+.kds-main, .kds-header, .kds-action-bar {
+  background: var(--kds-bg-surface);
+  /* No glossy gradients – flat matte */
+  background-image: none;
+}
+
+
+/* Base Body Styles for KDS */
+.kds-root {
+  background-color: var(--kds-bg-main);
+  color: var(--kds-text-primary);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent body scroll */
+body.kds-body {
+  background-color: var(--kds-bg-main);
+  overflow: hidden !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.kds-header {
+  height: var(--kds-header-height);
+  background: var(--kds-bg-surface);
+  border-bottom: 2px solid var(--kds-border);
+  padding: 0;                     /* Removed padding for flush edge buttons */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.kds-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.kds-header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.kds-header-right {
+  display: flex;
+  align-items: center; /* Center icons vertically */
+  height: 100%;
+  gap: 8px;
+}
+
+
+.kds-store-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--kds-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.kds-clock {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--kds-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.kds-header-btn {
+  height: 100%;
+  min-width: 100px;
+  padding: 0 24px;
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--kds-border);
+  background: transparent;
+  color: var(--kds-text-primary);
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 900;
+}
+
+.kds-header-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.kds-header-btn:active {
+  background: var(--kds-border);
+}
+
+.kds-header-btn span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--kds-text-muted);
+  text-transform: uppercase;
+}
+
+/* Main Content Area */
+.kds-main {
+  flex: 1;
+  padding: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ticket Grid Responsive Logic */
+/* Board Layout */
+.kds-board {
+  display: flex;
+  gap: var(--kds-spacing);
+  padding: var(--kds-spacing);
+  height: calc(100vh - var(--kds-header-height));
+  overflow-x: auto;
+  align-items: flex-start;
+  background: var(--kds-bg-main);
+  scroll-behavior: smooth;
+}
+
+/* 
+   INDUSTRY OPTIMIZATION: 24-inch (1920x1080)
+   4 columns @ 458px = 1832px + (3 * 16px gap) + (2 * 20px padding) = 1920px
+*/
+.kds-column {
+  flex: 0 0 458px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--kds-bg-surface);
+  border-radius: 0;
+  border: 1px solid var(--kds-border);
+}
+
+.kds-column-header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.kds-column-title {
+  color: #f8fafc;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+}
+
+.kds-column-count {
+  background: #334155;
+  color: #f8fafc;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.kds-column-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Hide scrollbars for a cleaner look */
+.kds-column-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.kds-column-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.kds-ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 100%;
+  height: 100%;
+}
+
+/* 
+   PREDICTABLE UI SCALE 
+   De-facto Standard: 1920x1080 (16:9) 
+   No 4K scaling overrides to ensure consistency and performance.
+*/
+@media (max-width: 1200px) {
+  .kds-column {
+    flex: 0 0 400px;
+  }
+}
+
+
+/* Empty State */
+.kds-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0.5;
+}
+
+.kds-empty-text {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--kds-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Action Bar (Requirement 3) */
+.kds-action-bar {
+  height: var(--kds-action-bar-height);
+  background: var(--kds-bg-surface);
+  border-top: 2px solid var(--kds-border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.kds-action-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kds-action-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kds-action-label {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--kds-text-muted);
+  letter-spacing: 0.2em;
+}
+
+.kds-action-value {
+  font-size: 18px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+/* Universal Grid System (Requirement 3) */
+.kds-universal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--kds-spacing);
+  padding: var(--kds-spacing);
+  flex: 1;
+  overflow: hidden;
+  background: var(--kds-bg-main);
+}
+
+.kds-universal-grid.compact {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* Animations */
+/* Urgency Animations */
+@keyframes kdsPulseBlue {
+  0% { border-color: var(--kds-status-new); box-shadow: 0 0 0 rgba(10, 132, 255, 0); }
+  50% { border-color: #5AC8FA; box-shadow: 0 0 20px rgba(10, 132, 255, 0.4); }
+  100% { border-color: var(--kds-status-new); box-shadow: 0 0 0 rgba(10, 132, 255, 0); }
+}
+
+@keyframes kdsFlashSlow {
+  0% { color: var(--kds-text-primary); }
+  50% { color: var(--kds-status-warning); }
+  100% { color: var(--kds-text-primary); }
+}
+
+@keyframes kdsFlashFast {
+  0% { color: white; background-color: var(--kds-status-late); }
+  50% { color: var(--kds-status-late); background-color: transparent; }
+  100% { color: white; background-color: var(--kds-status-late); }
+}
+
+.kds-new-alert {
+  animation: kdsPulseBlue 1s ease-in-out 3;
+}
+
+.kds-timer-warning {
+  animation: kdsFlashSlow 1.5s infinite;
+  color: var(--kds-status-warning);
+}
+
+.kds-timer-late {
+  animation: kdsFlashFast 0.5s infinite;
+}
+
+/* Removal of all shadows for Flat UI - Explicit Override */
+.kds-ticket, .kds-header, .kds-column {
+  box-shadow: none !important;
+}

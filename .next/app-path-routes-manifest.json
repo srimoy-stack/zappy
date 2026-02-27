@@ -51,6 +51,9 @@
   "/backoffice/roles/page": "/backoffice/roles",
   "/backoffice/sales-activity/page": "/backoffice/sales-activity",
   "/backoffice/settings/business-operations/page": "/backoffice/settings/business-operations",
+  "/backoffice/settings/integrations/catalog-mapping/page": "/backoffice/settings/integrations/catalog-mapping",
+  "/backoffice/settings/integrations/external-orders/page": "/backoffice/settings/integrations/external-orders",
+  "/backoffice/settings/integrations/page": "/backoffice/settings/integrations",
   "/backoffice/shop/[category]/[itemId]/page": "/backoffice/shop/[category]/[itemId]",
   "/backoffice/shop/[category]/page": "/backoffice/shop/[category]",
   "/backoffice/shop/admin/page": "/backoffice/shop/admin",
@@ -68,6 +71,8 @@
   "/callcenter/orders/page": "/callcenter/orders",
   "/callcenter/payment/page": "/callcenter/payment",
   "/callcenter/promotions/page": "/callcenter/promotions",
+  "/kds/expo/page": "/kds/expo",
+  "/kds/master/page": "/kds/master",
   "/page": "/",
   "/platform/brands/[brandId]/impersonate/page": "/platform/brands/[brandId]/impersonate",
   "/platform/brands/[brandId]/page": "/platform/brands/[brandId]",
@@ -97,5 +102,6 @@
   "/pos/reports/page": "/pos/reports",
   "/pos/settings/page": "/pos/settings",
   "/pos/table-selection/page": "/pos/table-selection",
-  "/pos/tables/page": "/pos/tables"
+  "/pos/tables/page": "/pos/tables",
+  "/track/[token]/page": "/track/[token]"
 }

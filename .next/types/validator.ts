@@ -488,6 +488,33 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/backoffice/settings/integrations/catalog-mapping/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/backoffice/settings/integrations/catalog-mapping">> = Specific
+  const handler = {} as typeof import("../../src/app/backoffice/settings/integrations/catalog-mapping/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/backoffice/settings/integrations/external-orders/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/backoffice/settings/integrations/external-orders">> = Specific
+  const handler = {} as typeof import("../../src/app/backoffice/settings/integrations/external-orders/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/backoffice/settings/integrations/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/backoffice/settings/integrations">> = Specific
+  const handler = {} as typeof import("../../src/app/backoffice/settings/integrations/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/backoffice/shop/[category]/[itemId]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/backoffice/shop/[category]/[itemId]">> = Specific
@@ -636,6 +663,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends AppPageConfig<"/callcenter/promotions">> = Specific
   const handler = {} as typeof import("../../src/app/callcenter/promotions/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/kds/expo/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/kds/expo">> = Specific
+  const handler = {} as typeof import("../../src/app/kds/expo/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/kds/master/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/kds/master">> = Specific
+  const handler = {} as typeof import("../../src/app/kds/master/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -911,6 +956,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/track/[token]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/track/[token]">> = Specific
+  const handler = {} as typeof import("../../src/app/track/[token]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/api/auth/[...nextauth]/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/auth/[...nextauth]">> = Specific
@@ -955,6 +1009,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends LayoutConfig<"/callcenter">> = Specific
   const handler = {} as typeof import("../../src/app/callcenter/layout.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/kds/layout.tsx
+{
+  type __IsExpected<Specific extends LayoutConfig<"/kds">> = Specific
+  const handler = {} as typeof import("../../src/app/kds/layout.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

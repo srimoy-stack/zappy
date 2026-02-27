@@ -17,7 +17,8 @@ export const useRouteAccess = () => {
         if (!role) return [];
         return navigationConfig.filter(item => {
             // Role check
-            const roleAllowed = item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
+            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+            const roleAllowed = isSuperAdmin || (item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden');
             if (!roleAllowed) return false;
 
             // Module check
@@ -39,6 +40,9 @@ export const useRouteAccess = () => {
         if (path.startsWith('/platform')) {
             return role === 'PLATFORM_SUPER_ADMIN';
         }
+
+        // Global pass-through for Super Admin to all backoffice routes
+        if (role === 'PLATFORM_SUPER_ADMIN') return true;
 
         // If it's a direct backoffice subpath, check config
         const item = navigationConfig.find(m => m.route === path);
@@ -70,6 +74,7 @@ export const useRouteAccess = () => {
             return 'hidden';
         }
 
+        if (role === 'PLATFORM_SUPER_ADMIN') return 'full';
         return item.accessMode[role] || 'hidden';
     };
 

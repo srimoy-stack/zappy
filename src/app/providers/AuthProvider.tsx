@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         role: 'PLATFORM_SUPER_ADMIN',
         tenantId: 'tenant-demo',
         storeIds: ['store-01', 'store-02'],
-        enabledModules: ['pos', 'inventory', 'kiosk'],
+        enabledModules: ['pos', 'inventory', 'kiosk', 'kds', 'messaging'],
     };
 
     return (

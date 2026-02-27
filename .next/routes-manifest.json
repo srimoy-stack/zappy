@@ -214,6 +214,14 @@
         "nxtPorderId": "nxtPorderId"
       },
       "namedRegex": "^/pos/order\\-success/(?<nxtPorderId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/track/[token]",
+      "regex": "^/track/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPtoken": "nxtPtoken"
+      },
+      "namedRegex": "^/track/(?<nxtPtoken>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -398,6 +406,24 @@
       "namedRegex": "^/backoffice/settings/business\\-operations(?:/)?$"
     },
     {
+      "page": "/backoffice/settings/integrations",
+      "regex": "^/backoffice/settings/integrations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/settings/integrations(?:/)?$"
+    },
+    {
+      "page": "/backoffice/settings/integrations/catalog-mapping",
+      "regex": "^/backoffice/settings/integrations/catalog\\-mapping(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/settings/integrations/catalog\\-mapping(?:/)?$"
+    },
+    {
+      "page": "/backoffice/settings/integrations/external-orders",
+      "regex": "^/backoffice/settings/integrations/external\\-orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/settings/integrations/external\\-orders(?:/)?$"
+    },
+    {
       "page": "/backoffice/shop",
       "regex": "^/backoffice/shop(?:/)?$",
       "routeKeys": {},
@@ -474,6 +500,18 @@
       "regex": "^/callcenter/promotions(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/callcenter/promotions(?:/)?$"
+    },
+    {
+      "page": "/kds/expo",
+      "regex": "^/kds/expo(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kds/expo(?:/)?$"
+    },
+    {
+      "page": "/kds/master",
+      "regex": "^/kds/master(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kds/master(?:/)?$"
     },
     {
       "page": "/kiosk/builder",

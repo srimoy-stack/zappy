@@ -51,6 +51,9 @@
   "/backoffice/roles/page": "app/backoffice/roles/page.js",
   "/backoffice/sales-activity/page": "app/backoffice/sales-activity/page.js",
   "/backoffice/settings/business-operations/page": "app/backoffice/settings/business-operations/page.js",
+  "/backoffice/settings/integrations/catalog-mapping/page": "app/backoffice/settings/integrations/catalog-mapping/page.js",
+  "/backoffice/settings/integrations/external-orders/page": "app/backoffice/settings/integrations/external-orders/page.js",
+  "/backoffice/settings/integrations/page": "app/backoffice/settings/integrations/page.js",
   "/backoffice/shop/[category]/[itemId]/page": "app/backoffice/shop/[category]/[itemId]/page.js",
   "/backoffice/shop/[category]/page": "app/backoffice/shop/[category]/page.js",
   "/backoffice/shop/admin/page": "app/backoffice/shop/admin/page.js",
@@ -68,6 +71,8 @@
   "/callcenter/orders/page": "app/callcenter/orders/page.js",
   "/callcenter/payment/page": "app/callcenter/payment/page.js",
   "/callcenter/promotions/page": "app/callcenter/promotions/page.js",
+  "/kds/expo/page": "app/kds/expo/page.js",
+  "/kds/master/page": "app/kds/master/page.js",
   "/page": "app/page.js",
   "/platform/brands/[brandId]/impersonate/page": "app/platform/brands/[brandId]/impersonate/page.js",
   "/platform/brands/[brandId]/page": "app/platform/brands/[brandId]/page.js",
@@ -97,5 +102,6 @@
   "/pos/reports/page": "app/pos/reports/page.js",
   "/pos/settings/page": "app/pos/settings/page.js",
   "/pos/table-selection/page": "app/pos/table-selection/page.js",
-  "/pos/tables/page": "app/pos/tables/page.js"
+  "/pos/tables/page": "app/pos/tables/page.js",
+  "/track/[token]/page": "app/track/[token]/page.js"
 }

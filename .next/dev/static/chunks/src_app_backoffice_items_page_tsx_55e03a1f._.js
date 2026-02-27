@@ -14,10 +14,11 @@
   "static/chunks/src_modules_m9_pages_inventory_8329abd4._.js",
   "static/chunks/src_modules_m9_pages_users_4f54f7cb._.js",
   "static/chunks/src_modules_m9_pages_settings_BusinessOperationsPage_tsx_9a97a28e._.js",
+  "static/chunks/src_modules_m9_pages_integrations_38d4d31c._.js",
   "static/chunks/src_modules_m9_pages_4ed9fee5._.js",
-  "static/chunks/src_modules_m9_5397568e._.js",
+  "static/chunks/src_modules_m9_12ad650f._.js",
   "static/chunks/src_91dee0d7._.js",
-  "static/chunks/node_modules_e523e40d._.js"
+  "static/chunks/node_modules_6675d6f2._.js"
 ],
     source: "dynamic"
 });
