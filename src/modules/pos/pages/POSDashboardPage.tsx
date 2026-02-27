@@ -87,7 +87,7 @@ export const POSDashboardPage: React.FC = () => {
                 setTable(null);
                 setChannel('Pickup');
                 setCustomer(null);
-                router.push('/pos/customers');
+                router.push('/pos/menu');
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -99,7 +99,7 @@ export const POSDashboardPage: React.FC = () => {
         setTable(null);
         setChannel('Pickup');
         setCustomer(null);
-        router.push('/pos/customers');
+        router.push('/pos/menu');
     };
 
     const handleAttachCall = () => {

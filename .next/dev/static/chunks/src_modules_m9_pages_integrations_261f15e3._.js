@@ -991,7 +991,7 @@ const CatalogMappingPage = ()=>{
     const [groups, setGroups] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [options, setOptions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     // External available entities (Mocked)
-    const [externalItems, setExternalItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
+    const [externalItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
         {
             id: 'ext-i1',
             name: 'Original Burger'
@@ -1007,24 +1007,6 @@ const CatalogMappingPage = ()=>{
         {
             id: 'ext-i4',
             name: 'Farmhouse Special'
-        }
-    ]);
-    const [externalVariants, setExternalVariants] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
-        {
-            id: 'ext-v1',
-            name: 'Small'
-        },
-        {
-            id: 'ext-v2',
-            name: 'Regular'
-        },
-        {
-            id: 'ext-v3',
-            name: 'Large'
-        },
-        {
-            id: 'ext-v4',
-            name: 'Extra Large'
         }
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -1264,7 +1246,7 @@ const CatalogMappingPage = ()=>{
                     className: "w-10 h-10 text-emerald-600 animate-spin"
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 217,
+                    lineNumber: 209,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1272,13 +1254,13 @@ const CatalogMappingPage = ()=>{
                     children: "Loading Catalog Data..."
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 218,
+                    lineNumber: 210,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-            lineNumber: 216,
+            lineNumber: 208,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -1299,12 +1281,12 @@ const CatalogMappingPage = ()=>{
                                     className: "text-slate-600 group-hover:-translate-x-1 transition-transform"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 229,
+                                    lineNumber: 221,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 228,
+                                lineNumber: 220,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1317,7 +1299,7 @@ const CatalogMappingPage = ()=>{
                                                 children: "External Catalog Mapping"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 233,
+                                                lineNumber: 225,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1328,7 +1310,7 @@ const CatalogMappingPage = ()=>{
                                                         className: "animate-pulse"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                        lineNumber: 235,
+                                                        lineNumber: 227,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1336,19 +1318,19 @@ const CatalogMappingPage = ()=>{
                                                         children: "Auto-Suggest Active"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 228,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 226,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 224,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1356,19 +1338,19 @@ const CatalogMappingPage = ()=>{
                                         children: "Map Zyappy products & modifiers to Uber Eats / DoorDash merchant IDs."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 239,
+                                        lineNumber: 231,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 231,
+                                lineNumber: 223,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 227,
+                        lineNumber: 219,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1382,14 +1364,14 @@ const CatalogMappingPage = ()=>{
                                         size: 16
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 245,
+                                        lineNumber: 237,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Export CSV"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 244,
+                                lineNumber: 236,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1408,20 +1390,20 @@ const CatalogMappingPage = ()=>{
                                         className: "animate-spin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 241,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$save$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Save$3e$__["Save"], {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 241,
                                         columnNumber: 86
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Save Mapping"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 248,
+                                lineNumber: 240,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1434,32 +1416,32 @@ const CatalogMappingPage = ()=>{
                                         className: "animate-spin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 249,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldCheck$3e$__["ShieldCheck"], {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 249,
                                         columnNumber: 86
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Publish Menu"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 252,
+                                lineNumber: 244,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 243,
+                        lineNumber: 235,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 226,
+                lineNumber: 218,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             showPublishModal && publishResults && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1479,12 +1461,12 @@ const CatalogMappingPage = ()=>{
                                                 size: 24
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 270,
+                                                lineNumber: 262,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 269,
+                                            lineNumber: 261,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1494,7 +1476,7 @@ const CatalogMappingPage = ()=>{
                                                     children: "Review Publish Summary"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 273,
+                                                    lineNumber: 265,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1502,19 +1484,19 @@ const CatalogMappingPage = ()=>{
                                                     children: "Validation completed. See below for blocked items."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 274,
+                                                    lineNumber: 266,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 272,
+                                            lineNumber: 264,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 268,
+                                    lineNumber: 260,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1525,18 +1507,18 @@ const CatalogMappingPage = ()=>{
                                         className: "text-slate-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 278,
+                                        lineNumber: 270,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 277,
+                                    lineNumber: 269,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 267,
+                            lineNumber: 259,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1553,7 +1535,7 @@ const CatalogMappingPage = ()=>{
                                                     children: "Blocked Components (Unmapped)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 286,
+                                                    lineNumber: 278,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1561,13 +1543,13 @@ const CatalogMappingPage = ()=>{
                                                     children: "The following entities will NOT be published as they lack external mapping IDs."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 287,
+                                                    lineNumber: 279,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 285,
+                                            lineNumber: 277,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         publishResults.unmappedItems.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1582,7 +1564,7 @@ const CatalogMappingPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 294,
+                                                    lineNumber: 286,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1592,18 +1574,18 @@ const CatalogMappingPage = ()=>{
                                                             children: name
                                                         }, name, false, {
                                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                            lineNumber: 297,
+                                                            lineNumber: 289,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 295,
+                                                    lineNumber: 287,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 293,
+                                            lineNumber: 285,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         publishResults.unmappedVariants.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1618,7 +1600,7 @@ const CatalogMappingPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 305,
+                                                    lineNumber: 297,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1628,18 +1610,18 @@ const CatalogMappingPage = ()=>{
                                                             children: name
                                                         }, name, false, {
                                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                            lineNumber: 308,
+                                                            lineNumber: 300,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 306,
+                                                    lineNumber: 298,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 304,
+                                            lineNumber: 296,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         publishResults.unmappedGroups.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1654,7 +1636,7 @@ const CatalogMappingPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 316,
+                                                    lineNumber: 308,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1664,24 +1646,24 @@ const CatalogMappingPage = ()=>{
                                                             children: name
                                                         }, name, false, {
                                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                            lineNumber: 319,
+                                                            lineNumber: 311,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 317,
+                                                    lineNumber: 309,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 307,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 284,
+                                    lineNumber: 276,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "p-6 bg-emerald-50 border border-emerald-100 rounded-[2rem] flex flex-col items-center text-center space-y-3",
@@ -1691,7 +1673,7 @@ const CatalogMappingPage = ()=>{
                                             className: "text-emerald-500"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 327,
+                                            lineNumber: 319,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1702,7 +1684,7 @@ const CatalogMappingPage = ()=>{
                                                     children: "Full Sync Ready"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 329,
+                                                    lineNumber: 321,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1710,19 +1692,19 @@ const CatalogMappingPage = ()=>{
                                                     children: "All components are fully mapped and ready for export."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                    lineNumber: 330,
+                                                    lineNumber: 322,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                            lineNumber: 328,
+                                            lineNumber: 320,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 326,
+                                    lineNumber: 318,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1735,7 +1717,7 @@ const CatalogMappingPage = ()=>{
                                                 children: "Total Valid Components:"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 337,
+                                                lineNumber: 329,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1746,24 +1728,24 @@ const CatalogMappingPage = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 338,
+                                                lineNumber: 330,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 336,
+                                        lineNumber: 328,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 335,
+                                    lineNumber: 327,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 282,
+                            lineNumber: 274,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1775,7 +1757,7 @@ const CatalogMappingPage = ()=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 344,
+                                    lineNumber: 336,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1784,24 +1766,24 @@ const CatalogMappingPage = ()=>{
                                     children: "Proceed with Partial Publish"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 350,
+                                    lineNumber: 342,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 343,
+                            lineNumber: 335,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 266,
+                    lineNumber: 258,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 265,
+                lineNumber: 257,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1817,7 +1799,7 @@ const CatalogMappingPage = ()=>{
                                         children: "MAPPING COMPLETION"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 365,
+                                        lineNumber: 357,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1831,7 +1813,7 @@ const CatalogMappingPage = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 367,
+                                                lineNumber: 359,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1845,19 +1827,19 @@ const CatalogMappingPage = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                                lineNumber: 368,
+                                                lineNumber: 360,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 366,
+                                        lineNumber: 358,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 364,
+                                lineNumber: 356,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1869,18 +1851,18 @@ const CatalogMappingPage = ()=>{
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 372,
+                                    lineNumber: 364,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 371,
+                                lineNumber: 363,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 363,
+                        lineNumber: 355,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1893,7 +1875,7 @@ const CatalogMappingPage = ()=>{
                                         className: "absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 381,
+                                        lineNumber: 373,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1904,13 +1886,13 @@ const CatalogMappingPage = ()=>{
                                         className: "w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:border-emerald-500 outline-none transition-all"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 382,
+                                        lineNumber: 374,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 380,
+                                lineNumber: 372,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1919,24 +1901,24 @@ const CatalogMappingPage = ()=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 391,
+                                    lineNumber: 383,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 390,
+                                lineNumber: 382,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 379,
+                        lineNumber: 371,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 362,
+                lineNumber: 354,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1952,12 +1934,12 @@ const CatalogMappingPage = ()=>{
                         children: tab
                     }, tab, false, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 399,
+                        lineNumber: 391,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 397,
+                lineNumber: 389,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1974,7 +1956,7 @@ const CatalogMappingPage = ()=>{
                                         children: "Zyappy Entity"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 419,
+                                        lineNumber: 411,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1982,7 +1964,7 @@ const CatalogMappingPage = ()=>{
                                         children: "Mapping Configuration"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 420,
+                                        lineNumber: 412,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     activeTab === 'items' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1990,7 +1972,7 @@ const CatalogMappingPage = ()=>{
                                         children: "Metadata"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 421,
+                                        lineNumber: 413,
                                         columnNumber: 55
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1998,7 +1980,7 @@ const CatalogMappingPage = ()=>{
                                         children: "Status"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 422,
+                                        lineNumber: 414,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2006,18 +1988,18 @@ const CatalogMappingPage = ()=>{
                                         children: "Action"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 423,
+                                        lineNumber: 415,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 418,
+                                lineNumber: 410,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 417,
+                            lineNumber: 409,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2031,7 +2013,7 @@ const CatalogMappingPage = ()=>{
                                         onApplySuggestion: ()=>handleApplySuggestion(item.id)
                                     }, item.id, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 428,
+                                        lineNumber: 420,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))),
                                 activeTab === 'variants' && variants.map((v)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MappingRow, {
@@ -2041,7 +2023,7 @@ const CatalogMappingPage = ()=>{
                                         onMap: (extId, extName)=>handleMapManual(v.id, 'variants', extId, extName)
                                     }, v.id, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 438,
+                                        lineNumber: 430,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))),
                                 activeTab === 'groups' && groups.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MappingRow, {
@@ -2051,7 +2033,7 @@ const CatalogMappingPage = ()=>{
                                         onMap: (extId, extName)=>handleMapManual(g.id, 'groups', extId, extName)
                                     }, g.id, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 447,
+                                        lineNumber: 439,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))),
                                 activeTab === 'options' && options.map((o)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MappingRow, {
@@ -2061,34 +2043,34 @@ const CatalogMappingPage = ()=>{
                                         onMap: (extId, extName)=>handleMapManual(o.id, 'options', extId, extName)
                                     }, o.id, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 456,
+                                        lineNumber: 448,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 426,
+                            lineNumber: 418,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 416,
+                    lineNumber: 408,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 415,
+                lineNumber: 407,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-        lineNumber: 224,
+        lineNumber: 216,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(CatalogMappingPage, "Hvsz3bxEf6OEPIyltVTUl3iIxkI=", false, function() {
+_s(CatalogMappingPage, "wrOaRu2VeJDtanw0eZtBoBU6+G4=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouteAccess"]
@@ -2128,7 +2110,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                 children: item.groupType
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 511,
+                lineNumber: 503,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0));
         }
@@ -2150,14 +2132,14 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                     children: getName()
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 527,
+                                    lineNumber: 519,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 getGroupTypeLabel()
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 526,
+                            lineNumber: 518,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2168,18 +2150,18 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 530,
+                            lineNumber: 522,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 525,
+                    lineNumber: 517,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 524,
+                lineNumber: 516,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2195,7 +2177,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                             className: "w-32 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:border-emerald-500 outline-none shadow-sm"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 537,
+                            lineNumber: 529,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2206,7 +2188,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                             className: "w-48 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:border-emerald-500 outline-none shadow-sm"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 544,
+                            lineNumber: 536,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2219,18 +2201,18 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 555,
+                                lineNumber: 547,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 551,
+                            lineNumber: 543,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 536,
+                    lineNumber: 528,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col",
@@ -2244,7 +2226,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         children: getExtName()
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 563,
+                                        lineNumber: 555,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Link$3e$__["Link"], {
@@ -2252,13 +2234,13 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         className: "text-emerald-500"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 564,
+                                        lineNumber: 556,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 562,
+                                lineNumber: 554,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2269,7 +2251,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 566,
+                                lineNumber: 558,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
@@ -2284,7 +2266,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         className: "text-emerald-500"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 571,
+                                        lineNumber: 563,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2292,13 +2274,13 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         children: "Auto-Suggested Match"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 572,
+                                        lineNumber: 564,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 570,
+                                lineNumber: 562,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2313,7 +2295,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 575,
+                                        lineNumber: 567,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2322,19 +2304,19 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                         children: "Apply"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                        lineNumber: 576,
+                                        lineNumber: 568,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 574,
+                                lineNumber: 566,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 569,
+                        lineNumber: 561,
                         columnNumber: 29
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center gap-2 text-rose-400",
@@ -2343,7 +2325,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 size: 14
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 586,
+                                lineNumber: 578,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2351,23 +2333,23 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 children: "Awaiting mapping..."
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 587,
+                                lineNumber: 579,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                        lineNumber: 585,
+                        lineNumber: 577,
                         columnNumber: 29
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 559,
+                    lineNumber: 551,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 534,
+                lineNumber: 526,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             type === 'items' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2383,7 +2365,7 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                     className: "text-slate-400"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 598,
+                                    lineNumber: 590,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2391,13 +2373,13 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                     children: item.lastPublishedAt ? new Date(item.lastPublishedAt).toLocaleDateString() : 'NEVER'
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                    lineNumber: 599,
+                                    lineNumber: 591,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 597,
+                            lineNumber: 589,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2405,18 +2387,18 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                             children: item.status
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 603,
+                            lineNumber: 595,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 596,
+                    lineNumber: 588,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 595,
+                lineNumber: 587,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2428,25 +2410,25 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                             size: 12
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 618,
+                            lineNumber: 610,
                             columnNumber: 56
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$unlink$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Unlink$3e$__["Unlink"], {
                             size: 12
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 618,
+                            lineNumber: 610,
                             columnNumber: 85
                         }, ("TURBOPACK compile-time value", void 0)),
                         item.mappingStatus
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 614,
+                    lineNumber: 606,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 613,
+                lineNumber: 605,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2469,18 +2451,18 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 637,
+                                lineNumber: 629,
                                 columnNumber: 38
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                 size: 18
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 637,
+                                lineNumber: 629,
                                 columnNumber: 64
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 625,
+                            lineNumber: 617,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2489,29 +2471,29 @@ const MappingRow = ({ type, item, isRedHighlight, onMap, onApplySuggestion })=>{
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                                lineNumber: 640,
+                                lineNumber: 632,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                            lineNumber: 639,
+                            lineNumber: 631,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                    lineNumber: 624,
+                    lineNumber: 616,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-                lineNumber: 623,
+                lineNumber: 615,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/pages/integrations/catalog-mapping/CatalogMappingPage.tsx",
-        lineNumber: 520,
+        lineNumber: 512,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

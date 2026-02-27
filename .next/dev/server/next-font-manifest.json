@@ -1,24 +1,21 @@
 {
   "app": {
-    "[project]/src/app/_not-found/page": [
+    "[project]/src/app/backoffice/items/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/src/app/backoffice/home/page": [
+    "[project]/src/app/pos/customers/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/src/app/backoffice/more/page": [
+    "[project]/src/app/pos/dashboard/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/src/app/backoffice/settings/integrations/page": [
+    "[project]/src/app/pos/login/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/src/app/kds/expo/page": [
+    "[project]/src/app/pos/menu/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/src/app/kds/master/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/src/app/page": [
+    "[project]/src/app/pos/orders/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ]
   },

@@ -429,17 +429,24 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/providers/AuthProvider.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/navigation.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/providers/ImpersonationProvider.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
+;
+;
 ;
 ;
 const useRouteAccess = ()=>{
     const { role, storeIds, user, enabledModules } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
+    const { isImpersonating } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useImpersonation"])();
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePathname"])();
     /**
      * Gets visible menu items for the current role and active modules
      */ const getVisibleMenuItems = ()=>{
         if (!role) return [];
-        return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
+        const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+        // Filter items based on role and module
+        const filteredItems = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
             // Role check
-            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
             const roleAllowed = isSuperAdmin || item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
             if (!roleAllowed) return false;
             // Module check
@@ -448,6 +455,29 @@ const useRouteAccess = ()=>{
             }
             return true;
         });
+        // SPECIAL CASE: Super Admin Contextual Navigation
+        if (isSuperAdmin) {
+            const isPlatform = pathname?.startsWith('/platform');
+            const isBackofficeOrKDS = pathname?.startsWith('/backoffice') || pathname?.startsWith('/kds');
+            if (isPlatform) {
+                // In Platform view, ONLY show Brands
+                const allowedPlatformIds = [
+                    'platform-brands'
+                ];
+                return filteredItems.filter((item)=>allowedPlatformIds.includes(item.id));
+            }
+            if (isBackofficeOrKDS || isImpersonating) {
+                // In Backoffice view, ONLY show requested setup items
+                const allowedBackofficeIds = [
+                    'items',
+                    'integrations',
+                    'kds-master',
+                    'kds-expo'
+                ];
+                return filteredItems.filter((item)=>allowedBackofficeIds.includes(item.id));
+            }
+        }
+        return filteredItems;
     };
     /**
      * Checks if a path is authorized
@@ -501,6 +531,8 @@ const useRouteAccess = ()=>{
     return {
         user,
         role,
+        isImpersonating,
+        pathname,
         getVisibleMenuItems,
         isAuthorized,
         getAccessMode,
@@ -521,6 +553,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-left.js [app-ssr] (ecmascript) <export default as ChevronLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/navigation.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$components$2f$Sidebar$2f$SidebarItem$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/m9/components/Sidebar/SidebarItem.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/index.ts [app-ssr] (ecmascript)");
@@ -533,11 +566,24 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAcce
 ;
 ;
 ;
+;
 const Sidebar = ()=>{
     const [isCollapsed, setIsCollapsed] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const { role, getVisibleMenuItems } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAccess$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouteAccess"])();
     const menuItems = getVisibleMenuItems();
     const isPlatform = role === 'PLATFORM_SUPER_ADMIN';
+    const { isImpersonating, pathname } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useRouteAccess$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouteAccess"])();
+    // Determine brand logo link
+    const getLogoLink = ()=>{
+        if (isPlatform) {
+            // If in backoffice/KDS or impersonating, clicking logo goes to items setup (requested focal point)
+            if (isImpersonating || pathname?.startsWith('/backoffice') || pathname?.startsWith('/kds')) {
+                return "/backoffice/items";
+            }
+            return "/platform/brands";
+        }
+        return "/backoffice";
+    };
     // Primary action button allowed for BRAND_ADMIN, ADMIN and STORE_MANAGER roles (hidden for Platform)
     const showNewSale = (role === 'BRAND_ADMIN' || role === 'ADMIN' || role === 'STORE_MANAGER') && !isPlatform;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -545,8 +591,8 @@ const Sidebar = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('flex h-14 shrink-0 items-center px-4', isCollapsed ? 'justify-center border-b border-slate-50' : 'justify-start mb-2'),
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                    href: isPlatform ? "/platform/brands" : "/backoffice",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    href: getLogoLink(),
                     className: "flex items-center gap-2 hover:opacity-80 transition-opacity",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -556,12 +602,12 @@ const Sidebar = ()=>{
                                 children: "Z"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                                lineNumber: 44,
+                                lineNumber: 58,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                            lineNumber: 40,
+                            lineNumber: 54,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         !isCollapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -572,7 +618,7 @@ const Sidebar = ()=>{
                                     children: "zyappy"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                                    lineNumber: 48,
+                                    lineNumber: 62,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 isPlatform && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -580,24 +626,24 @@ const Sidebar = ()=>{
                                     children: "Platform"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                                    lineNumber: 52,
+                                    lineNumber: 66,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                            lineNumber: 47,
+                            lineNumber: 61,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                    lineNumber: 36,
+                    lineNumber: 50,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                lineNumber: 32,
+                lineNumber: 46,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             showNewSale && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -610,7 +656,7 @@ const Sidebar = ()=>{
                             className: "w-5 h-5 shrink-0"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                            lineNumber: 69,
+                            lineNumber: 83,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         !isCollapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -618,18 +664,18 @@ const Sidebar = ()=>{
                             children: "New sale"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                            lineNumber: 70,
+                            lineNumber: 84,
                             columnNumber: 42
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                    lineNumber: 62,
+                    lineNumber: 76,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                lineNumber: 61,
+                lineNumber: 75,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -643,13 +689,13 @@ const Sidebar = ()=>{
                         isCollapsed: isCollapsed
                     }, item.id, false, {
                         fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                        lineNumber: 80,
+                        lineNumber: 94,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0));
                 })
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                lineNumber: 76,
+                lineNumber: 90,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -661,7 +707,7 @@ const Sidebar = ()=>{
                         className: "h-5 w-5"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                        lineNumber: 101,
+                        lineNumber: 115,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                         children: [
@@ -669,32 +715,32 @@ const Sidebar = ()=>{
                                 className: "h-5 w-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                                lineNumber: 104,
+                                lineNumber: 118,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "Collapse"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                                lineNumber: 105,
+                                lineNumber: 119,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true)
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                    lineNumber: 93,
+                    lineNumber: 107,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-                lineNumber: 92,
+                lineNumber: 106,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/components/Sidebar/Sidebar.tsx",
-        lineNumber: 25,
+        lineNumber: 39,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

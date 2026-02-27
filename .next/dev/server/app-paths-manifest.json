@@ -1,10 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/backoffice/home/page": "app/backoffice/home/page.js",
-  "/backoffice/more/page": "app/backoffice/more/page.js",
-  "/backoffice/settings/integrations/page": "app/backoffice/settings/integrations/page.js",
-  "/kds/expo/page": "app/kds/expo/page.js",
-  "/kds/master/page": "app/kds/master/page.js",
-  "/page": "app/page.js"
+  "/backoffice/items/page": "app/backoffice/items/page.js",
+  "/pos/customers/page": "app/pos/customers/page.js",
+  "/pos/dashboard/page": "app/pos/dashboard/page.js",
+  "/pos/login/page": "app/pos/login/page.js",
+  "/pos/menu/page": "app/pos/menu/page.js",
+  "/pos/orders/page": "app/pos/orders/page.js"
 }

@@ -1,5 +1,7 @@
 import { useAuth } from '@/app/providers/AuthProvider';
 import { navigationConfig, MenuConfig, AccessMode } from '@/config/navigation';
+import { useImpersonation } from '@/app/providers/ImpersonationProvider';
+import { usePathname } from 'next/navigation';
 
 
 /**
@@ -9,15 +11,20 @@ import { navigationConfig, MenuConfig, AccessMode } from '@/config/navigation';
  */
 export const useRouteAccess = () => {
     const { role, storeIds, user, enabledModules } = useAuth();
+    const { isImpersonating } = useImpersonation();
+    const pathname = usePathname();
 
     /**
      * Gets visible menu items for the current role and active modules
      */
     const getVisibleMenuItems = (): MenuConfig[] => {
         if (!role) return [];
-        return navigationConfig.filter(item => {
+
+        const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+
+        // Filter items based on role and module
+        const filteredItems = navigationConfig.filter(item => {
             // Role check
-            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
             const roleAllowed = isSuperAdmin || (item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden');
             if (!roleAllowed) return false;
 
@@ -28,6 +35,26 @@ export const useRouteAccess = () => {
 
             return true;
         });
+
+        // SPECIAL CASE: Super Admin Contextual Navigation
+        if (isSuperAdmin) {
+            const isPlatform = pathname?.startsWith('/platform');
+            const isBackofficeOrKDS = pathname?.startsWith('/backoffice') || pathname?.startsWith('/kds');
+
+            if (isPlatform) {
+                // In Platform view, ONLY show Brands
+                const allowedPlatformIds = ['platform-brands'];
+                return filteredItems.filter(item => allowedPlatformIds.includes(item.id));
+            }
+
+            if (isBackofficeOrKDS || isImpersonating) {
+                // In Backoffice view, ONLY show requested setup items
+                const allowedBackofficeIds = ['items', 'integrations', 'kds-master', 'kds-expo'];
+                return filteredItems.filter(item => allowedBackofficeIds.includes(item.id));
+            }
+        }
+
+        return filteredItems;
     };
 
     /**
@@ -98,6 +125,8 @@ export const useRouteAccess = () => {
     return {
         user,
         role,
+        isImpersonating,
+        pathname,
         getVisibleMenuItems,
         isAuthorized,
         getAccessMode,

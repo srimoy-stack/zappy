@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import Link from 'next/link';
 import { iconMap } from '@/config/navigation';
 import { SidebarItem } from './SidebarItem';
 import { cn } from '@/utils';
@@ -17,6 +18,19 @@ export const Sidebar: React.FC = () => {
     const menuItems = getVisibleMenuItems();
 
     const isPlatform = role === 'PLATFORM_SUPER_ADMIN';
+    const { isImpersonating, pathname } = useRouteAccess();
+
+    // Determine brand logo link
+    const getLogoLink = () => {
+        if (isPlatform) {
+            // If in backoffice/KDS or impersonating, clicking logo goes to items setup (requested focal point)
+            if (isImpersonating || pathname?.startsWith('/backoffice') || pathname?.startsWith('/kds')) {
+                return "/backoffice/items";
+            }
+            return "/platform/brands";
+        }
+        return "/backoffice";
+    };
 
     // Primary action button allowed for BRAND_ADMIN, ADMIN and STORE_MANAGER roles (hidden for Platform)
     const showNewSale = (role === 'BRAND_ADMIN' || role === 'ADMIN' || role === 'STORE_MANAGER') && !isPlatform;
@@ -33,8 +47,8 @@ export const Sidebar: React.FC = () => {
                 'flex h-14 shrink-0 items-center px-4',
                 isCollapsed ? 'justify-center border-b border-slate-50' : 'justify-start mb-2'
             )}>
-                <a
-                    href={isPlatform ? "/platform/brands" : "/backoffice"}
+                <Link
+                    href={getLogoLink()}
                     className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                 >
                     <div className={cn(
@@ -53,7 +67,7 @@ export const Sidebar: React.FC = () => {
                             )}
                         </div>
                     )}
-                </a>
+                </Link>
             </div>
 
             {/* Primary Action Button */}

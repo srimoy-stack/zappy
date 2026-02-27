@@ -1498,7 +1498,7 @@ const POSDashboardPage = ()=>{
                         setTable(null);
                         setChannel('Pickup');
                         setCustomer(null);
-                        router.push('/pos/customers');
+                        router.push('/pos/menu');
                     }
                 }
             }["POSDashboardPage.useEffect.handleKeyDown"];
@@ -1515,7 +1515,7 @@ const POSDashboardPage = ()=>{
         setTable(null);
         setChannel('Pickup');
         setCustomer(null);
-        router.push('/pos/customers');
+        router.push('/pos/menu');
     };
     const handleAttachCall = ()=>{
         // Find existing customer from mock data for full profile
