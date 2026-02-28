@@ -31,12 +31,32 @@ export const SoundManager: React.FC = () => {
 
     useEffect(() => {
         const orderIds = Object.keys(orders);
+        const {
+            enable_station_routing,
+            selectedStationId,
+            sound_scope,
+            category_station_map,
+            item_station_map,
+            allow_item_station_override
+        } = useKDSStore.getState();
+
+        const isRelevant = (order: any) => {
+            if (!enable_station_routing || selectedStationId === 'ALL' || sound_scope === 'ALL_DEVICES') return true;
+            return order.items.some((item: any) => {
+                const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
+                const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
+                return itemStationId === selectedStationId;
+            });
+        };
 
         // Check for NEW orders
         const newOrderIds = orderIds.filter(id => !prevOrdersRef.current.includes(id));
-        if (newOrderIds.length > 0) {
-            playSound('newOrder');
-        }
+        newOrderIds.forEach(id => {
+            const order = orders[id];
+            if (order && isRelevant(order)) {
+                playSound('newOrder');
+            }
+        });
 
         // Check for NEWLY delayed orders
         orderIds.forEach(id => {
@@ -44,7 +64,7 @@ export const SoundManager: React.FC = () => {
             if (!order) return;
 
             const eventKey = `delayed-${id}`;
-            if (order.isDelayed && !playedEvents.has(eventKey)) {
+            if (order.isDelayed && !playedEvents.has(eventKey) && isRelevant(order)) {
                 playSound('delayed');
                 markEventPlayed(eventKey);
             }
@@ -53,13 +73,33 @@ export const SoundManager: React.FC = () => {
         prevOrdersRef.current = orderIds;
     }, [orders, settings, playedEvents, markEventPlayed]);
 
-    // Periodic check for SLA breaches (every 5 seconds is enough)
+    // Periodic check for SLA breaches
     useEffect(() => {
         const interval = setInterval(() => {
-            const allOrders = Object.values(useKDSStore.getState().orders);
+            const state = useKDSStore.getState();
+            const {
+                enable_station_routing,
+                selectedStationId,
+                sound_scope,
+                category_station_map,
+                item_station_map,
+                allow_item_station_override
+            } = state;
+
+            const isRelevant = (order: any) => {
+                if (!enable_station_routing || selectedStationId === 'ALL' || sound_scope === 'ALL_DEVICES') return true;
+                return order.items.some((item: any) => {
+                    const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
+                    const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
+                    return itemStationId === selectedStationId;
+                });
+            };
+
+            const allOrders = Object.values(state.orders);
             allOrders.forEach(order => {
+                if (!order) return;
                 const eventKey = `overdue-${order.id}`;
-                if (getSLAState(order.createdAt, order.prepTimeMinutes) === 'OVERDUE' && !playedEvents.has(eventKey)) {
+                if (getSLAState(order.createdAt, order.prepTimeMinutes) === 'OVERDUE' && !playedEvents.has(eventKey) && isRelevant(order)) {
                     playSound('overdue');
                     markEventPlayed(eventKey);
                 }

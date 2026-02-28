@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { KDSOrder, KitchenStage } from '../types/kds';
+import { persist } from 'zustand/middleware';
+import { KDSOrder, KitchenStage, KDSStation } from '../types/kds';
 import { calculateETA } from '../utils/etaUtils';
 import { KDSRole, canDelayOrder, canCancelOrder, canOverrideStage } from '../utils/kdsAccess';
 import { emitEvent } from '../services/kdsEventDispatcher';
@@ -17,7 +18,22 @@ export interface KDSState {
     isOnline: boolean;
     pendingActions: PendingAction[];
 
+    // Station Routing Settings
+    enable_station_routing: boolean;
+    allow_item_station_override: boolean;
+    kds_stations: KDSStation[];
+    category_station_map: Record<string, string>; // category_id -> station_id
+    item_station_map: Record<string, string>; // item_name -> station_id
+    selectedStationId: string | 'ALL';
+    master_screen_view_mode: 'FULL_ORDER' | 'STATION_ONLY';
+    order_ready_rule: 'ALL_STATIONS_COMPLETE' | 'EXPO_CONFIRMS_READY';
+    sound_scope: 'STATION_ONLY' | 'ALL_DEVICES';
+    station_prep_time_override_enabled: boolean;
+    station_delay_affects_global_eta: boolean;
+    station_print_mode: 'PRINT_BY_STATION' | 'PRINT_FULL_ORDER';
+
     addOrUpdateOrder: (order: KDSOrder) => void;
+    batchUpdateOrders: (orders: KDSOrder[]) => void;
     removeOrder: (orderId: string) => void;
     updateOrderStage: (orderId: string, stage: KitchenStage) => void;
     acceptOrder: (orderId: string) => void;
@@ -33,550 +49,814 @@ export interface KDSState {
     queueAction: (type: string, payload: any) => void;
     replayQueuedActions: () => void;
     autoInitNetworkListener: () => void;
+
+    setStationRouting: (enabled: boolean) => void;
+    setAllowItemOverride: (enabled: boolean) => void;
+    setStations: (stations: KDSStation[]) => void;
+    updateCategoryStationMap: (map: Record<string, string>) => void;
+    updateItemStationMap: (map: Record<string, string>) => void;
+    setSelectedStation: (stationId: string | 'ALL') => void;
+    setMasterViewMode: (mode: 'FULL_ORDER' | 'STATION_ONLY') => void;
+    setOrderReadyRule: (rule: 'ALL_STATIONS_COMPLETE' | 'EXPO_CONFIRMS_READY') => void;
+    setSoundScope: (scope: 'STATION_ONLY' | 'ALL_DEVICES') => void;
+    setStationPrepTimeEnabled: (enabled: boolean) => void;
+    setStationDelayAffectsGlobalEta: (affected: boolean) => void;
+    setStationPrintMode: (mode: 'PRINT_BY_STATION' | 'PRINT_FULL_ORDER') => void;
+
+    fulfilledOrders: KDSOrder[];
+    historySettings: {
+        limit: number;
+        expiryMinutes: number;
+    };
     lastRemovedOrder: KDSOrder | null;
     recallOrder: () => void;
+    recallFulfilledOrder: (orderId: string) => void;
+    cleanupFulfilledOrders: () => void;
+    injectStressTestOrders: (count: number) => void;
+    toggleItemCompletion: (orderId: string, itemId: string) => void;
 }
 
-export const useKDSStore = create<KDSState>((set, get) => ({
-    orders: {},
-    externalOrderMap: {},
-    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
-    pendingActions: [],
-    lastRemovedOrder: null,
+export const useKDSStore = create<KDSState>()(
+    persist(
+        (set, get) => ({
+            orders: {},
+            externalOrderMap: {},
+            isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+            pendingActions: [],
+            fulfilledOrders: [],
+            historySettings: {
+                limit: 20,
+                expiryMinutes: 60, // Auto-expire after 1 hour
+            },
+            lastRemovedOrder: null,
 
-    addOrUpdateOrder: (order) =>
-        set((state) => {
-            // Check by internal ID or External ID
-            const internalId = order.id;
-            const idByExternal = order.external_order_id ? state.externalOrderMap[order.external_order_id] : null;
+            toggleItemCompletion: (orderId, itemId) => {
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-            const targetId = idByExternal || internalId;
-            const existing = state.orders[targetId];
+                    const updatedItems = order.items.map((item) =>
+                        item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
+                    );
 
-            // Idempotency check: Ignore older or duplicate updates
-            if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
-                return state;
-            }
+                    const isAllComplete = updatedItems.every(i => i.isCompleted);
+                    let newStage = order.stage;
+                    const now = new Date().toISOString();
+                    let stageHistory = order.stageHistory || [];
 
-            const newExternalMap = { ...state.externalOrderMap };
-            if (order.external_order_id) {
-                newExternalMap[order.external_order_id] = targetId;
-            }
+                    // Automatically move to READY if ALL_STATIONS_COMPLETE rule is active
+                    if (isAllComplete && state.order_ready_rule === 'ALL_STATIONS_COMPLETE' && order.stage === 'FIRED') {
+                        newStage = 'READY';
+                        stageHistory = [...stageHistory, {
+                            stage: order.stage,
+                            startedAt: order.stageStartedAt || order.createdAt,
+                            completedAt: now,
+                        }];
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [targetId]: { ...order, id: targetId },
-                },
-                externalOrderMap: newExternalMap,
-            };
-        }),
+                        // Emit event for auto-advance
+                        if (state.isOnline) {
+                            emitEvent('order.stage_advanced', {
+                                orderId,
+                                orderNumber: order.orderNumber,
+                                previousStage: order.stage,
+                                newStage: 'READY',
+                                timestamp: now,
+                                reason: 'AUTO_COMPLETE_ALL_ITEMS'
+                            });
+                        }
+                    }
 
-    removeOrder: (orderId) =>
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                items: updatedItems,
+                                stage: newStage,
+                                stageStartedAt: newStage !== order.stage ? now : order.stageStartedAt,
+                                stageHistory
+                            }
+                        }
+                    };
+                });
+            },
 
-            const newOrders = { ...state.orders };
-            const newExternalMap = { ...state.externalOrderMap };
+            // Default Routing Settings
+            enable_station_routing: false,
+            allow_item_station_override: true,
+            selectedStationId: 'ALL',
+            kds_stations: [
+                { station_id: 'kitchen', station_name: 'Kitchen', active: true, display_order: 1 },
+                { station_id: 'bar', station_name: 'Bar', active: true, display_order: 2 },
+                { station_id: 'dessert', station_name: 'Dessert', active: true, display_order: 3 },
+                { station_id: 'drinks', station_name: 'Drinks', active: true, display_order: 4 },
+                { station_id: 'expo', station_name: 'Expo (Expeditor)', active: true, display_order: 5 },
+            ],
+            category_station_map: {},
+            item_station_map: {},
+            master_screen_view_mode: 'FULL_ORDER',
+            order_ready_rule: 'ALL_STATIONS_COMPLETE',
+            sound_scope: 'STATION_ONLY',
+            station_prep_time_override_enabled: false,
+            station_delay_affects_global_eta: true,
+            station_print_mode: 'PRINT_BY_STATION',
 
-            if (order?.external_order_id) {
-                delete newExternalMap[order.external_order_id];
-            }
-            delete newOrders[orderId];
+            setStationRouting: (enabled) => set({ enable_station_routing: enabled }),
+            setAllowItemOverride: (enabled) => set({ allow_item_station_override: enabled }),
+            setStations: (stations) => set({ kds_stations: stations }),
+            updateCategoryStationMap: (map) => set({ category_station_map: map }),
+            updateItemStationMap: (map) => set({ item_station_map: map }),
+            setSelectedStation: (stationId) => set({ selectedStationId: stationId }),
+            setMasterViewMode: (mode) => set({ master_screen_view_mode: mode }),
+            setOrderReadyRule: (rule) => set({ order_ready_rule: rule }),
+            setSoundScope: (scope) => set({ sound_scope: scope }),
+            setStationPrepTimeEnabled: (enabled) => set({ station_prep_time_override_enabled: enabled }),
+            setStationDelayAffectsGlobalEta: (affected) => set({ station_delay_affects_global_eta: affected }),
+            setStationPrintMode: (mode) => set({ station_print_mode: mode }),
 
-            return {
-                orders: newOrders,
-                externalOrderMap: newExternalMap,
-                lastRemovedOrder: order
-            };
-        }),
+            addOrUpdateOrder: (order) =>
+                set((state) => {
+                    // Check by internal ID or External ID
+                    const internalId = order.id;
+                    const idByExternal = order.external_order_id ? state.externalOrderMap[order.external_order_id] : null;
 
-    queueAction: (type, payload) => {
-        set((state) => ({
-            pendingActions: [
-                ...state.pendingActions,
-                {
-                    id: payload.idempotencyKey || crypto.randomUUID(),
-                    type,
-                    payload,
-                    timestamp: new Date().toISOString()
-                }
-            ]
-        }));
-    },
+                    const targetId = idByExternal || internalId;
+                    const existing = state.orders[targetId];
 
-    autoInitNetworkListener: () => {
-        if (typeof window === 'undefined') return;
+                    // Idempotency check: Ignore older or duplicate updates
+                    if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
+                        return state;
+                    }
 
-        const updateStatus = () => {
-            get().setOnlineStatus(navigator.onLine);
-        };
+                    const newExternalMap = { ...state.externalOrderMap };
+                    if (order.external_order_id) {
+                        newExternalMap[order.external_order_id] = targetId;
+                    }
 
-        window.addEventListener('online', updateStatus);
-        window.addEventListener('offline', updateStatus);
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [targetId]: { ...order, id: targetId },
+                        },
+                        externalOrderMap: newExternalMap,
+                    };
+                }),
 
-        // Initial check
-        updateStatus();
-    },
+            batchUpdateOrders: (newOrders) =>
+                set((state) => {
+                    const updatedOrders = { ...state.orders };
+                    const updatedExternalMap = { ...state.externalOrderMap };
 
-    updateOrderStage: (orderId, stage) => {
-        const { isOnline, queueAction } = get();
+                    newOrders.forEach(order => {
+                        const extId = order.external_order_id;
+                        const targetId = (extId ? updatedExternalMap[extId] : order.id) || order.id;
+                        const existing = updatedOrders[targetId];
 
-        set((state: KDSState) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+                        if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
+                            return;
+                        }
 
-            const now = new Date();
-            const idempotencyKey = `stage-update-${orderId}-${now.getTime()}`;
+                        if (extId) {
+                            updatedExternalMap[extId] = targetId;
+                        }
+                        updatedOrders[targetId] = { ...order, id: targetId };
+                    });
 
-            let updates: Partial<KDSOrder> = {
-                stage,
-                stageStartedAt: now.toISOString(),
-                isPendingSync: !isOnline,
-            };
+                    return {
+                        orders: updatedOrders,
+                        externalOrderMap: updatedExternalMap,
+                    };
+                }),
 
-            if (stage === 'PREPARATION') {
-                const prepTime = order.prepTimeMinutes || 10;
-                const createdAt = new Date(order.createdAt);
-                createdAt.setMinutes(createdAt.getMinutes() + prepTime);
+            removeOrder: (orderId) =>
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-                updates = {
-                    ...updates,
-                    prepTimeMinutes: prepTime,
-                    estimatedReadyTime: createdAt.toLocaleTimeString('en-US', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false
-                    })
+                    const newOrders = { ...state.orders };
+                    const newExternalMap = { ...state.externalOrderMap };
+
+                    if (order?.external_order_id) {
+                        delete newExternalMap[order.external_order_id];
+                    }
+                    delete newOrders[orderId];
+
+                    return {
+                        orders: newOrders,
+                        externalOrderMap: newExternalMap,
+                        lastRemovedOrder: order
+                    };
+                }),
+
+            queueAction: (type, payload) => {
+                set((state) => ({
+                    pendingActions: [
+                        ...state.pendingActions,
+                        {
+                            id: payload.idempotencyKey || crypto.randomUUID(),
+                            type,
+                            payload,
+                            timestamp: new Date().toISOString()
+                        }
+                    ]
+                }));
+            },
+
+            autoInitNetworkListener: () => {
+                if (typeof window === 'undefined') return;
+
+                const updateStatus = () => {
+                    get().setOnlineStatus(navigator.onLine);
                 };
-            }
 
-            const eventPayload = {
-                orderId,
-                orderNumber: order.orderNumber,
-                newStage: stage,
-                timestamp: now.toISOString()
-            };
+                window.addEventListener('online', updateStatus);
+                window.addEventListener('offline', updateStatus);
 
-            if (isOnline) {
-                emitEvent('order.stage_updated', eventPayload, { idempotencyKey });
-            } else {
-                queueAction('order.stage_updated', { ...eventPayload, idempotencyKey });
-            }
+                // Initial check
+                updateStatus();
+            },
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        ...updates,
-                    },
-                },
-            };
-        });
-    },
+            updateOrderStage: (orderId, stage) => {
+                const { isOnline, queueAction } = get();
 
-    acceptOrder: (orderId: string) => {
-        const { isOnline, queueAction } = get();
+                set((state: KDSState) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-        set((state: KDSState) => {
-            const order = state.orders[orderId];
-            if (!order || order.stage !== 'ACCEPTED') return state;
+                    const now = new Date();
+                    const idempotencyKey = `stage-update-${orderId}-${now.getTime()}`;
 
-            const now = new Date();
-            const created = new Date(order.createdAt);
-            const elapsedMinutes = Math.floor((now.getTime() - created.getTime()) / 60000);
-
-            const forcedPrepDuration = 10;
-            const updatedPrepTimeMinutes = forcedPrepDuration + elapsedMinutes;
-            const etaFormatted = new Date(now.getTime() + forcedPrepDuration * 60000).toISOString();
-
-            const prevStageEntry = {
-                stage: order.stage,
-                startedAt: order.stageStartedAt || order.createdAt,
-                completedAt: now.toISOString(),
-            };
-
-            const stageHistory = [...(order.stageHistory || []), prevStageEntry];
-            const idempotencyKey = `accept-${orderId}`;
-
-            const eventPayload = {
-                orderId,
-                orderNumber: order.orderNumber,
-                trackingToken: order.trackingToken,
-                customerName: order.customerName,
-                prepTimeMinutes: forcedPrepDuration,
-                estimatedReadyTime: etaFormatted,
-                acceptedAt: now.toISOString()
-            };
-
-            if (isOnline) {
-                emitEvent('kitchen.prep_time_set', eventPayload, { idempotencyKey });
-
-                // Requirement 12: Uber Direct Sync
-                if (order.order_source === 'UBER_DIRECT') {
-                    emitEvent('uber.order.accepted', {
-                        external_order_id: order.external_order_id,
-                        orderId: order.id,
-                        prepTimeMinutes: forcedPrepDuration,
-                        estimatedReadyTime: etaFormatted
-                    }, { idempotencyKey: `uber-accept-${order.id}` });
-                }
-            } else {
-                queueAction('kitchen.prep_time_set', { ...eventPayload, idempotencyKey });
-            }
-
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        stage: 'PREPARATION',
+                    let updates: Partial<KDSOrder> = {
+                        stage,
                         stageStartedAt: now.toISOString(),
-                        prepTimeMinutes: updatedPrepTimeMinutes,
+                        isPendingSync: !isOnline,
+                    };
+
+                    if (stage === 'FIRED') {
+                        const prepTime = order.prepTimeMinutes || 10;
+                        const createdAt = new Date(order.createdAt);
+                        createdAt.setMinutes(createdAt.getMinutes() + prepTime);
+
+                        updates = {
+                            ...updates,
+                            prepTimeMinutes: prepTime,
+                            estimatedReadyTime: createdAt.toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: false
+                            })
+                        };
+                    }
+
+                    const eventPayload = {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        newStage: stage,
+                        timestamp: now.toISOString()
+                    };
+
+                    if (isOnline) {
+                        emitEvent('order.stage_updated', eventPayload, { idempotencyKey });
+                    } else {
+                        queueAction('order.stage_updated', { ...eventPayload, idempotencyKey });
+                    }
+
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                ...updates,
+                            },
+                        },
+                    };
+                });
+            },
+
+            acceptOrder: (orderId: string) => {
+                const { isOnline, queueAction } = get();
+
+                set((state: KDSState) => {
+                    const order = state.orders[orderId];
+                    if (!order || order.stage !== 'NEW') return state;
+
+                    const { station_prep_time_override_enabled, kds_stations, selectedStationId } = state;
+                    const now = new Date();
+                    const created = new Date(order.createdAt);
+                    const elapsedMinutes = Math.floor((now.getTime() - created.getTime()) / 60000);
+
+                    let forcedPrepDuration = 10;
+                    if (station_prep_time_override_enabled && selectedStationId !== 'ALL') {
+                        const station = kds_stations.find(s => s.station_id === selectedStationId);
+                        if (station?.default_prep_time) {
+                            forcedPrepDuration = station.default_prep_time;
+                        }
+                    }
+
+                    const updatedPrepTimeMinutes = forcedPrepDuration + elapsedMinutes;
+                    const etaFormatted = new Date(now.getTime() + forcedPrepDuration * 60000).toISOString();
+
+                    const prevStageEntry = {
+                        stage: order.stage,
+                        startedAt: order.stageStartedAt || order.createdAt,
+                        completedAt: now.toISOString(),
+                    };
+
+                    const stageHistory = [...(order.stageHistory || []), prevStageEntry];
+                    const idempotencyKey = `accept-${orderId}`;
+
+                    const eventPayload = {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        trackingToken: order.trackingToken,
+                        customerName: order.customerName,
+                        prepTimeMinutes: forcedPrepDuration,
                         estimatedReadyTime: etaFormatted,
+                        acceptedAt: now.toISOString()
+                    };
+
+                    if (isOnline) {
+                        emitEvent('kitchen.prep_time_set', eventPayload, { idempotencyKey });
+
+                        // Requirement 12: Uber Direct Sync
+                        if (order.order_source === 'UBER_DIRECT') {
+                            emitEvent('uber.order.accepted', {
+                                external_order_id: order.external_order_id,
+                                orderId: order.id,
+                                prepTimeMinutes: forcedPrepDuration,
+                                estimatedReadyTime: etaFormatted
+                            }, { idempotencyKey: `uber-accept-${order.id}` });
+                        }
+                    } else {
+                        queueAction('kitchen.prep_time_set', { ...eventPayload, idempotencyKey });
+                    }
+
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                stage: 'FIRED',
+                                stageStartedAt: now.toISOString(),
+                                prepTimeMinutes: updatedPrepTimeMinutes,
+                                estimatedReadyTime: etaFormatted,
+                                stageHistory,
+                                isPendingSync: !isOnline,
+                            },
+                        },
+                    };
+                });
+            },
+
+            advanceStage: (orderId: string) => {
+                const { isOnline, queueAction } = get();
+                const currentOrder = get().orders[orderId];
+                if (!currentOrder) return;
+
+                if (currentOrder.stage === 'READY') {
+                    const now = new Date().toISOString();
+                    const fulfilledOrder = {
+                        ...currentOrder,
+                        stage: 'FULFILLED' as KitchenStage,
+                        updatedAt: now,
+                        isCompleting: true
+                    };
+
+                    set((state) => ({
+                        orders: {
+                            ...state.orders,
+                            [orderId]: fulfilledOrder
+                        }
+                    }));
+
+                    const idempotencyKey = `fulfill-${orderId}`;
+                    emitEvent('order.fulfilled', {
+                        orderId,
+                        orderNumber: currentOrder.orderNumber,
+                        timestamp: now
+                    }, { idempotencyKey });
+
+                    setTimeout(() => {
+                        set((state) => {
+                            const newOrders = { ...state.orders };
+                            delete newOrders[orderId];
+
+                            const { limit } = state.historySettings;
+
+                            // Keep last X fulfilled orders for history (default 20)
+                            // Remove any existing entry for this order first, THEN prepend the new one
+                            const newFulfilled = [fulfilledOrder, ...state.fulfilledOrders.filter(o => o.id !== orderId)]
+                                .slice(0, limit);
+
+                            return {
+                                orders: newOrders,
+                                fulfilledOrders: newFulfilled,
+                                lastRemovedOrder: fulfilledOrder
+                            };
+                        });
+                    }, 1000);
+                    return;
+                }
+
+                set((state: KDSState) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
+
+                    const stages: KitchenStage[] = ['NEW', 'FIRED', 'READY', 'FULFILLED'];
+                    const currentIndex = stages.indexOf(order.stage);
+                    const nextStage = stages[currentIndex + 1];
+
+                    if (!nextStage) return state;
+
+                    const now = new Date().toISOString();
+                    const prevStageEntry = {
+                        stage: order.stage,
+                        startedAt: order.stageStartedAt || order.createdAt,
+                        completedAt: now,
+                    };
+
+                    const stageHistory = [...(order.stageHistory || []), prevStageEntry];
+                    const idempotencyKey = `advance-${orderId}-${new Date(now).getTime()}`;
+
+                    let updates: Partial<KDSOrder> = {
+                        stage: nextStage,
+                        stageStartedAt: now,
                         stageHistory,
                         isPendingSync: !isOnline,
-                    },
-                },
-            };
-        });
-    },
+                    };
 
-    advanceStage: (orderId: string) => {
-        const { isOnline, queueAction } = get();
-        const currentOrder = get().orders[orderId];
-        if (!currentOrder) return;
+                    const eventPayload = {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        previousStage: order.stage,
+                        newStage: nextStage,
+                        timestamp: now
+                    };
 
-        if (currentOrder.stage === 'READY') {
-            set((state) => ({
-                orders: {
-                    ...state.orders,
-                    [orderId]: { ...currentOrder, isCompleting: true }
-                }
-            }));
+                    if (isOnline) {
+                        emitEvent('order.stage_advanced', eventPayload, { idempotencyKey });
+                    } else {
+                        queueAction('order.stage_advanced', { ...eventPayload, idempotencyKey });
+                    }
 
-            setTimeout(() => {
-                get().removeOrder(orderId);
-                // Removal is usually not queued as it's a local UI cleanup
-            }, 2000);
-            return;
-        }
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                ...updates,
+                            },
+                        },
+                    };
+                });
+            },
 
-        set((state: KDSState) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+            markDelayed: (orderId, reason) =>
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-            const stages: KitchenStage[] = ['ACCEPTED', 'PREPARATION', 'CUTTING', 'READY'];
-            const currentIndex = stages.indexOf(order.stage);
-            const nextStage = stages[currentIndex + 1];
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                isDelayed: true,
+                                delayReason: reason,
+                            },
+                        },
+                    };
+                }),
 
-            if (!nextStage) return state;
+            delayOrder: (orderId: string, additionalMinutes: number, role: KDSRole, reason?: string) => {
+                if (!canDelayOrder(role)) return;
 
-            const now = new Date().toISOString();
-            const prevStageEntry = {
-                stage: order.stage,
-                startedAt: order.stageStartedAt || order.createdAt,
-                completedAt: now,
-            };
+                const { isOnline, queueAction } = get();
 
-            const stageHistory = [...(order.stageHistory || []), prevStageEntry];
-            const idempotencyKey = `advance-${orderId}-${new Date(now).getTime()}`;
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-            let updates: Partial<KDSOrder> = {
-                stage: nextStage,
-                stageStartedAt: now,
-                stageHistory,
-                isPendingSync: !isOnline,
-            };
+                    const now = new Date().toISOString();
+                    const willUpdateGlobal = state.station_delay_affects_global_eta;
 
-            const eventPayload = {
-                orderId,
-                orderNumber: order.orderNumber,
-                previousStage: order.stage,
-                newStage: nextStage,
-                timestamp: now
-            };
+                    const newTotalPrepTime = (order.prepTimeMinutes || 0) + (willUpdateGlobal ? additionalMinutes : 0);
+                    const newETA = willUpdateGlobal ? calculateETA(order.createdAt, newTotalPrepTime) : order.estimatedReadyTime;
+                    const idempotencyKey = `delay-${orderId}-${new Date(now).getTime()}`;
 
-            if (isOnline) {
-                emitEvent('order.stage_advanced', eventPayload, { idempotencyKey });
-            } else {
-                queueAction('order.stage_advanced', { ...eventPayload, idempotencyKey });
-            }
+                    const delayEntry = {
+                        minutes: additionalMinutes,
+                        reason,
+                        timestamp: now,
+                    };
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        ...updates,
-                    },
-                },
-            };
-        });
-    },
-
-    markDelayed: (orderId, reason) =>
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
-
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        isDelayed: true,
-                        delayReason: reason,
-                    },
-                },
-            };
-        }),
-
-    delayOrder: (orderId: string, additionalMinutes: number, role: KDSRole, reason?: string) => {
-        if (!canDelayOrder(role)) return;
-
-        const { isOnline, queueAction } = get();
-
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
-
-            const now = new Date().toISOString();
-            const newTotalPrepTime = (order.prepTimeMinutes || 0) + additionalMinutes;
-            const newETA = calculateETA(order.createdAt, newTotalPrepTime);
-            const idempotencyKey = `delay-${orderId}-${new Date(now).getTime()}`;
-
-            const delayEntry = {
-                minutes: additionalMinutes,
-                reason,
-                timestamp: now,
-            };
-
-            const eventPayload = {
-                orderId,
-                orderNumber: order.orderNumber,
-                trackingToken: order.trackingToken,
-                customerName: order.customerName,
-                additionalMinutes,
-                newEstimatedReadyTime: newETA,
-                reason: reason || 'KITCHEN_DELAY',
-                updatedAt: now
-            };
-
-            if (isOnline) {
-                emitEvent('order.delayed', eventPayload, { idempotencyKey });
-
-                // Requirement 12: Sync ETA updates back to Uber Direct
-                if (order.order_source === 'UBER_DIRECT') {
-                    emitEvent('uber.order.eta_updated', {
-                        external_order_id: order.external_order_id,
-                        orderId: order.id,
+                    const eventPayload = {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        trackingToken: order.trackingToken,
+                        customerName: order.customerName,
                         additionalMinutes,
-                        newEstimatedReadyTime: newETA
-                    }, { idempotencyKey: `uber-sync-${idempotencyKey}` });
-                }
-            } else {
-                queueAction('order.delayed', { ...eventPayload, idempotencyKey });
-            }
+                        newEstimatedReadyTime: newETA,
+                        reason: reason || 'KITCHEN_DELAY',
+                        updatedAt: now,
+                        isGlobalUpdate: willUpdateGlobal
+                    };
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        prepTimeMinutes: newTotalPrepTime,
-                        estimatedReadyTime: newETA,
-                        isDelayed: true,
-                        delayReason: reason || order.delayReason,
-                        delayLog: [...(order.delayLog || []), delayEntry],
-                        isPendingSync: !isOnline,
-                    },
-                },
-            };
-        });
-    },
+                    if (isOnline) {
+                        emitEvent('order.delayed', eventPayload, { idempotencyKey });
 
-    cancelOrder: (orderId, role) => {
-        if (!canCancelOrder(role)) return;
-        const { isOnline, queueAction } = get();
+                        // Requirement 12: Sync ETA updates back to Uber Direct
+                        if (order.order_source === 'UBER_DIRECT') {
+                            emitEvent('uber.order.eta_updated', {
+                                external_order_id: order.external_order_id,
+                                orderId: order.id,
+                                additionalMinutes,
+                                newEstimatedReadyTime: newETA
+                            }, { idempotencyKey: `uber-sync-${idempotencyKey}` });
+                        }
+                    } else {
+                        queueAction('order.delayed', { ...eventPayload, idempotencyKey });
+                    }
 
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                prepTimeMinutes: newTotalPrepTime,
+                                estimatedReadyTime: newETA,
+                                isDelayed: true,
+                                delayReason: reason || order.delayReason,
+                                delayLog: [...(order.delayLog || []), delayEntry],
+                                isPendingSync: !isOnline,
+                            },
+                        },
+                    };
+                });
+            },
 
-            const idempotencyKey = `cancel-${orderId}`;
-            const eventPayload = {
-                orderId,
-                role,
-                timestamp: new Date().toISOString()
-            };
+            cancelOrder: (orderId, role) => {
+                if (!canCancelOrder(role)) return;
+                const { isOnline, queueAction } = get();
 
-            if (isOnline) {
-                emitEvent('order.cancelled', eventPayload, { idempotencyKey });
-            } else {
-                queueAction('order.cancelled', { ...eventPayload, idempotencyKey });
-            }
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-            const newOrders = { ...state.orders };
-            const newExternalMap = { ...state.externalOrderMap };
-            if (order.external_order_id) delete newExternalMap[order.external_order_id];
-            delete newOrders[orderId];
+                    const idempotencyKey = `cancel-${orderId}`;
+                    const eventPayload = {
+                        orderId,
+                        role,
+                        timestamp: new Date().toISOString()
+                    };
 
-            return { orders: newOrders, externalOrderMap: newExternalMap };
-        });
-    },
+                    if (isOnline) {
+                        emitEvent('order.cancelled', eventPayload, { idempotencyKey });
+                    } else {
+                        queueAction('order.cancelled', { ...eventPayload, idempotencyKey });
+                    }
 
-    overrideStage: (orderId, stage, role) => {
-        if (!canOverrideStage(role)) return;
-        get().updateOrderStage(orderId, stage);
-    },
+                    const newOrders = { ...state.orders };
+                    const newExternalMap = { ...state.externalOrderMap };
+                    if (order.external_order_id) delete newExternalMap[order.external_order_id];
+                    delete newOrders[orderId];
 
-    incrementPrepTime: (orderId, minutes = 5) => {
-        const { isOnline, queueAction } = get();
+                    return { orders: newOrders, externalOrderMap: newExternalMap };
+                });
+            },
 
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order || order.stage === 'READY') return state;
+            overrideStage: (orderId, stage, role) => {
+                if (!canOverrideStage(role)) return;
+                get().updateOrderStage(orderId, stage);
+            },
 
-            const incrementedPrepTime = (order.prepTimeMinutes || 0) + minutes;
-            const newETA = calculateETA(order.createdAt, incrementedPrepTime);
-            const idempotencyKey = `increment-${orderId}-${new Date().getTime()}`;
+            incrementPrepTime: (orderId, minutes = 5) => {
+                const { isOnline, queueAction } = get();
 
-            const eventPayload = {
-                orderId,
-                orderNumber: order.orderNumber,
-                trackingToken: order.trackingToken,
-                customerName: order.customerName,
-                additionalMinutes: minutes,
-                totalPrepMinutes: incrementedPrepTime,
-                newEstimatedReadyTime: newETA,
-                updatedAt: new Date().toISOString()
-            };
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order || order.stage === 'READY') return state;
 
-            if (isOnline) {
-                emitEvent('kitchen.prep_time_updated', eventPayload, { idempotencyKey });
-            } else {
-                queueAction('kitchen.prep_time_updated', { ...eventPayload, idempotencyKey });
-            }
+                    const incrementedPrepTime = (order.prepTimeMinutes || 0) + minutes;
+                    const newETA = calculateETA(order.createdAt, incrementedPrepTime);
+                    const idempotencyKey = `increment-${orderId}-${new Date().getTime()}`;
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        prepTimeMinutes: incrementedPrepTime,
-                        estimatedReadyTime: newETA,
-                        isPendingSync: !isOnline,
-                    },
-                },
-            };
-        });
-    },
+                    const eventPayload = {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        trackingToken: order.trackingToken,
+                        customerName: order.customerName,
+                        additionalMinutes: minutes,
+                        totalPrepMinutes: incrementedPrepTime,
+                        newEstimatedReadyTime: newETA,
+                        updatedAt: new Date().toISOString()
+                    };
 
-    sendCustomerMessage: (orderId, channel, message) => {
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+                    if (isOnline) {
+                        emitEvent('kitchen.prep_time_updated', eventPayload, { idempotencyKey });
+                    } else {
+                        queueAction('kitchen.prep_time_updated', { ...eventPayload, idempotencyKey });
+                    }
 
-            const now = new Date().toISOString();
-            const logEntry = { channel, message, sentAt: now, sentBy: 'KDS_SYSTEM' };
-            const idempotencyKey = `notification-${orderId}-${now}`;
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                prepTimeMinutes: incrementedPrepTime,
+                                estimatedReadyTime: newETA,
+                                isPendingSync: !isOnline,
+                            },
+                        },
+                    };
+                });
+            },
 
-            emitEvent('order.customer_notification', {
-                orderId, channel, message, sentAt: now
-            }, { idempotencyKey });
+            sendCustomerMessage: (orderId, channel, message) => {
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
 
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: {
-                        ...order,
-                        notificationsLog: [...(order.notificationsLog || []), logEntry],
-                    },
-                },
-            };
-        });
-    },
+                    const now = new Date().toISOString();
+                    const logEntry = { channel, message, sentAt: now, sentBy: 'KDS_SYSTEM' };
+                    const idempotencyKey = `notification-${orderId}-${now}`;
 
-    setOnlineStatus: (status: boolean) => {
-        const wasOffline = !get().isOnline;
-        set({ isOnline: status });
+                    emitEvent('order.customer_notification', {
+                        orderId, channel, message, sentAt: now
+                    }, { idempotencyKey });
 
-        if (status && wasOffline) {
-            get().replayQueuedActions();
-        }
-    },
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                notificationsLog: [...(order.notificationsLog || []), logEntry],
+                            },
+                        },
+                    };
+                });
+            },
 
-    toggleHold: (orderId: string) => {
-        const { isOnline, queueAction } = get();
-        set((state) => {
-            const order = state.orders[orderId];
-            if (!order) return state;
+            setOnlineStatus: (status: boolean) => {
+                const wasOffline = !get().isOnline;
+                set({ isOnline: status });
 
-            const newHeldState = !order.isHeld;
-            const idempotencyKey = `hold-${orderId}-${new Date().getTime()}`;
-
-            if (isOnline) {
-                emitEvent(newHeldState ? 'order.held' : 'order.resumed', { orderId }, { idempotencyKey });
-            } else {
-                queueAction(newHeldState ? 'order.held' : 'order.resumed', { orderId, idempotencyKey });
-            }
-
-            return {
-                orders: {
-                    ...state.orders,
-                    [orderId]: { ...order, isHeld: newHeldState, isPendingSync: !isOnline }
-                }
-            };
-        });
-    },
-
-    replayQueuedActions: () => {
-        const { pendingActions } = get();
-        if (pendingActions.length === 0) return;
-
-        console.log(`📡 Reconnecting: Replaying ${pendingActions.length} queued actions...`);
-
-        pendingActions.forEach(action => {
-            const { idempotencyKey, ...payload } = action.payload;
-            emitEvent(action.type, {
-                ...payload,
-                isReplayed: true,
-                originalTimestamp: action.timestamp
-            }, { idempotencyKey });
-        });
-
-        set({ pendingActions: [] });
-
-        set((state) => {
-            const updatedOrders = { ...state.orders };
-            Object.keys(updatedOrders).forEach(id => {
-                if (updatedOrders[id]) updatedOrders[id] = { ...updatedOrders[id]!, isPendingSync: false };
-            });
-            return { orders: updatedOrders };
-        });
-    },
-
-    recallOrder: () => {
-        const { lastRemovedOrder } = get();
-        if (!lastRemovedOrder) return;
-
-        emitEvent('order.reopened', {
-            orderId: lastRemovedOrder.id,
-            orderNumber: lastRemovedOrder.orderNumber
-        }, { idempotencyKey: `reopen-${lastRemovedOrder.id}` });
-
-        set((state) => ({
-            orders: {
-                ...state.orders,
-                [lastRemovedOrder.id]: {
-                    ...lastRemovedOrder,
-                    isCompleting: false
+                if (status && wasOffline) {
+                    get().replayQueuedActions();
                 }
             },
-            lastRemovedOrder: null
-        }));
-    },
-}));
+
+            toggleHold: (orderId: string) => {
+                const { isOnline, queueAction } = get();
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
+
+                    const newHeldState = !order.isHeld;
+                    const idempotencyKey = `hold-${orderId}-${new Date().getTime()}`;
+
+                    if (isOnline) {
+                        emitEvent(newHeldState ? 'order.held' : 'order.resumed', { orderId }, { idempotencyKey });
+                    } else {
+                        queueAction(newHeldState ? 'order.held' : 'order.resumed', { orderId, idempotencyKey });
+                    }
+
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: { ...order, isHeld: newHeldState, isPendingSync: !isOnline }
+                        }
+                    };
+                });
+            },
+
+            replayQueuedActions: () => {
+                const { pendingActions } = get();
+                if (pendingActions.length === 0) return;
+
+                console.log(`📡 Reconnecting: Replaying ${pendingActions.length} queued actions...`);
+
+                pendingActions.forEach(action => {
+                    const { idempotencyKey, ...payload } = action.payload;
+                    emitEvent(action.type, {
+                        ...payload,
+                        isReplayed: true,
+                        originalTimestamp: action.timestamp
+                    }, { idempotencyKey });
+                });
+
+                set({ pendingActions: [] });
+
+                set((state) => {
+                    const updatedOrders = { ...state.orders };
+                    Object.keys(updatedOrders).forEach(id => {
+                        if (updatedOrders[id]) updatedOrders[id] = { ...updatedOrders[id]!, isPendingSync: false };
+                    });
+                    return { orders: updatedOrders };
+                });
+            },
+
+            recallOrder: () => {
+                const { lastRemovedOrder } = get();
+                if (!lastRemovedOrder) return;
+                get().recallFulfilledOrder(lastRemovedOrder.id);
+            },
+
+            recallFulfilledOrder: (orderId: string) => {
+                set((state) => {
+                    const orderFromFulfilled = state.fulfilledOrders.find(o => o.id === orderId);
+                    const orderFromRemoved = state.lastRemovedOrder?.id === orderId ? state.lastRemovedOrder : null;
+                    const orderToRecall = orderFromFulfilled || orderFromRemoved;
+
+                    if (!orderToRecall) return state;
+
+                    const now = new Date().toISOString();
+                    const recalledOrder = {
+                        ...orderToRecall,
+                        stage: 'RECALLED' as KitchenStage,
+                        updatedAt: now,
+                        isCompleting: false,
+                        isPendingSync: !state.isOnline
+                    };
+
+                    emitEvent('order.reopened', {
+                        orderId: recalledOrder.id,
+                        orderNumber: recalledOrder.orderNumber,
+                        timestamp: now
+                    }, { idempotencyKey: `recall-${orderId}-${Date.now()}` });
+
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: recalledOrder
+                        },
+                        fulfilledOrders: state.fulfilledOrders.filter(o => o.id !== orderId),
+                        lastRemovedOrder: state.lastRemovedOrder?.id === orderId ? null : state.lastRemovedOrder
+                    };
+                });
+            },
+
+            cleanupFulfilledOrders: () => {
+                set((state) => {
+                    const { expiryMinutes } = state.historySettings;
+                    const cutoff = new Date(Date.now() - expiryMinutes * 60000);
+
+                    const freshFulfilled = state.fulfilledOrders.filter(order => {
+                        const fulfilledAt = new Date(order.updatedAt);
+                        return fulfilledAt > cutoff;
+                    });
+
+                    if (freshFulfilled.length === state.fulfilledOrders.length) return state;
+
+                    return { fulfilledOrders: freshFulfilled };
+                });
+            },
+
+            injectStressTestOrders: (count: number) => {
+                const generated: KDSOrder[] = [];
+                const now = new Date();
+
+                for (let i = 0; i < count; i++) {
+                    generated.push({
+                        id: `stress-${i}`,
+                        orderNumber: `${10000 + i}`,
+                        order_source: i % 2 === 0 ? 'ONLINE' : 'POS',
+                        fulfillment_type: i % 3 === 0 ? 'STORE_DELIVERY' : 'PICKUP',
+                        createdAt: new Date(now.getTime() - Math.random() * 1000000).toISOString(),
+                        updatedAt: now.toISOString(),
+                        stage: (['ACCEPTED', 'PREPARATION', 'READY'])[i % 3] as KitchenStage,
+                        prepTimeMinutes: 10 + (i % 20),
+                        estimatedReadyTime: now.toISOString(),
+                        trackingToken: `stress-${i}`,
+                        isDelayed: false,
+                        items: [
+                            {
+                                id: `item-${i}-1`,
+                                name: `Stress Burger ${i}`,
+                                quantity: 1 + (i % 5),
+                                modifiers: [],
+                                categoryId: 'cat-pizza'
+                            }
+                        ]
+                    });
+                }
+
+                get().batchUpdateOrders(generated);
+            },
+        }), {
+        name: 'zyappy-kds-device-settings',
+        partialize: (state) => ({
+            enable_station_routing: state.enable_station_routing,
+            allow_item_station_override: state.allow_item_station_override,
+            kds_stations: state.kds_stations,
+            category_station_map: state.category_station_map,
+            item_station_map: state.item_station_map,
+            selectedStationId: state.selectedStationId,
+            master_screen_view_mode: state.master_screen_view_mode,
+            order_ready_rule: state.order_ready_rule,
+            sound_scope: state.sound_scope,
+            station_prep_time_override_enabled: state.station_prep_time_override_enabled,
+            station_delay_affects_global_eta: state.station_delay_affects_global_eta,
+            station_print_mode: state.station_print_mode,
+        }),
+    }));

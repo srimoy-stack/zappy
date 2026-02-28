@@ -76,25 +76,25 @@ export const TicketTimer: React.FC<TicketTimerProps> = ({ createdAt, prepTimeMin
     return (
         <div className={`flex flex-col items-end gap-1 rounded-none border-2 ${getStateClasses()}`}>
             <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-60">REMAINING:</span>
+                <span className="text-[12px] font-black uppercase tracking-widest opacity-60">REMAINING:</span>
                 <span className="font-mono text-[var(--kds-font-timer)] font-black tabular-nums leading-none">
                     {formatTime(remainingSeconds)}
                 </span>
             </div>
             <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-60">ELAPSED:</span>
+                <span className="text-[12px] font-black uppercase tracking-widest opacity-60">ELAPSED:</span>
                 <span className="text-xl font-black">{elapsedMinutes} MIN</span>
             </div>
             {stageStartedAt && (
                 <div className="flex items-center gap-2 border-t border-white/20 pt-1 w-full justify-end">
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">STAGE TIME:</span>
+                    <span className="text-[12px] font-black uppercase tracking-widest opacity-60">STAGE TIME:</span>
                     <span className="text-sm font-black text-amber-500 tabular-nums">
                         {formatTime(stageTime)}
                     </span>
                 </div>
             )}
-            <div className="text-[9px] font-black uppercase tracking-tighter">
-                Status: {slaState.replace('_', ' ')}
+            <div className="text-[11px] font-black uppercase tracking-tighter">
+                STATUS: {slaState.replace('_', ' ')}
             </div>
         </div>
     );

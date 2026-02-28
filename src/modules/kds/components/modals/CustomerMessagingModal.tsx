@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { KDSOrder } from '../../types/kds';
 import { Mail, MessageSquare, Send, X } from 'lucide-react';
 
@@ -15,6 +16,12 @@ interface Props {
 type TemplateKey = 'ACCEPTED' | 'PREPARATION' | 'DELAYED' | 'CUSTOM';
 
 export const CustomerMessagingModal: React.FC<Props> = ({ isOpen, order, onClose, onSend, role = 'KDS_USER' }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const [channel, setChannel] = useState<'SMS' | 'EMAIL' | 'BOTH'>('SMS');
     const [template, setTemplate] = useState<TemplateKey>('ACCEPTED');
     const [message, setMessage] = useState('');
@@ -32,7 +39,7 @@ export const CustomerMessagingModal: React.FC<Props> = ({ isOpen, order, onClose
         }
     }, [template, order.estimatedReadyTime]);
 
-    if (!isOpen) return null;
+    if (!isOpen || !mounted) return null;
 
     const canEditCustom = role === 'STORE_MANAGER';
 
@@ -45,7 +52,7 @@ export const CustomerMessagingModal: React.FC<Props> = ({ isOpen, order, onClose
         onClose();
     };
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
             <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all">
                 {/* Header */}
@@ -160,7 +167,8 @@ export const CustomerMessagingModal: React.FC<Props> = ({ isOpen, order, onClose
                     </button>
                 </div>
             </div>
-        </div >
+        </div>,
+        document.body
     );
 };
 

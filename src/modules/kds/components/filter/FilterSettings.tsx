@@ -3,11 +3,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Filter, Check, X } from 'lucide-react';
 import { useFilterStore, FulfillmentFilter, SourceFilter } from '../../store/useFilterStore';
+import { useKDSStore } from '../../store/kdsStore';
 
 export const FilterSettings: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { fulfillment, source, station, setFulfillment, setSource, setStation, resetFilters } = useFilterStore();
+    const { fulfillment, source, setFulfillment, setSource, resetFilters } = useFilterStore();
+    const {
+        enable_station_routing,
+        kds_stations,
+        selectedStationId,
+        setStationRouting,
+        setSelectedStation
+    } = useKDSStore();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -36,15 +44,15 @@ export const FilterSettings: React.FC = () => {
         { label: 'External API', value: 'API' },
     ];
 
-    const stationOptions: { label: string; value: typeof station }[] = [
+    const stationOptions = [
         { label: 'Master View', value: 'ALL' },
-        { label: 'Make Line', value: 'MAKE_LINE' },
-        { label: 'Oven Station', value: 'OVEN' },
-        { label: 'Cut & Box', value: 'CUT_BOX' },
-        { label: 'Expo Mode', value: 'EXPO' },
+        ...kds_stations.filter(s => s.active).map(s => ({
+            label: s.station_name,
+            value: s.station_id
+        }))
     ];
 
-    const activeFilterCount = (fulfillment !== 'ALL' ? 1 : 0) + (source !== 'ALL' ? 1 : 0) + (station !== 'ALL' ? 1 : 0);
+    const activeFilterCount = (fulfillment !== 'ALL' ? 1 : 0) + (source !== 'ALL' ? 1 : 0) + (selectedStationId !== 'ALL' ? 1 : 0);
 
     return (
         <div className="relative" ref={dropdownRef}>
@@ -76,21 +84,35 @@ export const FilterSettings: React.FC = () => {
                     </div>
 
                     <div className="space-y-6">
+                        {/* Station Routing Toggle */}
+                        <div className="flex items-center justify-between p-3 bg-slate-800/30 border border-slate-700/50">
+                            <div className="flex flex-col">
+                                <span className="text-[10px] font-black text-white uppercase tracking-widest">Enable Station Routing</span>
+                                <span className="text-[8px] text-slate-500 font-bold">Route items to specific screens</span>
+                            </div>
+                            <button
+                                onClick={() => setStationRouting(!enable_station_routing)}
+                                className={`w-12 h-6 rounded-full transition-colors relative ${enable_station_routing ? 'bg-green-500' : 'bg-slate-700'}`}
+                            >
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${enable_station_routing ? 'left-7' : 'left-1'}`} />
+                            </button>
+                        </div>
+
                         {/* Station Filter (CRITICAL) */}
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Assigned Station</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Active Station Screen</label>
                             <div className="grid grid-cols-1 gap-1">
                                 {stationOptions.map((opt) => (
                                     <button
                                         key={opt.value}
-                                        onClick={() => setStation(opt.value)}
-                                        className={`flex items-center justify-between px-3 py-3 rounded-none text-xs font-black transition-none ${station === opt.value
+                                        onClick={() => setSelectedStation(opt.value)}
+                                        className={`flex items-center justify-between px-3 py-3 rounded-none text-xs font-black transition-none ${selectedStationId === opt.value
                                             ? 'bg-amber-500 text-black'
                                             : 'text-slate-400 bg-slate-800/50 hover:bg-slate-800 hover:text-slate-200'
                                             }`}
                                     >
                                         {opt.label}
-                                        {station === opt.value && <Check size={16} />}
+                                        {selectedStationId === opt.value && <Check size={16} />}
                                     </button>
                                 ))}
                             </div>

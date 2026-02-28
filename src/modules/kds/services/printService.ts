@@ -34,6 +34,17 @@ export interface PrintResult {
     message: string;
     /** ISO timestamp of the attempt */
     attemptedAt: string;
+    /** For STATION_ONLY printing, shows which items were actually printed */
+    printedItems?: string[];
+}
+
+export interface PrintOptions {
+    station_print_mode: 'PRINT_BY_STATION' | 'PRINT_FULL_ORDER';
+    selectedStationId: string | 'ALL';
+    enable_station_routing: boolean;
+    category_station_map: Record<string, string>;
+    item_station_map: Record<string, string>;
+    allow_item_station_override: boolean;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -92,22 +103,36 @@ export function onPrintError(callback: (message: string) => void): void {
  *   const commands = buildESCPOSReceipt(order);
  *   await port.print(commands);
  */
-async function _executePrint(order: KDSOrder): Promise<void> {
+async function _executePrint(order: KDSOrder, options?: PrintOptions): Promise<string[]> {
+    // Determine which items to print based on station routing
+    let itemsToPrint = order.items;
+
+    if (options?.station_print_mode === 'PRINT_BY_STATION' && options.selectedStationId !== 'ALL' && options.enable_station_routing) {
+        itemsToPrint = order.items.filter(item => {
+            const catStation = (item.categoryId && options.category_station_map[item.categoryId]) || 'kitchen';
+            const itemStationId = (options.allow_item_station_override && options.item_station_map[item.name]) || catStation;
+            return itemStationId === options.selectedStationId;
+        });
+    }
+
     // ⚠️  PLACEHOLDER — Hardware SDK not integrated
     // Simulates a ~300ms print spool delay
     await new Promise(r => setTimeout(r, 300));
 
     console.log('[PrintService] 🖨 Sending to printer (placeholder):', {
         orderNumber: order.orderNumber,
-        items: order.items.map(i => i.name),
+        items: itemsToPrint.map(i => i.name),
         fulfillment: order.fulfillment_type,
         source: order.order_source,
         stage: order.stage,
-        printedAt: new Date().toISOString()
+        printedAt: new Date().toISOString(),
+        mode: options?.station_print_mode || 'DEFAULT'
     });
 
+    return itemsToPrint.map(i => i.name);
+
     // TODO: Replace with actual SDK call:
-    // await HardwareSDK.print(buildReceiptPayload(order));
+    // await HardwareSDK.print(buildReceiptPayload(order, itemsToPrint));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -124,7 +149,8 @@ async function _executePrint(order: KDSOrder): Promise<void> {
  */
 export async function printOrder(
     orderId: string,
-    getOrder: (id: string) => KDSOrder | undefined
+    getOrder: (id: string) => KDSOrder | undefined,
+    options?: PrintOptions
 ): Promise<PrintResult> {
     const now = new Date().toISOString();
 
@@ -164,14 +190,15 @@ export async function printOrder(
 
     // ── 3. Execute print ──────────────────────────────────────────────────────
     try {
-        await _executePrint(order);
+        const printedItems = await _executePrint(order, options);
 
         const result: PrintResult = {
             status: 'SUCCESS',
             orderId,
             orderNumber: order.orderNumber,
             message: `Receipt printed for order #${order.orderNumber}.`,
-            attemptedAt: now
+            attemptedAt: now,
+            printedItems
         };
 
         emitEvent('printer.receipt_printed', {

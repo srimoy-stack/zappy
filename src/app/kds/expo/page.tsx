@@ -63,6 +63,7 @@ export default function KDSExpoPage() {
                 customerName: 'Arjun Mehta',
                 items: [
                     {
+                        id: 'item-1-1',
                         name: 'Farmhouse Pizza',
                         variant: 'Large',
                         modifiers: [
@@ -70,7 +71,7 @@ export default function KDSExpoPage() {
                             { name: 'Thin Crust', groupType: 'CHOICE_ONE' }
                         ]
                     },
-                    { name: 'Garlic Bread', modifiers: [] }
+                    { id: 'item-1-2', name: 'Garlic Bread', modifiers: [] }
                 ]
             });
 
@@ -89,6 +90,7 @@ export default function KDSExpoPage() {
                 customerName: 'Priya Sharma',
                 items: [
                     {
+                        id: 'item-2-1',
                         name: 'Classic Burger',
                         modifiers: [
                             { name: 'Jalapeños', groupType: 'QUANTITY_ONLY', quantity: 2 },
@@ -113,8 +115,8 @@ export default function KDSExpoPage() {
                 trackingToken: 'tok-5003',
                 customerName: 'Rohan Verma',
                 items: [
-                    { name: 'Veggie Supreme', variant: 'Medium', modifiers: [] },
-                    { name: 'Cola 600ml', modifiers: [] }
+                    { id: 'item-3-1', name: 'Veggie Supreme', variant: 'Medium', modifiers: [] },
+                    { id: 'item-3-2', name: 'Cola 600ml', modifiers: [] }
                 ]
             });
         }

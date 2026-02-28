@@ -323,19 +323,26 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/providers/AuthProvider.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/navigation.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/providers/ImpersonationProvider.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
+;
+;
 ;
 ;
 const useRouteAccess = ()=>{
     _s();
     const { role, storeIds, user, enabledModules } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
+    const { isImpersonating } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useImpersonation"])();
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     /**
      * Gets visible menu items for the current role and active modules
      */ const getVisibleMenuItems = ()=>{
         if (!role) return [];
-        return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
+        const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
+        // Filter items based on role and module
+        const filteredItems = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$navigation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["navigationConfig"].filter((item)=>{
             // Role check
-            const isSuperAdmin = role === 'PLATFORM_SUPER_ADMIN';
             const roleAllowed = isSuperAdmin || item.allowedRoles.includes(role) && item.accessMode[role] !== 'hidden';
             if (!roleAllowed) return false;
             // Module check
@@ -344,6 +351,29 @@ const useRouteAccess = ()=>{
             }
             return true;
         });
+        // SPECIAL CASE: Super Admin Contextual Navigation
+        if (isSuperAdmin) {
+            const isPlatform = pathname?.startsWith('/platform');
+            const isBackofficeOrKDS = pathname?.startsWith('/backoffice') || pathname?.startsWith('/kds');
+            if (isPlatform) {
+                // In Platform view, ONLY show Brands
+                const allowedPlatformIds = [
+                    'platform-brands'
+                ];
+                return filteredItems.filter((item)=>allowedPlatformIds.includes(item.id));
+            }
+            if (isBackofficeOrKDS || isImpersonating) {
+                // In Backoffice view, ONLY show requested setup items
+                const allowedBackofficeIds = [
+                    'items',
+                    'integrations',
+                    'kds-master',
+                    'kds-expo'
+                ];
+                return filteredItems.filter((item)=>allowedBackofficeIds.includes(item.id));
+            }
+        }
+        return filteredItems;
     };
     /**
      * Checks if a path is authorized
@@ -397,6 +427,8 @@ const useRouteAccess = ()=>{
     return {
         user,
         role,
+        isImpersonating,
+        pathname,
         getVisibleMenuItems,
         isAuthorized,
         getAccessMode,
@@ -404,9 +436,11 @@ const useRouteAccess = ()=>{
         getManagedStoreIds
     };
 };
-_s(useRouteAccess, "s9yi5ABnNIYOJzR9vpj07+c8Eug=", false, function() {
+_s(useRouteAccess, "s3SwO1n+PPSuH/fRR+0wAIFYk90=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useImpersonation"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -985,7 +1019,87 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         externalOrderMap: {},
         isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
         pendingActions: [],
+        fulfilledOrders: [],
+        historySettings: {
+            limit: 20,
+            expiryMinutes: 60
+        },
         lastRemovedOrder: null,
+        toggleItemCompletion: (orderId, itemId)=>{
+            set((state)=>{
+                const order = state.orders[orderId];
+                if (!order) return state;
+                const updatedItems = order.items.map((item)=>item.id === itemId ? {
+                        ...item,
+                        isCompleted: !item.isCompleted
+                    } : item);
+                return {
+                    orders: {
+                        ...state.orders,
+                        [orderId]: {
+                            ...order,
+                            items: updatedItems
+                        }
+                    }
+                };
+            });
+        },
+        // Default Routing Settings
+        enable_station_routing: false,
+        allow_item_station_override: true,
+        selectedStationId: 'ALL',
+        kds_stations: [
+            {
+                station_id: 'kitchen',
+                station_name: 'Kitchen',
+                active: true,
+                display_order: 1
+            },
+            {
+                station_id: 'bar',
+                station_name: 'Bar',
+                active: true,
+                display_order: 2
+            },
+            {
+                station_id: 'dessert',
+                station_name: 'Dessert',
+                active: true,
+                display_order: 3
+            },
+            {
+                station_id: 'drinks',
+                station_name: 'Drinks',
+                active: true,
+                display_order: 4
+            },
+            {
+                station_id: 'expo',
+                station_name: 'Expo (Expeditor)',
+                active: true,
+                display_order: 5
+            }
+        ],
+        category_station_map: {},
+        item_station_map: {},
+        setStationRouting: (enabled)=>set({
+                enable_station_routing: enabled
+            }),
+        setAllowItemOverride: (enabled)=>set({
+                allow_item_station_override: enabled
+            }),
+        setStations: (stations)=>set({
+                kds_stations: stations
+            }),
+        updateCategoryStationMap: (map)=>set({
+                category_station_map: map
+            }),
+        updateItemStationMap: (map)=>set({
+                item_station_map: map
+            }),
+        setSelectedStation: (stationId)=>set({
+                selectedStationId: stationId
+            }),
         addOrUpdateOrder: (order)=>set((state)=>{
                 // Check by internal ID or External ID
                 const internalId = order.id;
@@ -1011,6 +1125,33 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                         }
                     },
                     externalOrderMap: newExternalMap
+                };
+            }),
+        batchUpdateOrders: (newOrders)=>set((state)=>{
+                const updatedOrders = {
+                    ...state.orders
+                };
+                const updatedExternalMap = {
+                    ...state.externalOrderMap
+                };
+                newOrders.forEach((order)=>{
+                    const extId = order.external_order_id;
+                    const targetId = (extId ? updatedExternalMap[extId] : order.id) || order.id;
+                    const existing = updatedOrders[targetId];
+                    if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
+                        return;
+                    }
+                    if (extId) {
+                        updatedExternalMap[extId] = targetId;
+                    }
+                    updatedOrders[targetId] = {
+                        ...order,
+                        id: targetId
+                    };
+                });
+                return {
+                    orders: updatedOrders,
+                    externalOrderMap: updatedExternalMap
                 };
             }),
         removeOrder: (orderId)=>set((state)=>{
@@ -1068,7 +1209,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     stageStartedAt: now.toISOString(),
                     isPendingSync: !isOnline
                 };
-                if (stage === 'PREPARATION') {
+                if (stage === 'FIRED') {
                     const prepTime = order.prepTimeMinutes || 10;
                     const createdAt = new Date(order.createdAt);
                     createdAt.setMinutes(createdAt.getMinutes() + prepTime);
@@ -1113,7 +1254,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             const { isOnline, queueAction } = get();
             set((state)=>{
                 const order = state.orders[orderId];
-                if (!order || order.stage !== 'ACCEPTED') return state;
+                if (!order || order.stage !== 'NEW') return state;
                 const now = new Date();
                 const created = new Date(order.createdAt);
                 const elapsedMinutes = Math.floor((now.getTime() - created.getTime()) / 60000);
@@ -1165,7 +1306,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                         ...state.orders,
                         [orderId]: {
                             ...order,
-                            stage: 'PREPARATION',
+                            stage: 'FIRED',
                             stageStartedAt: now.toISOString(),
                             prepTimeMinutes: updatedPrepTimeMinutes,
                             estimatedReadyTime: etaFormatted,
@@ -1181,29 +1322,57 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             const currentOrder = get().orders[orderId];
             if (!currentOrder) return;
             if (currentOrder.stage === 'READY') {
+                const now = new Date().toISOString();
+                const fulfilledOrder = {
+                    ...currentOrder,
+                    stage: 'FULFILLED',
+                    updatedAt: now,
+                    isCompleting: true
+                };
                 set((state)=>({
                         orders: {
                             ...state.orders,
-                            [orderId]: {
-                                ...currentOrder,
-                                isCompleting: true
-                            }
+                            [orderId]: fulfilledOrder
                         }
                     }));
+                const idempotencyKey = `fulfill-${orderId}`;
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.fulfilled', {
+                    orderId,
+                    orderNumber: currentOrder.orderNumber,
+                    timestamp: now
+                }, {
+                    idempotencyKey
+                });
                 setTimeout(()=>{
-                    get().removeOrder(orderId);
-                // Removal is usually not queued as it's a local UI cleanup
-                }, 2000);
+                    set((state)=>{
+                        const newOrders = {
+                            ...state.orders
+                        };
+                        delete newOrders[orderId];
+                        const { limit } = state.historySettings;
+                        // Keep last X fulfilled orders for history (default 20)
+                        // Remove any existing entry for this order first, THEN prepend the new one
+                        const newFulfilled = [
+                            fulfilledOrder,
+                            ...state.fulfilledOrders.filter((o)=>o.id !== orderId)
+                        ].slice(0, limit);
+                        return {
+                            orders: newOrders,
+                            fulfilledOrders: newFulfilled,
+                            lastRemovedOrder: fulfilledOrder
+                        };
+                    });
+                }, 1000);
                 return;
             }
             set((state)=>{
                 const order = state.orders[orderId];
                 if (!order) return state;
                 const stages = [
-                    'ACCEPTED',
-                    'PREPARATION',
-                    'CUTTING',
-                    'READY'
+                    'NEW',
+                    'FIRED',
+                    'READY',
+                    'FULFILLED'
                 ];
                 const currentIndex = stages.indexOf(order.stage);
                 const nextStage = stages[currentIndex + 1];
@@ -1522,22 +1691,85 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         recallOrder: ()=>{
             const { lastRemovedOrder } = get();
             if (!lastRemovedOrder) return;
-            (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.reopened', {
-                orderId: lastRemovedOrder.id,
-                orderNumber: lastRemovedOrder.orderNumber
-            }, {
-                idempotencyKey: `reopen-${lastRemovedOrder.id}`
-            });
-            set((state)=>({
+            get().recallFulfilledOrder(lastRemovedOrder.id);
+        },
+        recallFulfilledOrder: (orderId)=>{
+            set((state)=>{
+                const orderFromFulfilled = state.fulfilledOrders.find((o)=>o.id === orderId);
+                const orderFromRemoved = state.lastRemovedOrder?.id === orderId ? state.lastRemovedOrder : null;
+                const orderToRecall = orderFromFulfilled || orderFromRemoved;
+                if (!orderToRecall) return state;
+                const now = new Date().toISOString();
+                const recalledOrder = {
+                    ...orderToRecall,
+                    stage: 'RECALLED',
+                    updatedAt: now,
+                    isCompleting: false,
+                    isPendingSync: !state.isOnline
+                };
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.reopened', {
+                    orderId: recalledOrder.id,
+                    orderNumber: recalledOrder.orderNumber,
+                    timestamp: now
+                }, {
+                    idempotencyKey: `recall-${orderId}-${Date.now()}`
+                });
+                return {
                     orders: {
                         ...state.orders,
-                        [lastRemovedOrder.id]: {
-                            ...lastRemovedOrder,
-                            isCompleting: false
-                        }
+                        [orderId]: recalledOrder
                     },
-                    lastRemovedOrder: null
-                }));
+                    fulfilledOrders: state.fulfilledOrders.filter((o)=>o.id !== orderId),
+                    lastRemovedOrder: state.lastRemovedOrder?.id === orderId ? null : state.lastRemovedOrder
+                };
+            });
+        },
+        cleanupFulfilledOrders: ()=>{
+            set((state)=>{
+                const { expiryMinutes } = state.historySettings;
+                const cutoff = new Date(Date.now() - expiryMinutes * 60000);
+                const freshFulfilled = state.fulfilledOrders.filter((order)=>{
+                    const fulfilledAt = new Date(order.updatedAt);
+                    return fulfilledAt > cutoff;
+                });
+                if (freshFulfilled.length === state.fulfilledOrders.length) return state;
+                return {
+                    fulfilledOrders: freshFulfilled
+                };
+            });
+        },
+        injectStressTestOrders: (count)=>{
+            const generated = [];
+            const now = new Date();
+            for(let i = 0; i < count; i++){
+                generated.push({
+                    id: `stress-${i}`,
+                    orderNumber: `${10000 + i}`,
+                    order_source: i % 2 === 0 ? 'ONLINE' : 'POS',
+                    fulfillment_type: i % 3 === 0 ? 'STORE_DELIVERY' : 'PICKUP',
+                    createdAt: new Date(now.getTime() - Math.random() * 1000000).toISOString(),
+                    updatedAt: now.toISOString(),
+                    stage: [
+                        'ACCEPTED',
+                        'PREPARATION',
+                        'READY'
+                    ][i % 3],
+                    prepTimeMinutes: 10 + i % 20,
+                    estimatedReadyTime: now.toISOString(),
+                    trackingToken: `stress-${i}`,
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: `item-${i}-1`,
+                            name: `Stress Burger ${i}`,
+                            quantity: 1 + i % 5,
+                            modifiers: [],
+                            categoryId: 'cat-pizza'
+                        }
+                    ]
+                });
+            }
+            get().batchUpdateOrders(generated);
         }
     }));
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

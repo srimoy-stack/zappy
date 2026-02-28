@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export type SoundEvent = 'NEW_ORDER' | 'ORDER_UPDATED' | 'ORDER_CANCELLED' | 'ORDER_DELAYED' | 'SLA_BREACH' | 'SLA_WARNING';
+export type SoundEvent = 'NEW_ORDER' | 'ORDER_UPDATED' | 'ORDER_CANCELLED' | 'ORDER_DELAYED' | 'SLA_BREACH' | 'SLA_WARNING' | 'BUMP_ORDER';
 
 interface SoundSettings {
     isMuted: boolean;
@@ -20,6 +20,7 @@ const DEFAULT_SETTINGS: SoundSettings = {
         ORDER_DELAYED: true,
         SLA_BREACH: true,
         SLA_WARNING: true,
+        BUMP_ORDER: true,
     },
 };
 
@@ -58,6 +59,7 @@ export function useKDSSound() {
         ORDER_DELAYED: '/sounds/alert.mp3',
         SLA_BREACH: '/sounds/breach.mp3',
         SLA_WARNING: '/sounds/warning-beep.mp3',
+        BUMP_ORDER: '/sounds/confirm.mp3',
     };
 
     const playSound = useCallback((eventType: SoundEvent, orderId?: string) => {

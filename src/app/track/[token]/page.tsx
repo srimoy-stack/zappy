@@ -51,7 +51,27 @@ function TrackingContent({ order }: { order: KDSOrder }) {
     }, [order.stage, prevStage]);
 
     const stages: KitchenStage[] = ['ACCEPTED', 'PREPARATION', 'CUTTING', 'READY'];
-    const currentStageIndex = stages.indexOf(order.stage);
+
+    // Map internal stages to display timeline indices
+    const getStageIndex = (stage: KitchenStage): number => {
+        switch (stage) {
+            case 'NEW':
+            case 'ACCEPTED':
+                return 0;
+            case 'FIRED':
+            case 'PREPARATION':
+                return 1;
+            case 'CUTTING':
+                return 2;
+            case 'READY':
+            case 'FULFILLED':
+                return 3;
+            default:
+                return 0;
+        }
+    };
+
+    const currentStageIndex = getStageIndex(order.stage);
 
     return (
         <div className="min-h-screen bg-[#0F172A] text-white font-sans selection:bg-[#1FA4A9]/20 overflow-x-hidden">

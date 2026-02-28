@@ -660,7 +660,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$e
 const useFilterStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])()((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["persist"])((set)=>({
         fulfillment: 'ALL',
         source: 'ALL',
-        station: 'ALL',
         viewMode: 'KANBAN',
         setFulfillment: (fulfillment)=>set({
                 fulfillment
@@ -668,16 +667,12 @@ const useFilterStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_
         setSource: (source)=>set({
                 source
             }),
-        setStation: (station)=>set({
-                station
-            }),
         setViewMode: (viewMode)=>set({
                 viewMode
             }),
         resetFilters: ()=>set({
                 fulfillment: 'ALL',
                 source: 'ALL',
-                station: 'ALL',
                 viewMode: 'KANBAN'
             })
     }), {
@@ -700,9 +695,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/kds/store/useFilterStore.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/kds/store/kdsStore.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -710,7 +707,8 @@ const FilterSettings = ()=>{
     _s();
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const dropdownRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const { fulfillment, source, station, setFulfillment, setSource, setStation, resetFilters } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const { fulfillment, source, setFulfillment, setSource, resetFilters } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const { enable_station_routing, kds_stations, selectedStationId, setStationRouting, setSelectedStation } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "FilterSettings.useEffect": ()=>{
             const handleClickOutside = {
@@ -779,24 +777,12 @@ const FilterSettings = ()=>{
             label: 'Master View',
             value: 'ALL'
         },
-        {
-            label: 'Make Line',
-            value: 'MAKE_LINE'
-        },
-        {
-            label: 'Oven Station',
-            value: 'OVEN'
-        },
-        {
-            label: 'Cut & Box',
-            value: 'CUT_BOX'
-        },
-        {
-            label: 'Expo Mode',
-            value: 'EXPO'
-        }
+        ...kds_stations.filter((s)=>s.active).map((s)=>({
+                label: s.station_name,
+                value: s.station_id
+            }))
     ];
-    const activeFilterCount = (fulfillment !== 'ALL' ? 1 : 0) + (source !== 'ALL' ? 1 : 0) + (station !== 'ALL' ? 1 : 0);
+    const activeFilterCount = (fulfillment !== 'ALL' ? 1 : 0) + (source !== 'ALL' ? 1 : 0) + (selectedStationId !== 'ALL' ? 1 : 0);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative",
         ref: dropdownRef,
@@ -809,14 +795,14 @@ const FilterSettings = ()=>{
                         size: 28
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 55,
+                        lineNumber: 63,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         children: "FILTERS"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 56,
+                        lineNumber: 64,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     activeFilterCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -824,13 +810,13 @@ const FilterSettings = ()=>{
                         children: activeFilterCount
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 58,
+                        lineNumber: 66,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                lineNumber: 51,
+                lineNumber: 59,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -844,7 +830,7 @@ const FilterSettings = ()=>{
                                 children: "KDS Configuration"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                lineNumber: 67,
+                                lineNumber: 75,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             activeFilterCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -855,65 +841,114 @@ const FilterSettings = ()=>{
                                         size: 12
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 73,
+                                        lineNumber: 81,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Clear"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                lineNumber: 69,
+                                lineNumber: 77,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 66,
+                        lineNumber: 74,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "space-y-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-y-3",
+                                className: "flex items-center justify-between p-3 bg-slate-800/30 border border-slate-700/50",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "text-[10px] font-black text-slate-500 uppercase tracking-widest",
-                                        children: "Assigned Station"
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex flex-col",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-[10px] font-black text-white uppercase tracking-widest",
+                                                children: "Enable Station Routing"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                                lineNumber: 90,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-[8px] text-slate-500 font-bold",
+                                                children: "Route items to specific screens"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                                lineNumber: 91,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 89,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "grid grid-cols-1 gap-1",
-                                        children: stationOptions.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>setStation(opt.value),
-                                                className: `flex items-center justify-between px-3 py-3 rounded-none text-xs font-black transition-none ${station === opt.value ? 'bg-amber-500 text-black' : 'text-slate-400 bg-slate-800/50 hover:bg-slate-800 hover:text-slate-200'}`,
-                                                children: [
-                                                    opt.label,
-                                                    station === opt.value && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
-                                                        size: 16
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                                        lineNumber: 93,
-                                                        columnNumber: 67
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                ]
-                                            }, opt.value, true, {
-                                                fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                                lineNumber: 84,
-                                                columnNumber: 37
-                                            }, ("TURBOPACK compile-time value", void 0)))
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setStationRouting(!enable_station_routing),
+                                        className: `w-12 h-6 rounded-full transition-colors relative ${enable_station_routing ? 'bg-green-500' : 'bg-slate-700'}`,
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: `absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${enable_station_routing ? 'left-7' : 'left-1'}`
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                            lineNumber: 97,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 82,
+                                        lineNumber: 93,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                lineNumber: 80,
+                                lineNumber: 88,
+                                columnNumber: 25
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "space-y-3",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        className: "text-[10px] font-black text-slate-500 uppercase tracking-widest",
+                                        children: "Active Station Screen"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                        lineNumber: 103,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-1 gap-1",
+                                        children: stationOptions.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setSelectedStation(opt.value),
+                                                className: `flex items-center justify-between px-3 py-3 rounded-none text-xs font-black transition-none ${selectedStationId === opt.value ? 'bg-amber-500 text-black' : 'text-slate-400 bg-slate-800/50 hover:bg-slate-800 hover:text-slate-200'}`,
+                                                children: [
+                                                    opt.label,
+                                                    selectedStationId === opt.value && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                        size: 16
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                                        lineNumber: 115,
+                                                        columnNumber: 77
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, opt.value, true, {
+                                                fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                                lineNumber: 106,
+                                                columnNumber: 37
+                                            }, ("TURBOPACK compile-time value", void 0)))
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                        lineNumber: 104,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
+                                lineNumber: 102,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -924,7 +959,7 @@ const FilterSettings = ()=>{
                                         children: "Fulfillment Type"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 101,
+                                        lineNumber: 123,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -935,18 +970,18 @@ const FilterSettings = ()=>{
                                                 children: opt.label
                                             }, opt.value, false, {
                                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                                lineNumber: 104,
+                                                lineNumber: 126,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 124,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                lineNumber: 100,
+                                lineNumber: 122,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -957,7 +992,7 @@ const FilterSettings = ()=>{
                                         children: "Order Source"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 120,
+                                        lineNumber: 142,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -968,24 +1003,24 @@ const FilterSettings = ()=>{
                                                 children: opt.label
                                             }, opt.value, false, {
                                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                                lineNumber: 123,
+                                                lineNumber: 145,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                        lineNumber: 121,
+                                        lineNumber: 143,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                                lineNumber: 119,
+                                lineNumber: 141,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 78,
+                        lineNumber: 86,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -995,30 +1030,31 @@ const FilterSettings = ()=>{
                             children: "FILTERS APPLY TO THE CURRENT BOARD VIEW AND EXPO SCREEN"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                            lineNumber: 139,
+                            lineNumber: 161,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                        lineNumber: 138,
+                        lineNumber: 160,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-                lineNumber: 65,
+                lineNumber: 73,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/filter/FilterSettings.tsx",
-        lineNumber: 50,
+        lineNumber: 58,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(FilterSettings, "164cGfDyZB7PLKGxepUifIU8TeA=", false, function() {
+_s(FilterSettings, "8cI7rs7Y3iYasbPisnmfo0F5bbs=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"]
     ];
 });
 _c = FilterSettings;
@@ -1944,9 +1980,18 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$e
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-grid.js [app-client] (ecmascript) <export default as LayoutGrid>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__List$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list.js [app-client] (ecmascript) <export default as List>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$maximize$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Maximize$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/maximize.js [app-client] (ecmascript) <export default as Maximize>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings-2.js [app-client] (ecmascript) <export default as Settings2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module './modals/StationConfigModal'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
+;
 ;
 ;
 ;
@@ -1957,6 +2002,7 @@ const KDSActionBar = ()=>{
         "KDSActionBar.useKDSStore[orders]": (state)=>Object.values(state.orders)
     }["KDSActionBar.useKDSStore[orders]"]));
     const { viewMode, setViewMode } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const [isConfigOpen, setIsConfigOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const pendingSync = orders.filter((o)=>o.isPendingSync).length;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "kds-action-bar",
@@ -1972,7 +2018,7 @@ const KDSActionBar = ()=>{
                                 children: "System Integrity"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                lineNumber: 17,
+                                lineNumber: 20,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1980,13 +2026,13 @@ const KDSActionBar = ()=>{
                                 children: "Harden v2.4"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                lineNumber: 18,
+                                lineNumber: 21,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                        lineNumber: 16,
+                        lineNumber: 19,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     pendingSync > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1997,13 +2043,46 @@ const KDSActionBar = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                        lineNumber: 21,
+                        lineNumber: 24,
                         columnNumber: 21
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>setIsConfigOpen(true),
+                        className: "flex items-center gap-2 px-3 py-1.5 bg-slate-800 text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 transition-all rounded-lg",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings2$3e$__["Settings2"], {
+                                size: 14
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
+                                lineNumber: 32,
+                                columnNumber: 21
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-[10px] font-black uppercase tracking-widest",
+                                children: "Routing"
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
+                                lineNumber: 33,
+                                columnNumber: 21
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
+                        lineNumber: 28,
+                        columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                lineNumber: 15,
+                lineNumber: 18,
+                columnNumber: 13
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StationConfigModal, {
+                isOpen: isConfigOpen,
+                onClose: ()=>setIsConfigOpen(false)
+            }, void 0, false, {
+                fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
+                lineNumber: 37,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2019,14 +2098,14 @@ const KDSActionBar = ()=>{
                                     size: 14
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                    lineNumber: 33,
+                                    lineNumber: 48,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 "Kanban"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                            lineNumber: 29,
+                            lineNumber: 44,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2037,14 +2116,14 @@ const KDSActionBar = ()=>{
                                     size: 14
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                    lineNumber: 40,
+                                    lineNumber: 55,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 "Grid 3x2"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                            lineNumber: 36,
+                            lineNumber: 51,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2055,25 +2134,25 @@ const KDSActionBar = ()=>{
                                     size: 14
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                    lineNumber: 47,
+                                    lineNumber: 62,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 "Compact"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                            lineNumber: 43,
+                            lineNumber: 58,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                    lineNumber: 28,
+                    lineNumber: 43,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                lineNumber: 27,
+                lineNumber: 42,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2087,12 +2166,12 @@ const KDSActionBar = ()=>{
                             children: "Print All Tickets"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                            lineNumber: 58,
+                            lineNumber: 73,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                        lineNumber: 54,
+                        lineNumber: 69,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2103,7 +2182,7 @@ const KDSActionBar = ()=>{
                                 children: "Connected Node"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                lineNumber: 61,
+                                lineNumber: 76,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2111,29 +2190,29 @@ const KDSActionBar = ()=>{
                                 children: "Z-MASTER-01"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                                lineNumber: 62,
+                                lineNumber: 77,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                        lineNumber: 60,
+                        lineNumber: 75,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-                lineNumber: 53,
+                lineNumber: 68,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/KDSActionBar.tsx",
-        lineNumber: 14,
+        lineNumber: 17,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(KDSActionBar, "SwBylzUXaiO7ZYu7jhUYIxImt4M=", false, function() {
+_s(KDSActionBar, "nGlZwN6DEiyh8+AMdhhCALxRRS4=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"]
@@ -3192,7 +3271,9 @@ function resolveAllModifiers(modifiers) {
     const segments = [];
     modifiers.forEach((mod)=>{
         const last = segments[segments.length - 1];
-        if (last && last[0].groupType === mod.groupType) {
+        // Safely handle the case where 'last' may be undefined (e.g., when segments is empty)
+        if (last?.[0]?.groupType === mod.groupType) {
+            // 'last' is guaranteed to be an array with at least one element here
             last.push(mod);
         } else {
             segments.push([
@@ -3377,9 +3458,15 @@ function OrderTicket({ order, variant = 'standard' }) {
             setIsPrinting(false);
         }
     };
+    const { enable_station_routing, selectedStationId, category_station_map } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])();
     const groupItems = (items)=>{
+        // Filter items based on station if routing is enabled
+        const filteredItems = enable_station_routing && selectedStationId !== 'ALL' && selectedStationId !== 'expo' ? items.filter((item)=>{
+            const itemStationId = item.categoryId ? category_station_map[item.categoryId] : 'kitchen';
+            return itemStationId === selectedStationId;
+        }) : items;
         const groups = {};
-        items.forEach((item)=>{
+        filteredItems.forEach((item)=>{
             const key = `${item.name}-${item.variant || ''}-${JSON.stringify(item.modifiers.sort())}`;
             if (groups[key]) {
                 groups[key].quantity = (groups[key].quantity || 1) + (item.quantity || 1);
@@ -3412,14 +3499,14 @@ function OrderTicket({ order, variant = 'standard' }) {
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 194,
+                                lineNumber: 204,
                                 columnNumber: 25
                             }, this),
                             "LABEL"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 187,
+                        lineNumber: 197,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3432,7 +3519,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                         children: "TRACKING"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 197,
+                        lineNumber: 207,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3448,7 +3535,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                     size: 28
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 217,
+                                    lineNumber: 227,
                                     columnNumber: 33
                                 }, this),
                                 "BUMP EXPO"
@@ -3456,13 +3543,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 207,
+                        lineNumber: 217,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 186,
+                lineNumber: 196,
                 columnNumber: 17
             }, this);
         }
@@ -3499,7 +3586,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 257,
+                            lineNumber: 267,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3507,13 +3594,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                             children: "DELAY"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 258,
+                            lineNumber: 268,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                    lineNumber: 249,
+                    lineNumber: 259,
                     columnNumber: 21
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3527,13 +3614,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 269,
+                            lineNumber: 279,
                             columnNumber: 37
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pause$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Pause$3e$__["Pause"], {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 269,
+                            lineNumber: 279,
                             columnNumber: 58
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3541,13 +3628,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                             children: order.isHeld ? 'RESUME' : 'HOLD'
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 270,
+                            lineNumber: 280,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                    lineNumber: 262,
+                    lineNumber: 272,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3566,12 +3653,12 @@ function OrderTicket({ order, variant = 'standard' }) {
                                     children: "➔"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 284,
+                                    lineNumber: 294,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 283,
+                                lineNumber: 293,
                                 columnNumber: 29
                             }, this),
                             mainActionLabel
@@ -3579,13 +3666,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                     }, void 0, true)
                 }, void 0, false, {
                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                    lineNumber: 273,
+                    lineNumber: 283,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-            lineNumber: 247,
+            lineNumber: 257,
             columnNumber: 13
         }, this);
     };
@@ -3635,7 +3722,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 333,
+                                        lineNumber: 343,
                                         columnNumber: 25
                                     }, this),
                                     order.customerName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3646,7 +3733,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "CUSTOMER:"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 338,
+                                                lineNumber: 348,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3654,13 +3741,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: order.customerName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 339,
+                                                lineNumber: 349,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 337,
+                                        lineNumber: 347,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3671,7 +3758,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "PAUSED"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 346,
+                                                lineNumber: 356,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3682,20 +3769,20 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: "SOURCE:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 351,
+                                                        lineNumber: 361,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$SourceBadge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SourceBadge"], {
                                                         source: order.order_source
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 352,
+                                                        lineNumber: 362,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 350,
+                                                lineNumber: 360,
                                                 columnNumber: 29
                                             }, this),
                                             order.isDelayed && !order.isCompleting && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3705,14 +3792,14 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         size: 10
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 356,
+                                                        lineNumber: 366,
                                                         columnNumber: 37
                                                     }, this),
                                                     "Delayed"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 355,
+                                                lineNumber: 365,
                                                 columnNumber: 33
                                             }, this),
                                             slaState === 'OVERDUE' && !order.isCompleting && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3720,7 +3807,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "Overdue"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 361,
+                                                lineNumber: 371,
                                                 columnNumber: 33
                                             }, this),
                                             order.isCompleting && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3728,7 +3815,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "Completed"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 366,
+                                                lineNumber: 376,
                                                 columnNumber: 33
                                             }, this),
                                             variant !== 'expo' && order.stage !== 'READY' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3741,7 +3828,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: "Delay"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 373,
+                                                        lineNumber: 383,
                                                         columnNumber: 41
                                                     }, this),
                                                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canCancelOrder"])(role) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3750,13 +3837,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: "Cancel"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 382,
+                                                        lineNumber: 392,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 381,
                                                 columnNumber: 33
                                             }, this),
                                             isMessagingActive && order.stage !== 'READY' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3765,19 +3852,19 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "Send Message"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 392,
+                                                lineNumber: 402,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 344,
+                                        lineNumber: 354,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 332,
+                                lineNumber: 342,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3790,18 +3877,18 @@ function OrderTicket({ order, variant = 'standard' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 402,
+                                    lineNumber: 412,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 401,
+                                lineNumber: 411,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 331,
+                        lineNumber: 341,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3815,7 +3902,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         children: "FULFILLMENT:"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 411,
+                                        lineNumber: 421,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3823,13 +3910,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         children: order.fulfillment_type === 'UBER_DIRECT_DELIVERY' ? 'Uber Direct Delivery' : order.fulfillment_type.replace(/_/g, ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 412,
+                                        lineNumber: 422,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 410,
+                                lineNumber: 420,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3837,13 +3924,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                 children: order.stage
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 418,
+                                lineNumber: 428,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 409,
+                        lineNumber: 419,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3865,7 +3952,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 429,
+                                                        lineNumber: 439,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3878,7 +3965,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: item.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 434,
+                                                                    lineNumber: 444,
                                                                     columnNumber: 45
                                                                 }, this),
                                                                 item.variant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3886,24 +3973,24 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: item.variant
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 438,
+                                                                    lineNumber: 448,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                            lineNumber: 433,
+                                                            lineNumber: 443,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 432,
+                                                        lineNumber: 442,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 428,
+                                                lineNumber: 438,
                                                 columnNumber: 33
                                             }, this),
                                             item.modifiers.length > 0 && (()=>{
@@ -3918,7 +4005,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: "+"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 455,
+                                                                    lineNumber: 465,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 mod.resolvedQuantity !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3929,7 +4016,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 460,
+                                                                    lineNumber: 470,
                                                                     columnNumber: 57
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3937,7 +4024,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: mod.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 466,
+                                                                    lineNumber: 476,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 mod.resolvedPlacement !== null && !mod.hasDataError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3945,7 +4032,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: mod.resolvedPlacement
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 473,
+                                                                    lineNumber: 483,
                                                                     columnNumber: 57
                                                                 }, this),
                                                                 mod.hasDataError && mod.dataErrorMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3954,25 +4041,25 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                     children: mod.isUnknownGroupType ? '⚠ UNKNOWN TYPE' : '⚠ DATA ERR'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                    lineNumber: 480,
+                                                                    lineNumber: 490,
                                                                     columnNumber: 57
                                                                 }, this)
                                                             ]
                                                         }, modIdx, true, {
                                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                            lineNumber: 452,
+                                                            lineNumber: 462,
                                                             columnNumber: 49
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                    lineNumber: 450,
+                                                    lineNumber: 460,
                                                     columnNumber: 41
                                                 }, this);
                                             })()
                                         ]
                                     }, idx, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 427,
+                                        lineNumber: 437,
                                         columnNumber: 29
                                     }, this)),
                                 order.allergies && order.allergies.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3985,7 +4072,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "⚠️"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 499,
+                                                lineNumber: 509,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3996,7 +4083,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: "ALLERGY ALERT:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 501,
+                                                        lineNumber: 511,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4004,24 +4091,24 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: order.allergies.join(', ')
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 504,
+                                                        lineNumber: 514,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 500,
+                                                lineNumber: 510,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 498,
+                                        lineNumber: 508,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 497,
+                                    lineNumber: 507,
                                     columnNumber: 29
                                 }, this),
                                 order.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4032,7 +4119,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                             children: "SPECIAL NOTES:"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                            lineNumber: 514,
+                                            lineNumber: 524,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4040,24 +4127,24 @@ function OrderTicket({ order, variant = 'standard' }) {
                                             children: order.notes
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                            lineNumber: 517,
+                                            lineNumber: 527,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 513,
+                                    lineNumber: 523,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 425,
+                            lineNumber: 435,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 424,
+                        lineNumber: 434,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4074,7 +4161,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "External Charged"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 531,
+                                                lineNumber: 541,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4085,13 +4172,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 532,
+                                                lineNumber: 542,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 530,
+                                        lineNumber: 540,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4102,7 +4189,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: "Zyappy Calculated"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 535,
+                                                lineNumber: 545,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4116,7 +4203,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 547,
                                                         columnNumber: 37
                                                     }, this),
                                                     order.externalTotal !== order.zyappyCalculatedTotal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4127,30 +4214,30 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                             children: "⚠️"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                            lineNumber: 543,
+                                                            lineNumber: 553,
                                                             columnNumber: 45
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 539,
+                                                        lineNumber: 549,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 536,
+                                                lineNumber: 546,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 534,
+                                        lineNumber: 544,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 529,
+                                lineNumber: 539,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4167,7 +4254,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                         children: "ETA"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 554,
+                                                        lineNumber: 564,
                                                         columnNumber: 33
                                                     }, this),
                                                     order.prepTimeMinutes > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4182,7 +4269,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                lineNumber: 557,
+                                                                lineNumber: 567,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4194,7 +4281,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                 children: "+2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                lineNumber: 560,
+                                                                lineNumber: 570,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4206,19 +4293,19 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                                 children: "+5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                lineNumber: 569,
+                                                                lineNumber: 579,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 556,
+                                                        lineNumber: 566,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 553,
+                                                lineNumber: 563,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4226,7 +4313,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: formatETA(order.estimatedReadyTime)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 581,
+                                                lineNumber: 591,
                                                 columnNumber: 29
                                             }, this),
                                             order.isDelayed && order.delayReason && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4234,13 +4321,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                                 children: order.delayReason
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 585,
+                                                lineNumber: 595,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 552,
+                                        lineNumber: 562,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$TicketTimer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TicketTimer"], {
@@ -4249,13 +4336,13 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         stageStartedAt: order.stageStartedAt
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 590,
+                                        lineNumber: 600,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 551,
+                                lineNumber: 561,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4263,7 +4350,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                 children: getActionButton()
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 597,
+                                lineNumber: 607,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4277,7 +4364,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         size: 14
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 610,
+                                        lineNumber: 620,
                                         columnNumber: 29
                                     }, this),
                                     isPrinting ? 'Printing...' : 'Print Receipt',
@@ -4286,25 +4373,25 @@ function OrderTicket({ order, variant = 'standard' }) {
                                         title: "Printer not connected"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 615,
+                                        lineNumber: 625,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 602,
+                                lineNumber: 612,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 526,
+                        lineNumber: 536,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 317,
+                lineNumber: 327,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$DelayOrderModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DelayOrderModal"], {
@@ -4314,7 +4401,7 @@ function OrderTicket({ order, variant = 'standard' }) {
                 orderNumber: order.orderNumber
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 624,
+                lineNumber: 634,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$CustomerMessagingModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CustomerMessagingModal"], {
@@ -4329,17 +4416,18 @@ function OrderTicket({ order, variant = 'standard' }) {
                 role: role
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 631,
+                lineNumber: 641,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true);
 }
-_s(OrderTicket, "qkjlF9A+tK9CxTzutOBTaXogUiU=", false, function() {
+_s(OrderTicket, "CBvTLGDdGziJL6BshTf1fJNZT4c=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$useKDSSound$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSSound"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"]
     ];
 });
 _c = OrderTicket;
@@ -4372,7 +4460,8 @@ var _s = __turbopack_context__.k.signature();
 ;
 const KDSColumn = ({ title, stage })=>{
     _s();
-    const { fulfillment, source, station } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const { fulfillment, source } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const { enable_station_routing, selectedStationId, category_station_map } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])();
     // Each column subscribes ONLY to filtered orders that match its stage and station.
     const stageOrders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2f$shallow$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useShallow"])({
         "KDSColumn.useKDSStore[stageOrders]": (state)=>Object.values(state.orders).filter({
@@ -4380,12 +4469,21 @@ const KDSColumn = ({ title, stage })=>{
                     const stageMatch = o.stage === stage;
                     const fulfillmentMatch = fulfillment === 'ALL' || o.fulfillment_type === fulfillment;
                     const sourceMatch = source === 'ALL' || o.order_source === source;
-                    // Station Filtering Logic (Industry Standards)
+                    // Station Filtering Logic 
                     let stationMatch = true;
-                    if (station === 'MAKE_LINE') stationMatch = o.stage === 'ACCEPTED' || o.stage === 'PREPARATION';
-                    if (station === 'OVEN') stationMatch = o.stage === 'PREPARATION'; // Ready for oven
-                    if (station === 'CUT_BOX') stationMatch = o.stage === 'CUTTING';
-                    if (station === 'EXPO') stationMatch = true; // Expo sees everything
+                    if (enable_station_routing && selectedStationId !== 'ALL') {
+                        // Check if any item in the order belongs to the selected station
+                        stationMatch = o.items.some({
+                            "KDSColumn.useKDSStore[stageOrders]": (item)=>{
+                                const itemStationId = item.categoryId ? category_station_map[item.categoryId] : 'kitchen'; // fallback to kitchen
+                                return itemStationId === selectedStationId;
+                            }
+                        }["KDSColumn.useKDSStore[stageOrders]"]);
+                    // Expo station always sees everything if configured as such, 
+                    // but the requirement says "Expo (Expeditor)" is a station.
+                    // If selectedStationId is 'expo', it should follow the same logic or see all if preferred.
+                    // For now, let's stick to strict routing if enabled.
+                    }
                     return stageMatch && fulfillmentMatch && sourceMatch && stationMatch;
                 }
             }["KDSColumn.useKDSStore[stageOrders]"]).sort({
@@ -4440,7 +4538,7 @@ const KDSColumn = ({ title, stage })=>{
                         children: title
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-                        lineNumber: 77,
+                        lineNumber: 86,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4448,13 +4546,13 @@ const KDSColumn = ({ title, stage })=>{
                         children: stageOrders.length
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-                        lineNumber: 78,
+                        lineNumber: 87,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-                lineNumber: 76,
+                lineNumber: 85,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4463,24 +4561,25 @@ const KDSColumn = ({ title, stage })=>{
                         order: order
                     }, order.id, false, {
                         fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-                        lineNumber: 82,
+                        lineNumber: 91,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-                lineNumber: 80,
+                lineNumber: 89,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/board/KDSColumn.tsx",
-        lineNumber: 75,
+        lineNumber: 84,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(KDSColumn, "2uf6OUKk+WN8o3jhjaMVOGOTgv8=", false, function() {
+_s(KDSColumn, "E6muRhRrVZvLtYleEeHUxF7NMvA=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFilterStore"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"]
     ];
 });
@@ -4617,12 +4716,14 @@ function KDSMasterPage() {
                             name: 'Meat Feast Pizza',
                             variant: 'Large',
                             quantity: 2,
-                            modifiers: []
+                            modifiers: [],
+                            categoryId: 'cat-pizza'
                         },
                         {
                             name: 'Garlic Pizza Bread',
                             quantity: 1,
-                            modifiers: []
+                            modifiers: [],
+                            categoryId: 'cat-sides'
                         }
                     ],
                     notes: 'GIVE EXTRA KETCHUP'
@@ -4646,12 +4747,14 @@ function KDSMasterPage() {
                             name: 'Veg Supreme Pizza',
                             variant: 'Medium',
                             quantity: 1,
-                            modifiers: []
+                            modifiers: [],
+                            categoryId: 'cat-pizza'
                         },
                         {
                             name: 'Potato Wedges',
                             quantity: 3,
-                            modifiers: []
+                            modifiers: [],
+                            categoryId: 'cat-sides'
                         }
                     ]
                 });
@@ -4679,7 +4782,14 @@ function KDSMasterPage() {
                                     groupType: 'CHOICE_ONE',
                                     quantity: 2
                                 }
-                            ]
+                            ],
+                            categoryId: 'cat-pizza'
+                        },
+                        {
+                            name: 'Coca Cola',
+                            quantity: 2,
+                            modifiers: [],
+                            categoryId: 'cat-softdrinks'
                         }
                     ]
                 });
@@ -4712,7 +4822,7 @@ function KDSMasterPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSHeader$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["KDSHeader"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 91,
+                lineNumber: 98,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -4725,34 +4835,34 @@ function KDSMasterPage() {
                                 stage: stage.id
                             }, stage.id, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 97,
+                                lineNumber: 104,
                                 columnNumber: 29
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 95,
+                        lineNumber: 102,
                         columnNumber: 21
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `kds-universal-grid h-full ${viewMode === 'COMPACT' ? 'compact' : ''}`,
+                        className: "kds-universal-grid h-full",
                         children: [
-                            orders.slice(0, viewMode === 'COMPACT' ? 9 : 6).map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "h-full overflow-hidden",
+                            orders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "kds-universal-grid-item h-full overflow-hidden",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$OrderTicket$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["OrderTicket"], {
                                         order: order
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 108,
+                                        lineNumber: 115,
                                         columnNumber: 33
                                     }, this)
                                 }, order.id, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 114,
                                     columnNumber: 29
                                 }, this)),
-                            orders.length < (viewMode === 'COMPACT' ? 9 : 6) && Array.from({
-                                length: (viewMode === 'COMPACT' ? 9 : 6) - orders.length
+                            Array.from({
+                                length: Math.max(0, Math.ceil(Math.max(10, orders.length) / 10) * 10 - orders.length)
                             }).map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "h-full border-2 border-dashed border-slate-800/50 flex flex-col items-center justify-center bg-slate-900/40",
+                                    className: "kds-universal-grid-item h-full border-2 border-dashed border-slate-800/50 flex flex-col items-center justify-center bg-slate-900/40",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "w-12 h-12 rounded-full border-2 border-slate-800 flex items-center justify-center mb-2",
@@ -4761,32 +4871,32 @@ function KDSMasterPage() {
                                                 className: "text-slate-800"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 116,
-                                                columnNumber: 41
+                                                lineNumber: 122,
+                                                columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 115,
-                                            columnNumber: 37
+                                            lineNumber: 121,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "text-slate-800 font-black uppercase tracking-[0.2em] text-[10px]",
                                             children: "Station Idle"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 118,
-                                            columnNumber: 37
+                                            lineNumber: 124,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, `empty-${i}`, true, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 114,
-                                    columnNumber: 33
+                                    lineNumber: 120,
+                                    columnNumber: 29
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 105,
+                        lineNumber: 112,
                         columnNumber: 21
                     }, this),
                     !hasOrders && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4796,29 +4906,29 @@ function KDSMasterPage() {
                             children: "Waiting for orders..."
                         }, void 0, false, {
                             fileName: "[project]/src/app/kds/master/page.tsx",
-                            lineNumber: 126,
+                            lineNumber: 132,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 125,
+                        lineNumber: 131,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 93,
+                lineNumber: 100,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSActionBar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["KDSActionBar"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 133,
+                lineNumber: 139,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/kds/master/page.tsx",
-        lineNumber: 90,
+        lineNumber: 97,
         columnNumber: 9
     }, this);
 }

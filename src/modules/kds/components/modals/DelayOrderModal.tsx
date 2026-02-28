@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface Props {
     isOpen: boolean;
@@ -10,11 +11,17 @@ interface Props {
 }
 
 export const DelayOrderModal: React.FC<Props> = ({ isOpen, onClose, onConfirm, orderNumber }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const [minutes, setMinutes] = useState<number>(5);
     const [customMinutes, setCustomMinutes] = useState<string>('');
     const [reason, setReason] = useState<string>('');
 
-    if (!isOpen) return null;
+    if (!isOpen || !mounted) return null;
 
     const handleConfirm = () => {
         const finalMinutes = customMinutes ? parseInt(customMinutes) : minutes;
@@ -31,9 +38,9 @@ export const DelayOrderModal: React.FC<Props> = ({ isOpen, onClose, onConfirm, o
 
     const presets = [5, 10, 15];
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-            <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+            <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
                 {/* Header */}
                 <div className="p-6 bg-slate-900 text-white">
                     <h2 className="text-2xl font-black tracking-tight">Delay Order #{orderNumber}</h2>
@@ -54,8 +61,8 @@ export const DelayOrderModal: React.FC<Props> = ({ isOpen, onClose, onConfirm, o
                                         setCustomMinutes('');
                                     }}
                                     className={`h-14 rounded-xl font-black text-lg transition-all ${minutes === p && !customMinutes
-                                            ? 'bg-[#1FA4A9] text-white shadow-lg scale-105'
-                                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                        ? 'bg-[#1FA4A9] text-white shadow-lg scale-105'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                         }`}
                                 >
                                     +{p}
@@ -107,6 +114,7 @@ export const DelayOrderModal: React.FC<Props> = ({ isOpen, onClose, onConfirm, o
                     </button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };

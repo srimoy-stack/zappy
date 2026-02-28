@@ -24,17 +24,32 @@ export interface KDSModifier {
 }
 
 export interface KDSItem {
+    id: string; // Unique ID for partial completion tracking
     name: string;
     variant?: string;
     quantity?: number;
+    categoryId?: string; // Added for category-based routing
     modifiers: KDSModifier[];
+    isCompleted?: boolean;
+}
+
+export interface KDSStation {
+    station_id: string;
+    station_name: string;
+    active: boolean;
+    display_order: number;
+    default_prep_time?: number;
 }
 
 export type KitchenStage =
+    | 'NEW'
+    | 'FIRED'
+    | 'READY'
+    | 'FULFILLED'
+    | 'RECALLED'
     | 'ACCEPTED'
     | 'PREPARATION'
-    | 'CUTTING'
-    | 'READY';
+    | 'CUTTING';
 
 export interface KDSOrder {
     id: string;

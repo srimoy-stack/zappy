@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Volume2, VolumeX, Settings2, Bell, AlertTriangle, Clock, XCircle, RefreshCw } from 'lucide-react';
+import { Volume2, VolumeX, Settings2, Bell, AlertTriangle, Clock, XCircle, RefreshCw, CheckCircle } from 'lucide-react';
 import { useKDSSound } from './useKDSSound';
 
 export const SoundSettings: React.FC = () => {
@@ -125,6 +125,24 @@ export const SoundSettings: React.FC = () => {
                                 onClick={() => toggleEvent('SLA_BREACH')}
                                 onTest={() => playSound('SLA_BREACH')}
                                 color="text-red-600"
+                            />
+
+                            <ToggleItem
+                                Icon={AlertTriangle}
+                                label="SLA Warning"
+                                active={settings.enabledEvents.SLA_WARNING}
+                                onClick={() => toggleEvent('SLA_WARNING')}
+                                onTest={() => playSound('SLA_WARNING')}
+                                color="text-yellow-500"
+                            />
+
+                            <ToggleItem
+                                Icon={CheckCircle}
+                                label="Ticket Bump"
+                                active={settings.enabledEvents.BUMP_ORDER}
+                                onClick={() => toggleEvent('BUMP_ORDER')}
+                                onTest={() => playSound('BUMP_ORDER')}
+                                color="text-blue-400"
                             />
                         </div>
                     </div>

@@ -79,19 +79,19 @@ export const KDSHeader: React.FC = () => {
             <SoundController />
             <ConnectivityManager />
             <KDSToastContainer />
-            <header className={`kds-header transition-colors duration-500 ${isQueueUnderPressure ? 'bg-amber-500 border-amber-600' : ''}`}>
+            <header className={`kds-header transition-colors duration-500 ${isQueueUnderPressure ? '!bg-red-600 border-red-700' : ''}`}>
                 <div className="kds-header-left">
                     <div className="flex flex-col">
-                        <div className={`kds-store-name ${isQueueUnderPressure ? 'text-black' : 'text-white'}`}>
+                        <div className={`text-3xl font-black tracking-tighter uppercase ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>
                             {store?.name || 'KITCHEN DISPLAY'}
                         </div>
-                        <div className={`text-[14px] font-black ${isQueueUnderPressure ? 'text-black/60' : 'text-[var(--kds-text-secondary)]'}`}>
+                        <div className={`text-xl font-black ${isQueueUnderPressure ? 'text-white/80' : 'text-[var(--kds-text-secondary)]'}`}>
                             {formatTime(currentTime)}
                         </div>
                     </div>
 
                     {isQueueUnderPressure && (
-                        <div className="bg-black text-amber-500 px-3 py-1 font-black text-[12px] animate-pulse rounded-none">
+                        <div className="bg-white text-red-600 px-3 py-1 font-black text-[12px] animate-pulse rounded-none shadow-lg">
                             QUEUE PRESSURE ALERT
                         </div>
                     )}
@@ -106,28 +106,28 @@ export const KDSHeader: React.FC = () => {
                 <div className="kds-header-center">
                     <div className="flex items-center gap-6">
                         <div className="flex flex-col items-center">
-                            <span className={`text-[10px] font-black uppercase ${isQueueUnderPressure ? 'text-black/60' : 'text-slate-500'}`}>Queue</span>
-                            <span className={`text-2xl font-black ${isQueueUnderPressure ? 'text-black' : 'text-white'}`}>{metrics.total}</span>
+                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Queue</span>
+                            <span className={`text-3xl font-black ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>{metrics.total}</span>
                         </div>
                         <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
                         <div className="flex flex-col items-center">
-                            <span className={`text-[10px] font-black uppercase ${isQueueUnderPressure ? 'text-black/60' : 'text-slate-500'}`}>Avg Make</span>
-                            <span className={`text-2xl font-black ${isQueueUnderPressure ? 'text-black' : 'text-white'}`}>{metrics.avg}m</span>
+                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Avg Make</span>
+                            <span className={`text-3xl font-black ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>{metrics.avg}m</span>
                         </div>
                         <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
                         <div className="flex flex-col items-center">
-                            <span className={`text-[10px] font-black uppercase ${isQueueUnderPressure ? 'text-black/60' : 'text-slate-500'}`}>SLA %</span>
-                            <span className={`text-2xl font-black ${metrics.sla > 90 ? (isQueueUnderPressure ? 'text-black' : 'text-green-500') : (isQueueUnderPressure ? 'text-red-800' : 'text-amber-500')}`}>{metrics.sla}%</span>
+                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>SLA %</span>
+                            <span className={`text-3xl font-black ${metrics.sla > 90 ? (isQueueUnderPressure ? 'text-white' : 'text-green-500') : (isQueueUnderPressure ? 'text-white' : 'text-amber-500')}`}>{metrics.sla}%</span>
                         </div>
                         <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
                         <div className="flex flex-col items-center">
-                            <span className={`text-[10px] font-black uppercase ${isQueueUnderPressure ? 'text-black/60' : 'text-slate-500'}`}>Bottleneck</span>
-                            <span className={`text-[16px] font-black uppercase ${isQueueUnderPressure ? 'text-black' : 'text-amber-400'}`}>{metrics.bottleneck}</span>
+                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Bottleneck</span>
+                            <span className={`text-[18px] font-black uppercase ${isQueueUnderPressure ? 'text-white' : 'text-amber-400'}`}>{metrics.bottleneck}</span>
                         </div>
                         <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
                         <div className="flex flex-col items-center">
-                            <span className={`text-[10px] font-black uppercase ${isQueueUnderPressure ? 'text-black/60' : 'text-slate-500'}`}>Late</span>
-                            <span className={`text-2xl font-black ${metrics.late > 0 ? (isQueueUnderPressure ? 'text-red-900' : 'text-[var(--kds-status-late)]') : (isQueueUnderPressure ? 'text-black/40' : 'text-slate-500')}`}>{metrics.late}</span>
+                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Late</span>
+                            <span className={`text-3xl font-black ${metrics.late > 0 ? (isQueueUnderPressure ? 'text-white' : 'text-[var(--kds-status-late)]') : (isQueueUnderPressure ? 'text-white/50' : 'text-slate-500')}`}>{metrics.late}</span>
                         </div>
                     </div>
                 </div>

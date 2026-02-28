@@ -5,17 +5,17 @@ import { FulfillmentType, OrderSource } from '../types/kds';
 export type FulfillmentFilter = FulfillmentType | 'ALL';
 export type SourceFilter = OrderSource | 'ALL';
 export type KDSStation = 'MAKE_LINE' | 'OVEN' | 'CUT_BOX' | 'EXPO' | 'ALL';
-export type KDSViewMode = 'KANBAN' | 'GRID' | 'COMPACT';
+export type KDSViewMode = 'KANBAN' | 'GRID' | 'COMPACT' | 'SUMMARY' | 'ALL_DAY';
 
 interface FilterState {
     fulfillment: FulfillmentFilter;
     source: SourceFilter;
-    station: KDSStation;
     viewMode: KDSViewMode;
+    showRecentlyFulfilled: boolean;
     setFulfillment: (filter: FulfillmentFilter) => void;
     setSource: (filter: SourceFilter) => void;
-    setStation: (station: KDSStation) => void;
     setViewMode: (mode: KDSViewMode) => void;
+    setShowRecentlyFulfilled: (show: boolean) => void;
     resetFilters: () => void;
 }
 
@@ -24,13 +24,13 @@ export const useFilterStore = create<FilterState>()(
         (set) => ({
             fulfillment: 'ALL',
             source: 'ALL',
-            station: 'ALL',
             viewMode: 'KANBAN',
+            showRecentlyFulfilled: true,
             setFulfillment: (fulfillment) => set({ fulfillment }),
             setSource: (source) => set({ source }),
-            setStation: (station) => set({ station }),
             setViewMode: (viewMode) => set({ viewMode }),
-            resetFilters: () => set({ fulfillment: 'ALL', source: 'ALL', station: 'ALL', viewMode: 'KANBAN' }),
+            setShowRecentlyFulfilled: (showRecentlyFulfilled) => set({ showRecentlyFulfilled }),
+            resetFilters: () => set({ fulfillment: 'ALL', source: 'ALL', viewMode: 'KANBAN', showRecentlyFulfilled: true }),
         }),
         {
             name: 'kds-filter-settings',
