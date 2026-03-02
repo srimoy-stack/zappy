@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Flame, Trash2, Undo2, CheckSquare, AlertTriangle } from 'lucide-react';
+import { Trash2, Printer, ChevronLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 import { KDSOrder } from '../../types/kds';
 import { useKDSStore } from '../../store/kdsStore';
 import { useAuth } from '@/app/providers/AuthProvider';
@@ -21,29 +21,20 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
         setMounted(true);
     }, []);
 
-    const {
-        cancelOrder,
-        acceptOrder,
-        advanceStage,
-        toggleItemCompletion
-    } = useKDSStore();
+    const { cancelOrder, toggleItemCompletion } = useKDSStore();
+
     const { role } = useAuth();
 
     const [selectedItemIds, setSelectedItemIds] = useState<Set<string>>(new Set());
 
     useEffect(() => {
-        const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
         if (isOpen) {
-            window.addEventListener('keydown', handleEsc);
             document.body.style.overflow = 'hidden';
         }
         return () => {
-            window.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = 'unset';
         };
-    }, [isOpen, onClose]);
+    }, [isOpen]);
 
     const toggleItemSelection = useCallback((itemId: string) => {
         setSelectedItemIds(prev => {
@@ -67,20 +58,11 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
         }
     };
 
-    const handleFire = () => { acceptOrder(order.id); };
-
-    const handleUnfulfill = () => {
-        if (selectedItemIds.size === 0) return;
-        selectedItemIds.forEach(id => {
-            const item = order.items.find(i => i.id === id);
-            if (item?.isCompleted) toggleItemCompletion(order.id, id);
-        });
-        setSelectedItemIds(new Set());
-    };
-
     const handleFulfill = () => {
         if (selectedItemIds.size === 0) {
-            advanceStage(order.id);
+            order.items.forEach(item => {
+                if (!item.isCompleted) toggleItemCompletion(order.id, item.id);
+            });
             onClose();
             return;
         }
@@ -94,197 +76,189 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
     if (!isOpen || !mounted) return null;
 
     return createPortal(
-        <div className="fixed inset-0 z-[1000] flex items-start justify-center p-4">
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
-
-            {/* Modal — fits viewport, no scroll */}
-            <div className="relative w-full max-w-[1400px] bg-[#0A0B10] border border-white/10 rounded-2xl shadow-2xl flex flex-col max-h-[calc(100vh-32px)] mt-2 overflow-hidden">
-
-                {/* COMPACT HEADER */}
-                <div className="shrink-0 px-6 py-4 bg-gradient-to-r from-white/5 to-transparent border-b border-white/10 flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        {/* Order Number - large but not massive */}
-                        <h2 className="text-5xl font-black text-white tracking-tighter leading-none">
-                            #{order.orderNumber}
-                        </h2>
-                        <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-2">
-                                <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-black uppercase tracking-widest">
-                                    {order.order_source}
-                                </span>
-                                <span className="px-2 py-0.5 bg-white/10 text-slate-300 rounded text-[9px] font-black uppercase tracking-widest">
-                                    {order.fulfillment_type.replace('_', ' ')}
-                                </span>
-                                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${order.stage === 'NEW' ? 'bg-amber-500 text-black' :
-                                        order.stage === 'FIRED' ? 'bg-sky-500 text-white' :
-                                            'bg-emerald-500 text-white'
-                                    }`}>{order.stage}</span>
-                            </div>
-                            <div className="flex items-center gap-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                                <span>Placed: <span className="text-white">{new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></span>
-                                <span>ETA: <span className="text-emerald-400">{order.estimatedReadyTime}</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={onClose} className="p-3 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 transition-all border border-white/10 active:scale-90">
-                        <X size={24} strokeWidth={3} />
+        <div className="fixed inset-0 z-[2000] bg-[#F3F4F6] flex flex-col animate-in fade-in slide-in-from-bottom duration-300">
+            {/* FULL SCREEN HEADER */}
+            <div className="h-[80px] bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 shadow-sm">
+                <div className="flex items-center gap-6">
+                    <button
+                        onClick={onClose}
+                        className="p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all active:scale-95"
+                    >
+                        <ChevronLeft size={24} className="text-gray-900" />
                     </button>
+                    <div>
+                        <div className="flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900">ORDER #{order.orderNumber}</h2>
+                            <span className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase text-white ${order.stage === 'NEW' ? 'bg-[#374151]' :
+                                order.stage === 'READY' ? 'bg-blue-600' :
+                                    'bg-[#E67E22]'
+                                }`}>
+                                {order.stage === 'NEW' ? 'IN QUEUE' : order.stage === 'READY' ? 'READY' : 'IN PREPARATION'}
+                            </span>
+                        </div>
+                        <p className="text-gray-400 text-[11px] font-bold uppercase mt-1">
+                            {order.customerName || 'GUEST CUSTOMER'} • REF: {order.external_order_id || order.id.slice(0, 8)}
+                        </p>
+                    </div>
                 </div>
 
-                {/* BODY: Two-column layout — Items left, Alerts right */}
-                <div className="flex-1 flex overflow-hidden">
-                    {/* LEFT: Full Item Details */}
-                    <div className="flex-1 p-4 space-y-2 overflow-y-auto">
-                        {/* Select All strip */}
-                        <div className="flex items-center justify-between pb-2 border-b border-white/5">
-                            <span className="text-slate-500 font-black text-[10px] uppercase tracking-[0.3em]">
-                                {order.items.length} Items • {order.items.filter(i => i.isCompleted).length} Done
-                            </span>
-                            <button onClick={handleSelectAll} className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-black text-white uppercase tracking-widest border border-white/5 transition-all">
-                                {selectedItemIds.size === order.items.length ? 'Clear' : 'Select All'}
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => window.print()}
+                        className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl font-bold text-xs uppercase hover:border-black transition-all"
+                    >
+                        <Printer size={18} /> Print Label
+                    </button>
+                    <button
+                        onClick={handleCancel}
+                        className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 border-2 border-red-100 rounded-xl font-bold text-xs uppercase hover:bg-red-600 hover:text-white transition-all"
+                    >
+                        <Trash2 size={18} /> Void Order
+                    </button>
+                </div>
+            </div>
+
+            {/* FULL SCREEN CONTENT */}
+            <div className="flex-1 overflow-hidden flex flex-col p-8 lg:p-12">
+                <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col lg:flex-row gap-8 overflow-hidden">
+
+                    {/* LEFT: ITEM GRID */}
+                    <div className="flex-1 flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden">
+                        <div className="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+                            <h3 className="text-sm font-bold text-gray-400 uppercase">Item Production List</h3>
+                            <button
+                                onClick={handleSelectAll}
+                                className="text-[10px] font-bold text-blue-500 uppercase hover:underline"
+                            >
+                                {selectedItemIds.size === order.items.length ? 'DESELECT ALL' : 'SELECT ALL ITEMS'}
                             </button>
                         </div>
 
-                        {/* ITEM ROWS — compact but complete */}
-                        {order.items.map((item) => (
-                            <div
-                                key={item.id}
-                                onClick={() => toggleItemSelection(item.id)}
-                                className={`flex items-start gap-4 p-3 rounded-xl border-2 cursor-pointer transition-all ${selectedItemIds.has(item.id)
-                                        ? 'bg-blue-600/10 border-blue-500/40'
-                                        : 'bg-white/[0.02] border-transparent hover:border-white/5'
-                                    }`}
-                            >
-                                {/* Selection + Qty */}
-                                <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-black border-2 transition-all ${item.isCompleted ? 'bg-emerald-500 text-white border-emerald-400' :
-                                        selectedItemIds.has(item.id) ? 'bg-blue-500 text-white border-blue-400' :
-                                            'bg-black text-amber-500 border-slate-800'
-                                    }`}>
-                                    {item.isCompleted ? '✓' : item.quantity}
-                                </div>
-
-                                <div className="flex-1 min-w-0">
-                                    {/* Item Name */}
-                                    <h4 className={`text-2xl font-black uppercase tracking-tight leading-tight ${item.isCompleted ? 'text-slate-600 line-through' : 'text-white'
+                        <div className="flex-1 overflow-y-auto p-8 scrollbar-hide space-y-4">
+                            {order.items.map((item) => (
+                                <div
+                                    key={item.id}
+                                    onClick={() => toggleItemSelection(item.id)}
+                                    className={`flex items-start gap-6 p-6 rounded-3xl border-4 transition-all cursor-pointer group hover:scale-[1.01] ${selectedItemIds.has(item.id)
+                                        ? 'border-black bg-gray-50'
+                                        : 'border-transparent bg-gray-50/30 hover:bg-white hover:border-gray-200'
+                                        }`}
+                                >
+                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shrink-0 transition-colors ${item.isCompleted
+                                        ? 'bg-emerald-500 text-white'
+                                        : selectedItemIds.has(item.id) ? 'bg-black text-white' : 'bg-white text-gray-900 border border-gray-100'
                                         }`}>
-                                        {item.name}
-                                    </h4>
-
-                                    {/* Variant */}
-                                    {item.variant && (
-                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] block mt-0.5">
-                                            Size: {item.variant}
-                                        </span>
-                                    )}
-
-                                    {/* Category */}
-                                    {item.categoryId && (
-                                        <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">
-                                            Cat: {item.categoryId.replace('cat-', '')}
-                                        </span>
-                                    )}
-
-                                    {/* ALL Modifiers / Toppings / Customizations */}
-                                    {item.modifiers.length > 0 && (
-                                        <div className="mt-2 flex flex-wrap gap-1.5">
-                                            {item.modifiers.map((mod, idx) => (
-                                                <span key={idx} className="inline-flex items-center bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase px-2 py-1 rounded-lg border border-blue-500/15">
-                                                    <span className="text-blue-500 mr-1 font-black text-xs">+</span>
-                                                    {mod.name}
-                                                    {mod.quantity && mod.quantity > 1 ? ` ×${mod.quantity}` : ''}
+                                        {item.isCompleted ? '✓' : item.quantity}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <h4 className={`text-2xl font-bold uppercase leading-none ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900 group-hover:text-black'
+                                                }`}>
+                                                {item.name}
+                                            </h4>
+                                            {item.variant && (
+                                                <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase">
+                                                    {item.variant}
                                                 </span>
-                                            ))}
+                                            )}
                                         </div>
-                                    )}
+                                        {item.modifiers.length > 0 && (
+                                            <div className="flex flex-wrap gap-2">
+                                                {item.modifiers.map((mod, idx) => (
+                                                    <div key={idx} className="flex items-center gap-1.5 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-gray-200/50">
+                                                        {mod.quantity && mod.quantity > 1 && <span className="text-black">x{mod.quantity}</span>}
+                                                        <span>{mod.name}</span>
+                                                        {mod.placement && mod.placement !== 'FULL' && (
+                                                            <span className="text-[8px] bg-white border border-gray-200 px-1 rounded ml-1 text-gray-400">
+                                                                {mod.placement}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedItemIds.has(item.id) ? 'bg-black border-black' : 'border-gray-300'
+                                        }`}>
+                                        {selectedItemIds.has(item.id) && <CheckCircle2 size={16} className="text-white" />}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
-                    {/* RIGHT SIDEBAR: Alerts + Notes + Order Meta */}
-                    <div className="w-[320px] shrink-0 border-l border-white/5 p-4 space-y-3 bg-white/[0.01]">
-                        {/* ALLERGY — Top Priority */}
-                        {order.allergies && order.allergies.length > 0 && (
-                            <div className="p-4 bg-red-600 rounded-xl animate-pulse">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <AlertTriangle size={16} className="text-white" />
-                                    <span className="text-[9px] font-black text-white/80 uppercase tracking-widest">Allergy Warning</span>
-                                </div>
-                                <p className="text-xl font-black text-white uppercase leading-tight">{order.allergies.join(', ')}</p>
-                            </div>
-                        )}
-
-                        {/* Kitchen Notes */}
-                        {order.notes && (
-                            <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-                                <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest block mb-1">Kitchen Notes</span>
-                                <p className="text-lg font-black text-white uppercase italic leading-snug">"{order.notes}"</p>
-                            </div>
-                        )}
-
-                        {/* Order Info */}
-                        <div className="p-4 bg-white/[0.03] rounded-xl border border-white/5 space-y-3">
-                            <h5 className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Order Details</h5>
-                            <div className="grid grid-cols-2 gap-2 text-[10px]">
-                                <div>
-                                    <span className="text-slate-600 font-bold uppercase block">Source</span>
-                                    <span className="text-white font-black uppercase">{order.order_source}</span>
-                                </div>
-                                <div>
-                                    <span className="text-slate-600 font-bold uppercase block">Type</span>
-                                    <span className="text-white font-black uppercase">{order.fulfillment_type.replace('_', ' ')}</span>
-                                </div>
-                                <div>
-                                    <span className="text-slate-600 font-bold uppercase block">Stage</span>
-                                    <span className="text-white font-black uppercase">{order.stage}</span>
-                                </div>
-                                <div>
-                                    <span className="text-slate-600 font-bold uppercase block">Prep Time</span>
-                                    <span className="text-white font-black uppercase">{order.prepTimeMinutes}m</span>
-                                </div>
-                                {order.isDelayed && (
-                                    <div className="col-span-2">
-                                        <span className="text-red-500 font-black uppercase">⚠ DELAYED</span>
+                    {/* RIGHT: METADATA & ACTIONS */}
+                    <div className="lg:w-[400px] flex flex-col gap-6">
+                        {/* Prep Flags: Notes & Allergies */}
+                        <div className="space-y-4">
+                            {order.notes && (
+                                <div className="bg-amber-100 p-8 rounded-[2rem] border-2 border-amber-200 shadow-lg">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <AlertCircle size={20} className="text-amber-600" />
+                                        <span className="text-[10px] font-bold text-amber-600 uppercase">Kitchen Priority Instructions</span>
                                     </div>
-                                )}
-                            </div>
+                                    <p className="text-xl font-bold text-amber-900 italic leading-relaxed">
+                                        "{order.notes}"
+                                    </p>
+                                </div>
+                            )}
+
+                            {order.allergies && order.allergies.length > 0 && (
+                                <div className="bg-red-50 p-6 rounded-[2rem] border-2 border-red-100">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                        <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">Allergy Alerts</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {order.allergies.map((allergy, idx) => (
+                                            <span key={idx} className="px-3 py-1 bg-white border border-red-200 text-red-600 text-[11px] font-bold rounded-lg uppercase">
+                                                {allergy}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Tracking */}
-                        {order.trackingToken && (
-                            <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl">
-                                <span className="text-[8px] font-bold text-slate-600 uppercase tracking-widest block mb-1">Tracking</span>
-                                <span className="text-[10px] font-mono text-emerald-500 break-all">{order.trackingToken}</span>
+                        {/* Order Identity Card */}
+                        <div className="bg-white p-8 rounded-[2.5rem] border border-gray-200 space-y-8">
+                            <div>
+                                <h4 className="text-[10px] font-bold text-gray-400 uppercase mb-4">Channel Details</h4>
+                                <div className="grid grid-cols-2 gap-y-4">
+                                    <div className="flex flex-col">
+                                        <span className="text-[9px] font-bold text-gray-300 uppercase">Elapsed</span>
+                                        <span className="text-lg font-bold text-gray-900">12:45 <span className="text-xs">MIN</span></span>
+                                    </div>
+                                    <div className="flex flex-col text-right">
+                                        <span className="text-[9px] font-bold text-gray-300 uppercase">Channel</span>
+                                        <span className="text-lg font-bold text-gray-900 uppercase">{order.order_source}</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-[9px] font-bold text-gray-300 uppercase">Service</span>
+                                        <span className="text-lg font-bold text-gray-900 uppercase">{order.fulfillment_type.replace('_', ' ')}</span>
+                                    </div>
+                                    <div className="flex flex-col text-right">
+                                        <span className="text-[9px] font-bold text-gray-300 uppercase">Items</span>
+                                        <span className="text-lg font-bold text-gray-900">{order.items.length}</span>
+                                    </div>
+                                </div>
                             </div>
-                        )}
+
+                            <div className="pt-8 border-t border-gray-100">
+                                <button
+                                    onClick={handleFulfill}
+                                    className="w-full h-20 bg-black text-white rounded-3xl font-bold text-lg uppercase shadow-lg hover:bg-gray-800 transition-all active:scale-[0.98]"
+                                >
+                                    {selectedItemIds.size > 0
+                                        ? `Fulfill Selected (${selectedItemIds.size})`
+                                        : 'Fulfill All Items'}
+                                </button>
+                                <p className="text-[9px] font-bold text-gray-400 text-center uppercase tracking-widest mt-4">
+                                    Order will move to READY status upon fulfillment
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                {/* COMPACT FOOTER: Small inline buttons */}
-                <div className="shrink-0 px-4 py-3 bg-[#0D0F14] border-t border-white/10 flex items-center gap-2">
-                    <button onClick={handleCancel} className="flex items-center gap-2 px-4 py-2.5 bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all border border-red-600/20 active:scale-95">
-                        <Trash2 size={14} /> Cancel
-                    </button>
-                    <button onClick={handleUnfulfill} disabled={selectedItemIds.size === 0} className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-20 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all border border-slate-700 active:scale-95">
-                        <Undo2 size={14} /> Undo
-                    </button>
-                    <button onClick={handleSelectAll} className="flex items-center gap-2 px-4 py-2.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all border border-blue-600/20 active:scale-95">
-                        <CheckSquare size={14} /> {selectedItemIds.size === order.items.length ? 'Clear' : 'Select'}
-                    </button>
-                    <button onClick={handleFire} disabled={order.stage !== 'NEW'} className="flex items-center gap-2 px-4 py-2.5 bg-amber-500/10 hover:bg-amber-500 disabled:opacity-20 text-amber-500 hover:text-black rounded-xl font-black text-[10px] uppercase tracking-widest transition-all border border-amber-500/20 active:scale-95">
-                        <Flame size={14} /> Fire
-                    </button>
-
-                    {/* Primary action — right side */}
-                    <div className="flex-1" />
-                    <button onClick={handleFulfill} className={`flex items-center gap-2 px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all shadow-lg active:scale-95 border-b-4 ${selectedItemIds.size > 0
-                            ? 'bg-emerald-500 hover:bg-emerald-400 text-white border-emerald-700'
-                            : 'bg-white hover:bg-slate-100 text-black border-slate-300'
-                        }`}>
-                        <CheckSquare size={16} />
-                        {selectedItemIds.size > 0 ? `Done (${selectedItemIds.size})` : 'Bump All'}
-                    </button>
                 </div>
             </div>
         </div>,

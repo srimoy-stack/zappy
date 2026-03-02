@@ -86,60 +86,9 @@ export const useKDSStore = create<KDSState>()(
             fulfilledOrders: [],
             historySettings: {
                 limit: 20,
-                expiryMinutes: 60, // Auto-expire after 1 hour
+                expiryMinutes: 60,
             },
             lastRemovedOrder: null,
-
-            toggleItemCompletion: (orderId, itemId) => {
-                set((state) => {
-                    const order = state.orders[orderId];
-                    if (!order) return state;
-
-                    const updatedItems = order.items.map((item) =>
-                        item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
-                    );
-
-                    const isAllComplete = updatedItems.every(i => i.isCompleted);
-                    let newStage = order.stage;
-                    const now = new Date().toISOString();
-                    let stageHistory = order.stageHistory || [];
-
-                    // Automatically move to READY if ALL_STATIONS_COMPLETE rule is active
-                    if (isAllComplete && state.order_ready_rule === 'ALL_STATIONS_COMPLETE' && order.stage === 'FIRED') {
-                        newStage = 'READY';
-                        stageHistory = [...stageHistory, {
-                            stage: order.stage,
-                            startedAt: order.stageStartedAt || order.createdAt,
-                            completedAt: now,
-                        }];
-
-                        // Emit event for auto-advance
-                        if (state.isOnline) {
-                            emitEvent('order.stage_advanced', {
-                                orderId,
-                                orderNumber: order.orderNumber,
-                                previousStage: order.stage,
-                                newStage: 'READY',
-                                timestamp: now,
-                                reason: 'AUTO_COMPLETE_ALL_ITEMS'
-                            });
-                        }
-                    }
-
-                    return {
-                        orders: {
-                            ...state.orders,
-                            [orderId]: {
-                                ...order,
-                                items: updatedItems,
-                                stage: newStage,
-                                stageStartedAt: newStage !== order.stage ? now : order.stageStartedAt,
-                                stageHistory
-                            }
-                        }
-                    };
-                });
-            },
 
             // Default Routing Settings
             enable_station_routing: false,
@@ -174,16 +123,66 @@ export const useKDSStore = create<KDSState>()(
             setStationDelayAffectsGlobalEta: (affected) => set({ station_delay_affects_global_eta: affected }),
             setStationPrintMode: (mode) => set({ station_print_mode: mode }),
 
+            toggleItemCompletion: (orderId, itemId) => {
+                set((state) => {
+                    const order = state.orders[orderId];
+                    if (!order) return state;
+
+                    const now = new Date().toISOString();
+                    const updatedItems = order.items.map((item) =>
+                        item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
+                    );
+
+                    const allCompleted = updatedItems.every(i => i.isCompleted);
+                    const shouldBumpToReady = allCompleted && order.stage === 'FIRED';
+
+                    let nextStage = order.stage;
+                    let stageHistory = order.stageHistory || [];
+                    let stageStartedAt = order.stageStartedAt;
+
+                    if (shouldBumpToReady) {
+                        nextStage = 'READY';
+                        stageStartedAt = now;
+                        stageHistory = [...stageHistory, {
+                            stage: order.stage,
+                            startedAt: order.stageStartedAt || order.createdAt,
+                            completedAt: now,
+                        }];
+
+                        if (state.isOnline) {
+                            emitEvent('order.stage_advanced', {
+                                orderId,
+                                orderNumber: order.orderNumber,
+                                previousStage: order.stage,
+                                newStage: 'READY',
+                                timestamp: now,
+                                reason: 'AUTO_COMPLETE_ALL_ITEMS'
+                            });
+                        }
+                    }
+
+                    return {
+                        orders: {
+                            ...state.orders,
+                            [orderId]: {
+                                ...order,
+                                items: updatedItems,
+                                stage: nextStage,
+                                stageStartedAt,
+                                stageHistory
+                            }
+                        }
+                    };
+                });
+            },
+
             addOrUpdateOrder: (order) =>
                 set((state) => {
-                    // Check by internal ID or External ID
                     const internalId = order.id;
                     const idByExternal = order.external_order_id ? state.externalOrderMap[order.external_order_id] : null;
-
                     const targetId = idByExternal || internalId;
                     const existing = state.orders[targetId];
 
-                    // Idempotency check: Ignore older or duplicate updates
                     if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
                         return state;
                     }
@@ -236,7 +235,7 @@ export const useKDSStore = create<KDSState>()(
                     const newOrders = { ...state.orders };
                     const newExternalMap = { ...state.externalOrderMap };
 
-                    if (order?.external_order_id) {
+                    if (order.external_order_id) {
                         delete newExternalMap[order.external_order_id];
                     }
                     delete newOrders[orderId];
@@ -264,21 +263,14 @@ export const useKDSStore = create<KDSState>()(
 
             autoInitNetworkListener: () => {
                 if (typeof window === 'undefined') return;
-
-                const updateStatus = () => {
-                    get().setOnlineStatus(navigator.onLine);
-                };
-
+                const updateStatus = () => get().setOnlineStatus(navigator.onLine);
                 window.addEventListener('online', updateStatus);
                 window.addEventListener('offline', updateStatus);
-
-                // Initial check
                 updateStatus();
             },
 
             updateOrderStage: (orderId, stage) => {
                 const { isOnline, queueAction } = get();
-
                 set((state: KDSState) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
@@ -295,16 +287,11 @@ export const useKDSStore = create<KDSState>()(
                     if (stage === 'FIRED') {
                         const prepTime = order.prepTimeMinutes || 10;
                         const createdAt = new Date(order.createdAt);
-                        createdAt.setMinutes(createdAt.getMinutes() + prepTime);
-
+                        const estimatedTime = new Date(createdAt.getTime() + prepTime * 60000);
                         updates = {
                             ...updates,
                             prepTimeMinutes: prepTime,
-                            estimatedReadyTime: createdAt.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: false
-                            })
+                            estimatedReadyTime: estimatedTime.toISOString()
                         };
                     }
 
@@ -324,10 +311,7 @@ export const useKDSStore = create<KDSState>()(
                     return {
                         orders: {
                             ...state.orders,
-                            [orderId]: {
-                                ...order,
-                                ...updates,
-                            },
+                            [orderId]: { ...order, ...updates },
                         },
                     };
                 });
@@ -335,24 +319,20 @@ export const useKDSStore = create<KDSState>()(
 
             acceptOrder: (orderId: string) => {
                 const { isOnline, queueAction } = get();
-
                 set((state: KDSState) => {
                     const order = state.orders[orderId];
                     if (!order || order.stage !== 'NEW') return state;
 
-                    const { station_prep_time_override_enabled, kds_stations, selectedStationId } = state;
                     const now = new Date();
-                    const created = new Date(order.createdAt);
-                    const elapsedMinutes = Math.floor((now.getTime() - created.getTime()) / 60000);
-
+                    const { station_prep_time_override_enabled, kds_stations, selectedStationId } = state;
                     let forcedPrepDuration = 10;
+
                     if (station_prep_time_override_enabled && selectedStationId !== 'ALL') {
                         const station = kds_stations.find(s => s.station_id === selectedStationId);
-                        if (station?.default_prep_time) {
-                            forcedPrepDuration = station.default_prep_time;
-                        }
+                        if (station?.default_prep_time) forcedPrepDuration = station.default_prep_time;
                     }
 
+                    const elapsedMinutes = Math.floor((now.getTime() - new Date(order.createdAt).getTime()) / 60000);
                     const updatedPrepTimeMinutes = forcedPrepDuration + elapsedMinutes;
                     const etaFormatted = new Date(now.getTime() + forcedPrepDuration * 60000).toISOString();
 
@@ -377,8 +357,6 @@ export const useKDSStore = create<KDSState>()(
 
                     if (isOnline) {
                         emitEvent('kitchen.prep_time_set', eventPayload, { idempotencyKey });
-
-                        // Requirement 12: Uber Direct Sync
                         if (order.order_source === 'UBER_DIRECT') {
                             emitEvent('uber.order.accepted', {
                                 external_order_id: order.external_order_id,
@@ -396,7 +374,7 @@ export const useKDSStore = create<KDSState>()(
                             ...state.orders,
                             [orderId]: {
                                 ...order,
-                                stage: 'FIRED',
+                                stage: 'ACCEPTED',
                                 stageStartedAt: now.toISOString(),
                                 prepTimeMinutes: updatedPrepTimeMinutes,
                                 estimatedReadyTime: etaFormatted,
@@ -423,10 +401,7 @@ export const useKDSStore = create<KDSState>()(
                     };
 
                     set((state) => ({
-                        orders: {
-                            ...state.orders,
-                            [orderId]: fulfilledOrder
-                        }
+                        orders: { ...state.orders, [orderId]: fulfilledOrder }
                     }));
 
                     const idempotencyKey = `fulfill-${orderId}`;
@@ -440,14 +415,8 @@ export const useKDSStore = create<KDSState>()(
                         set((state) => {
                             const newOrders = { ...state.orders };
                             delete newOrders[orderId];
-
                             const { limit } = state.historySettings;
-
-                            // Keep last X fulfilled orders for history (default 20)
-                            // Remove any existing entry for this order first, THEN prepend the new one
-                            const newFulfilled = [fulfilledOrder, ...state.fulfilledOrders.filter(o => o.id !== orderId)]
-                                .slice(0, limit);
-
+                            const newFulfilled = [fulfilledOrder, ...state.fulfilledOrders.filter(o => o.id !== orderId)].slice(0, limit);
                             return {
                                 orders: newOrders,
                                 fulfilledOrders: newFulfilled,
@@ -462,10 +431,12 @@ export const useKDSStore = create<KDSState>()(
                     const order = state.orders[orderId];
                     if (!order) return state;
 
-                    const stages: KitchenStage[] = ['NEW', 'FIRED', 'READY', 'FULFILLED'];
-                    const currentIndex = stages.indexOf(order.stage);
-                    const nextStage = stages[currentIndex + 1];
-
+                    const stages: KitchenStage[] = ['NEW', 'ACCEPTED', 'FIRED', 'READY', 'FULFILLED'];
+                    let nextIndex = stages.indexOf(order.stage) + 1;
+                    if (order.stage === 'NEW' || order.stage === 'ACCEPTED') {
+                        nextIndex = stages.indexOf('FIRED');
+                    }
+                    const nextStage = stages[nextIndex];
                     if (!nextStage) return state;
 
                     const now = new Date().toISOString();
@@ -477,13 +448,6 @@ export const useKDSStore = create<KDSState>()(
 
                     const stageHistory = [...(order.stageHistory || []), prevStageEntry];
                     const idempotencyKey = `advance-${orderId}-${new Date(now).getTime()}`;
-
-                    let updates: Partial<KDSOrder> = {
-                        stage: nextStage,
-                        stageStartedAt: now,
-                        stageHistory,
-                        isPendingSync: !isOnline,
-                    };
 
                     const eventPayload = {
                         orderId,
@@ -504,7 +468,10 @@ export const useKDSStore = create<KDSState>()(
                             ...state.orders,
                             [orderId]: {
                                 ...order,
-                                ...updates,
+                                stage: nextStage,
+                                stageStartedAt: now,
+                                stageHistory,
+                                isPendingSync: !isOnline,
                             },
                         },
                     };
@@ -515,41 +482,28 @@ export const useKDSStore = create<KDSState>()(
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
-
                     return {
                         orders: {
                             ...state.orders,
-                            [orderId]: {
-                                ...order,
-                                isDelayed: true,
-                                delayReason: reason,
-                            },
+                            [orderId]: { ...order, isDelayed: true, delayReason: reason },
                         },
                     };
                 }),
 
-            delayOrder: (orderId: string, additionalMinutes: number, role: KDSRole, reason?: string) => {
-                if (!canDelayOrder(role)) return;
-
+            delayOrder: (orderId, additionalMinutes, role, reason) => {
+                if (role && !canDelayOrder(role)) return;
                 const { isOnline, queueAction } = get();
-
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
 
                     const now = new Date().toISOString();
                     const willUpdateGlobal = state.station_delay_affects_global_eta;
-
                     const newTotalPrepTime = (order.prepTimeMinutes || 0) + (willUpdateGlobal ? additionalMinutes : 0);
                     const newETA = willUpdateGlobal ? calculateETA(order.createdAt, newTotalPrepTime) : order.estimatedReadyTime;
                     const idempotencyKey = `delay-${orderId}-${new Date(now).getTime()}`;
 
-                    const delayEntry = {
-                        minutes: additionalMinutes,
-                        reason,
-                        timestamp: now,
-                    };
-
+                    const delayEntry = { minutes: additionalMinutes, reason, timestamp: now };
                     const eventPayload = {
                         orderId,
                         orderNumber: order.orderNumber,
@@ -564,8 +518,6 @@ export const useKDSStore = create<KDSState>()(
 
                     if (isOnline) {
                         emitEvent('order.delayed', eventPayload, { idempotencyKey });
-
-                        // Requirement 12: Sync ETA updates back to Uber Direct
                         if (order.order_source === 'UBER_DIRECT') {
                             emitEvent('uber.order.eta_updated', {
                                 external_order_id: order.external_order_id,
@@ -596,19 +548,15 @@ export const useKDSStore = create<KDSState>()(
             },
 
             cancelOrder: (orderId, role) => {
-                if (!canCancelOrder(role)) return;
+                if (role && !canCancelOrder(role)) return;
                 const { isOnline, queueAction } = get();
-
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
 
+                    const now = new Date().toISOString();
                     const idempotencyKey = `cancel-${orderId}`;
-                    const eventPayload = {
-                        orderId,
-                        role,
-                        timestamp: new Date().toISOString()
-                    };
+                    const eventPayload = { orderId, role, timestamp: now };
 
                     if (isOnline) {
                         emitEvent('order.cancelled', eventPayload, { idempotencyKey });
@@ -626,20 +574,20 @@ export const useKDSStore = create<KDSState>()(
             },
 
             overrideStage: (orderId, stage, role) => {
-                if (!canOverrideStage(role)) return;
+                if (role && !canOverrideStage(role)) return;
                 get().updateOrderStage(orderId, stage);
             },
 
             incrementPrepTime: (orderId, minutes = 5) => {
                 const { isOnline, queueAction } = get();
-
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order || order.stage === 'READY') return state;
 
                     const incrementedPrepTime = (order.prepTimeMinutes || 0) + minutes;
                     const newETA = calculateETA(order.createdAt, incrementedPrepTime);
-                    const idempotencyKey = `increment-${orderId}-${new Date().getTime()}`;
+                    const now = new Date().toISOString();
+                    const idempotencyKey = `increment-${orderId}-${Date.now()}`;
 
                     const eventPayload = {
                         orderId,
@@ -649,7 +597,7 @@ export const useKDSStore = create<KDSState>()(
                         additionalMinutes: minutes,
                         totalPrepMinutes: incrementedPrepTime,
                         newEstimatedReadyTime: newETA,
-                        updatedAt: new Date().toISOString()
+                        updatedAt: now
                     };
 
                     if (isOnline) {
@@ -681,9 +629,7 @@ export const useKDSStore = create<KDSState>()(
                     const logEntry = { channel, message, sentAt: now, sentBy: 'KDS_SYSTEM' };
                     const idempotencyKey = `notification-${orderId}-${now}`;
 
-                    emitEvent('order.customer_notification', {
-                        orderId, channel, message, sentAt: now
-                    }, { idempotencyKey });
+                    emitEvent('order.customer_notification', { orderId, channel, message, sentAt: now }, { idempotencyKey });
 
                     return {
                         orders: {
@@ -697,23 +643,20 @@ export const useKDSStore = create<KDSState>()(
                 });
             },
 
-            setOnlineStatus: (status: boolean) => {
+            setOnlineStatus: (status) => {
                 const wasOffline = !get().isOnline;
                 set({ isOnline: status });
-
-                if (status && wasOffline) {
-                    get().replayQueuedActions();
-                }
+                if (status && wasOffline) get().replayQueuedActions();
             },
 
-            toggleHold: (orderId: string) => {
+            toggleHold: (orderId) => {
                 const { isOnline, queueAction } = get();
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
 
                     const newHeldState = !order.isHeld;
-                    const idempotencyKey = `hold-${orderId}-${new Date().getTime()}`;
+                    const idempotencyKey = `hold-${orderId}-${Date.now()}`;
 
                     if (isOnline) {
                         emitEvent(newHeldState ? 'order.held' : 'order.resumed', { orderId }, { idempotencyKey });
@@ -734,8 +677,6 @@ export const useKDSStore = create<KDSState>()(
                 const { pendingActions } = get();
                 if (pendingActions.length === 0) return;
 
-                console.log(`📡 Reconnecting: Replaying ${pendingActions.length} queued actions...`);
-
                 pendingActions.forEach(action => {
                     const { idempotencyKey, ...payload } = action.payload;
                     emitEvent(action.type, {
@@ -746,7 +687,6 @@ export const useKDSStore = create<KDSState>()(
                 });
 
                 set({ pendingActions: [] });
-
                 set((state) => {
                     const updatedOrders = { ...state.orders };
                     Object.keys(updatedOrders).forEach(id => {
@@ -758,11 +698,10 @@ export const useKDSStore = create<KDSState>()(
 
             recallOrder: () => {
                 const { lastRemovedOrder } = get();
-                if (!lastRemovedOrder) return;
-                get().recallFulfilledOrder(lastRemovedOrder.id);
+                if (lastRemovedOrder) get().recallFulfilledOrder(lastRemovedOrder.id);
             },
 
-            recallFulfilledOrder: (orderId: string) => {
+            recallFulfilledOrder: (orderId) => {
                 set((state) => {
                     const orderFromFulfilled = state.fulfilledOrders.find(o => o.id === orderId);
                     const orderFromRemoved = state.lastRemovedOrder?.id === orderId ? state.lastRemovedOrder : null;
@@ -800,22 +739,15 @@ export const useKDSStore = create<KDSState>()(
                 set((state) => {
                     const { expiryMinutes } = state.historySettings;
                     const cutoff = new Date(Date.now() - expiryMinutes * 60000);
-
-                    const freshFulfilled = state.fulfilledOrders.filter(order => {
-                        const fulfilledAt = new Date(order.updatedAt);
-                        return fulfilledAt > cutoff;
-                    });
-
+                    const freshFulfilled = state.fulfilledOrders.filter(order => new Date(order.updatedAt) > cutoff);
                     if (freshFulfilled.length === state.fulfilledOrders.length) return state;
-
                     return { fulfilledOrders: freshFulfilled };
                 });
             },
 
-            injectStressTestOrders: (count: number) => {
+            injectStressTestOrders: (count) => {
                 const generated: KDSOrder[] = [];
                 const now = new Date();
-
                 for (let i = 0; i < count; i++) {
                     generated.push({
                         id: `stress-${i}`,
@@ -824,39 +756,42 @@ export const useKDSStore = create<KDSState>()(
                         fulfillment_type: i % 3 === 0 ? 'STORE_DELIVERY' : 'PICKUP',
                         createdAt: new Date(now.getTime() - Math.random() * 1000000).toISOString(),
                         updatedAt: now.toISOString(),
-                        stage: (['ACCEPTED', 'PREPARATION', 'READY'])[i % 3] as KitchenStage,
+                        stage: (i % 4 === 0 ? 'NEW' : 'FIRED') as KitchenStage,
                         prepTimeMinutes: 10 + (i % 20),
-                        estimatedReadyTime: now.toISOString(),
+                        estimatedReadyTime: new Date(now.getTime() + (10 + (i % 20)) * 60000).toISOString(),
                         trackingToken: `stress-${i}`,
-                        isDelayed: false,
+                        customerName: i % 2 === 0 ? 'John Doe' : 'Jane Smith',
+                        isDelayed: i % 10 === 0,
                         items: [
                             {
                                 id: `item-${i}-1`,
-                                name: `Stress Burger ${i}`,
-                                quantity: 1 + (i % 5),
+                                name: i % 3 === 0 ? 'Classic Cheeseburger' : i % 3 === 1 ? 'Spicy Chicken Sandwich' : 'Vegan Garden Salad',
+                                quantity: 1 + (i % 3),
                                 modifiers: [],
-                                categoryId: 'cat-pizza'
+                                categoryId: 'cat-1'
                             }
                         ]
                     });
                 }
-
                 get().batchUpdateOrders(generated);
             },
-        }), {
-        name: 'zyappy-kds-device-settings',
-        partialize: (state) => ({
-            enable_station_routing: state.enable_station_routing,
-            allow_item_station_override: state.allow_item_station_override,
-            kds_stations: state.kds_stations,
-            category_station_map: state.category_station_map,
-            item_station_map: state.item_station_map,
-            selectedStationId: state.selectedStationId,
-            master_screen_view_mode: state.master_screen_view_mode,
-            order_ready_rule: state.order_ready_rule,
-            sound_scope: state.sound_scope,
-            station_prep_time_override_enabled: state.station_prep_time_override_enabled,
-            station_delay_affects_global_eta: state.station_delay_affects_global_eta,
-            station_print_mode: state.station_print_mode,
         }),
-    }));
+        {
+            name: 'zyappy-kds-device-settings',
+            partialize: (state) => ({
+                enable_station_routing: state.enable_station_routing,
+                allow_item_station_override: state.allow_item_station_override,
+                kds_stations: state.kds_stations,
+                category_station_map: state.category_station_map,
+                item_station_map: state.item_station_map,
+                selectedStationId: state.selectedStationId,
+                master_screen_view_mode: state.master_screen_view_mode,
+                order_ready_rule: state.order_ready_rule,
+                sound_scope: state.sound_scope,
+                station_prep_time_override_enabled: state.station_prep_time_override_enabled,
+                station_delay_affects_global_eta: state.station_delay_affects_global_eta,
+                station_print_mode: state.station_print_mode,
+            }),
+        }
+    )
+);

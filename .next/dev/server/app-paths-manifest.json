@@ -2,6 +2,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/kds/master/page": "app/kds/master/page.js",
+  "/kds/status/page": "app/kds/status/page.js",
   "/page": "app/page.js",
   "/platform/brands/page": "app/platform/brands/page.js"
 }

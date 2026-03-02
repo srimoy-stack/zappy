@@ -19,7 +19,8 @@ const DEFAULT_SETTINGS = {
         ORDER_CANCELLED: true,
         ORDER_DELAYED: true,
         SLA_BREACH: true,
-        SLA_WARNING: true
+        SLA_WARNING: true,
+        BUMP_ORDER: true
     }
 };
 const STORAGE_KEY = 'zyappy_kds_sound_settings';
@@ -59,7 +60,8 @@ function useKDSSound() {
         ORDER_CANCELLED: '/sounds/alert.mp3',
         ORDER_DELAYED: '/sounds/alert.mp3',
         SLA_BREACH: '/sounds/breach.mp3',
-        SLA_WARNING: '/sounds/warning-beep.mp3'
+        SLA_WARNING: '/sounds/warning-beep.mp3',
+        BUMP_ORDER: '/sounds/confirm.mp3'
     };
     const playSound = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useKDSSound.useCallback[playSound]": (eventType, orderId)=>{
@@ -137,6 +139,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-x.js [app-client] (ecmascript) <export default as XCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/refresh-cw.js [app-client] (ecmascript) <export default as RefreshCw>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-check-big.js [app-client] (ecmascript) <export default as CheckCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$useKDSSound$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/kds/components/sound/useKDSSound.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
@@ -369,6 +372,30 @@ const SoundSettings = ()=>{
                                         fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
                                         lineNumber: 121,
                                         columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ToggleItem, {
+                                        Icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$triangle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertTriangle$3e$__["AlertTriangle"],
+                                        label: "SLA Warning",
+                                        active: settings.enabledEvents.SLA_WARNING,
+                                        onClick: ()=>toggleEvent('SLA_WARNING'),
+                                        onTest: ()=>playSound('SLA_WARNING'),
+                                        color: "text-yellow-500"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
+                                        lineNumber: 130,
+                                        columnNumber: 29
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ToggleItem, {
+                                        Icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"],
+                                        label: "Ticket Bump",
+                                        active: settings.enabledEvents.BUMP_ORDER,
+                                        onClick: ()=>toggleEvent('BUMP_ORDER'),
+                                        onTest: ()=>playSound('BUMP_ORDER'),
+                                        color: "text-blue-400"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
+                                        lineNumber: 139,
+                                        columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
@@ -389,12 +416,12 @@ const SoundSettings = ()=>{
                             children: "Local Persistence Active"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                            lineNumber: 133,
+                            lineNumber: 151,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                        lineNumber: 132,
+                        lineNumber: 150,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
@@ -432,12 +459,12 @@ const ToggleItem = ({ Icon, label, active, onClick, onTest, color })=>/*#__PURE_
                                     size: 14
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 179,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                                lineNumber: 160,
+                                lineNumber: 178,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -445,13 +472,13 @@ const ToggleItem = ({ Icon, label, active, onClick, onTest, color })=>/*#__PURE_
                                 children: label
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                                lineNumber: 163,
+                                lineNumber: 181,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                        lineNumber: 159,
+                        lineNumber: 177,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -460,18 +487,18 @@ const ToggleItem = ({ Icon, label, active, onClick, onTest, color })=>/*#__PURE_
                             className: `absolute top-0.5 w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 ${active ? 'right-0.5' : 'left-0.5'}`
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                            lineNumber: 166,
+                            lineNumber: 184,
                             columnNumber: 17
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                        lineNumber: 165,
+                        lineNumber: 183,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                lineNumber: 154,
+                lineNumber: 172,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -485,18 +512,18 @@ const ToggleItem = ({ Icon, label, active, onClick, onTest, color })=>/*#__PURE_
                     size: 14
                 }, void 0, false, {
                     fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                    lineNumber: 177,
+                    lineNumber: 195,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-                lineNumber: 169,
+                lineNumber: 187,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/sound/SoundSettings.tsx",
-        lineNumber: 153,
+        lineNumber: 171,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 _c1 = ToggleItem;
@@ -2051,8 +2078,6 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                 setStationPrintMode: state.setStationPrintMode
             })
     }["StationConfigModal.useKDSStore.useShallow"]));
-    const [newCategoryId, setNewCategoryId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
-    const [newItemName, setNewItemName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const getAllCategories = ()=>{
         const categories = new Set();
         Object.values(orders).forEach((order)=>{
@@ -2094,7 +2119,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                 onClick: onClose
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                lineNumber: 121,
+                lineNumber: 120,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2110,7 +2135,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                         children: "Station Routing Engine"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 126,
+                                        lineNumber: 125,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2118,13 +2143,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                         children: "Configure Order Flow & Filtering"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 126,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 125,
+                                lineNumber: 124,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2134,18 +2159,18 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 129,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 129,
+                                lineNumber: 128,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                        lineNumber: 124,
+                        lineNumber: 123,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2165,7 +2190,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         className: enable_station_routing ? 'text-emerald-500' : 'text-slate-500'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 138,
+                                                        lineNumber: 137,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2173,13 +2198,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Routing Engine"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 139,
+                                                        lineNumber: 138,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 137,
+                                                lineNumber: 136,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2189,18 +2214,18 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                     className: `inline-block h-3 w-3 transform rounded-full bg-white transition ${enable_station_routing ? 'translate-x-5' : 'translate-x-1'}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                    lineNumber: 145,
+                                                    lineNumber: 144,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 141,
+                                                lineNumber: 140,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 136,
+                                        lineNumber: 135,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2214,7 +2239,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         className: allow_item_station_override ? 'text-blue-500' : 'text-slate-500'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 150,
+                                                        lineNumber: 149,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2222,13 +2247,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Item Overrides"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 151,
+                                                        lineNumber: 150,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 149,
+                                                lineNumber: 148,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2238,18 +2263,18 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                     className: `inline-block h-3 w-3 transform rounded-full bg-white transition ${allow_item_station_override ? 'translate-x-5' : 'translate-x-1'}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 156,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 152,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 148,
+                                        lineNumber: 147,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2260,26 +2285,26 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                 size: 14
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 163,
                                                 columnNumber: 43
                                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings2$3e$__["Settings2"], {
                                                 size: 14
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 163,
                                                 columnNumber: 72
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             isEditMode ? 'Done Editing' : 'Edit Station List'
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 159,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 135,
+                                lineNumber: 134,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             !isEditMode ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2292,12 +2317,12 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                             children: "Select Active Display Station"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                            lineNumber: 172,
+                                            lineNumber: 171,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 171,
+                                        lineNumber: 170,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2315,12 +2340,12 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 size: 20
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 180,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                            lineNumber: 180,
+                                                            lineNumber: 179,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2330,7 +2355,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                     children: "Universal View"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 184,
+                                                                    lineNumber: 183,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2338,24 +2363,24 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                     children: "Full Board Filter"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 185,
+                                                                    lineNumber: 184,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                            lineNumber: 183,
+                                                            lineNumber: 182,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                    lineNumber: 179,
+                                                    lineNumber: 178,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 175,
+                                                lineNumber: 174,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             kds_stations.filter((s)=>s.active).map((station)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2369,7 +2394,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: station.station_name.charAt(0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 196,
+                                                                lineNumber: 195,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2379,7 +2404,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                         children: station.station_name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 200,
+                                                                        lineNumber: 199,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2390,36 +2415,36 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 201,
+                                                                        lineNumber: 200,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 199,
+                                                                lineNumber: 198,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 195,
+                                                        lineNumber: 194,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, station.station_id, false, {
                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 189,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 173,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 170,
+                                lineNumber: 169,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-8",
@@ -2438,7 +2463,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 className: "text-emerald-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 212,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -2446,13 +2471,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Station Deck"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 214,
+                                                                lineNumber: 213,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 211,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2468,7 +2493,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: idx + 1
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 220,
+                                                                                lineNumber: 219,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2487,7 +2512,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 className: "flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-[10px] text-white font-black uppercase focus:outline-none focus:border-blue-500 transition-colors"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 221,
+                                                                                lineNumber: 220,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2505,13 +2530,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: station.active ? 'ON' : 'OFF'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 231,
+                                                                                lineNumber: 230,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 219,
+                                                                        lineNumber: 218,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     station_prep_time_override_enabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2522,7 +2547,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "Default Prep:"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 244,
+                                                                                lineNumber: 243,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2541,7 +2566,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 className: "w-16 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-[10px] text-white font-black focus:outline-none focus:border-blue-500"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 245,
+                                                                                lineNumber: 244,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2549,30 +2574,30 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "Min"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 255,
+                                                                                lineNumber: 254,
                                                                                 columnNumber: 57
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 243,
+                                                                        lineNumber: 242,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, station.station_id, true, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 217,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 216,
+                                                        lineNumber: 215,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 210,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2586,7 +2611,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 className: "text-blue-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 265,
+                                                                lineNumber: 264,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -2594,13 +2619,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Category Routing"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 266,
+                                                                lineNumber: 265,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 264,
+                                                        lineNumber: 263,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2617,7 +2642,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "Source"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 272,
+                                                                                lineNumber: 271,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2625,18 +2650,18 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "Target Node"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 273,
+                                                                                lineNumber: 272,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 271,
+                                                                        lineNumber: 270,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 270,
+                                                                    lineNumber: 269,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2651,12 +2676,12 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                         children: catId
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                        lineNumber: 279,
+                                                                                        lineNumber: 278,
                                                                                         columnNumber: 85
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                    lineNumber: 279,
+                                                                                    lineNumber: 278,
                                                                                     columnNumber: 57
                                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2673,45 +2698,45 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                                 children: station.station_name
                                                                                             }, station.station_id, false, {
                                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                                lineNumber: 287,
+                                                                                                lineNumber: 286,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                        lineNumber: 281,
+                                                                                        lineNumber: 280,
                                                                                         columnNumber: 61
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                    lineNumber: 280,
+                                                                                    lineNumber: 279,
                                                                                     columnNumber: 57
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             ]
                                                                         }, catId, true, {
                                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                            lineNumber: 278,
+                                                                            lineNumber: 277,
                                                                             columnNumber: 53
                                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 276,
+                                                                    lineNumber: 275,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                            lineNumber: 269,
+                                                            lineNumber: 268,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 267,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 263,
+                                                lineNumber: 262,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2725,7 +2750,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 className: "text-amber-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 300,
+                                                                lineNumber: 299,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -2733,13 +2758,13 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Item Overrides"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 301,
+                                                                lineNumber: 300,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 299,
+                                                        lineNumber: 298,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2756,7 +2781,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "SKU"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 307,
+                                                                                lineNumber: 306,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2764,18 +2789,18 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                 children: "Node"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                lineNumber: 308,
+                                                                                lineNumber: 307,
                                                                                 columnNumber: 53
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                        lineNumber: 306,
+                                                                        lineNumber: 305,
                                                                         columnNumber: 49
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 305,
+                                                                    lineNumber: 304,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2790,12 +2815,12 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                         children: itemName
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                        lineNumber: 314,
+                                                                                        lineNumber: 313,
                                                                                         columnNumber: 85
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                    lineNumber: 314,
+                                                                                    lineNumber: 313,
                                                                                     columnNumber: 57
                                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2820,7 +2845,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                                 children: "DEFAULT"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                                lineNumber: 325,
+                                                                                                lineNumber: 324,
                                                                                                 columnNumber: 65
                                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                                             kds_stations.filter((s)=>s.active).map((station)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2828,52 +2853,52 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                                                     children: station.station_name
                                                                                                 }, station.station_id, false, {
                                                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                                    lineNumber: 327,
+                                                                                                    lineNumber: 326,
                                                                                                     columnNumber: 69
                                                                                                 }, ("TURBOPACK compile-time value", void 0)))
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                        lineNumber: 316,
+                                                                                        lineNumber: 315,
                                                                                         columnNumber: 61
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                                    lineNumber: 315,
+                                                                                    lineNumber: 314,
                                                                                     columnNumber: 57
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             ]
                                                                         }, itemName, true, {
                                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                            lineNumber: 313,
+                                                                            lineNumber: 312,
                                                                             columnNumber: 53
                                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 311,
+                                                                    lineNumber: 310,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 303,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 303,
+                                                        lineNumber: 302,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 298,
+                                                lineNumber: 297,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 210,
+                                        lineNumber: 209,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2887,7 +2912,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Terminal Visibility"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 341,
+                                                        lineNumber: 340,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2900,7 +2925,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Monitor Mode (All Items)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 347,
+                                                                lineNumber: 346,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2908,19 +2933,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Line Mode (Station Only)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 348,
+                                                                lineNumber: 347,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 341,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 340,
+                                                lineNumber: 339,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2931,7 +2956,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Completion Rule"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 352,
+                                                        lineNumber: 351,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2944,7 +2969,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Auto-Ready (All Done)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 358,
+                                                                lineNumber: 357,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2952,19 +2977,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Expo Gate (Manual)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 359,
+                                                                lineNumber: 358,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 353,
+                                                        lineNumber: 352,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 351,
+                                                lineNumber: 350,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2975,7 +3000,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Sound Alert Scope"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 363,
+                                                        lineNumber: 362,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2988,7 +3013,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Station-Only Alerts (Filtered)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 369,
+                                                                lineNumber: 368,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2996,19 +3021,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Global Alerts (All Screens)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 370,
+                                                                lineNumber: 369,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 364,
+                                                        lineNumber: 363,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 362,
+                                                lineNumber: 361,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3019,7 +3044,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Station Delay Rule"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 374,
+                                                        lineNumber: 373,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -3032,7 +3057,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Propagate Delay to Global ETA"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 380,
+                                                                lineNumber: 379,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3040,19 +3065,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Local Station Delay Only"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 381,
+                                                                lineNumber: 380,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 375,
+                                                        lineNumber: 374,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 373,
+                                                lineNumber: 372,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3063,7 +3088,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Printing Strategy"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 385,
+                                                        lineNumber: 384,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -3076,7 +3101,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Print By Station (Relevant Only)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 391,
+                                                                lineNumber: 390,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3084,19 +3109,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Print Full Order (Master Copy)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 392,
+                                                                lineNumber: 391,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 386,
+                                                        lineNumber: 385,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 384,
+                                                lineNumber: 383,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3107,7 +3132,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Station Prep Overrides"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 395,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3118,7 +3143,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                 children: "Enable Per-Station Timers"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 398,
+                                                                lineNumber: 397,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3128,36 +3153,36 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                                     className: `inline-block h-3 w-3 transform rounded-full bg-white transition ${station_prep_time_override_enabled ? 'translate-x-5' : 'translate-x-1'}`
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                    lineNumber: 403,
+                                                                    lineNumber: 402,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                                lineNumber: 399,
+                                                                lineNumber: 398,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 397,
+                                                        lineNumber: 396,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 394,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 339,
+                                        lineNumber: 338,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 209,
+                                lineNumber: 208,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3171,7 +3196,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                 className: "text-emerald-500 shrink-0"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 413,
+                                                lineNumber: 412,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3181,7 +3206,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Binding Status"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 415,
+                                                        lineNumber: 414,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3192,19 +3217,19 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 416,
+                                                        lineNumber: 415,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 414,
+                                                lineNumber: 413,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 412,
+                                        lineNumber: 411,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3215,7 +3240,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                 className: "text-blue-500 shrink-0"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 420,
+                                                lineNumber: 419,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3225,7 +3250,7 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: "Routing Mode"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 422,
+                                                        lineNumber: 421,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3233,31 +3258,31 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                                                         children: enable_station_routing ? "Dynamic Cluster Routing" : "Universal Feed"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                        lineNumber: 423,
+                                                        lineNumber: 422,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                                lineNumber: 421,
+                                                lineNumber: 420,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                        lineNumber: 419,
+                                        lineNumber: 418,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                                lineNumber: 411,
+                                lineNumber: 410,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                        lineNumber: 134,
+                        lineNumber: 133,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3268,28 +3293,28 @@ const StationConfigModal = ({ isOpen, onClose })=>{
                             children: "Confirm Changes"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                            lineNumber: 430,
+                            lineNumber: 429,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                        lineNumber: 429,
+                        lineNumber: 428,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-                lineNumber: 123,
+                lineNumber: 122,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/modals/StationConfigModal.tsx",
-        lineNumber: 120,
+        lineNumber: 119,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0)), document.body);
 };
-_s(StationConfigModal, "YTj775oM/EcEf9z99k8ti9JhGWU=", false, function() {
+_s(StationConfigModal, "YnwXbIJhs+A13NAht6AXY71Yxj8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"]
     ];
@@ -5752,7 +5777,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["memo"])(_c = _s(({ orderId })=>{
     _s();
-    const { order, enable_station_routing, selectedStationId, category_station_map, allow_item_station_override, item_station_map, master_screen_view_mode, station_print_mode } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2f$shallow$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useShallow"])({
+    const { order, enable_station_routing, selectedStationId, category_station_map, allow_item_station_override, item_station_map, master_screen_view_mode } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2f$shallow$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useShallow"])({
         "OrderTicket.useKDSStore.useShallow": (state)=>({
                 order: state.orders[orderId],
                 enable_station_routing: state.enable_station_routing,
@@ -5760,8 +5785,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                 category_station_map: state.category_station_map,
                 allow_item_station_override: state.allow_item_station_override,
                 item_station_map: state.item_station_map,
-                master_screen_view_mode: state.master_screen_view_mode,
-                station_print_mode: state.station_print_mode
+                master_screen_view_mode: state.master_screen_view_mode
             })
     }["OrderTicket.useKDSStore.useShallow"]));
     const [isDetailModalOpen, setIsDetailModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -5858,7 +5882,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                 children: order.order_source
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 135,
+                                                lineNumber: 133,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5866,7 +5890,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                 children: order.fulfillment_type.replace('_', ' ')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 136,
+                                                lineNumber: 134,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             order.isPriority && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5874,13 +5898,13 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                 children: "RUSH"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 138,
+                                                lineNumber: 136,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 134,
+                                        lineNumber: 132,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -5891,13 +5915,13 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 141,
+                                        lineNumber: 139,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 133,
+                                lineNumber: 131,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$TicketTimer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TicketTimer"], {
@@ -5906,13 +5930,13 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                 stageStartedAt: order.stageStartedAt
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 145,
+                                lineNumber: 143,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 132,
+                        lineNumber: 130,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5926,7 +5950,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         children: item.isCompleted ? '✓' : item.quantity
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 159,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5937,7 +5961,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 165,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             item.variant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5945,7 +5969,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                 children: item.variant
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 173,
+                                                lineNumber: 171,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             item.modifiers.length > 0 && !item.isCompleted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5958,7 +5982,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                                 children: "+"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                                lineNumber: 183,
+                                                                lineNumber: 181,
                                                                 columnNumber: 49
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             mod.name,
@@ -5966,29 +5990,29 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                                         ]
                                                     }, idx, true, {
                                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 180,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 178,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 165,
+                                        lineNumber: 163,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, item.id, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 155,
+                                lineNumber: 153,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 153,
+                        lineNumber: 151,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     ((order.allergies?.length || 0) > 0 || order.notes) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6002,7 +6026,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         children: "⚠ ALLERGY"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 199,
+                                        lineNumber: 197,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6010,13 +6034,13 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         children: order.allergies?.join(', ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 200,
+                                        lineNumber: 198,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 198,
+                                lineNumber: 196,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             order.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6027,7 +6051,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         children: "NOTE"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 205,
+                                        lineNumber: 203,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6035,19 +6059,19 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                         children: order.notes
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 206,
+                                        lineNumber: 204,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 204,
+                                lineNumber: 202,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 196,
+                        lineNumber: 194,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6062,7 +6086,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                 children: "Details"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 214,
+                                lineNumber: 212,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -6073,12 +6097,12 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 225,
+                                    lineNumber: 223,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 220,
+                                lineNumber: 218,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -6088,19 +6112,19 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                                 children: isProcessing ? '...' : order.stage === 'READY' ? 'BUMP' : order.stage === 'FIRED' ? 'FULFILL' : order.stage === 'RECALLED' ? 'REDO' : order.stage === 'NEW' ? 'FIRE' : 'NEXT'
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 227,
+                                lineNumber: 225,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 213,
+                        lineNumber: 211,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 128,
+                lineNumber: 126,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$OrderDetailModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["OrderDetailModal"], {
@@ -6109,7 +6133,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                 onClose: ()=>setIsDetailModalOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 245,
+                lineNumber: 243,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$DelayOrderModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DelayOrderModal"], {
@@ -6119,7 +6143,7 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                 orderNumber: order.orderNumber
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 251,
+                lineNumber: 249,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$CustomerMessagingModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CustomerMessagingModal"], {
@@ -6130,18 +6154,18 @@ const OrderTicket = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$proj
                 role: authRole || 'KDS_USER'
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 258,
+                lineNumber: 256,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true);
-}, "zjZvBw2wpUTyjNPX8Y3G3NTqtpQ=", false, function() {
+}, "jJ52DknYEPpiY/OGpkyOyQgjH7Q=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$useKDSSound$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSSound"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$AuthProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
     ];
-})), "zjZvBw2wpUTyjNPX8Y3G3NTqtpQ=", false, function() {
+})), "jJ52DknYEPpiY/OGpkyOyQgjH7Q=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$useKDSSound$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSSound"],

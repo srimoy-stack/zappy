@@ -1027,55 +1027,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             expiryMinutes: 60
         },
         lastRemovedOrder: null,
-        toggleItemCompletion: (orderId, itemId)=>{
-            set((state)=>{
-                const order = state.orders[orderId];
-                if (!order) return state;
-                const updatedItems = order.items.map((item)=>item.id === itemId ? {
-                        ...item,
-                        isCompleted: !item.isCompleted
-                    } : item);
-                const isAllComplete = updatedItems.every((i)=>i.isCompleted);
-                let newStage = order.stage;
-                const now = new Date().toISOString();
-                let stageHistory = order.stageHistory || [];
-                // Automatically move to READY if ALL_STATIONS_COMPLETE rule is active
-                if (isAllComplete && state.order_ready_rule === 'ALL_STATIONS_COMPLETE' && order.stage === 'FIRED') {
-                    newStage = 'READY';
-                    stageHistory = [
-                        ...stageHistory,
-                        {
-                            stage: order.stage,
-                            startedAt: order.stageStartedAt || order.createdAt,
-                            completedAt: now
-                        }
-                    ];
-                    // Emit event for auto-advance
-                    if (state.isOnline) {
-                        (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.stage_advanced', {
-                            orderId,
-                            orderNumber: order.orderNumber,
-                            previousStage: order.stage,
-                            newStage: 'READY',
-                            timestamp: now,
-                            reason: 'AUTO_COMPLETE_ALL_ITEMS'
-                        });
-                    }
-                }
-                return {
-                    orders: {
-                        ...state.orders,
-                        [orderId]: {
-                            ...order,
-                            items: updatedItems,
-                            stage: newStage,
-                            stageStartedAt: newStage !== order.stage ? now : order.stageStartedAt,
-                            stageHistory
-                        }
-                    }
-                };
-            });
-        },
         // Default Routing Settings
         enable_station_routing: false,
         allow_item_station_override: true,
@@ -1156,13 +1107,61 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         setStationPrintMode: (mode)=>set({
                 station_print_mode: mode
             }),
+        toggleItemCompletion: (orderId, itemId)=>{
+            set((state)=>{
+                const order = state.orders[orderId];
+                if (!order) return state;
+                const now = new Date().toISOString();
+                const updatedItems = order.items.map((item)=>item.id === itemId ? {
+                        ...item,
+                        isCompleted: !item.isCompleted
+                    } : item);
+                const allCompleted = updatedItems.every((i)=>i.isCompleted);
+                const shouldBumpToReady = allCompleted && order.stage === 'FIRED';
+                let nextStage = order.stage;
+                let stageHistory = order.stageHistory || [];
+                let stageStartedAt = order.stageStartedAt;
+                if (shouldBumpToReady) {
+                    nextStage = 'READY';
+                    stageStartedAt = now;
+                    stageHistory = [
+                        ...stageHistory,
+                        {
+                            stage: order.stage,
+                            startedAt: order.stageStartedAt || order.createdAt,
+                            completedAt: now
+                        }
+                    ];
+                    if (state.isOnline) {
+                        (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.stage_advanced', {
+                            orderId,
+                            orderNumber: order.orderNumber,
+                            previousStage: order.stage,
+                            newStage: 'READY',
+                            timestamp: now,
+                            reason: 'AUTO_COMPLETE_ALL_ITEMS'
+                        });
+                    }
+                }
+                return {
+                    orders: {
+                        ...state.orders,
+                        [orderId]: {
+                            ...order,
+                            items: updatedItems,
+                            stage: nextStage,
+                            stageStartedAt,
+                            stageHistory
+                        }
+                    }
+                };
+            });
+        },
         addOrUpdateOrder: (order)=>set((state)=>{
-                // Check by internal ID or External ID
                 const internalId = order.id;
                 const idByExternal = order.external_order_id ? state.externalOrderMap[order.external_order_id] : null;
                 const targetId = idByExternal || internalId;
                 const existing = state.orders[targetId];
-                // Idempotency check: Ignore older or duplicate updates
                 if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
                     return state;
                 }
@@ -1219,7 +1218,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 const newExternalMap = {
                     ...state.externalOrderMap
                 };
-                if (order?.external_order_id) {
+                if (order.external_order_id) {
                     delete newExternalMap[order.external_order_id];
                 }
                 delete newOrders[orderId];
@@ -1245,12 +1244,9 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         autoInitNetworkListener: ()=>{
             if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
             ;
-            const updateStatus = ()=>{
-                get().setOnlineStatus(navigator.onLine);
-            };
+            const updateStatus = ()=>get().setOnlineStatus(navigator.onLine);
             window.addEventListener('online', updateStatus);
             window.addEventListener('offline', updateStatus);
-            // Initial check
             updateStatus();
         },
         updateOrderStage: (orderId, stage)=>{
@@ -1268,15 +1264,11 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 if (stage === 'FIRED') {
                     const prepTime = order.prepTimeMinutes || 10;
                     const createdAt = new Date(order.createdAt);
-                    createdAt.setMinutes(createdAt.getMinutes() + prepTime);
+                    const estimatedTime = new Date(createdAt.getTime() + prepTime * 60000);
                     updates = {
                         ...updates,
                         prepTimeMinutes: prepTime,
-                        estimatedReadyTime: createdAt.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: false
-                        })
+                        estimatedReadyTime: estimatedTime.toISOString()
                     };
                 }
                 const eventPayload = {
@@ -1311,17 +1303,14 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             set((state)=>{
                 const order = state.orders[orderId];
                 if (!order || order.stage !== 'NEW') return state;
-                const { station_prep_time_override_enabled, kds_stations, selectedStationId } = state;
                 const now = new Date();
-                const created = new Date(order.createdAt);
-                const elapsedMinutes = Math.floor((now.getTime() - created.getTime()) / 60000);
+                const { station_prep_time_override_enabled, kds_stations, selectedStationId } = state;
                 let forcedPrepDuration = 10;
                 if (station_prep_time_override_enabled && selectedStationId !== 'ALL') {
                     const station = kds_stations.find((s)=>s.station_id === selectedStationId);
-                    if (station?.default_prep_time) {
-                        forcedPrepDuration = station.default_prep_time;
-                    }
+                    if (station?.default_prep_time) forcedPrepDuration = station.default_prep_time;
                 }
+                const elapsedMinutes = Math.floor((now.getTime() - new Date(order.createdAt).getTime()) / 60000);
                 const updatedPrepTimeMinutes = forcedPrepDuration + elapsedMinutes;
                 const etaFormatted = new Date(now.getTime() + forcedPrepDuration * 60000).toISOString();
                 const prevStageEntry = {
@@ -1347,7 +1336,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('kitchen.prep_time_set', eventPayload, {
                         idempotencyKey
                     });
-                    // Requirement 12: Uber Direct Sync
                     if (order.order_source === 'UBER_DIRECT') {
                         (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('uber.order.accepted', {
                             external_order_id: order.external_order_id,
@@ -1369,7 +1357,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                         ...state.orders,
                         [orderId]: {
                             ...order,
-                            stage: 'FIRED',
+                            stage: 'ACCEPTED',
                             stageStartedAt: now.toISOString(),
                             prepTimeMinutes: updatedPrepTimeMinutes,
                             estimatedReadyTime: etaFormatted,
@@ -1413,8 +1401,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                         };
                         delete newOrders[orderId];
                         const { limit } = state.historySettings;
-                        // Keep last X fulfilled orders for history (default 20)
-                        // Remove any existing entry for this order first, THEN prepend the new one
                         const newFulfilled = [
                             fulfilledOrder,
                             ...state.fulfilledOrders.filter((o)=>o.id !== orderId)
@@ -1433,12 +1419,16 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 if (!order) return state;
                 const stages = [
                     'NEW',
+                    'ACCEPTED',
                     'FIRED',
                     'READY',
                     'FULFILLED'
                 ];
-                const currentIndex = stages.indexOf(order.stage);
-                const nextStage = stages[currentIndex + 1];
+                let nextIndex = stages.indexOf(order.stage) + 1;
+                if (order.stage === 'NEW' || order.stage === 'ACCEPTED') {
+                    nextIndex = stages.indexOf('FIRED');
+                }
+                const nextStage = stages[nextIndex];
                 if (!nextStage) return state;
                 const now = new Date().toISOString();
                 const prevStageEntry = {
@@ -1451,12 +1441,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     prevStageEntry
                 ];
                 const idempotencyKey = `advance-${orderId}-${new Date(now).getTime()}`;
-                let updates = {
-                    stage: nextStage,
-                    stageStartedAt: now,
-                    stageHistory,
-                    isPendingSync: !isOnline
-                };
                 const eventPayload = {
                     orderId,
                     orderNumber: order.orderNumber,
@@ -1479,7 +1463,10 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                         ...state.orders,
                         [orderId]: {
                             ...order,
-                            ...updates
+                            stage: nextStage,
+                            stageStartedAt: now,
+                            stageHistory,
+                            isPendingSync: !isOnline
                         }
                     }
                 };
@@ -1500,7 +1487,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 };
             }),
         delayOrder: (orderId, additionalMinutes, role, reason)=>{
-            if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canDelayOrder"])(role)) return;
+            if (role && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canDelayOrder"])(role)) return;
             const { isOnline, queueAction } = get();
             set((state)=>{
                 const order = state.orders[orderId];
@@ -1530,7 +1517,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.delayed', eventPayload, {
                         idempotencyKey
                     });
-                    // Requirement 12: Sync ETA updates back to Uber Direct
                     if (order.order_source === 'UBER_DIRECT') {
                         (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('uber.order.eta_updated', {
                             external_order_id: order.external_order_id,
@@ -1567,16 +1553,17 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             });
         },
         cancelOrder: (orderId, role)=>{
-            if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canCancelOrder"])(role)) return;
+            if (role && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canCancelOrder"])(role)) return;
             const { isOnline, queueAction } = get();
             set((state)=>{
                 const order = state.orders[orderId];
                 if (!order) return state;
+                const now = new Date().toISOString();
                 const idempotencyKey = `cancel-${orderId}`;
                 const eventPayload = {
                     orderId,
                     role,
-                    timestamp: new Date().toISOString()
+                    timestamp: now
                 };
                 if (isOnline) {
                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('order.cancelled', eventPayload, {
@@ -1603,7 +1590,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             });
         },
         overrideStage: (orderId, stage, role)=>{
-            if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canOverrideStage"])(role)) return;
+            if (role && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$kdsAccess$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["canOverrideStage"])(role)) return;
             get().updateOrderStage(orderId, stage);
         },
         incrementPrepTime: (orderId, minutes = 5)=>{
@@ -1613,7 +1600,8 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 if (!order || order.stage === 'READY') return state;
                 const incrementedPrepTime = (order.prepTimeMinutes || 0) + minutes;
                 const newETA = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$etaUtils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calculateETA"])(order.createdAt, incrementedPrepTime);
-                const idempotencyKey = `increment-${orderId}-${new Date().getTime()}`;
+                const now = new Date().toISOString();
+                const idempotencyKey = `increment-${orderId}-${Date.now()}`;
                 const eventPayload = {
                     orderId,
                     orderNumber: order.orderNumber,
@@ -1622,7 +1610,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     additionalMinutes: minutes,
                     totalPrepMinutes: incrementedPrepTime,
                     newEstimatedReadyTime: newETA,
-                    updatedAt: new Date().toISOString()
+                    updatedAt: now
                 };
                 if (isOnline) {
                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])('kitchen.prep_time_updated', eventPayload, {
@@ -1686,9 +1674,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             set({
                 isOnline: status
             });
-            if (status && wasOffline) {
-                get().replayQueuedActions();
-            }
+            if (status && wasOffline) get().replayQueuedActions();
         },
         toggleHold: (orderId)=>{
             const { isOnline, queueAction } = get();
@@ -1696,7 +1682,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 const order = state.orders[orderId];
                 if (!order) return state;
                 const newHeldState = !order.isHeld;
-                const idempotencyKey = `hold-${orderId}-${new Date().getTime()}`;
+                const idempotencyKey = `hold-${orderId}-${Date.now()}`;
                 if (isOnline) {
                     (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])(newHeldState ? 'order.held' : 'order.resumed', {
                         orderId
@@ -1724,7 +1710,6 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         replayQueuedActions: ()=>{
             const { pendingActions } = get();
             if (pendingActions.length === 0) return;
-            console.log(`📡 Reconnecting: Replaying ${pendingActions.length} queued actions...`);
             pendingActions.forEach((action)=>{
                 const { idempotencyKey, ...payload } = action.payload;
                 (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$services$2f$kdsEventDispatcher$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["emitEvent"])(action.type, {
@@ -1755,8 +1740,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
         },
         recallOrder: ()=>{
             const { lastRemovedOrder } = get();
-            if (!lastRemovedOrder) return;
-            get().recallFulfilledOrder(lastRemovedOrder.id);
+            if (lastRemovedOrder) get().recallFulfilledOrder(lastRemovedOrder.id);
         },
         recallFulfilledOrder: (orderId)=>{
             set((state)=>{
@@ -1793,10 +1777,7 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
             set((state)=>{
                 const { expiryMinutes } = state.historySettings;
                 const cutoff = new Date(Date.now() - expiryMinutes * 60000);
-                const freshFulfilled = state.fulfilledOrders.filter((order)=>{
-                    const fulfilledAt = new Date(order.updatedAt);
-                    return fulfilledAt > cutoff;
-                });
+                const freshFulfilled = state.fulfilledOrders.filter((order)=>new Date(order.updatedAt) > cutoff);
                 if (freshFulfilled.length === state.fulfilledOrders.length) return state;
                 return {
                     fulfilledOrders: freshFulfilled
@@ -1814,22 +1795,19 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     fulfillment_type: i % 3 === 0 ? 'STORE_DELIVERY' : 'PICKUP',
                     createdAt: new Date(now.getTime() - Math.random() * 1000000).toISOString(),
                     updatedAt: now.toISOString(),
-                    stage: [
-                        'ACCEPTED',
-                        'PREPARATION',
-                        'READY'
-                    ][i % 3],
+                    stage: i % 4 === 0 ? 'NEW' : 'FIRED',
                     prepTimeMinutes: 10 + i % 20,
-                    estimatedReadyTime: now.toISOString(),
+                    estimatedReadyTime: new Date(now.getTime() + (10 + i % 20) * 60000).toISOString(),
                     trackingToken: `stress-${i}`,
-                    isDelayed: false,
+                    customerName: i % 2 === 0 ? 'John Doe' : 'Jane Smith',
+                    isDelayed: i % 10 === 0,
                     items: [
                         {
                             id: `item-${i}-1`,
-                            name: `Stress Burger ${i}`,
-                            quantity: 1 + i % 5,
+                            name: i % 3 === 0 ? 'Classic Cheeseburger' : i % 3 === 1 ? 'Spicy Chicken Sandwich' : 'Vegan Garden Salad',
+                            quantity: 1 + i % 3,
                             modifiers: [],
-                            categoryId: 'cat-pizza'
+                            categoryId: 'cat-1'
                         }
                     ]
                 });

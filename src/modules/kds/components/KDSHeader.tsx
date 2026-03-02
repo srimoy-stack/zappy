@@ -1,158 +1,162 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Wifi, WifiOff, Clock } from 'lucide-react';
-import { useTenantStore } from '@/app/providers/TenantStoreProvider';
-import { SoundSettings } from './sound/SoundSettings';
+import { Menu, ChevronDown, MapPin } from 'lucide-react';
+import { useKDSStore } from '../store/kdsStore';
+import { useFilterStore } from '../store/useFilterStore';
+import { kdsToast, KDSToastContainer } from './toast/KDSToast';
+import { onPrintError } from '../services/printService';
 import { SoundController } from './sound/SoundController';
 import { ConnectivityManager } from './connectivity/ConnectivityManager';
-import { FilterSettings } from './filter/FilterSettings';
-import { useKDSStore } from '../store/kdsStore';
-import { useShallow } from 'zustand/react/shallow';
-import { getSLAState } from '../utils/slaUtils';
-import { KDSToastContainer, kdsToast } from './toast/KDSToast';
-import { onPrintError } from '../services/printService';
-import { useAuth } from '@/app/providers/AuthProvider';
-import { KDSRole, canReopenOrder } from '../utils/kdsAccess';
 
 export const KDSHeader: React.FC = () => {
-    const { store } = useTenantStore();
-    const [currentTime, setCurrentTime] = useState<Date | null>(null);
-    const isOnline = useKDSStore(useShallow((state) => state.isOnline));
-    const { role: authRole } = useAuth();
-    const role = (authRole as KDSRole) || 'KDS_USER';
+    const [currentTime, setCurrentTime] = useState(new Date());
 
-    // Register print error → toast bridge (once per KDS session)
+    const activeCount = useKDSStore((state) => Object.keys(state.orders).length);
+    const completedCount = useKDSStore((state) => state.fulfilledOrders.length);
+    const { kds_stations, selectedStationId, setSelectedStation } = useKDSStore();
+
+    const {
+        setIsSidebarOpen,
+        fulfillment, setFulfillment,
+        source, setSource
+    } = useFilterStore();
+
     useEffect(() => {
         onPrintError((msg) => kdsToast.printError(msg));
-    }, []);
-
-    useEffect(() => {
-        setCurrentTime(new Date());
-        const timer = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
-
+        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
 
-    const orders = useKDSStore(useShallow((state) => Object.values(state.orders)));
-
-    const getMetrics = () => {
-        const total = orders.length;
-        if (total === 0) return { total: 0, late: 0, sla: 100, avg: 0, bottleneck: 'NONE' };
-
-        const late = orders.filter(o => getSLAState(o.createdAt, o.prepTimeMinutes) === 'OVERDUE').length;
-        const sla = Math.round(((total - late) / total) * 100);
-
-        // Avg Make Time (Time since creation for orders in Prep/Cutting/Ready)
-        const makeTimes = orders
-            .filter(o => o.stage !== 'ACCEPTED')
-            .map(o => (Date.now() - new Date(o.createdAt).getTime()) / 60000);
-
-        const avg = makeTimes.length ? Math.round(makeTimes.reduce((a, b) => a + b, 0) / makeTimes.length) : 0;
-
-        // Bottleneck Detection
-        const stageCounts: Record<string, number> = {};
-        orders.forEach(o => stageCounts[o.stage] = (stageCounts[o.stage] || 0) + 1);
-        const bottleneck = Object.entries(stageCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'NONE';
-
-        return { total, late, sla, avg, bottleneck };
-    };
-
-    const metrics = getMetrics();
-
-    const formatTime = (date: Date | null) => {
-        if (!date) return '--:--:--';
-        return date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
+    const formatDate = (date: Date) => {
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
     };
 
-    const isQueueUnderPressure = metrics.total > 12;
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    };
+
+    const currentStationName = selectedStationId === 'ALL'
+        ? 'UNIVERSAL'
+        : kds_stations.find(s => s.station_id === selectedStationId)?.station_name || 'UNKNOWN';
 
     return (
         <>
             <SoundController />
             <ConnectivityManager />
             <KDSToastContainer />
-            <header className={`kds-header transition-colors duration-500 ${isQueueUnderPressure ? '!bg-red-600 border-red-700' : ''}`}>
-                <div className="kds-header-left">
-                    <div className="flex flex-col">
-                        <div className={`text-3xl font-black tracking-tighter uppercase ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>
-                            {store?.name || 'KITCHEN DISPLAY'}
-                        </div>
-                        <div className={`text-xl font-black ${isQueueUnderPressure ? 'text-white/80' : 'text-[var(--kds-text-secondary)]'}`}>
-                            {formatTime(currentTime)}
-                        </div>
-                    </div>
+            <header className="h-[64px] bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-50">
+                {/* LEFT: Sidebar Toggle & Primary Filters */}
+                <div className="flex items-center gap-6 w-1/3">
+                    <button
+                        onClick={() => setIsSidebarOpen(true)}
+                        className="p-3 -ml-2 hover:bg-gray-100 rounded-xl transition-all text-gray-900 active:scale-90"
+                    >
+                        <Menu size={26} />
+                    </button>
 
-                    {isQueueUnderPressure && (
-                        <div className="bg-white text-red-600 px-3 py-1 font-black text-[12px] animate-pulse rounded-none shadow-lg">
-                            QUEUE PRESSURE ALERT
+                    <div className="flex items-center gap-3">
+                        {/* Station Selector */}
+                        <div className="relative group">
+                            <button className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase hover:bg-gray-800 transition-all active:scale-95">
+                                <MapPin size={14} className="text-emerald-400" />
+                                {currentStationName}
+                                <ChevronDown size={14} className="opacity-50" />
+                            </button>
+                            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[200px] animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="px-4 py-2 text-[9px] font-bold text-gray-400 uppercase border-b border-gray-50 mb-2">Display Nodes</div>
+                                <button
+                                    onClick={() => setSelectedStation('ALL')}
+                                    className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${selectedStationId === 'ALL' ? 'text-emerald-600 bg-emerald-50/50' : 'text-gray-600'}`}
+                                >
+                                    Universal View
+                                </button>
+                                {kds_stations.filter(s => s.active).map(s => (
+                                    <button
+                                        key={s.station_id}
+                                        onClick={() => setSelectedStation(s.station_id)}
+                                        className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${selectedStationId === s.station_id ? 'text-emerald-600 bg-emerald-50/50' : 'text-gray-600'}`}
+                                    >
+                                        {s.station_name}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    )}
 
-                    <div className={`flex items-center gap-2 px-2 py-1 rounded-full text-[10px] font-black tracking-widest ${isOnline ? (isQueueUnderPressure ? 'bg-black/10 text-black' : 'bg-green-500/10 text-green-500') : 'bg-red-500/10 text-red-500'
-                        }`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? (isQueueUnderPressure ? 'bg-black' : 'bg-green-500') : 'bg-red-500'} ${isOnline ? '' : 'animate-pulse'}`} />
-                        {isOnline ? 'ONLINE' : 'OFFLINE'}
+                        {/* Source Filter */}
+                        <div className="relative group">
+                            <button className="flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-[10px] font-bold uppercase hover:bg-gray-100 transition-all active:scale-95">
+                                SRC: {source}
+                                <ChevronDown size={14} className="text-gray-400" />
+                            </button>
+                            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[160px] animate-in fade-in slide-in-from-top-2 duration-200">
+                                {['ALL', 'ONLINE', 'POS', 'KIOSK', 'THIRD_PARTY'].map(s => (
+                                    <button
+                                        key={s}
+                                        onClick={() => setSource(s as any)}
+                                        className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${source === s ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`}
+                                    >
+                                        {s}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Fulfillment Filter */}
+                        <div className="relative group">
+                            <button className="flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-[10px] font-bold uppercase hover:bg-gray-100 transition-all active:scale-95">
+                                TYPE: {fulfillment.replace('_', ' ')}
+                                <ChevronDown size={14} className="text-gray-400" />
+                            </button>
+                            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[180px] animate-in fade-in slide-in-from-top-2 duration-200">
+                                {['ALL', 'PICKUP', 'DELIVERY', 'DINE_IN', 'STORE_DELIVERY'].map(f => (
+                                    <button
+                                        key={f}
+                                        onClick={() => setFulfillment(f as any)}
+                                        className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${fulfillment === f ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`}
+                                    >
+                                        {f.replace('_', ' ')}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="kds-header-center">
-                    <div className="flex items-center gap-6">
-                        <div className="flex flex-col items-center">
-                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Queue</span>
-                            <span className={`text-3xl font-black ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>{metrics.total}</span>
-                        </div>
-                        <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
-                        <div className="flex flex-col items-center">
-                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Avg Make</span>
-                            <span className={`text-3xl font-black ${isQueueUnderPressure ? 'text-white' : 'text-white'}`}>{metrics.avg}m</span>
-                        </div>
-                        <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
-                        <div className="flex flex-col items-center">
-                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>SLA %</span>
-                            <span className={`text-3xl font-black ${metrics.sla > 90 ? (isQueueUnderPressure ? 'text-white' : 'text-green-500') : (isQueueUnderPressure ? 'text-white' : 'text-amber-500')}`}>{metrics.sla}%</span>
-                        </div>
-                        <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
-                        <div className="flex flex-col items-center">
-                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Bottleneck</span>
-                            <span className={`text-[18px] font-black uppercase ${isQueueUnderPressure ? 'text-white' : 'text-amber-400'}`}>{metrics.bottleneck}</span>
-                        </div>
-                        <div className={`w-px h-8 ${isQueueUnderPressure ? 'bg-black/20' : 'bg-slate-800'}`} />
-                        <div className="flex flex-col items-center">
-                            <span className={`text-[12px] font-black uppercase ${isQueueUnderPressure ? 'text-white/70' : 'text-slate-500'}`}>Late</span>
-                            <span className={`text-3xl font-black ${metrics.late > 0 ? (isQueueUnderPressure ? 'text-white' : 'text-[var(--kds-status-late)]') : (isQueueUnderPressure ? 'text-white/50' : 'text-slate-500')}`}>{metrics.late}</span>
-                        </div>
+                {/* CENTER: Status Indicators (Efficient Counters) */}
+                <div className="flex items-center h-full gap-8">
+                    <div className="flex flex-col items-center group cursor-pointer">
+                        <span className="text-xs font-bold text-gray-900 leading-none">{activeCount}</span>
+                        <span className="text-[9px] font-bold text-gray-400 uppercase mt-1 group-hover:text-black transition-colors">ACTIVE</span>
+                        <div className="h-1 w-4 bg-black rounded-full mt-1 opacity-100" />
+                    </div>
+                    <div className="flex flex-col items-center group cursor-pointer opacity-40 hover:opacity-100 transition-all">
+                        <span className="text-xs font-bold text-gray-900 leading-none">0</span>
+                        <span className="text-[9px] font-bold text-gray-400 uppercase mt-1">LATER</span>
+                        <div className="h-1 w-4 bg-black rounded-full mt-1 opacity-0 group-hover:opacity-100" />
+                    </div>
+                    <div className="flex flex-col items-center group cursor-pointer opacity-40 hover:opacity-100 transition-all">
+                        <span className="text-xs font-bold text-gray-900 leading-none">{completedCount}</span>
+                        <span className="text-[9px] font-bold text-gray-400 uppercase mt-1">DONE</span>
+                        <div className="h-1 w-4 bg-black rounded-full mt-1 opacity-0 group-hover:opacity-100" />
                     </div>
                 </div>
 
-                <div className="kds-header-right">
-                    {canReopenOrder(role) && (
-                        <button
-                            onClick={() => {
-                                useKDSStore.getState().recallOrder();
-                                kdsToast.success('Last order recalled');
-                            }}
-                            className="h-[var(--kds-touch-target)] px-6 bg-[var(--kds-status-prep)] text-black font-black uppercase tracking-tighter text-xl flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all mr-2"
-                            title="Recall last bumped order"
-                        >
-                            <Clock size={24} />
-                            RECALL
-                        </button>
-                    )}
-
-                    <div className="flex items-center gap-1 mr-2 px-3 py-1 bg-slate-800 rounded-lg border border-slate-700">
-                        {isOnline ? <Wifi size={14} className="text-green-500" /> : <WifiOff size={14} className="text-red-500" />}
+                {/* RIGHT: Clock & Brand */}
+                <div className="flex items-center justify-end w-1/3 gap-6">
+                    <div className="flex flex-col items-end">
+                        <span className="text-[11px] font-bold text-gray-900 uppercase">{formatTime(currentTime)}</span>
+                        <span className="text-[9px] font-bold text-gray-400 uppercase">{formatDate(currentTime)}</span>
                     </div>
-
-                    <SoundSettings />
-                    <FilterSettings />
                 </div>
             </header>
         </>

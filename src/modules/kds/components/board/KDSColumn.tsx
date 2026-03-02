@@ -11,9 +11,10 @@ import { getSLAState } from '../../utils/slaUtils';
 interface KDSColumnProps {
     title: string;
     stage: KitchenStage;
+    onViewDetail: (orderId: string) => void;
 }
 
-export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage }) => {
+export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage, onViewDetail }) => {
     const { fulfillment, source } = useFilterStore();
     const {
         enable_station_routing,
@@ -77,7 +78,7 @@ export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage })
                 {stageOrders.length > 0 ? (
                     stageOrders.map(order => (
                         <div key={order.id} className="kds-ticket">
-                            <OrderTicket orderId={order.id} />
+                            <OrderTicket orderId={order.id} onViewDetail={onViewDetail} />
                         </div>
                     ))
                 ) : (

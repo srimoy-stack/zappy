@@ -2,25 +2,19 @@
 
 import { useState, useEffect, memo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-
-import { Printer } from 'lucide-react';
+import { Printer, Eye, Zap } from 'lucide-react';
 import { printOrder } from '../../services/printService';
 import { kdsToast } from '../toast/KDSToast';
-import { OrderDetailModal } from '../modals/OrderDetailModal';
-import { DelayOrderModal } from '../modals/DelayOrderModal';
-import { CustomerMessagingModal } from '../modals/CustomerMessagingModal';
 import { useKDSStore, KDSState } from '../../store/kdsStore';
-import { TicketTimer } from './TicketTimer';
 import { useKDSSound } from '../sound/useKDSSound';
-import { useAuth } from '@/app/providers/AuthProvider';
-import { KDSRole } from '../../utils/kdsAccess';
 import { getSLAState } from '../../utils/slaUtils';
 
 interface Props {
     orderId: string;
+    onViewDetail: (orderId: string) => void;
 }
 
-export const OrderTicket = memo(({ orderId }: Props) => {
+export const OrderTicket = memo(({ orderId, onViewDetail }: Props) => {
     const {
         order,
         enable_station_routing,
@@ -39,56 +33,29 @@ export const OrderTicket = memo(({ orderId }: Props) => {
         master_screen_view_mode: state.master_screen_view_mode
     })));
 
-    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-    const [isDelayModalOpen, setIsDelayModalOpen] = useState(false);
-    const [isMessagingModalOpen, setIsMessagingModalOpen] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
-
-    const {
-        advanceStage,
-        toggleItemCompletion
-    } = useKDSStore.getState();
-
+    const { advanceStage } = useKDSStore.getState();
     const { playSound } = useKDSSound();
-    const { role: authRole } = useAuth();
+
+    const [timer, setTimer] = useState("00:00:00");
+
+    useEffect(() => {
+        if (!order) return;
+        const interval = setInterval(() => {
+            const diff = Date.now() - new Date(order.createdAt).getTime();
+            const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+            const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+            setTimer(`${h}:${m}:${s}`);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [order?.createdAt]);
 
     if (!order) return null;
 
-    const [slaState, setSlaState] = useState<'ON_TIME' | 'WARNING' | 'OVERDUE'>(
-        getSLAState(order.createdAt, order.prepTimeMinutes)
-    );
-
-    useEffect(() => {
-        const checkSLA = () => {
-            const newState = getSLAState(order.createdAt, order.prepTimeMinutes);
-            setSlaState(prev => prev !== newState ? newState : prev);
-        };
-        const interval = setInterval(checkSLA, 5000);
-        return () => clearInterval(interval);
-    }, [order.createdAt, order.prepTimeMinutes]);
-
-    const getHeaderBg = () => {
-        if (order.isHeld) return 'bg-slate-800';
-        switch (slaState) {
-            case 'OVERDUE': return 'bg-red-600 text-white';
-            case 'WARNING': return 'bg-amber-500 text-black';
-            default: return 'bg-[#0F1115] text-white';
-        }
-    };
-
-    const handleAdvance = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setIsProcessing(true);
-        advanceStage(orderId);
-        playSound('BUMP_ORDER');
-        setTimeout(() => setIsProcessing(false), 500);
-    };
-
-    // Filter items based on routing settings
     const visibleItems = order.items.filter(item => {
         if (!enable_station_routing || selectedStationId === 'ALL') return true;
         if (master_screen_view_mode === 'FULL_ORDER') return true;
-
         const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
         const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
         return itemStationId === selectedStationId;
@@ -96,10 +63,24 @@ export const OrderTicket = memo(({ orderId }: Props) => {
 
     if (visibleItems.length === 0) return null;
 
-    const handleItemToggle = (e: React.MouseEvent, itemId: string) => {
+    const slaState = getSLAState(order.createdAt, order.prepTimeMinutes);
+
+    const getStatusInfo = () => {
+        if (slaState === 'OVERDUE') return { label: 'DELAYED', color: 'bg-red-500', text: 'text-red-500' };
+        if (slaState === 'WARNING') return { label: 'WARNING', color: 'bg-amber-500', text: 'text-amber-500' };
+        if (order.stage === 'NEW') return { label: 'IN QUEUE', color: 'bg-gray-800', text: 'text-gray-800' };
+        if (order.stage === 'READY') return { label: 'READY', color: 'bg-blue-600', text: 'text-blue-600' };
+        return { label: 'PREPARING', color: 'bg-emerald-500', text: 'text-emerald-500' };
+    };
+
+    const status = getStatusInfo();
+
+    const handleAdvance = (e: React.MouseEvent) => {
         e.stopPropagation();
-        toggleItemCompletion(order.id, itemId);
-        playSound('ORDER_UPDATED');
+        setIsProcessing(true);
+        advanceStage(orderId);
+        playSound('BUMP_ORDER');
+        setTimeout(() => setIsProcessing(false), 500);
     };
 
     const handlePrint = async (e: React.MouseEvent) => {
@@ -113,153 +94,103 @@ export const OrderTicket = memo(({ orderId }: Props) => {
             item_station_map: state.item_station_map,
             allow_item_station_override: state.allow_item_station_override
         });
-
-        if (result.status === 'SUCCESS') {
-            kdsToast.success(result.message);
-        }
+        if (result.status === 'SUCCESS') kdsToast.success(result.message);
     };
 
-    const isUberDirect = order.order_source === 'UBER_DIRECT';
-
     return (
-        <>
-            <div
-                className={`kds-ticket bg-[#0A0C10] flex flex-col select-none transition-all border-r border-slate-800/60 ${isUberDirect ? 'border-l-[6px] border-l-emerald-500' : ''} ${isProcessing ? 'opacity-50' : ''}`}
-            >
-                {/* HEADER: Order # + Timer + Source/Type */}
-                <div className={`px-4 py-3 flex justify-between items-center ${getHeaderBg()}`}>
-                    <div>
-                        <div className="flex items-center gap-2 mb-0.5">
-                            <span className="px-2 py-0.5 bg-black/30 text-white rounded text-[11px] font-black uppercase tracking-wider">{order.order_source}</span>
-                            <span className="text-[11px] font-black uppercase tracking-wider opacity-70">{order.fulfillment_type.replace('_', ' ')}</span>
-                            {order.isPriority && (
-                                <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black uppercase rounded animate-pulse">RUSH</span>
-                            )}
-                        </div>
-                        <h2 className="font-black text-4xl leading-none tracking-tighter">
+        <div
+            className={`kds-ticket bg-white flex flex-col border-2 relative h-full animate-ticket transition-all group overflow-hidden ${isProcessing ? 'opacity-50' : ''
+                } ${slaState === 'OVERDUE' ? 'border-red-500/20' : 'border-gray-100 hover:border-gray-300'
+                }`}
+        >
+            {/* TICKET TOP BAR */}
+            <div className={`h-1 w-full ${status.color}`} />
+
+            {/* HEADER */}
+            <div className="p-4 flex flex-col gap-1 border-b border-gray-50">
+                <div className="flex justify-between items-start">
+                    <div className="flex flex-col">
+                        <span className="text-2xl font-bold text-gray-900 leading-none">
                             #{order.orderNumber}
-                        </h2>
+                        </span>
+                        <span className="text-[10px] font-bold text-gray-400 mt-1 uppercase">
+                            {order.customerName || 'GUEST'}
+                        </span>
                     </div>
-                    <TicketTimer
-                        createdAt={order.createdAt}
-                        prepTimeMinutes={order.prepTimeMinutes}
-                        stageStartedAt={order.stageStartedAt}
-                    />
-                </div>
-
-                {/* ITEMS - NO SCROLL, EVERYTHING VISIBLE */}
-                <div className="p-3 space-y-2">
-                    {visibleItems.map((item) => (
-                        <div
-                            key={item.id}
-                            onClick={(e) => handleItemToggle(e, item.id)}
-                            className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${item.isCompleted ? 'bg-emerald-500/5 opacity-40' : 'bg-slate-800/30 hover:bg-slate-800/50'}`}
-                        >
-                            {/* QTY */}
-                            <div className={`shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-black text-2xl border ${item.isCompleted ? 'bg-emerald-500 text-white border-emerald-400' : 'bg-black text-amber-500 border-slate-700'}`}>
-                                {item.isCompleted ? '✓' : item.quantity}
-                            </div>
-
-                            <div className="flex-1 min-w-0">
-                                {/* ITEM NAME */}
-                                <h3 className={`font-black text-xl uppercase leading-tight tracking-tight ${item.isCompleted ? 'text-slate-600 line-through' : 'text-white'}`}>
-                                    {item.name}
-                                </h3>
-
-                                {/* VARIANT */}
-                                {item.variant && (
-                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block mt-0.5">
-                                        {item.variant}
-                                    </span>
-                                )}
-
-                                {/* ALL MODIFIERS / TOPPINGS / CUSTOMIZATIONS - ALWAYS VISIBLE */}
-                                {item.modifiers.length > 0 && !item.isCompleted && (
-                                    <div className="mt-1.5 flex flex-wrap gap-1">
-                                        {item.modifiers.map((mod, idx) => (
-                                            <span key={idx} className="inline-flex items-center bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase px-2 py-0.5 rounded border border-blue-500/15">
-                                                <span className="text-blue-500 mr-1 font-black">+</span>
-                                                {mod.name}{mod.quantity && mod.quantity > 1 ? ` ×${mod.quantity}` : ''}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                    <div className="flex flex-col items-end">
+                        <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[9px] font-bold text-white ${status.color}`}>
+                            <Zap size={10} className="animate-pulse" />
+                            {status.label}
                         </div>
-                    ))}
-                </div>
-
-                {/* ALERTS: Allergies + Notes - ALWAYS VISIBLE */}
-                {((order.allergies?.length || 0) > 0 || order.notes) && (
-                    <div className="px-3 pb-2 space-y-1.5">
-                        {(order.allergies?.length || 0) > 0 && (
-                            <div className="px-3 py-2 bg-red-600 text-white rounded-lg animate-pulse">
-                                <span className="text-[8px] font-black uppercase tracking-widest block opacity-80">⚠ ALLERGY</span>
-                                <p className="text-sm font-black uppercase leading-tight">{order.allergies?.join(', ')}</p>
-                            </div>
-                        )}
-                        {order.notes && (
-                            <div className="px-3 py-2 bg-blue-600/10 border-l-4 border-blue-500 rounded-r-lg">
-                                <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest block">NOTE</span>
-                                <p className="text-white font-bold uppercase text-sm leading-tight">{order.notes}</p>
-                            </div>
-                        )}
+                        <span className="text-[8px] font-bold text-gray-300 mt-1 uppercase">
+                            Due {new Date(new Date(order.createdAt).getTime() + order.prepTimeMinutes * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
                     </div>
-                )}
-
-                {/* ACTION BUTTONS */}
-                <div className="p-3 mt-auto flex gap-2">
-                    <button
-                        onClick={(e) => { e.stopPropagation(); setIsDetailModalOpen(true); }}
-                        className="px-4 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-all active:scale-95 shrink-0"
-                    >
-                        Details
-                    </button>
-                    <button
-                        onClick={handlePrint}
-                        className="px-4 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-all active:scale-95 shrink-0"
-                        title="Print Receipt"
-                    >
-                        <Printer size={16} />
-                    </button>
-                    <button
-                        onClick={handleAdvance}
-                        disabled={isProcessing}
-                        className={`flex-1 py-3 rounded-xl font-black text-lg uppercase tracking-widest transition-all shadow-lg active:scale-[0.97] border-b-4 ${order.stage === 'READY' ? 'bg-white text-black border-slate-300 hover:bg-slate-100' :
-                            order.stage === 'NEW' ? 'bg-amber-500 text-black border-amber-700 hover:bg-amber-400' :
-                                'bg-sky-500 text-white border-sky-700 hover:bg-sky-400'
-                            }`}
-                    >
-                        {isProcessing ? '...' : (
-                            order.stage === 'READY' ? 'BUMP' :
-                                order.stage === 'FIRED' ? 'FULFILL' :
-                                    order.stage === 'RECALLED' ? 'REDO' :
-                                        order.stage === 'NEW' ? 'FIRE' : 'NEXT'
-                        )}
-                    </button>
                 </div>
             </div>
 
-            <OrderDetailModal
-                isOpen={isDetailModalOpen}
-                order={order}
-                onClose={() => setIsDetailModalOpen(false)}
-            />
+            {/* ITEMS CONTAINER */}
+            <div
+                className="p-4 space-y-3 flex-1 overflow-y-auto scrollbar-hide cursor-pointer"
+                onClick={() => onViewDetail(orderId)}
+            >
+                {visibleItems.map((item) => (
+                    <div key={item.id} className="flex gap-3">
+                        <div className={`w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold shrink-0 ${item.isCompleted ? 'bg-emerald-500 text-white' : 'bg-gray-100 text-gray-900 border border-gray-200/50'
+                            }`}>
+                            {item.quantity}
+                        </div>
+                        <div className="min-w-0">
+                            <h4 className={`text-[13px] font-bold leading-tight uppercase ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900'
+                                }`}>
+                                {item.name}
+                            </h4>
+                            {item.modifiers.length > 0 && (
+                                <div className="mt-1 flex flex-wrap gap-1">
+                                    {item.modifiers.map((m, idx) => (
+                                        <span key={idx} className="text-[9px] font-bold text-gray-400 uppercase">
+                                            +{m.quantity && m.quantity > 1 ? `${m.quantity}x ` : ''}{m.name}
+                                            {m.placement && m.placement !== 'FULL' && ` (${m.placement})`}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
 
-            <DelayOrderModal
-                isOpen={isDelayModalOpen}
-                onClose={() => setIsDelayModalOpen(false)}
-                onConfirm={() => { }}
-                orderNumber={order.orderNumber}
-            />
-
-            <CustomerMessagingModal
-                isOpen={isMessagingModalOpen}
-                order={order}
-                onClose={() => setIsMessagingModalOpen(false)}
-                onSend={() => { }}
-                role={authRole as KDSRole || 'KDS_USER'}
-            />
-        </>
+            {/* QUICK ACTIONS */}
+            <div className="p-3 bg-gray-50 border-t border-gray-100 mt-auto flex gap-2">
+                <button
+                    onClick={handleAdvance}
+                    disabled={isProcessing}
+                    className={`flex-1 h-9 rounded-xl flex items-center justify-between px-4 text-white transition-all active:scale-[0.98] border-b-2 active:border-b-0 ${order.stage === 'NEW' ? 'bg-gray-800 border-gray-950 hover:bg-black' :
+                        order.stage === 'ACCEPTED' ? 'bg-emerald-600 border-emerald-800 hover:bg-emerald-700' :
+                            order.stage === 'FIRED' ? 'bg-[#E67E22] border-[#D35400] hover:bg-[#D35400]' :
+                                'bg-blue-600 border-blue-800 hover:bg-blue-700'
+                        }`}
+                >
+                    <span className="text-[9px] font-bold uppercase">
+                        {order.stage === 'NEW' ? 'Confirm' : order.stage === 'ACCEPTED' ? 'Start' : order.stage === 'FIRED' ? 'Ready' : 'Done'}
+                    </span>
+                    <span className="text-[10px] font-bold font-mono bg-black/20 px-1.5 py-0.5 rounded">{timer}</span>
+                </button>
+                <button
+                    onClick={handlePrint}
+                    className="w-10 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
+                    title="Print"
+                >
+                    <Printer size={16} />
+                </button>
+                <button
+                    onClick={() => onViewDetail(orderId)}
+                    className="w-10 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors"
+                    title="Expand"
+                >
+                    <Eye size={16} />
+                </button>
+            </div>
+        </div>
     );
 });

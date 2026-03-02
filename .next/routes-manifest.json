@@ -514,6 +514,12 @@
       "namedRegex": "^/kds/master(?:/)?$"
     },
     {
+      "page": "/kds/status",
+      "regex": "^/kds/status(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kds/status(?:/)?$"
+    },
+    {
       "page": "/kiosk/builder",
       "regex": "^/kiosk/builder(?:/)?$",
       "routeKeys": {},

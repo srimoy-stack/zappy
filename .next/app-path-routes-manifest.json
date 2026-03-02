@@ -73,6 +73,7 @@
   "/callcenter/promotions/page": "/callcenter/promotions",
   "/kds/expo/page": "/kds/expo",
   "/kds/master/page": "/kds/master",
+  "/kds/status/page": "/kds/status",
   "/page": "/",
   "/platform/brands/[brandId]/impersonate/page": "/platform/brands/[brandId]/impersonate",
   "/platform/brands/[brandId]/page": "/platform/brands/[brandId]",
