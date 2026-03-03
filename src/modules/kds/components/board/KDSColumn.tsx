@@ -8,6 +8,8 @@ import { useFilterStore } from '../../store/useFilterStore';
 import { KitchenStage } from '../../types/kds';
 import { getSLAState } from '../../utils/slaUtils';
 
+import { isOrderVisibleOnStation } from '../../utils/routingUtils';
+
 interface KDSColumnProps {
     title: string;
     stage: KitchenStage;
@@ -21,7 +23,8 @@ export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage, o
         selectedStationId,
         category_station_map,
         allow_item_station_override,
-        item_station_map
+        item_station_map,
+        master_screen_view_mode
     } = useKDSStore();
 
     // Each column subscribes ONLY to filtered orders that match its stage and station.
@@ -37,18 +40,15 @@ export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage, o
                 const sourceMatch = source === 'ALL' || o.order_source === source;
                 if (!sourceMatch) return false;
 
-                const { master_screen_view_mode } = useKDSStore.getState();
-
                 // Station Filtering Logic 
-                if (enable_station_routing && selectedStationId !== 'ALL' && master_screen_view_mode === 'STATION_ONLY') {
-                    return o.items.some(item => {
-                        const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
-                        const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
-                        return itemStationId === selectedStationId;
-                    });
-                }
-
-                return true;
+                return isOrderVisibleOnStation(o, {
+                    enable_station_routing,
+                    selectedStationId,
+                    category_station_map,
+                    allow_item_station_override,
+                    item_station_map,
+                    master_screen_view_mode
+                });
             }).sort((a, b) => {
                 // Sorting logic prioritized for performance (fail-fast)
                 if (a.isPriority && !b.isPriority) return -1;

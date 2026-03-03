@@ -9,6 +9,8 @@ import { useKDSStore, KDSState } from '../../store/kdsStore';
 import { useKDSSound } from '../sound/useKDSSound';
 import { getSLAState } from '../../utils/slaUtils';
 
+import { isItemVisibleOnStation } from '../../utils/routingUtils';
+
 interface Props {
     orderId: string;
     onViewDetail: (orderId: string) => void;
@@ -24,7 +26,7 @@ export const OrderTicket = memo(({ orderId, onViewDetail }: Props) => {
         item_station_map,
         master_screen_view_mode
     } = useKDSStore(useShallow((state: KDSState) => ({
-        order: state.orders[orderId],
+        order: state.orders[orderId] ?? state.fulfilledOrders.find(o => o.id === orderId),
         enable_station_routing: state.enable_station_routing,
         selectedStationId: state.selectedStationId,
         category_station_map: state.category_station_map,
@@ -53,19 +55,27 @@ export const OrderTicket = memo(({ orderId, onViewDetail }: Props) => {
 
     if (!order) return null;
 
-    const visibleItems = order.items.filter(item => {
-        if (!enable_station_routing || selectedStationId === 'ALL') return true;
-        if (master_screen_view_mode === 'FULL_ORDER') return true;
-        const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
-        const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
-        return itemStationId === selectedStationId;
-    });
+    const visibleItems = order.items.filter(item =>
+        isItemVisibleOnStation(item, {
+            enable_station_routing,
+            selectedStationId,
+            category_station_map,
+            allow_item_station_override,
+            item_station_map,
+            master_screen_view_mode
+        })
+    );
 
     if (visibleItems.length === 0) return null;
 
     const slaState = getSLAState(order.createdAt, order.prepTimeMinutes);
 
+    const isFulfilled = order.stage === 'FULFILLED';
+    const isRecalled = order.stage === 'RECALLED';
+
     const getStatusInfo = () => {
+        if (isFulfilled) return { label: 'FULFILLED', color: 'bg-emerald-600', text: 'text-emerald-600' };
+        if (isRecalled) return { label: 'RECALLED', color: 'bg-teal-500', text: 'text-teal-500' };
         if (slaState === 'OVERDUE') return { label: 'DELAYED', color: 'bg-red-500', text: 'text-red-500' };
         if (slaState === 'WARNING') return { label: 'WARNING', color: 'bg-amber-500', text: 'text-amber-500' };
         if (order.stage === 'NEW') return { label: 'IN QUEUE', color: 'bg-gray-800', text: 'text-gray-800' };
@@ -162,20 +172,31 @@ export const OrderTicket = memo(({ orderId, onViewDetail }: Props) => {
 
             {/* QUICK ACTIONS */}
             <div className="p-3 bg-gray-50 border-t border-gray-100 mt-auto flex gap-2">
-                <button
-                    onClick={handleAdvance}
-                    disabled={isProcessing}
-                    className={`flex-1 h-9 rounded-xl flex items-center justify-between px-4 text-white transition-all active:scale-[0.98] border-b-2 active:border-b-0 ${order.stage === 'NEW' ? 'bg-gray-800 border-gray-950 hover:bg-black' :
-                        order.stage === 'ACCEPTED' ? 'bg-emerald-600 border-emerald-800 hover:bg-emerald-700' :
-                            order.stage === 'FIRED' ? 'bg-[#E67E22] border-[#D35400] hover:bg-[#D35400]' :
-                                'bg-blue-600 border-blue-800 hover:bg-blue-700'
-                        }`}
-                >
-                    <span className="text-[9px] font-bold uppercase">
-                        {order.stage === 'NEW' ? 'Confirm' : order.stage === 'ACCEPTED' ? 'Start' : order.stage === 'FIRED' ? 'Ready' : 'Done'}
-                    </span>
-                    <span className="text-[10px] font-bold font-mono bg-black/20 px-1.5 py-0.5 rounded">{timer}</span>
-                </button>
+                {isFulfilled ? (
+                    <div className="flex-1 h-9 rounded-xl flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200">
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">✓ Completed</span>
+                        <span className="text-[9px] font-bold text-emerald-400 font-mono">{timer}</span>
+                    </div>
+                ) : (
+                    <button
+                        onClick={handleAdvance}
+                        disabled={isProcessing}
+                        className={`flex-1 h-9 rounded-xl flex items-center justify-between px-4 text-white transition-all active:scale-[0.98] border-b-2 active:border-b-0 ${order.stage === 'NEW' ? 'bg-gray-800 border-gray-950 hover:bg-black' :
+                            order.stage === 'ACCEPTED' ? 'bg-emerald-600 border-emerald-800 hover:bg-emerald-700' :
+                                order.stage === 'RECALLED' ? 'bg-teal-600 border-teal-800 hover:bg-teal-700' :
+                                    order.stage === 'FIRED' ? 'bg-[#E67E22] border-[#D35400] hover:bg-[#D35400]' :
+                                        'bg-blue-600 border-blue-800 hover:bg-blue-700'
+                            }`}
+                    >
+                        <span className="text-[9px] font-bold uppercase">
+                            {order.stage === 'NEW' ? 'Confirm' :
+                                order.stage === 'ACCEPTED' ? 'Start' :
+                                    order.stage === 'RECALLED' ? 'Re-Queue' :
+                                        order.stage === 'FIRED' ? 'Ready' : 'Done'}
+                        </span>
+                        <span className="text-[10px] font-bold font-mono bg-black/20 px-1.5 py-0.5 rounded">{timer}</span>
+                    </button>
+                )}
                 <button
                     onClick={handlePrint}
                     className="w-10 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, ChevronDown, MapPin } from 'lucide-react';
 import { useKDSStore } from '../store/kdsStore';
 import { useFilterStore } from '../store/useFilterStore';
@@ -99,13 +99,13 @@ export const KDSHeader: React.FC = () => {
                                 <ChevronDown size={14} className="text-gray-400" />
                             </button>
                             <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[160px] animate-in fade-in slide-in-from-top-2 duration-200">
-                                {['ALL', 'ONLINE', 'POS', 'KIOSK', 'THIRD_PARTY'].map(s => (
+                                {(['ALL', 'ONLINE', 'POS', 'KIOSK', 'CALL_CENTER', 'UBER_DIRECT', 'API'] as const).map(s => (
                                     <button
                                         key={s}
                                         onClick={() => setSource(s as any)}
                                         className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${source === s ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`}
                                     >
-                                        {s}
+                                        {s.replace(/_/g, ' ')}
                                     </button>
                                 ))}
                             </div>
@@ -117,14 +117,14 @@ export const KDSHeader: React.FC = () => {
                                 TYPE: {fulfillment.replace('_', ' ')}
                                 <ChevronDown size={14} className="text-gray-400" />
                             </button>
-                            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[180px] animate-in fade-in slide-in-from-top-2 duration-200">
-                                {['ALL', 'PICKUP', 'DELIVERY', 'DINE_IN', 'STORE_DELIVERY'].map(f => (
+                            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[210px] animate-in fade-in slide-in-from-top-2 duration-200">
+                                {(['ALL', 'DINE_IN', 'PICKUP', 'STORE_DELIVERY', 'UBER_DIRECT_DELIVERY'] as const).map(f => (
                                     <button
                                         key={f}
                                         onClick={() => setFulfillment(f as any)}
                                         className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${fulfillment === f ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`}
                                     >
-                                        {f.replace('_', ' ')}
+                                        {f.replace(/_/g, ' ')}
                                     </button>
                                 ))}
                             </div>

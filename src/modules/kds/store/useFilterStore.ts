@@ -1,5 +1,3 @@
-'use client';
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { FulfillmentType, OrderSource, KitchenStage } from '../types/kds';
@@ -16,12 +14,14 @@ interface FilterState {
     stage: StageFilter;
     showRecentlyFulfilled: boolean;
     isSidebarOpen: boolean;
+    currentPage: number;
     setFulfillment: (filter: FulfillmentFilter) => void;
     setSource: (filter: SourceFilter) => void;
     setStage: (stage: StageFilter) => void;
     setViewMode: (mode: KDSViewMode) => void;
     setShowRecentlyFulfilled: (show: boolean) => void;
     setIsSidebarOpen: (isOpen: boolean) => void;
+    setCurrentPage: (page: number) => void;
     resetFilters: () => void;
 }
 
@@ -34,19 +34,22 @@ export const useFilterStore = create<FilterState>()(
             stage: 'ALL',
             showRecentlyFulfilled: true,
             isSidebarOpen: false,
-            setFulfillment: (fulfillment) => set({ fulfillment }),
-            setSource: (source) => set({ source }),
-            setStage: (stage) => set({ stage }),
-            setViewMode: (viewMode) => set({ viewMode }),
+            currentPage: 0,
+            setFulfillment: (fulfillment) => set({ fulfillment, currentPage: 0 }),
+            setSource: (source) => set({ source, currentPage: 0 }),
+            setStage: (stage) => set({ stage, currentPage: 0 }),
+            setViewMode: (viewMode) => set({ viewMode, currentPage: 0 }),
             setShowRecentlyFulfilled: (showRecentlyFulfilled) => set({ showRecentlyFulfilled }),
             setIsSidebarOpen: (isSidebarOpen) => set({ isSidebarOpen }),
+            setCurrentPage: (currentPage) => set({ currentPage }),
             resetFilters: () => set({
                 fulfillment: 'ALL',
                 source: 'ALL',
                 viewMode: 'KANBAN',
                 stage: 'ALL',
                 showRecentlyFulfilled: true,
-                isSidebarOpen: false
+                isSidebarOpen: false,
+                currentPage: 0
             }),
         }),
         {

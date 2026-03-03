@@ -27,20 +27,21 @@
 /* Custom Premium Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
-  height: 6px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.28);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 /* Scrollbar Hide Utility */
@@ -75,4 +76,48 @@
 /* Utility for layout stabilization */
 .universal-kds-layout {
   contain: size layout paint;
+}
+
+/* Horizontal scroll layout for KDS touch screens */
+.kds-horizontal-scroll {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+/* Make the horizontal scrollbar clearly visible */
+.kds-horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  margin: 0 12px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.30);
+  border-radius: 10px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.50);
+}
+
+/* Inner row: Line view is a single horizontal row */
+.kds-ticket-row {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: max-content;
+  min-width: 100%;
+  gap: 16px;
+}
+
+/* Each ticket cell has a fixed width */
+.kds-ticket-cell {
+  width: 300px;
+  flex-shrink: 0;
 }

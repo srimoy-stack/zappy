@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { useKDSStore } from '../../store/kdsStore';
 import { useFilterStore } from '../../store/useFilterStore';
 import { ChefHat, Package, ChevronLeft, Menu } from 'lucide-react';
+import { isItemVisibleOnStation } from '../../utils/routingUtils';
 
 interface ProductionSummaryProps {
     compact?: boolean;
@@ -12,10 +13,15 @@ interface ProductionSummaryProps {
 export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact }) => {
     const ordersMap = useKDSStore((state) => state.orders);
 
-    const enable_station_routing = useKDSStore(state => state.enable_station_routing);
-    const selectedStationId = useKDSStore(state => state.selectedStationId);
-    const category_station_map = useKDSStore(state => state.category_station_map);
-    const fulfilledOrders = useKDSStore(state => state.fulfilledOrders);
+    const {
+        enable_station_routing,
+        selectedStationId,
+        category_station_map,
+        item_station_map,
+        allow_item_station_override,
+        master_screen_view_mode,
+        fulfilledOrders
+    } = useKDSStore();
 
     const orders = useMemo(() => Object.values(ordersMap), [ordersMap]);
 
@@ -27,10 +33,18 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
             if (compact && order.stage === 'FULFILLED') return;
             order.items.forEach((item) => {
                 if (compact && item.isCompleted) return;
-                if (enable_station_routing && selectedStationId !== 'ALL') {
-                    const itemStationId = item.categoryId ? category_station_map[item.categoryId] : 'kitchen';
-                    if (itemStationId !== selectedStationId) return;
-                }
+
+                const isVisible = isItemVisibleOnStation(item, {
+                    enable_station_routing,
+                    selectedStationId,
+                    category_station_map,
+                    item_station_map,
+                    allow_item_station_override,
+                    master_screen_view_mode
+                });
+
+                if (!isVisible) return;
+
                 const key = `${item.name}-${item.variant || ''}`;
                 if (!aggregation[key]) {
                     aggregation[key] = {
@@ -44,7 +58,7 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
         });
 
         return Object.values(aggregation).sort((a, b) => b.quantity - a.quantity);
-    }, [orders, fulfilledOrders, enable_station_routing, selectedStationId, category_station_map, compact]);
+    }, [orders, fulfilledOrders, enable_station_routing, selectedStationId, category_station_map, item_station_map, allow_item_station_override, master_screen_view_mode, compact]);
 
     const totalItems = summaryData.reduce((sum, item) => sum + item.quantity, 0);
 

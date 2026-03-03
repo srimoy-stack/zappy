@@ -8,7 +8,6 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/zustand/esm/react.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/zustand/esm/middleware.mjs [app-ssr] (ecmascript)");
-'use client';
 ;
 ;
 const useFilterStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["create"])()((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["persist"])((set)=>({
@@ -18,17 +17,22 @@ const useFilterStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_
         stage: 'ALL',
         showRecentlyFulfilled: true,
         isSidebarOpen: false,
+        currentPage: 0,
         setFulfillment: (fulfillment)=>set({
-                fulfillment
+                fulfillment,
+                currentPage: 0
             }),
         setSource: (source)=>set({
-                source
+                source,
+                currentPage: 0
             }),
         setStage: (stage)=>set({
-                stage
+                stage,
+                currentPage: 0
             }),
         setViewMode: (viewMode)=>set({
-                viewMode
+                viewMode,
+                currentPage: 0
             }),
         setShowRecentlyFulfilled: (showRecentlyFulfilled)=>set({
                 showRecentlyFulfilled
@@ -36,13 +40,17 @@ const useFilterStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_
         setIsSidebarOpen: (isSidebarOpen)=>set({
                 isSidebarOpen
             }),
+        setCurrentPage: (currentPage)=>set({
+                currentPage
+            }),
         resetFilters: ()=>set({
                 fulfillment: 'ALL',
                 source: 'ALL',
                 viewMode: 'KANBAN',
                 stage: 'ALL',
                 showRecentlyFulfilled: true,
-                isSidebarOpen: false
+                isSidebarOpen: false,
+                currentPage: 0
             })
     }), {
     name: 'kds-filter-settings'
@@ -745,11 +753,13 @@ const KDSHeader = ()=>{
                                                     'ONLINE',
                                                     'POS',
                                                     'KIOSK',
-                                                    'THIRD_PARTY'
+                                                    'CALL_CENTER',
+                                                    'UBER_DIRECT',
+                                                    'API'
                                                 ].map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                         onClick: ()=>setSource(s),
                                                         className: `w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${source === s ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`,
-                                                        children: s
+                                                        children: s.replace(/_/g, ' ')
                                                     }, s, false, {
                                                         fileName: "[project]/src/modules/kds/components/KDSHeader.tsx",
                                                         lineNumber: 103,
@@ -789,17 +799,16 @@ const KDSHeader = ()=>{
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[180px] animate-in fade-in slide-in-from-top-2 duration-200",
+                                                className: "absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-2xl rounded-2xl py-3 hidden group-hover:block z-[100] w-[200px] animate-in fade-in slide-in-from-top-2 duration-200",
                                                 children: [
                                                     'ALL',
                                                     'PICKUP',
-                                                    'DELIVERY',
-                                                    'DINE_IN',
-                                                    'STORE_DELIVERY'
+                                                    'STORE_DELIVERY',
+                                                    'UBER_DIRECT_DELIVERY'
                                                 ].map((f)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                         onClick: ()=>setFulfillment(f),
                                                         className: `w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase hover:bg-gray-50 transition-colors ${fulfillment === f ? 'text-blue-600 bg-blue-50/50' : 'text-gray-600'}`,
-                                                        children: f.replace('_', ' ')
+                                                        children: f.replace(/_/g, ' ')
                                                     }, f, false, {
                                                         fileName: "[project]/src/modules/kds/components/KDSHeader.tsx",
                                                         lineNumber: 122,
@@ -986,18 +995,18 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/kds/store/kdsStore.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/modules/kds/store/useFilterStore.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-up.js [app-ssr] (ecmascript) <export default as ChevronUp>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-ssr] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-left.js [app-ssr] (ecmascript) <export default as ChevronLeft>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
 'use client';
 ;
 ;
 ;
 ;
 ;
-const KDSFooter = ()=>{
+const KDSFooter = ({ totalPages = 1 })=>{
     const ordersMap = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useKDSStore"])((state)=>state.orders);
     const completedOrders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useKDSStore"])((state)=>state.fulfilledOrders);
-    const { stage: currentStage, setStage } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const { stage: currentStage, setStage, currentPage, setCurrentPage } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useFilterStore"])();
     const orders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>Object.values(ordersMap), [
         ordersMap
     ]);
@@ -1025,20 +1034,22 @@ const KDSFooter = ()=>{
                         children: count
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 33,
+                        lineNumber: 35,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                lineNumber: 31,
+                lineNumber: 34,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-            lineNumber: 26,
+            lineNumber: 30,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0));
+    const canGoPrev = currentPage > 0;
+    const canGoNext = currentPage < totalPages - 1;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "h-[56px] bg-white border-t border-gray-200 flex items-center justify-between px-6 shrink-0 z-50",
         children: [
@@ -1046,7 +1057,7 @@ const KDSFooter = ()=>{
                 className: "w-1/4"
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                lineNumber: 41,
+                lineNumber: 46,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1059,7 +1070,7 @@ const KDSFooter = ()=>{
                         active: currentStage === 'ALL'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 45,
+                        lineNumber: 50,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterItem, {
@@ -1069,7 +1080,7 @@ const KDSFooter = ()=>{
                         active: currentStage === 'NEW'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 46,
+                        lineNumber: 51,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterItem, {
@@ -1079,7 +1090,7 @@ const KDSFooter = ()=>{
                         active: currentStage === 'FIRED'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 47,
+                        lineNumber: 52,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterItem, {
@@ -1089,7 +1100,7 @@ const KDSFooter = ()=>{
                         active: currentStage === 'READY'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 48,
+                        lineNumber: 53,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterItem, {
@@ -1099,96 +1110,96 @@ const KDSFooter = ()=>{
                         active: currentStage === 'DELAYED'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 49,
+                        lineNumber: 54,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center h-full px-1 border-b-2 border-transparent text-gray-400 opacity-50 cursor-default",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "text-sm font-bold uppercase",
-                            children: [
-                                "Completed ",
-                                counts.completed
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                            lineNumber: 52,
-                            columnNumber: 21
-                        }, ("TURBOPACK compile-time value", void 0))
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterItem, {
+                        label: "Completed",
+                        count: counts.completed,
+                        id: "FULFILLED",
+                        active: currentStage === 'FULFILLED'
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                        lineNumber: 51,
+                        lineNumber: 55,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                lineNumber: 44,
+                lineNumber: 49,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex items-center justify-end gap-4 w-1/4",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center border border-gray-200 rounded overflow-hidden",
+                className: "flex items-center justify-end gap-3 w-1/4",
+                children: totalPages > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center border border-gray-200 rounded-lg overflow-hidden shadow-sm",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "p-2 hover:bg-gray-50 border-r border-gray-200 text-gray-400 transition-colors",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__["ChevronUp"], {
+                            onClick: ()=>setCurrentPage(Math.max(0, currentPage - 1)),
+                            disabled: !canGoPrev,
+                            className: `p-2 border-r border-gray-200 transition-colors ${canGoPrev ? 'hover:bg-gray-100 text-gray-600 active:bg-gray-200' : 'text-gray-200 cursor-not-allowed'}`,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
                                 size: 16
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                                lineNumber: 60,
-                                columnNumber: 25
-                            }, ("TURBOPACK compile-time value", void 0))
-                        }, void 0, false, {
-                            fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                            lineNumber: 59,
-                            columnNumber: 21
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "px-3 bg-gray-50 flex items-center",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-[11px] font-bold text-gray-900",
-                                children: "Page 1 of 1"
-                            }, void 0, false, {
-                                fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                                lineNumber: 63,
-                                columnNumber: 25
+                                lineNumber: 67,
+                                columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
                             lineNumber: 62,
-                            columnNumber: 21
+                            columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "p-2 hover:bg-gray-50 text-gray-400 transition-colors",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                size: 16
-                            }, void 0, false, {
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "px-4 py-1 bg-gray-50 flex items-center",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-[11px] font-bold text-gray-900 tabular-nums",
+                                children: [
+                                    currentPage + 1,
+                                    " / ",
+                                    totalPages
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                                lineNumber: 66,
-                                columnNumber: 25
+                                lineNumber: 70,
+                                columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                            lineNumber: 65,
-                            columnNumber: 21
+                            lineNumber: 69,
+                            columnNumber: 25
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setCurrentPage(Math.min(totalPages - 1, currentPage + 1)),
+                            disabled: !canGoNext,
+                            className: `p-2 border-l border-gray-200 transition-colors ${canGoNext ? 'hover:bg-gray-100 text-gray-600 active:bg-gray-200' : 'text-gray-200 cursor-not-allowed'}`,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                size: 16
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
+                                lineNumber: 79,
+                                columnNumber: 29
+                            }, ("TURBOPACK compile-time value", void 0))
+                        }, void 0, false, {
+                            fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
+                            lineNumber: 74,
+                            columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                    lineNumber: 58,
-                    columnNumber: 17
+                    lineNumber: 61,
+                    columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-                lineNumber: 57,
+                lineNumber: 59,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/KDSFooter.tsx",
-        lineNumber: 39,
+        lineNumber: 44,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2126,7 +2137,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$uti
 ;
 const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["memo"])(({ orderId, onViewDetail })=>{
     const { order, enable_station_routing, selectedStationId, category_station_map, allow_item_station_override, item_station_map, master_screen_view_mode } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useKDSStore"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2f$shallow$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useShallow"])((state)=>({
-            order: state.orders[orderId],
+            order: state.orders[orderId] ?? state.fulfilledOrders.find((o)=>o.id === orderId),
             enable_station_routing: state.enable_station_routing,
             selectedStationId: state.selectedStationId,
             category_station_map: state.category_station_map,
@@ -2161,7 +2172,19 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
     });
     if (visibleItems.length === 0) return null;
     const slaState = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$utils$2f$slaUtils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getSLAState"])(order.createdAt, order.prepTimeMinutes);
+    const isFulfilled = order.stage === 'FULFILLED';
+    const isRecalled = order.stage === 'RECALLED';
     const getStatusInfo = ()=>{
+        if (isFulfilled) return {
+            label: 'FULFILLED',
+            color: 'bg-emerald-600',
+            text: 'text-emerald-600'
+        };
+        if (isRecalled) return {
+            label: 'RECALLED',
+            color: 'bg-teal-500',
+            text: 'text-teal-500'
+        };
         if (slaState === 'OVERDUE') return {
             label: 'DELAYED',
             color: 'bg-red-500',
@@ -2216,7 +2239,7 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                 className: `h-1 w-full ${status.color}`
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 107,
+                lineNumber: 112,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2235,7 +2258,7 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 113,
+                                    lineNumber: 118,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2243,13 +2266,13 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                     children: order.customerName || 'GUEST'
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 121,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 112,
+                            lineNumber: 117,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2263,14 +2286,14 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                             className: "animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                            lineNumber: 122,
+                                            lineNumber: 127,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         status.label
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 121,
+                                    lineNumber: 126,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2284,24 +2307,24 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 130,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 120,
+                            lineNumber: 125,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                    lineNumber: 111,
+                    lineNumber: 116,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 110,
+                lineNumber: 115,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2315,7 +2338,7 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                 children: item.quantity
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 139,
+                                lineNumber: 144,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2326,7 +2349,7 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                         children: item.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 149,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     item.modifiers.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2341,60 +2364,84 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                                                 ]
                                             }, idx, true, {
                                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 156,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 154,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 143,
+                                lineNumber: 148,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, item.id, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 138,
+                        lineNumber: 143,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 133,
+                lineNumber: 138,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "p-3 bg-gray-50 border-t border-gray-100 mt-auto flex gap-2",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    isFulfilled ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 h-9 rounded-xl flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-[10px] font-black text-emerald-600 uppercase tracking-widest",
+                                children: "✓ Completed"
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
+                                lineNumber: 172,
+                                columnNumber: 25
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-[9px] font-bold text-emerald-400 font-mono",
+                                children: timer
+                            }, void 0, false, {
+                                fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
+                                lineNumber: 173,
+                                columnNumber: 25
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
+                        lineNumber: 171,
+                        columnNumber: 21
+                    }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handleAdvance,
                         disabled: isProcessing,
-                        className: `flex-1 h-9 rounded-xl flex items-center justify-between px-4 text-white transition-all active:scale-[0.98] border-b-2 active:border-b-0 ${order.stage === 'NEW' ? 'bg-gray-800 border-gray-950 hover:bg-black' : order.stage === 'ACCEPTED' ? 'bg-emerald-600 border-emerald-800 hover:bg-emerald-700' : order.stage === 'FIRED' ? 'bg-[#E67E22] border-[#D35400] hover:bg-[#D35400]' : 'bg-blue-600 border-blue-800 hover:bg-blue-700'}`,
+                        className: `flex-1 h-9 rounded-xl flex items-center justify-between px-4 text-white transition-all active:scale-[0.98] border-b-2 active:border-b-0 ${order.stage === 'NEW' ? 'bg-gray-800 border-gray-950 hover:bg-black' : order.stage === 'ACCEPTED' ? 'bg-emerald-600 border-emerald-800 hover:bg-emerald-700' : order.stage === 'RECALLED' ? 'bg-teal-600 border-teal-800 hover:bg-teal-700' : order.stage === 'FIRED' ? 'bg-[#E67E22] border-[#D35400] hover:bg-[#D35400]' : 'bg-blue-600 border-blue-800 hover:bg-blue-700'}`,
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 className: "text-[9px] font-bold uppercase",
-                                children: order.stage === 'NEW' ? 'Confirm' : order.stage === 'ACCEPTED' ? 'Start' : order.stage === 'FIRED' ? 'Ready' : 'Done'
+                                children: order.stage === 'NEW' ? 'Confirm' : order.stage === 'ACCEPTED' ? 'Start' : order.stage === 'RECALLED' ? 'Re-Queue' : order.stage === 'FIRED' ? 'Ready' : 'Done'
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 174,
-                                columnNumber: 21
+                                lineNumber: 186,
+                                columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 className: "text-[10px] font-bold font-mono bg-black/20 px-1.5 py-0.5 rounded",
                                 children: timer
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                                lineNumber: 177,
-                                columnNumber: 21
+                                lineNumber: 192,
+                                columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 165,
-                        columnNumber: 17
+                        lineNumber: 176,
+                        columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handlePrint,
@@ -2404,12 +2451,12 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                             size: 16
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 184,
+                            lineNumber: 200,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 179,
+                        lineNumber: 195,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2420,24 +2467,24 @@ const OrderTicket = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
                             size: 16
                         }, void 0, false, {
                             fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                            lineNumber: 191,
+                            lineNumber: 207,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                        lineNumber: 186,
+                        lineNumber: 202,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-                lineNumber: 164,
+                lineNumber: 169,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/kds/components/ticket/OrderTicket.tsx",
-        lineNumber: 101,
+        lineNumber: 106,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 });
@@ -4516,582 +4563,600 @@ const OrderDetailModal = ({ order, isOpen, onClose })=>{
     };
     if (!isOpen || !mounted) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$dom$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createPortal"])(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed inset-0 z-[2000] bg-[#F3F4F6] flex flex-col animate-in fade-in slide-in-from-bottom duration-300",
+        className: "fixed inset-0 z-[2000] flex items-center justify-center p-6 lg:p-12",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "h-[80px] bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 shadow-sm",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-6",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: onClose,
-                                className: "p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all active:scale-95",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
-                                    size: 24,
-                                    className: "text-gray-900"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                    lineNumber: 87,
-                                    columnNumber: 25
-                                }, ("TURBOPACK compile-time value", void 0))
-                            }, void 0, false, {
-                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                lineNumber: 83,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0)),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center gap-3",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: "text-3xl font-bold text-gray-900",
-                                                children: [
-                                                    "ORDER #",
-                                                    order.orderNumber
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                lineNumber: 91,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: `px-3 py-1 rounded-lg text-[10px] font-bold uppercase text-white ${order.stage === 'NEW' ? 'bg-[#374151]' : order.stage === 'READY' ? 'bg-blue-600' : 'bg-[#E67E22]'}`,
-                                                children: order.stage === 'NEW' ? 'IN QUEUE' : order.stage === 'READY' ? 'READY' : 'IN PREPARATION'
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                lineNumber: 92,
-                                                columnNumber: 29
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                        lineNumber: 90,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-gray-400 text-[11px] font-bold uppercase mt-1",
-                                        children: [
-                                            order.customerName || 'GUEST CUSTOMER',
-                                            " • REF: ",
-                                            order.external_order_id || order.id.slice(0, 8)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                        lineNumber: 99,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0))
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                lineNumber: 89,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0))
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                        lineNumber: 82,
-                        columnNumber: 17
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-4",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>window.print(),
-                                className: "flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl font-bold text-xs uppercase hover:border-black transition-all",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
-                                        size: 18
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                        lineNumber: 110,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    " Print Label"
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                lineNumber: 106,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0)),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: handleCancel,
-                                className: "flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 border-2 border-red-100 rounded-xl font-bold text-xs uppercase hover:bg-red-600 hover:text-white transition-all",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                        size: 18
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                        lineNumber: 116,
-                                        columnNumber: 25
-                                    }, ("TURBOPACK compile-time value", void 0)),
-                                    " Void Order"
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                lineNumber: 112,
-                                columnNumber: 21
-                            }, ("TURBOPACK compile-time value", void 0))
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                        lineNumber: 105,
-                        columnNumber: 17
-                    }, ("TURBOPACK compile-time value", void 0))
-                ]
-            }, void 0, true, {
+                className: "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity",
+                onClick: onClose
+            }, void 0, false, {
                 fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
                 lineNumber: 81,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex-1 overflow-hidden flex flex-col p-8 lg:p-12",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "max-w-7xl mx-auto w-full flex-1 flex flex-col lg:flex-row gap-8 overflow-hidden",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex-1 flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-sm font-bold text-gray-400 uppercase",
-                                            children: "Item Production List"
+                className: "relative w-full max-w-6xl max-h-[90vh] bg-[#F3F4F6] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "h-[80px] bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-6",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: onClose,
+                                        className: "p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all active:scale-95",
+                                        title: "Close",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
+                                            size: 24,
+                                            className: "text-gray-900"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 128,
-                                            columnNumber: 29
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: handleSelectAll,
-                                            className: "text-[10px] font-bold text-blue-500 uppercase hover:underline",
-                                            children: selectedItemIds.size === order.items.length ? 'DESELECT ALL' : 'SELECT ALL ITEMS'
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 129,
+                                            lineNumber: 93,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                    lineNumber: 127,
-                                    columnNumber: 25
-                                }, ("TURBOPACK compile-time value", void 0)),
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                        lineNumber: 88,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-3",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                        className: "text-3xl font-bold text-gray-900",
+                                                        children: [
+                                                            "ORDER #",
+                                                            order.orderNumber
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                        lineNumber: 97,
+                                                        columnNumber: 33
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: `px-3 py-1 rounded-lg text-[10px] font-bold uppercase text-white ${order.stage === 'NEW' ? 'bg-[#374151]' : order.stage === 'READY' ? 'bg-blue-600' : 'bg-[#E67E22]'}`,
+                                                        children: order.stage === 'NEW' ? 'IN QUEUE' : order.stage === 'READY' ? 'READY' : 'IN PREPARATION'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                        lineNumber: 98,
+                                                        columnNumber: 33
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                lineNumber: 96,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-gray-400 text-[11px] font-bold uppercase mt-1",
+                                                children: [
+                                                    order.customerName || 'GUEST CUSTOMER',
+                                                    " • REF: ",
+                                                    order.external_order_id || order.id.slice(0, 8)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                lineNumber: 105,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                        lineNumber: 95,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                lineNumber: 87,
+                                columnNumber: 21
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>window.print(),
+                                        className: "flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl font-bold text-xs uppercase hover:border-black transition-all",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                lineNumber: 116,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            " Print Label"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                        lineNumber: 112,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: handleCancel,
+                                        className: "flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 border-2 border-red-100 rounded-xl font-bold text-xs uppercase hover:bg-red-600 hover:text-white transition-all",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                lineNumber: 122,
+                                                columnNumber: 29
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            " Void Order"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                        lineNumber: 118,
+                                        columnNumber: 25
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                lineNumber: 111,
+                                columnNumber: 21
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                        lineNumber: 86,
+                        columnNumber: 17
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 overflow-y-auto flex flex-col p-8 lg:p-12",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mx-auto w-full flex-1 flex flex-col lg:flex-row gap-8",
+                            children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex-1 overflow-y-auto p-8 scrollbar-hide space-y-4",
-                                    children: order.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            onClick: ()=>toggleItemSelection(item.id),
-                                            className: `flex items-start gap-6 p-6 rounded-3xl border-4 transition-all cursor-pointer group hover:scale-[1.01] ${selectedItemIds.has(item.id) ? 'border-black bg-gray-50' : 'border-transparent bg-gray-50/30 hover:bg-white hover:border-gray-200'}`,
+                                    className: "flex-1 flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: `w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shrink-0 transition-colors ${item.isCompleted ? 'bg-emerald-500 text-white' : selectedItemIds.has(item.id) ? 'bg-black text-white' : 'bg-white text-gray-900 border border-gray-100'}`,
-                                                    children: item.isCompleted ? '✓' : item.quantity
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-sm font-bold text-gray-400 uppercase",
+                                                    children: "Item Production List"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 147,
-                                                    columnNumber: 37
+                                                    lineNumber: 134,
+                                                    columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex-1 min-w-0",
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: handleSelectAll,
+                                                    className: "text-[10px] font-bold text-blue-500 uppercase hover:underline",
+                                                    children: selectedItemIds.size === order.items.length ? 'DESELECT ALL' : 'SELECT ALL ITEMS'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                    lineNumber: 135,
+                                                    columnNumber: 33
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                            lineNumber: 133,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex-1 overflow-y-auto p-8 scrollbar-hide space-y-4",
+                                            children: order.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    onClick: ()=>toggleItemSelection(item.id),
+                                                    className: `flex items-start gap-6 p-6 rounded-3xl border-4 transition-all cursor-pointer group hover:scale-[1.01] ${selectedItemIds.has(item.id) ? 'border-black bg-gray-50' : 'border-transparent bg-gray-50/30 hover:bg-white hover:border-gray-200'}`,
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-center gap-3 mb-2",
+                                                            className: `w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shrink-0 transition-colors ${item.isCompleted ? 'bg-emerald-500 text-white' : selectedItemIds.has(item.id) ? 'bg-black text-white' : 'bg-white text-gray-900 border border-gray-100'}`,
+                                                            children: item.isCompleted ? '✓' : item.quantity
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 153,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex-1 min-w-0",
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                    className: `text-2xl font-bold uppercase leading-none ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900 group-hover:text-black'}`,
-                                                                    children: item.name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 155,
-                                                                    columnNumber: 45
-                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                item.variant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase",
-                                                                    children: item.variant
-                                                                }, void 0, false, {
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex items-center gap-3 mb-2",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                                            className: `text-2xl font-bold uppercase leading-none ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900 group-hover:text-black'}`,
+                                                                            children: item.name
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 161,
+                                                                            columnNumber: 49
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        item.variant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase",
+                                                                            children: item.variant
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 166,
+                                                                            columnNumber: 53
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
                                                                     lineNumber: 160,
+                                                                    columnNumber: 45
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                item.modifiers.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-wrap gap-2",
+                                                                    children: item.modifiers.map((mod, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex items-center gap-1.5 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-gray-200/50",
+                                                                            children: [
+                                                                                mod.quantity && mod.quantity > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-black",
+                                                                                    children: [
+                                                                                        "x",
+                                                                                        mod.quantity
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                                    lineNumber: 175,
+                                                                                    columnNumber: 98
+                                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    children: mod.name
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                                    lineNumber: 176,
+                                                                                    columnNumber: 61
+                                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                                mod.placement && mod.placement !== 'FULL' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-[8px] bg-white border border-gray-200 px-1 rounded ml-1 text-gray-400",
+                                                                                    children: mod.placement
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                                    lineNumber: 178,
+                                                                                    columnNumber: 65
+                                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                                            ]
+                                                                        }, idx, true, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 174,
+                                                                            columnNumber: 57
+                                                                        }, ("TURBOPACK compile-time value", void 0)))
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                    lineNumber: 172,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 154,
+                                                            lineNumber: 159,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0)),
-                                                        item.modifiers.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-wrap gap-2",
-                                                            children: item.modifiers.map((mod, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center gap-1.5 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-gray-200/50",
-                                                                    children: [
-                                                                        mod.quantity && mod.quantity > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-black",
-                                                                            children: [
-                                                                                "x",
-                                                                                mod.quantity
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                            lineNumber: 169,
-                                                                            columnNumber: 94
-                                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            children: mod.name
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                            lineNumber: 170,
-                                                                            columnNumber: 57
-                                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                                        mod.placement && mod.placement !== 'FULL' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-[8px] bg-white border border-gray-200 px-1 rounded ml-1 text-gray-400",
-                                                                            children: mod.placement
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                            lineNumber: 172,
-                                                                            columnNumber: 61
-                                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                                    ]
-                                                                }, idx, true, {
-                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 168,
-                                                                    columnNumber: 53
-                                                                }, ("TURBOPACK compile-time value", void 0)))
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 166,
-                                                            columnNumber: 45
-                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 153,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: `w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedItemIds.has(item.id) ? 'bg-black border-black' : 'border-gray-300'}`,
-                                                    children: selectedItemIds.has(item.id) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
-                                                        size: 16,
-                                                        className: "text-white"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                        lineNumber: 183,
-                                                        columnNumber: 74
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 181,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0))
-                                            ]
-                                        }, item.id, true, {
-                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 139,
-                                            columnNumber: 33
-                                        }, ("TURBOPACK compile-time value", void 0)))
-                                }, void 0, false, {
-                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                    lineNumber: 137,
-                                    columnNumber: 25
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                            lineNumber: 126,
-                            columnNumber: 21
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "lg:w-[400px] flex flex-col gap-6",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-4",
-                                    children: [
-                                        order.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "bg-amber-100 p-8 rounded-[2rem] border-2 border-amber-200 shadow-lg",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-2 mb-3",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                                                            size: 20,
-                                                            className: "text-amber-600"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 197,
-                                                            columnNumber: 41
-                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-[10px] font-bold text-amber-600 uppercase",
-                                                            children: "Kitchen Priority Instructions"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 198,
-                                                            columnNumber: 41
-                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 196,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-xl font-bold text-amber-900 italic leading-relaxed",
-                                                    children: [
-                                                        '"',
-                                                        order.notes,
-                                                        '"'
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 200,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0))
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 195,
-                                            columnNumber: 33
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        order.allergies && order.allergies.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "bg-red-50 p-6 rounded-[2rem] border-2 border-red-100",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-2 mb-3",
-                                                    children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-2 h-2 rounded-full bg-red-500 animate-pulse"
+                                                            className: `w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedItemIds.has(item.id) ? 'bg-black border-black' : 'border-gray-300'}`,
+                                                            children: selectedItemIds.has(item.id) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
+                                                                size: 16,
+                                                                className: "text-white"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                lineNumber: 189,
+                                                                columnNumber: 78
+                                                            }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 209,
-                                                            columnNumber: 41
-                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-[10px] font-bold text-red-600 uppercase tracking-widest",
-                                                            children: "Allergy Alerts"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 210,
+                                                            lineNumber: 187,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
-                                                }, void 0, true, {
+                                                }, item.id, true, {
                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 208,
+                                                    lineNumber: 145,
                                                     columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex flex-wrap gap-2",
-                                                    children: order.allergies.map((allergy, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "px-3 py-1 bg-white border border-red-200 text-red-600 text-[11px] font-bold rounded-lg uppercase",
-                                                            children: allergy
-                                                        }, idx, false, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 214,
-                                                            columnNumber: 45
-                                                        }, ("TURBOPACK compile-time value", void 0)))
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 212,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0))
-                                            ]
-                                        }, void 0, true, {
+                                                }, ("TURBOPACK compile-time value", void 0)))
+                                        }, void 0, false, {
                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 207,
-                                            columnNumber: 33
+                                            lineNumber: 143,
+                                            columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                    lineNumber: 193,
+                                    lineNumber: 132,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "bg-white p-8 rounded-[2.5rem] border border-gray-200 space-y-8",
+                                    className: "lg:w-[400px] flex flex-col gap-6",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "space-y-4",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                    className: "text-[10px] font-bold text-gray-400 uppercase mb-4",
-                                                    children: "Channel Details"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 226,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "grid grid-cols-2 gap-y-4",
+                                                order.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "bg-amber-100 p-8 rounded-[2rem] border-2 border-amber-200 shadow-lg",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-col",
+                                                            className: "flex items-center gap-2 mb-3",
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[9px] font-bold text-gray-300 uppercase",
-                                                                    children: "Elapsed"
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
+                                                                    size: 20,
+                                                                    className: "text-amber-600"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 229,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 203,
+                                                                    columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-lg font-bold text-gray-900",
-                                                                    children: [
-                                                                        "12:45 ",
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-xs",
-                                                                            children: "MIN"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                            lineNumber: 230,
-                                                                            columnNumber: 97
-                                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                                    ]
-                                                                }, void 0, true, {
+                                                                    className: "text-[10px] font-bold text-amber-600 uppercase",
+                                                                    children: "Kitchen Priority Instructions"
+                                                                }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 230,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 204,
+                                                                    columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 228,
-                                                            columnNumber: 37
+                                                            lineNumber: 202,
+                                                            columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0)),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-col text-right",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-xl font-bold text-amber-900 italic leading-relaxed",
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[9px] font-bold text-gray-300 uppercase",
-                                                                    children: "Channel"
+                                                                '"',
+                                                                order.notes,
+                                                                '"'
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 206,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                    lineNumber: 201,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                order.allergies && order.allergies.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "bg-red-50 p-6 rounded-[2rem] border-2 border-red-100",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2 mb-3",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "w-2 h-2 rounded-full bg-red-500 animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 233,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 215,
+                                                                    columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-lg font-bold text-gray-900 uppercase",
-                                                                    children: order.order_source
+                                                                    className: "text-[10px] font-bold text-red-600 uppercase tracking-widest",
+                                                                    children: "Allergy Alerts"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 234,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 216,
+                                                                    columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 214,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex flex-wrap gap-2",
+                                                            children: order.allergies.map((allergy, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "px-3 py-1 bg-white border border-red-200 text-red-600 text-[11px] font-bold rounded-lg uppercase",
+                                                                    children: allergy
+                                                                }, idx, false, {
+                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                    lineNumber: 220,
+                                                                    columnNumber: 49
+                                                                }, ("TURBOPACK compile-time value", void 0)))
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 218,
+                                                            columnNumber: 41
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                    lineNumber: 213,
+                                                    columnNumber: 37
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                            lineNumber: 199,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "bg-white p-8 rounded-[2.5rem] border border-gray-200 space-y-8",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                            className: "text-[10px] font-bold text-gray-400 uppercase mb-4",
+                                                            children: "Channel Details"
+                                                        }, void 0, false, {
                                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
                                                             lineNumber: 232,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-col",
+                                                            className: "grid grid-cols-2 gap-y-4",
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[9px] font-bold text-gray-300 uppercase",
-                                                                    children: "Service"
-                                                                }, void 0, false, {
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-[9px] font-bold text-gray-300 uppercase",
+                                                                            children: "Elapsed"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 235,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-lg font-bold text-gray-900",
+                                                                            children: [
+                                                                                "12:45 ",
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-xs",
+                                                                                    children: "MIN"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                                    lineNumber: 236,
+                                                                                    columnNumber: 101
+                                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 236,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 237,
+                                                                    lineNumber: 234,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-lg font-bold text-gray-900 uppercase",
-                                                                    children: order.fulfillment_type.replace('_', ' ')
-                                                                }, void 0, false, {
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col text-right",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-[9px] font-bold text-gray-300 uppercase",
+                                                                            children: "Channel"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 239,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-lg font-bold text-gray-900 uppercase",
+                                                                            children: order.order_source
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 240,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
                                                                     lineNumber: 238,
                                                                     columnNumber: 41
-                                                                }, ("TURBOPACK compile-time value", void 0))
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 236,
-                                                            columnNumber: 37
-                                                        }, ("TURBOPACK compile-time value", void 0)),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-col text-right",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-[9px] font-bold text-gray-300 uppercase",
-                                                                    children: "Items"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                                    lineNumber: 241,
-                                                                    columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "text-lg font-bold text-gray-900",
-                                                                    children: order.items.length
-                                                                }, void 0, false, {
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-[9px] font-bold text-gray-300 uppercase",
+                                                                            children: "Service"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 243,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-lg font-bold text-gray-900 uppercase",
+                                                                            children: order.fulfillment_type.replace('_', ' ')
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 244,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
                                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
                                                                     lineNumber: 242,
                                                                     columnNumber: 41
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col text-right",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-[9px] font-bold text-gray-300 uppercase",
+                                                                            children: "Items"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 247,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-lg font-bold text-gray-900",
+                                                                            children: order.items.length
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                            lineNumber: 248,
+                                                                            columnNumber: 45
+                                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                                    lineNumber: 246,
+                                                                    columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                            lineNumber: 240,
+                                                            lineNumber: 233,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 227,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0))
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 225,
-                                            columnNumber: 29
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "pt-8 border-t border-gray-100",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    onClick: handleFulfill,
-                                                    className: "w-full h-20 bg-black text-white rounded-3xl font-bold text-lg uppercase shadow-lg hover:bg-gray-800 transition-all active:scale-[0.98]",
-                                                    children: selectedItemIds.size > 0 ? `Fulfill Selected (${selectedItemIds.size})` : 'Fulfill All Items'
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 248,
+                                                    lineNumber: 231,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-[9px] font-bold text-gray-400 text-center uppercase tracking-widest mt-4",
-                                                    children: "Order will move to READY status upon fulfillment"
-                                                }, void 0, false, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "pt-8 border-t border-gray-100",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            onClick: handleFulfill,
+                                                            className: "w-full h-20 bg-black text-white rounded-3xl font-bold text-lg uppercase shadow-lg hover:bg-gray-800 transition-all active:scale-[0.98]",
+                                                            children: selectedItemIds.size > 0 ? `Fulfill Selected (${selectedItemIds.size})` : 'Fulfill All Items'
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 254,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-[9px] font-bold text-gray-400 text-center uppercase tracking-widest mt-4",
+                                                            children: "Order will move to READY status upon fulfillment"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                                                            lineNumber: 262,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                                    lineNumber: 256,
+                                                    lineNumber: 253,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                            lineNumber: 247,
+                                            lineNumber: 230,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                                    lineNumber: 224,
+                                    lineNumber: 197,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                            lineNumber: 191,
+                            lineNumber: 129,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                    lineNumber: 123,
-                    columnNumber: 17
-                }, ("TURBOPACK compile-time value", void 0))
-            }, void 0, false, {
+                    }, void 0, false, {
+                        fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
+                        lineNumber: 128,
+                        columnNumber: 17
+                    }, ("TURBOPACK compile-time value", void 0))
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/modules/kds/components/modals/OrderDetailModal.tsx",
-                lineNumber: 122,
+                lineNumber: 84,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
@@ -5147,7 +5212,32 @@ function KDSMasterPage() {
     const fulfilledOrders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useKDSStore"])((state)=>state.fulfilledOrders);
     const recallFulfilledOrder = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useKDSStore"])((state)=>state.recallFulfilledOrder);
     const [selectedOrderId, setSelectedOrderId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const { viewMode, fulfillment: fulfillmentFilter, source: sourceFilter, stage: stageFilter, showRecentlyFulfilled } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    const scrollContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const { viewMode, fulfillment: fulfillmentFilter, source: sourceFilter, stage: stageFilter, showRecentlyFulfilled, currentPage, setCurrentPage } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$useFilterStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useFilterStore"])();
+    // Calculate total pages based on scroll width
+    const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(1);
+    const updatePageInfo = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        const containerWidth = el.clientWidth;
+        const scrollWidth = el.scrollWidth;
+        const pages = Math.max(1, Math.ceil(scrollWidth / containerWidth));
+        setTotalPages(pages);
+    }, []);
+    // Sync page number when user manually scrolls (touch swipe)
+    const handleScroll = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        const containerWidth = el.clientWidth;
+        if (containerWidth === 0) return;
+        const page = Math.round(el.scrollLeft / containerWidth);
+        if (page !== currentPage) {
+            setCurrentPage(page);
+        }
+    }, [
+        currentPage,
+        setCurrentPage
+    ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         autoInitNetworkListener();
         const interval = setInterval(()=>cleanupFulfilledOrders(), 60000);
@@ -5158,6 +5248,10 @@ function KDSMasterPage() {
     ]);
     // Apply Global Filters
     const filteredOrders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        // Completed orders live in a separate array — show them directly
+        if (stageFilter === 'FULFILLED') {
+            return fulfilledOrders;
+        }
         return Object.values(ordersMap).filter((order)=>{
             const matchesFulfillment = fulfillmentFilter === 'ALL' || order.fulfillment_type === fulfillmentFilter;
             const matchesSource = sourceFilter === 'ALL' || order.order_source === sourceFilter;
@@ -5171,105 +5265,1058 @@ function KDSMasterPage() {
         });
     }, [
         ordersMap,
+        fulfilledOrders,
         fulfillmentFilter,
         sourceFilter,
         stageFilter
+    ]);
+    // Update page info when filtered orders change
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        // Small delay to let DOM update first
+        const t = setTimeout(()=>updatePageInfo(), 50);
+        return ()=>clearTimeout(t);
+    }, [
+        filteredOrders,
+        updatePageInfo
+    ]);
+    // Observe resize changes
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        const observer = new ResizeObserver(()=>updatePageInfo());
+        observer.observe(el);
+        return ()=>observer.disconnect();
+    }, [
+        updatePageInfo
+    ]);
+    // Scroll to page when currentPage changes via footer buttons
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        const containerWidth = el.clientWidth;
+        el.scrollTo({
+            left: currentPage * containerWidth,
+            behavior: 'smooth'
+        });
+    }, [
+        currentPage
     ]);
     // Mock Data Initialization
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (Object.keys(ordersMap).length === 0) {
             const mockOrders = [
+                // ── FIRED (Cooking) ────────────────────────────────────────────────
                 {
-                    id: '1',
-                    orderNumber: '329',
-                    customerName: 'Samir Thai',
+                    id: 'f1',
+                    orderNumber: '401',
+                    customerName: 'Marcus Rivera',
                     fulfillment_type: 'PICKUP',
                     order_source: 'ONLINE',
-                    createdAt: new Date(Date.now() - 600000).toISOString(),
-                    prepTimeMinutes: 15,
+                    createdAt: new Date(Date.now() - 720000).toISOString(),
+                    prepTimeMinutes: 18,
                     stage: 'FIRED',
-                    isDelayed: true
+                    isDelayed: true,
+                    items: [
+                        {
+                            id: 'f1-1',
+                            name: 'BBQ Bacon Smash Burger',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Extra Patty',
+                                    groupType: 'QUANTITY_ONLY'
+                                },
+                                {
+                                    name: 'No Onions',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Brioche Bun',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'burgers'
+                        },
+                        {
+                            id: 'f1-2',
+                            name: 'Loaded Nachos',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Jalapeños',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Pulled Pork',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Sour Cream on Side',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        },
+                        {
+                            id: 'f1-3',
+                            name: 'Chocolate Shake',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Extra Thick',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'drinks'
+                        }
+                    ]
                 },
                 {
-                    id: '2',
-                    orderNumber: '330',
-                    customerName: 'Amazebowls',
-                    fulfillment_type: 'PICKUP',
-                    order_source: 'POS',
-                    createdAt: new Date(Date.now() - 400000).toISOString(),
-                    prepTimeMinutes: 10,
-                    stage: 'FIRED',
-                    isDelayed: false
-                },
-                {
-                    id: '3',
-                    orderNumber: '331',
-                    customerName: 'Mama Musubi',
-                    fulfillment_type: 'DELIVERY',
-                    order_source: 'ONLINE',
-                    createdAt: new Date(Date.now() - 300000).toISOString(),
-                    prepTimeMinutes: 12,
-                    stage: 'FIRED',
-                    isDelayed: false
-                },
-                {
-                    id: '4',
-                    orderNumber: '332',
-                    customerName: 'Bad-Ass Breakfast',
-                    fulfillment_type: 'PICKUP',
-                    order_source: 'POS',
-                    createdAt: new Date(Date.now() - 200000).toISOString(),
-                    prepTimeMinutes: 20,
-                    stage: 'NEW',
-                    isDelayed: false
-                },
-                {
-                    id: '5',
-                    orderNumber: '333465882',
-                    customerName: 'The Halal Guys',
+                    id: 'f2',
+                    orderNumber: '402',
+                    customerName: 'Priya Sharma',
                     fulfillment_type: 'DINE_IN',
                     order_source: 'KIOSK',
-                    createdAt: new Date(Date.now() - 100000).toISOString(),
+                    createdAt: new Date(Date.now() - 540000).toISOString(),
                     prepTimeMinutes: 15,
-                    stage: 'NEW',
-                    isDelayed: false
+                    stage: 'FIRED',
+                    isDelayed: true,
+                    items: [
+                        {
+                            id: 'f2-1',
+                            name: 'Margherita Pizza (12")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Thin Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Mozzarella',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Fresh Basil',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'f2-2',
+                            name: 'Pepperoni Pizza (10")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Stuffed Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Double Pepperoni',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'f2-3',
+                            name: 'Caesar Salad',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'No Anchovies',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Dressing on Side',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'salads'
+                        }
+                    ]
                 },
                 {
-                    id: '6',
-                    orderNumber: '332',
-                    customerName: 'Bad-Ass Breakfast',
+                    id: 'f3',
+                    orderNumber: '403',
+                    customerName: 'Jake Thompson',
+                    fulfillment_type: 'DELIVERY',
+                    order_source: 'UBER_DIRECT',
+                    createdAt: new Date(Date.now() - 480000).toISOString(),
+                    prepTimeMinutes: 20,
+                    stage: 'FIRED',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'f3-1',
+                            name: 'Spicy Chicken Tacos',
+                            quantity: 3,
+                            modifiers: [
+                                {
+                                    name: 'Corn Tortilla',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Hot Sauce',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Avocado',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'tacos'
+                        },
+                        {
+                            id: 'f3-2',
+                            name: 'Beef & Cheese Burrito',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Large Size',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Black Beans',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'No Cilantro',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'burritos'
+                        },
+                        {
+                            id: 'f3-3',
+                            name: 'Guacamole & Chips',
+                            quantity: 1,
+                            modifiers: [],
+                            categoryId: 'sides'
+                        }
+                    ]
+                },
+                {
+                    id: 'f4',
+                    orderNumber: '404',
+                    customerName: 'Sofia Kim',
                     fulfillment_type: 'PICKUP',
                     order_source: 'POS',
-                    createdAt: new Date().toISOString(),
+                    createdAt: new Date(Date.now() - 360000).toISOString(),
+                    prepTimeMinutes: 12,
+                    stage: 'FIRED',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'f4-1',
+                            name: 'Buffalo Chicken Wings',
+                            quantity: 12,
+                            modifiers: [
+                                {
+                                    name: 'Extra Crispy',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Blue Cheese Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'wings'
+                        },
+                        {
+                            id: 'f4-2',
+                            name: 'Truffle Parmesan Fries',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Truffle Oil',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        }
+                    ]
+                },
+                {
+                    id: 'f5',
+                    orderNumber: '405',
+                    customerName: 'David Chen',
+                    fulfillment_type: 'DINE_IN',
+                    order_source: 'ONLINE',
+                    createdAt: new Date(Date.now() - 300000).toISOString(),
+                    prepTimeMinutes: 25,
+                    stage: 'FIRED',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'f5-1',
+                            name: 'BBQ Chicken Pizza (14")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Thick Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra BBQ Sauce',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Red Onion',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Jalapeños',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'f5-2',
+                            name: 'Mozzarella Sticks',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Marinara Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'starters'
+                        },
+                        {
+                            id: 'f5-3',
+                            name: 'BBQ Pulled Pork Sandwich',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Coleslaw on Top',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Pickles',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Toasted Bun',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'burgers'
+                        }
+                    ]
+                },
+                {
+                    id: 'f6',
+                    orderNumber: '406',
+                    customerName: 'Nina Patel',
+                    fulfillment_type: 'PICKUP',
+                    order_source: 'CALL_CENTER',
+                    createdAt: new Date(Date.now() - 240000).toISOString(),
+                    prepTimeMinutes: 14,
+                    stage: 'FIRED',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'f6-1',
+                            name: 'Mushroom Swiss Burger',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Medium-Well',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Gluten-Free Bun',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Swiss',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'burgers'
+                        },
+                        {
+                            id: 'f6-2',
+                            name: 'Chicken Caesar Wrap',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Grilled Chicken',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'No Caesar Dressing',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Spinach Tortilla',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'wraps'
+                        },
+                        {
+                            id: 'f6-3',
+                            name: 'Loaded Potato Skins',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Bacon',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Extra Cheddar',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'starters'
+                        }
+                    ]
+                },
+                // ── READY (Packing) ────────────────────────────────────────────────
+                {
+                    id: 'r1',
+                    orderNumber: '411',
+                    customerName: 'Aisha Johnson',
+                    fulfillment_type: 'PICKUP',
+                    order_source: 'ONLINE',
+                    createdAt: new Date(Date.now() - 900000).toISOString(),
+                    prepTimeMinutes: 10,
+                    stage: 'READY',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'r1-1',
+                            name: 'Four Cheese Pizza (12")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Thin Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'No Oregano',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'r1-2',
+                            name: 'Spicy Arrabbiata Pasta',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Penne',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Chili Flakes',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Parmesan on Side',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'pasta'
+                        }
+                    ]
+                },
+                {
+                    id: 'r2',
+                    orderNumber: '412',
+                    customerName: 'Leo Morales',
+                    fulfillment_type: 'DINE_IN',
+                    order_source: 'KIOSK',
+                    createdAt: new Date(Date.now() - 780000).toISOString(),
+                    prepTimeMinutes: 12,
+                    stage: 'READY',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'r2-1',
+                            name: 'Double Smash Cheeseburger',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Well Done',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'American Cheese',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Pickles',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Grilled Onions',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'burgers'
+                        },
+                        {
+                            id: 'r2-2',
+                            name: 'Sweet Potato Fries',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Chipotle Mayo Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        },
+                        {
+                            id: 'r2-3',
+                            name: 'Lemonade',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Less Sugar',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Mint',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'drinks'
+                        }
+                    ]
+                },
+                {
+                    id: 'r3',
+                    orderNumber: '413',
+                    customerName: 'Camille Dubois',
+                    fulfillment_type: 'DELIVERY',
+                    order_source: 'UBER_DIRECT',
+                    createdAt: new Date(Date.now() - 660000).toISOString(),
+                    prepTimeMinutes: 15,
+                    stage: 'READY',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'r3-1',
+                            name: 'Chicken Tikka Nachos',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Cheese',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Mint Chutney',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'No Onions',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        },
+                        {
+                            id: 'r3-2',
+                            name: 'Lamb Kebab Wrap',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Whole Wheat Wrap',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Tzatziki Sauce',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Veggies',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'wraps'
+                        }
+                    ]
+                },
+                {
+                    id: 'r4',
+                    orderNumber: '414',
+                    customerName: 'Omar Farouk',
+                    fulfillment_type: 'PICKUP',
+                    order_source: 'POS',
+                    createdAt: new Date(Date.now() - 850000).toISOString(),
+                    prepTimeMinutes: 8,
+                    stage: 'READY',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'r4-1',
+                            name: 'Veggie Supreme Pizza (14")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Bell Peppers',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Sun-Dried Tomatoes',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Vegan Cheese',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Garlic Drizzle',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'r4-2',
+                            name: 'Garlic Bread',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Extra Garlic Butter',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        }
+                    ]
+                },
+                {
+                    id: 'r5',
+                    orderNumber: '415',
+                    customerName: 'Rachel Sun',
+                    fulfillment_type: 'DINE_IN',
+                    order_source: 'ONLINE',
+                    createdAt: new Date(Date.now() - 920000).toISOString(),
+                    prepTimeMinutes: 10,
+                    stage: 'READY',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'r5-1',
+                            name: 'Honey Garlic Wings',
+                            quantity: 18,
+                            modifiers: [
+                                {
+                                    name: 'Boneless',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Ranch Dip',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Sauce',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'wings'
+                        },
+                        {
+                            id: 'r5-2',
+                            name: 'Mac & Cheese Bites',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Truffle Aioli Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'starters'
+                        }
+                    ]
+                },
+                // ── NEW (Queue) ────────────────────────────────────────────────────
+                {
+                    id: 'n1',
+                    orderNumber: '421',
+                    customerName: 'Tyler Brooks',
+                    fulfillment_type: 'PICKUP',
+                    order_source: 'ONLINE',
+                    createdAt: new Date(Date.now() - 60000).toISOString(),
                     prepTimeMinutes: 20,
                     stage: 'NEW',
-                    isDelayed: false
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n1-1',
+                            name: 'Meat Lovers Pizza (14")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Extra Thick Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Double Sausage',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Bacon Crumbles',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Spicy Sauce Base',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'n1-2',
+                            name: 'Classic Cheeseburger',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Medium Rare',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'No Ketchup',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Mustard',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'burgers'
+                        },
+                        {
+                            id: 'n1-3',
+                            name: 'Onion Rings',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'BBQ Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        }
+                    ]
+                },
+                {
+                    id: 'n2',
+                    orderNumber: '422',
+                    customerName: 'Fatima Al-Hassan',
+                    fulfillment_type: 'DELIVERY',
+                    order_source: 'UBER_DIRECT',
+                    createdAt: new Date(Date.now() - 45000).toISOString(),
+                    prepTimeMinutes: 22,
+                    stage: 'NEW',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n2-1',
+                            name: 'Shrimp Tacos',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Flour Tortilla',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Mango Salsa',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Chipotle Crema',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'No Cabbage',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'tacos'
+                        },
+                        {
+                            id: 'n2-2',
+                            name: 'Steak Nachos',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Medium Steak',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Pico de Gallo',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Extra Queso',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Pickled Jalapeños',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        },
+                        {
+                            id: 'n2-3',
+                            name: 'Churros',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Chocolate Dip',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'desserts'
+                        }
+                    ]
+                },
+                {
+                    id: 'n3',
+                    orderNumber: '423',
+                    customerName: 'James O\'Brien',
+                    fulfillment_type: 'DINE_IN',
+                    order_source: 'KIOSK',
+                    createdAt: new Date(Date.now() - 30000).toISOString(),
+                    prepTimeMinutes: 18,
+                    stage: 'NEW',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n3-1',
+                            name: 'Carbonara Pasta',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Spaghetti',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Pancetta',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Egg Yolk on Top',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pasta'
+                        },
+                        {
+                            id: 'n3-2',
+                            name: 'Burrata & Tomato Bruschetta',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Balsamic Glaze',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Extra Olive Oil',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'starters'
+                        }
+                    ]
+                },
+                {
+                    id: 'n4',
+                    orderNumber: '424',
+                    customerName: 'Yuki Tanaka',
+                    fulfillment_type: 'PICKUP',
+                    order_source: 'POS',
+                    createdAt: new Date(Date.now() - 20000).toISOString(),
+                    prepTimeMinutes: 16,
+                    stage: 'NEW',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n4-1',
+                            name: 'Sriracha Honey Wings',
+                            quantity: 6,
+                            modifiers: [
+                                {
+                                    name: 'Bone-In',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Extra Sriracha',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'wings'
+                        },
+                        {
+                            id: 'n4-2',
+                            name: 'Philly Cheesesteak',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Provolone',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Sautéed Peppers',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Extra Onions',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Toasted Hoagie Roll',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sandwiches'
+                        },
+                        {
+                            id: 'n4-3',
+                            name: 'Loaded Waffle Fries',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Cheddar Cheese Sauce',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Bacon Bits',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Green Onions',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        }
+                    ]
+                },
+                {
+                    id: 'n5',
+                    orderNumber: '425',
+                    customerName: 'Isabella Rossi',
+                    fulfillment_type: 'DELIVERY',
+                    order_source: 'ONLINE',
+                    createdAt: new Date(Date.now() - 10000).toISOString(),
+                    prepTimeMinutes: 30,
+                    stage: 'NEW',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n5-1',
+                            name: 'Truffle Mushroom Pizza (12")',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Sourdough Crust',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'White Sauce Base',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Truffle Oil Drizzle',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Arugula',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'pizza'
+                        },
+                        {
+                            id: 'n5-2',
+                            name: 'Tiramisu',
+                            quantity: 2,
+                            modifiers: [
+                                {
+                                    name: 'Extra Cocoa Dusting',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'desserts'
+                        },
+                        {
+                            id: 'n5-3',
+                            name: 'San Pellegrino',
+                            quantity: 2,
+                            modifiers: [],
+                            categoryId: 'drinks'
+                        }
+                    ]
+                },
+                {
+                    id: 'n6',
+                    orderNumber: '426',
+                    customerName: 'Carlos Mendez',
+                    fulfillment_type: 'DINE_IN',
+                    order_source: 'KIOSK',
+                    createdAt: new Date(Date.now() - 5000).toISOString(),
+                    prepTimeMinutes: 14,
+                    stage: 'NEW',
+                    isDelayed: false,
+                    items: [
+                        {
+                            id: 'n6-1',
+                            name: 'Street Corn Nachos',
+                            quantity: 1,
+                            modifiers: [
+                                {
+                                    name: 'Cotija Cheese',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Tajín Rim',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Lime Crema',
+                                    groupType: 'CHOICE_ONE'
+                                }
+                            ],
+                            categoryId: 'sides'
+                        },
+                        {
+                            id: 'n6-2',
+                            name: 'Carne Asada Tacos',
+                            quantity: 3,
+                            modifiers: [
+                                {
+                                    name: 'Double Corn Tortilla',
+                                    groupType: 'CHOICE_ONE'
+                                },
+                                {
+                                    name: 'Onion & Cilantro',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                },
+                                {
+                                    name: 'Extra Salsa Verde',
+                                    groupType: 'PLACEMENT_TOPPING'
+                                }
+                            ],
+                            categoryId: 'tacos'
+                        }
+                    ]
                 }
             ];
             mockOrders.forEach((o)=>addOrUpdateOrder({
                     ...o,
                     updatedAt: new Date().toISOString(),
-                    items: [
-                        {
-                            id: o.id + '-1',
-                            name: 'Shrimp Dumpling Miso Soup',
-                            quantity: 1,
-                            modifiers: [],
-                            categoryId: 'cat-1'
-                        },
-                        {
-                            id: o.id + '-2',
-                            name: 'Real Crab California Roll',
-                            quantity: 1,
-                            modifiers: [
-                                {
-                                    name: 'Premium White Rice',
-                                    groupType: 'CHOICE'
-                                }
-                            ],
-                            categoryId: 'cat-2'
-                        }
-                    ]
+                    trackingToken: `mock-${o.id}`,
+                    estimatedReadyTime: new Date(new Date(o.createdAt).getTime() + o.prepTimeMinutes * 60000).toISOString()
                 }));
         }
     }, [
@@ -5285,7 +6332,7 @@ function KDSMasterPage() {
                     className: "text-red-500 mb-4"
                 }, void 0, false, {
                     fileName: "[project]/src/app/kds/master/page.tsx",
-                    lineNumber: 85,
+                    lineNumber: 296,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -5293,13 +6340,13 @@ function KDSMasterPage() {
                     children: "KDS Module Inactive"
                 }, void 0, false, {
                     fileName: "[project]/src/app/kds/master/page.tsx",
-                    lineNumber: 86,
+                    lineNumber: 297,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/kds/master/page.tsx",
-            lineNumber: 84,
+            lineNumber: 295,
             columnNumber: 13
         }, this);
     }
@@ -5309,7 +6356,7 @@ function KDSMasterPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSSidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSSidebar"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 95,
+                lineNumber: 306,
                 columnNumber: 13
             }, this),
             [
@@ -5318,7 +6365,7 @@ function KDSMasterPage() {
                 'COMPACT'
             ].includes(viewMode) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSHeader"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 98,
+                lineNumber: 309,
                 columnNumber: 66
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -5328,53 +6375,62 @@ function KDSMasterPage() {
                         className: "flex-1 overflow-hidden relative",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "h-full universal-kds-layout",
+                                className: "h-full",
                                 children: viewMode === 'SUMMARY' || viewMode === 'ALL_DAY' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "h-full w-full overflow-y-auto p-6 scrollbar-hide",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$board$2f$ProductionSummary$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProductionSummary"], {}, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 316,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 315,
                                     columnNumber: 29
                                 }, this) : viewMode === 'ROUTING' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$board$2f$RoutingConfig$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["RoutingConfig"], {}, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 108,
+                                    lineNumber: 319,
                                     columnNumber: 29
                                 }, this) : viewMode === 'SOUND_SETTINGS' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$SoundConfig$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SoundConfig"], {}, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 110,
+                                    lineNumber: 321,
                                     columnNumber: 29
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "p-4 grid grid-cols-5 gap-4 h-full auto-rows-max overflow-y-auto scrollbar-hide",
+                                    ref: scrollContainerRef,
+                                    onScroll: handleScroll,
+                                    className: "kds-horizontal-scroll p-4 h-full overflow-x-auto overflow-y-hidden",
                                     children: [
-                                        filteredOrders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "h-fit",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$OrderTicket$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OrderTicket"], {
-                                                    orderId: order.id,
-                                                    onViewDetail: setSelectedOrderId
-                                                }, void 0, false, {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "kds-ticket-row h-full",
+                                            children: filteredOrders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "kds-ticket-cell",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$ticket$2f$OrderTicket$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OrderTicket"], {
+                                                        orderId: order.id,
+                                                        onViewDetail: setSelectedOrderId
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/kds/master/page.tsx",
+                                                        lineNumber: 331,
+                                                        columnNumber: 45
+                                                    }, this)
+                                                }, order.id, false, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 330,
                                                     columnNumber: 41
-                                                }, this)
-                                            }, order.id, false, {
-                                                fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 114,
-                                                columnNumber: 37
-                                            }, this)),
-                                        filteredOrders.length === 0 && Object.keys(ordersMap).length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "col-span-12 flex flex-col items-center justify-center h-full opacity-30 mt-20",
+                                                }, this))
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/kds/master/page.tsx",
+                                            lineNumber: 328,
+                                            columnNumber: 33
+                                        }, this),
+                                        filteredOrders.length === 0 && (Object.keys(ordersMap).length > 0 || stageFilter === 'FULFILLED') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col items-center justify-center w-full h-full opacity-30",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
                                                     size: 48,
                                                     className: "mb-4 text-gray-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 337,
                                                     columnNumber: 41
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5382,24 +6438,24 @@ function KDSMasterPage() {
                                                     children: "No orders match current filters"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 121,
+                                                    lineNumber: 338,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 336,
                                             columnNumber: 37
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 323,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 102,
+                                lineNumber: 313,
                                 columnNumber: 21
                             }, this),
                             [
@@ -5413,18 +6469,18 @@ function KDSMasterPage() {
                                     children: "Waiting for orders"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 347,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 129,
+                                lineNumber: 346,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 101,
+                        lineNumber: 312,
                         columnNumber: 17
                     }, this),
                     [
@@ -5441,7 +6497,7 @@ function KDSMasterPage() {
                                         className: "w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 139,
+                                        lineNumber: 356,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5449,13 +6505,13 @@ function KDSMasterPage() {
                                         children: "Recently Fulfilled"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 140,
+                                        lineNumber: 357,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 138,
+                                lineNumber: 355,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5474,7 +6530,7 @@ function KDSMasterPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 149,
+                                                        lineNumber: 366,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5482,13 +6538,13 @@ function KDSMasterPage() {
                                                         children: formatTimeOnly(order.updatedAt)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 150,
+                                                        lineNumber: 367,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 148,
+                                                lineNumber: 365,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5509,48 +6565,48 @@ function KDSMasterPage() {
                                                             d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 159,
+                                                            lineNumber: 376,
                                                             columnNumber: 184
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                             d: "M3 3v5h5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 159,
+                                                            lineNumber: 376,
                                                             columnNumber: 246
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 159,
+                                                    lineNumber: 376,
                                                     columnNumber: 41
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 154,
+                                                lineNumber: 371,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, order.id, true, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 361,
                                         columnNumber: 33
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 142,
+                                lineNumber: 359,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 137,
+                        lineNumber: 354,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 100,
+                lineNumber: 311,
                 columnNumber: 13
             }, this),
             [
@@ -5559,9 +6615,11 @@ function KDSMasterPage() {
                 'COMPACT',
                 'SUMMARY',
                 'ALL_DAY'
-            ].includes(viewMode) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSFooter$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSFooter"], {}, void 0, false, {
+            ].includes(viewMode) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSFooter$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSFooter"], {
+                totalPages: totalPages
+            }, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 169,
+                lineNumber: 386,
                 columnNumber: 88
             }, this),
             selectedOrder && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$OrderDetailModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OrderDetailModal"], {
@@ -5570,13 +6628,13 @@ function KDSMasterPage() {
                 onClose: ()=>setSelectedOrderId(null)
             }, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 173,
+                lineNumber: 390,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/kds/master/page.tsx",
-        lineNumber: 94,
+        lineNumber: 305,
         columnNumber: 9
     }, this);
 }

@@ -56,9 +56,9 @@ export const KDSSidebar: React.FC = () => {
                         <span className="text-[9px] font-bold text-gray-400 uppercase ml-2">Layout Mode</span>
                         <div className="grid grid-cols-1 gap-2">
                             {[
-                                { id: 'KANBAN', label: 'Kanban Board', icon: List },
-                                { id: 'GRID', label: 'Grid 5x2', icon: LayoutGrid },
-                                { id: 'COMPACT', label: 'Compact Grid', icon: Maximize },
+                                { id: 'KANBAN', label: 'Line View (Scroll)', icon: List },
+                                { id: 'GRID', label: 'Grid 3xN', icon: LayoutGrid },
+                                { id: 'COMPACT', label: 'Compact 4xN', icon: Maximize },
                                 { id: 'SUMMARY', label: 'Production Summary', icon: ChefHat },
                                 { id: 'ALL_DAY', label: 'All-Day View', icon: Package }
                             ].map((mode) => (

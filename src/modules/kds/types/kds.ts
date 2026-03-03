@@ -9,7 +9,8 @@ export type OrderSource =
 export type FulfillmentType =
     | 'PICKUP'
     | 'STORE_DELIVERY'
-    | 'UBER_DIRECT_DELIVERY';
+    | 'UBER_DIRECT_DELIVERY'
+    | 'DINE_IN';
 
 export type SLAState =
     | 'ON_TIME'

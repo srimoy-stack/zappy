@@ -1428,6 +1428,10 @@ const useKDSStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                 if (order.stage === 'NEW' || order.stage === 'ACCEPTED') {
                     nextIndex = stages.indexOf('FIRED');
                 }
+                // Recalled orders go back into the cooking queue
+                if (order.stage === 'RECALLED') {
+                    nextIndex = stages.indexOf('FIRED');
+                }
                 const nextStage = stages[nextIndex];
                 if (!nextStage) return state;
                 const now = new Date().toISOString();

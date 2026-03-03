@@ -436,6 +436,10 @@ export const useKDSStore = create<KDSState>()(
                     if (order.stage === 'NEW' || order.stage === 'ACCEPTED') {
                         nextIndex = stages.indexOf('FIRED');
                     }
+                    // Recalled orders go back into the cooking queue
+                    if (order.stage === 'RECALLED') {
+                        nextIndex = stages.indexOf('FIRED');
+                    }
                     const nextStage = stages[nextIndex];
                     if (!nextStage) return state;
 

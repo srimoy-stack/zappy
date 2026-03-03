@@ -25,20 +25,21 @@
 
 ::-webkit-scrollbar {
   width: 6px;
-  height: 6px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: none;
+  background: #0000000d;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0000001a;
+  background: #00000047;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0003;
+  background: #00000073;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -77,6 +78,46 @@
 
 .universal-kds-layout {
   contain: size layout paint;
+}
+
+.kds-horizontal-scroll {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-track {
+  background: #0000000f;
+  border-radius: 10px;
+  margin: 0 12px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #0000004d;
+  border-radius: 10px;
+}
+
+.kds-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #00000080;
+}
+
+.kds-ticket-row {
+  flex-direction: row;
+  gap: 16px;
+  width: max-content;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.kds-ticket-cell {
+  flex-shrink: 0;
+  width: 300px;
 }
 
 /*# sourceMappingURL=src_modules_kds_styles_kds-master_26d6b86a.css.map*/
