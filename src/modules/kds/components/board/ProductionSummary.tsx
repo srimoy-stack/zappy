@@ -16,6 +16,7 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
     const {
         enable_station_routing,
         selectedStationId,
+        kds_stations,
         category_station_map,
         item_station_map,
         allow_item_station_override,
@@ -23,21 +24,30 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
         fulfilledOrders
     } = useKDSStore();
 
+    const { fulfillment: fulfillmentFilter, source: sourceFilter } = useFilterStore();
+
     const orders = useMemo(() => Object.values(ordersMap), [ordersMap]);
 
     const summaryData = useMemo(() => {
         const aggregation: Record<string, { quantity: number, name: string, variant?: string }> = {};
-        const allRelevantOrders = compact ? orders : [...orders, ...fulfilledOrders];
+        const allOrders = compact ? orders : [...orders, ...fulfilledOrders];
 
-        allRelevantOrders.forEach((order) => {
-            if (compact && order.stage === 'FULFILLED') return;
+        // Apply global type/source filters to the summary as well
+        const filteredRelevantOrders = allOrders.filter(order => {
+            const matchesFulfillment = fulfillmentFilter === 'ALL' || order.fulfillment_type === fulfillmentFilter;
+            const matchesSource = sourceFilter === 'ALL' || order.order_source === sourceFilter;
+            return matchesFulfillment && matchesSource;
+        });
+
+        filteredRelevantOrders.forEach((order) => {
+            if (compact && order.stage === 'COMPLETED') return;
             order.items.forEach((item) => {
                 if (compact && item.isCompleted) return;
 
                 const isVisible = isItemVisibleOnStation(item, {
                     enable_station_routing,
                     selectedStationId,
-                    category_station_map,
+                    kds_stations,
                     item_station_map,
                     allow_item_station_override,
                     master_screen_view_mode
@@ -58,7 +68,7 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
         });
 
         return Object.values(aggregation).sort((a, b) => b.quantity - a.quantity);
-    }, [orders, fulfilledOrders, enable_station_routing, selectedStationId, category_station_map, item_station_map, allow_item_station_override, master_screen_view_mode, compact]);
+    }, [orders, fulfilledOrders, fulfillmentFilter, sourceFilter, enable_station_routing, selectedStationId, kds_stations, category_station_map, item_station_map, allow_item_station_override, master_screen_view_mode, compact]);
 
     const totalItems = summaryData.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -158,9 +168,9 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
                 </div>
             </div>
 
-            <div className="flex-1 overflow-x-auto overflow-y-auto pb-4 scrollbar-hide">
+            <div className="flex-1 overflow-x-auto overflow-y-hidden pb-4 custom-scrollbar snap-x snap-mandatory">
                 <div
-                    className="grid h-full gap-4 min-h-[500px]"
+                    className="grid h-full gap-6 min-h-0"
                     style={{
                         gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
                         gridAutoFlow: 'column',
@@ -176,7 +186,7 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
                         summaryData.map((item, idx) => (
                             <div
                                 key={idx}
-                                className="group bg-white border border-gray-200 hover:border-[#E67E22]/30 p-6 rounded-[1.5rem] flex items-center justify-between transition-all shadow-sm hover:bg-gray-50 min-w-[380px]"
+                                className="group bg-white border border-gray-200 hover:border-[#E67E22]/30 p-6 rounded-[1.5rem] flex items-center justify-between transition-all shadow-sm hover:bg-gray-50 min-w-[380px] snap-start"
                             >
                                 <div className="flex-1 min-w-0 pr-4">
                                     <div className="flex items-center gap-2 mb-1">

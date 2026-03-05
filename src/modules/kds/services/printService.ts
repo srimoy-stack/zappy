@@ -18,8 +18,10 @@
  *      e.g. `await StarPrinterSDK.print(buildReceiptData(order));`
  */
 
-import { KDSOrder } from '../types/kds';
+import { KDSOrder, KDSStation } from '../types/kds';
 import { emitEvent } from './kdsEventDispatcher';
+import { getItemStation } from '../utils/routingUtils';
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Types
@@ -42,10 +44,11 @@ export interface PrintOptions {
     station_print_mode: 'PRINT_BY_STATION' | 'PRINT_FULL_ORDER';
     selectedStationId: string | 'ALL';
     enable_station_routing: boolean;
-    category_station_map: Record<string, string>;
+    kds_stations: KDSStation[];
     item_station_map: Record<string, string>;
     allow_item_station_override: boolean;
 }
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Internal State
@@ -109,11 +112,18 @@ async function _executePrint(order: KDSOrder, options?: PrintOptions): Promise<s
 
     if (options?.station_print_mode === 'PRINT_BY_STATION' && options.selectedStationId !== 'ALL' && options.enable_station_routing) {
         itemsToPrint = order.items.filter(item => {
-            const catStation = (item.categoryId && options.category_station_map[item.categoryId]) || 'kitchen';
-            const itemStationId = (options.allow_item_station_override && options.item_station_map[item.name]) || catStation;
+            const itemStationId = getItemStation(item, {
+                enable_station_routing: options.enable_station_routing,
+                selectedStationId: options.selectedStationId,
+                kds_stations: options.kds_stations,
+                allow_item_station_override: options.allow_item_station_override,
+                item_station_map: options.item_station_map,
+                master_screen_view_mode: 'STATION_ONLY' // In PRINT_BY_STATION we only want this station's items
+            });
             return itemStationId === options.selectedStationId;
         });
     }
+
 
     // ⚠️  PLACEHOLDER — Hardware SDK not integrated
     // Simulates a ~300ms print spool delay

@@ -2,11 +2,20 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { Trash2, Printer, ChevronLeft, CheckCircle2, AlertCircle } from 'lucide-react';
-import { KDSOrder } from '../../types/kds';
+import { Trash2, Printer, ChevronLeft, CheckCircle2, AlertCircle, Clock, MessageSquare, Zap } from 'lucide-react';
+import { KDSOrder, KitchenStage } from '../../types/kds';
 import { useKDSStore } from '../../store/kdsStore';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { KDSRole } from '../../utils/kdsAccess';
+import { useKDSActionAuth } from '../../hooks/useKDSActionAuth';
+import { DelayOrderModal } from './DelayOrderModal';
+import { CustomerMessagingModal } from './CustomerMessagingModal';
+import { CustomerStatusPanel } from './CustomerStatusPanel';
+import { KDSPermissionGuard } from '../security/KDSPermissionGuard';
+import { useKDSSound } from '../sound/useKDSSound';
+import { getItemStation } from '../../utils/routingUtils';
+import { sendStatusUpdate, StatusTrigger } from '../../services/customerStatusService';
+
 
 interface OrderDetailModalProps {
     order: KDSOrder;
@@ -27,11 +36,30 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
         return () => clearInterval(timer);
     }, []);
 
-    const { cancelOrder, toggleItemCompletion } = useKDSStore();
+    const {
+        updateItemCompletion,
+        cancelOrder,
+        delayOrder,
+        overrideStage,
+        sendCustomerMessage,
+        advanceStage,
+        acceptOrder,
+        item_station_map,
+        allow_item_station_override,
+        kds_stations,
+    } = useKDSStore.getState();
+    const { requireAuth, AuthModalElement } = useKDSActionAuth();
+    const [isDelayModalOpen, setIsDelayModalOpen] = useState(false);
+    const [activePanel, setActivePanel] = useState<'NONE' | 'STATUS' | 'MESSAGING'>('NONE');
+    const [statusPanelTrigger, setStatusPanelTrigger] = useState<StatusTrigger | undefined>(undefined);
+    const [messagingTemplate, setMessagingTemplate] = useState<'ACCEPTED' | 'PREPARING' | 'DELAYED' | 'READY' | 'COMPLETED' | 'CANCELLED' | 'CUSTOM'>('ACCEPTED');
 
     const { role } = useAuth();
+    const { playSound } = useKDSSound();
+
 
     const [selectedItemIds, setSelectedItemIds] = useState<Set<string>>(new Set());
+    const [shouldCloseAfterMessage, setShouldCloseAfterMessage] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -58,25 +86,77 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
     }, [order.items]);
 
     const handleCancel = () => {
-        if (confirm('CANCEL ORDER? This cannot be undone.')) {
-            cancelOrder(order.id, role as KDSRole || 'KDS_USER');
-            onClose();
-        }
+        requireAuth('Void Order', () => {
+            const reason = prompt('REASON FOR CANCELLATION? (Required)');
+            if (reason && confirm(`CANCEL ORDER #${order.orderNumber}?`)) {
+                cancelOrder(order.id, role as KDSRole || 'KDS_USER', reason);
+                // Req 8.3: Auto-trigger CANCELLED status update
+                sendStatusUpdate(order.id, 'CANCELLED', 'LINK_ONLY', undefined, undefined, true);
+                setStatusPanelTrigger('CANCELLED');
+                setActivePanel('STATUS');
+                setShouldCloseAfterMessage(true);
+            }
+        });
+    };
+
+    const handleDelayConfirm = (minutes: number, reason?: string) => {
+        requireAuth('Delay Order', () => {
+            delayOrder(order.id, minutes, role as KDSRole || 'KDS_USER', reason);
+            // Req 8.3: Auto-trigger DELAY status update
+            sendStatusUpdate(order.id, 'DELAY', 'LINK_ONLY', undefined, minutes, true);
+            setStatusPanelTrigger('DELAY');
+            setActivePanel('STATUS');
+        });
+    };
+
+    const handleOverrideStage = (stage: KitchenStage) => {
+        requireAuth(`Override to ${stage}`, () => {
+            overrideStage(order.id, stage, role as KDSRole || 'KDS_USER');
+        });
+    };
+
+
+    const handleAccept = () => {
+        requireAuth('Accept Order', () => {
+            acceptOrder(order.id);
+            // Req 8.3: Auto-trigger ACCEPT status update — "ready in 10 mins"
+            sendStatusUpdate(order.id, 'ACCEPT', 'LINK_ONLY', undefined, undefined, true);
+            setStatusPanelTrigger('ACCEPT');
+            setActivePanel('STATUS');
+        });
     };
 
     const handleFulfill = () => {
-        if (selectedItemIds.size === 0) {
-            order.items.forEach(item => {
-                if (!item.isCompleted) toggleItemCompletion(order.id, item.id);
-            });
-            onClose();
-            return;
+        const itemIds = selectedItemIds.size > 0
+            ? Array.from(selectedItemIds)
+            : order.items.filter(i => !i.isCompleted).map(i => i.id);
+
+        if (itemIds.length > 0) {
+            updateItemCompletion(order.id, itemIds, true);
+            playSound('BUMP_ORDER');
         }
-        selectedItemIds.forEach(id => {
-            const item = order.items.find(i => i.id === id);
-            if (item && !item.isCompleted) toggleItemCompletion(order.id, id);
-        });
+
+        if (selectedItemIds.size === 0 || selectedItemIds.size === order.items.filter(i => !i.isCompleted).length) {
+            // Req 8.3: Auto-trigger READY status update
+            sendStatusUpdate(order.id, 'READY', 'LINK_ONLY', undefined, undefined, true);
+            setStatusPanelTrigger('READY');
+            setActivePanel('STATUS');
+            setShouldCloseAfterMessage(true);
+        }
         setSelectedItemIds(new Set());
+    };
+    const handleSendMessage = (channel: 'SMS' | 'EMAIL' | 'BOTH', message: string) => {
+        requireAuth('Send Message', () => {
+            sendCustomerMessage(order.id, channel, message);
+        });
+    };
+
+    const handleMessageClose = () => {
+        setActivePanel('NONE');
+        if (shouldCloseAfterMessage) {
+            onClose();
+            setShouldCloseAfterMessage(false);
+        }
     };
 
     if (!isOpen || !mounted) return null;
@@ -87,7 +167,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose} />
 
             {/* MODAL CONTAINER */}
-            <div className="relative w-full max-w-6xl max-h-[90vh] bg-[#F3F4F6] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+            <div className={`relative w-full ${activePanel !== 'NONE' ? 'max-w-[1550px]' : 'max-w-6xl'} max-h-[95vh] bg-[#F3F4F6] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300 transition-all`}>
                 {/* HEADER */}
                 <div className="h-[80px] bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
                     <div className="flex items-center gap-6">
@@ -102,14 +182,14 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                             <div className="flex items-center gap-3">
                                 <h2 className="text-3xl font-bold text-gray-900">ORDER #{order.orderNumber}</h2>
                                 <span className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase text-white ${order.stage === 'RECALLED' ? 'bg-teal-600' :
-                                        order.stage === 'NEW' ? 'bg-[#374151]' :
-                                            order.stage === 'READY' ? 'bg-blue-600' :
-                                                'bg-[#E67E22]'
+                                    order.stage === 'NEW' ? 'bg-[#374151]' :
+                                        order.stage === 'READY' ? 'bg-blue-600' :
+                                            'bg-[#E67E22]'
                                     }`}>
                                     {order.stage === 'RECALLED' ? 'RECALLED' :
                                         order.stage === 'NEW' ? 'IN QUEUE' :
                                             order.stage === 'READY' ? 'READY' :
-                                                'IN PREPARATION'}
+                                                'PREPARING'}
                                 </span>
                             </div>
                             <p className="text-gray-400 text-[11px] font-bold uppercase mt-1">
@@ -119,34 +199,90 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => window.print()}
-                            className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl font-bold text-xs uppercase hover:border-black transition-all"
-                        >
-                            <Printer size={18} /> Print Label
-                        </button>
-                        <button
-                            onClick={handleCancel}
-                            className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 border-2 border-red-100 rounded-xl font-bold text-xs uppercase hover:bg-red-600 hover:text-white transition-all"
-                        >
-                            <Trash2 size={18} /> Void Order
-                        </button>
+                        <KDSPermissionGuard permission="KDS.CUSTOMER_MESSAGE">
+                            <button
+                                onClick={() => {
+                                    setStatusPanelTrigger(undefined);
+                                    setActivePanel('STATUS');
+                                }}
+                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs uppercase transition-all ${activePanel === 'STATUS'
+                                    ? 'bg-[#1FA4A9] text-white'
+                                    : 'bg-gradient-to-r from-[#1FA4A9]/10 to-blue-50 text-[#1FA4A9] border-2 border-[#1FA4A9]/20 hover:bg-[#1FA4A9] hover:text-white'
+                                    }`}
+                            >
+                                <Zap size={18} /> Customer Status
+                            </button>
+                        </KDSPermissionGuard>
+                        <KDSPermissionGuard permission="KDS.CUSTOMER_MESSAGE">
+                            <button
+                                onClick={() => {
+                                    // Map order stage to template
+                                    const stageMap: Record<string, any> = {
+                                        'NEW': 'ACCEPTED',
+                                        'ACCEPTED': 'ACCEPTED',
+                                        'PREPARING': 'PREPARING',
+                                        'READY': 'READY',
+                                        'COMPLETED': 'COMPLETED',
+                                        'CANCELLED': 'CANCELLED'
+                                    };
+                                    setMessagingTemplate(stageMap[order.stage] || 'CUSTOM');
+                                    setActivePanel('MESSAGING');
+                                }}
+
+                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs uppercase transition-all ${activePanel === 'MESSAGING'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-blue-50 text-blue-600 border-2 border-blue-100 hover:bg-blue-600 hover:text-white'
+                                    }`}
+                            >
+                                <MessageSquare size={18} /> Message Guest
+                            </button>
+                        </KDSPermissionGuard>
+                        <KDSPermissionGuard permission="KDS.PRINT">
+                            <button
+                                onClick={() => window.print()}
+                                className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl font-bold text-xs uppercase hover:border-black transition-all"
+                            >
+                                <Printer size={18} /> Print Label
+                            </button>
+                        </KDSPermissionGuard>
+                        <KDSPermissionGuard permission="KDS.DELAY_ORDER">
+                            <button
+                                onClick={() => setIsDelayModalOpen(true)}
+                                className="flex items-center gap-2 px-6 py-3 bg-amber-50 text-amber-600 border-2 border-amber-100 rounded-xl font-bold text-xs uppercase hover:bg-amber-600 hover:text-white transition-all"
+                            >
+                                <Clock size={18} /> Delay
+                            </button>
+                        </KDSPermissionGuard>
+                        <KDSPermissionGuard permission="KDS.CANCEL_ORDER">
+                            <button
+                                onClick={handleCancel}
+                                className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 border-2 border-red-100 rounded-xl font-bold text-xs uppercase hover:bg-red-600 hover:text-white transition-all"
+                            >
+                                <Trash2 size={18} /> Void
+                            </button>
+                        </KDSPermissionGuard>
                     </div>
                 </div>
 
                 {/* MODAL CONTENT */}
-                <div className="flex-1 overflow-y-auto flex flex-col p-8 lg:p-12">
-                    <div className="mx-auto w-full flex-1 flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 flex flex-col p-6 lg:p-8 min-h-0 overflow-x-auto custom-scrollbar">
+                    <div className="w-full flex-1 flex flex-col lg:flex-row gap-6 min-h-0">
 
                         {/* LEFT: ITEM GRID */}
-                        <div className="flex-1 flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden">
-                            <div className="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-                                <h3 className="text-sm font-bold text-gray-400 uppercase">Item Production List</h3>
+                        <div className="flex-[1.5] min-w-[440px] flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden shadow-sm min-h-0 shrink-0">
+                            <div className="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-white shrink-0 flex-wrap gap-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-8 bg-black rounded-full" />
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Production List</h3>
+                                    <span className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-lg ml-2">
+                                        {order.items.length} ITEMS
+                                    </span>
+                                </div>
                                 <button
                                     onClick={handleSelectAll}
-                                    className="text-[10px] font-bold text-blue-500 uppercase hover:underline"
+                                    className="px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all active:scale-95"
                                 >
-                                    {selectedItemIds.size === order.items.length ? 'DESELECT ALL' : 'SELECT ALL ITEMS'}
+                                    {selectedItemIds.size === order.items.length ? 'Deselect All' : 'Select All'}
                                 </button>
                             </div>
 
@@ -155,20 +291,20 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                                     <div
                                         key={item.id}
                                         onClick={() => toggleItemSelection(item.id)}
-                                        className={`flex items-start gap-6 p-6 rounded-3xl border-4 transition-all cursor-pointer group hover:scale-[1.01] ${selectedItemIds.has(item.id)
+                                        className={`flex items-start gap-4 p-4 rounded-2xl border-4 transition-all cursor-pointer group hover:scale-[1.01] ${selectedItemIds.has(item.id)
                                             ? 'border-black bg-gray-50'
                                             : 'border-transparent bg-gray-50/30 hover:bg-white hover:border-gray-200'
                                             }`}
                                     >
-                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shrink-0 transition-colors ${item.isCompleted
+                                        <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl font-black shrink-0 transition-all ${item.isCompleted
                                             ? 'bg-emerald-500 text-white'
-                                            : selectedItemIds.has(item.id) ? 'bg-black text-white' : 'bg-white text-gray-900 border border-gray-100'
+                                            : selectedItemIds.has(item.id) ? 'bg-slate-900 text-white shadow-lg' : 'bg-white text-slate-900 border-2 border-slate-100'
                                             }`}>
                                             {item.isCompleted ? '✓' : item.quantity}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <h4 className={`text-2xl font-bold uppercase leading-none ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900 group-hover:text-black'
+                                            <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                                <h4 className={`text-xl font-bold uppercase leading-tight ${item.isCompleted ? 'text-gray-300 line-through' : 'text-gray-900 group-hover:text-black'
                                                     }`}>
                                                     {item.name}
                                                 </h4>
@@ -177,16 +313,35 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                                                         {item.variant}
                                                     </span>
                                                 )}
+                                                <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] font-bold rounded border border-gray-200 uppercase">
+                                                    {kds_stations.find(s => s.station_id === getItemStation(item, {
+                                                        enable_station_routing: true,
+                                                        selectedStationId: 'ALL',
+                                                        kds_stations,
+                                                        allow_item_station_override,
+                                                        item_station_map,
+                                                        master_screen_view_mode: 'FULL_ORDER'
+                                                    }))?.station_name || 'Kitchen'}
+                                                </span>
                                             </div>
                                             {item.modifiers.length > 0 && (
-                                                <div className="flex flex-wrap gap-2">
+                                                <div className="flex flex-wrap gap-2 mt-3">
                                                     {item.modifiers.map((mod, idx) => (
-                                                        <div key={idx} className="flex items-center gap-1.5 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase px-3 py-1 rounded-full border border-gray-200/50">
-                                                            {mod.quantity && mod.quantity > 1 && <span className="text-black">x{mod.quantity}</span>}
-                                                            <span>{mod.name}</span>
+                                                        <div key={idx} className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 transition-all ${mod.placement && mod.placement !== 'FULL'
+                                                            ? 'bg-amber-50 border-amber-200 text-amber-900'
+                                                            : 'bg-white border-gray-100 text-gray-700'
+                                                            }`}>
+                                                            {mod.quantity && mod.quantity > 1 && (
+                                                                <span className="bg-black text-white px-1.5 rounded-md text-[9px] font-black">
+                                                                    {mod.quantity}x
+                                                                </span>
+                                                            )}
+                                                            <span className="text-[11px] font-black uppercase tracking-tight">{mod.name}</span>
                                                             {mod.placement && mod.placement !== 'FULL' && (
-                                                                <span className="text-[8px] bg-white border border-gray-200 px-1 rounded ml-1 text-gray-400">
-                                                                    {mod.placement}
+                                                                <span className="flex items-center gap-1 bg-white px-2 py-0.5 rounded-lg border border-amber-300 text-[10px] font-black text-amber-600 shadow-sm ml-1">
+                                                                    {mod.placement === 'LEFT' ? 'HALF L' :
+                                                                        mod.placement === 'RIGHT' ? 'HALF R' :
+                                                                            mod.placement === 'MIDDLE' || mod.placement === 'CENTER' ? 'MIDDLE' : mod.placement}
                                                                 </span>
                                                             )}
                                                         </div>
@@ -204,17 +359,19 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                         </div>
 
                         {/* RIGHT: METADATA & ACTIONS */}
-                        <div className="lg:w-[400px] flex flex-col gap-6">
+                        <div className="lg:w-[320px] flex flex-col gap-5 shrink-0 min-h-0">
                             {/* Prep Flags: Notes & Allergies */}
                             <div className="space-y-4">
                                 {order.notes && (
-                                    <div className="bg-amber-100 p-8 rounded-[2rem] border-2 border-amber-200 shadow-lg">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <AlertCircle size={20} className="text-amber-600" />
-                                            <span className="text-[10px] font-bold text-amber-600 uppercase">Kitchen Priority Instructions</span>
+                                    <div className="bg-amber-50 p-8 rounded-[2rem] border-2 border-amber-200 shadow-sm">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="bg-amber-500 p-2 rounded-xl text-white">
+                                                <AlertCircle size={20} />
+                                            </div>
+                                            <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">Order Notes</span>
                                         </div>
-                                        <p className="text-xl font-bold text-amber-900 italic leading-relaxed">
-                                            "{order.notes}"
+                                        <p className="text-xl font-bold text-slate-800 leading-tight">
+                                            {order.notes}
                                         </p>
                                     </div>
                                 )}
@@ -266,25 +423,100 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, isOpe
                                             <span className="text-lg font-bold text-gray-900">{order.items.length}</span>
                                         </div>
                                     </div>
+
+                                    <KDSPermissionGuard permission="KDS.STAGE_UPDATE">
+                                        <div className="mt-6 pt-6 border-t border-gray-50">
+                                            <h4 className="text-[10px] font-bold text-gray-400 uppercase mb-3">Manual Stage Override</h4>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {(['NEW', 'ACCEPTED', 'PREPARING', 'READY'] as KitchenStage[]).map(s => (
+                                                    <button
+                                                        key={s}
+                                                        onClick={() => handleOverrideStage(s)}
+                                                        className={`px-3 py-2 rounded-lg text-[9px] font-bold uppercase transition-all ${order.stage === s
+                                                            ? 'bg-black text-white'
+                                                            : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                                                    >
+                                                        {s}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </KDSPermissionGuard>
                                 </div>
 
                                 <div className="pt-8 border-t border-gray-100">
-                                    <button
-                                        onClick={handleFulfill}
-                                        className="w-full h-20 bg-black text-white rounded-3xl font-bold text-lg uppercase shadow-lg hover:bg-gray-800 transition-all active:scale-[0.98]"
-                                    >
-                                        {selectedItemIds.size > 0
-                                            ? `Fulfill Selected (${selectedItemIds.size})`
-                                            : 'Fulfill All Items'}
-                                    </button>
+                                    <KDSPermissionGuard permission="KDS.STAGE_UPDATE">
+                                        <button
+                                            onClick={() => {
+                                                if (order.stage === 'NEW') {
+                                                    handleAccept();
+                                                } else if (order.stage === 'READY') {
+                                                    advanceStage(order.id);
+                                                    // Req 8.3: Auto-trigger COMPLETED status update
+                                                    sendStatusUpdate(order.id, 'COMPLETED', 'LINK_ONLY', undefined, undefined, true);
+                                                    setStatusPanelTrigger('COMPLETED');
+                                                    setActivePanel('STATUS');
+                                                    setShouldCloseAfterMessage(true);
+                                                } else {
+                                                    handleFulfill();
+                                                }
+                                            }}
+                                            className={`w-full h-20 rounded-3xl font-black text-xl uppercase shadow-2xl transition-all active:scale-[0.98] ${order.stage === 'NEW'
+                                                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                                                : order.stage === 'READY'
+                                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                                    : 'bg-black text-white hover:bg-slate-800'
+                                                }`}
+                                        >
+                                            {order.stage === 'NEW'
+                                                ? 'Accept Order (10m Prep)'
+                                                : order.stage === 'READY'
+                                                    ? 'Complete Order'
+                                                    : selectedItemIds.size > 0 ? `Fulfill Selected (${selectedItemIds.size})` : 'Fulfill All Items'}
+                                        </button>
+                                    </KDSPermissionGuard>
                                     <p className="text-[9px] font-bold text-gray-400 text-center uppercase tracking-widest mt-4">
                                         Order will move to READY status upon fulfillment
                                     </p>
                                 </div>
                             </div>
                         </div>
+
+                        {/* DYNAMIC PANEL COLUMN (Status/Messaging) */}
+                        {activePanel !== 'NONE' && (
+                            <div className="lg:w-[380px] flex flex-col bg-white rounded-[2.5rem] border border-gray-200 overflow-hidden shadow-xl animate-in slide-in-from-right duration-500 shrink-0">
+                                {activePanel === 'STATUS' && (
+                                    <CustomerStatusPanel
+                                        isOpen={true}
+                                        order={order}
+                                        onClose={() => setActivePanel('NONE')}
+                                        initialTrigger={statusPanelTrigger}
+                                        isEmbedded={true}
+                                    />
+                                )}
+                                {activePanel === 'MESSAGING' && (
+                                    <CustomerMessagingModal
+                                        isOpen={true}
+                                        order={order}
+                                        onClose={handleMessageClose}
+                                        onSend={handleSendMessage}
+
+                                        role={role as any}
+                                        initialTemplate={messagingTemplate}
+                                        isEmbedded={true}
+                                    />
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
+                {AuthModalElement}
+                <DelayOrderModal
+                    isOpen={isDelayModalOpen}
+                    onClose={() => setIsDelayModalOpen(false)}
+                    onConfirm={handleDelayConfirm}
+                    orderNumber={order.orderNumber}
+                />
             </div>
         </div>,
         document.body

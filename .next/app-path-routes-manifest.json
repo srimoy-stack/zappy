@@ -74,6 +74,7 @@
   "/kds/expo/page": "/kds/expo",
   "/kds/master/page": "/kds/master",
   "/kds/status/page": "/kds/status",
+  "/login/page": "/login",
   "/page": "/",
   "/platform/brands/[brandId]/impersonate/page": "/platform/brands/[brandId]/impersonate",
   "/platform/brands/[brandId]/page": "/platform/brands/[brandId]",

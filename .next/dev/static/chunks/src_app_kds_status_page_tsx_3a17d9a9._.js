@@ -16,9 +16,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 function CustomerStatusPage() {
     _s();
-    const addOrUpdateOrder = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])({
-        "CustomerStatusPage.useKDSStore[addOrUpdateOrder]": (state)=>state.addOrUpdateOrder
-    }["CustomerStatusPage.useKDSStore[addOrUpdateOrder]"]);
     const ordersMap = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"])({
         "CustomerStatusPage.useKDSStore[ordersMap]": (state)=>state.orders
     }["CustomerStatusPage.useKDSStore[ordersMap]"]);
@@ -27,83 +24,7 @@ function CustomerStatusPage() {
     }["CustomerStatusPage.useMemo[orders]"], [
         ordersMap
     ]);
-    // Mock Data Initialization if direct access
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "CustomerStatusPage.useEffect": ()=>{
-            if (Object.keys(ordersMap).length === 0 && ("TURBOPACK compile-time value", "object") !== 'undefined') {
-                const mockOrders = [
-                    {
-                        id: 'S1',
-                        orderNumber: '1001',
-                        customerName: 'Samir Thai',
-                        stage: 'READY',
-                        createdAt: new Date(Date.now() - 900000).toISOString()
-                    },
-                    {
-                        id: 'S2',
-                        orderNumber: '1002',
-                        customerName: 'Amazebowls',
-                        stage: 'READY',
-                        createdAt: new Date(Date.now() - 800000).toISOString()
-                    },
-                    {
-                        id: 'S3',
-                        orderNumber: '1003',
-                        customerName: 'Mama Musubi',
-                        stage: 'READY',
-                        createdAt: new Date(Date.now() - 700000).toISOString()
-                    },
-                    {
-                        id: 'S4',
-                        orderNumber: '1004',
-                        customerName: 'Halal Guys',
-                        stage: 'READY',
-                        createdAt: new Date(Date.now() - 600000).toISOString()
-                    },
-                    {
-                        id: 'S5',
-                        orderNumber: '1005',
-                        customerName: 'Bad-Ass Breakfast',
-                        stage: 'FIRED',
-                        createdAt: new Date(Date.now() - 500000).toISOString()
-                    },
-                    {
-                        id: 'S6',
-                        orderNumber: '1006',
-                        customerName: 'Zippy Pizza',
-                        stage: 'FIRED',
-                        createdAt: new Date(Date.now() - 400000).toISOString()
-                    },
-                    {
-                        id: 'S7',
-                        orderNumber: '1007',
-                        customerName: 'Wok Walk',
-                        stage: 'ACCEPTED',
-                        createdAt: new Date(Date.now() - 300000).toISOString()
-                    },
-                    {
-                        id: 'S8',
-                        orderNumber: '1008',
-                        customerName: 'Crispy Bun',
-                        stage: 'NEW',
-                        createdAt: new Date(Date.now() - 200000).toISOString()
-                    }
-                ];
-                mockOrders.forEach({
-                    "CustomerStatusPage.useEffect": (o)=>addOrUpdateOrder({
-                            ...o,
-                            fulfillment_type: 'PICKUP',
-                            order_source: 'ONLINE',
-                            updatedAt: new Date().toISOString(),
-                            items: []
-                        })
-                }["CustomerStatusPage.useEffect"]);
-            }
-        }
-    }["CustomerStatusPage.useEffect"], [
-        ordersMap,
-        addOrUpdateOrder
-    ]);
+    // Initial data seeded by bootstrap service.
     const preparingOrders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "CustomerStatusPage.useMemo[preparingOrders]": ()=>orders.filter({
                 "CustomerStatusPage.useMemo[preparingOrders]": (o)=>[
@@ -173,7 +94,7 @@ function CustomerStatusPage() {
                                 children: "Being prepared"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 79,
+                                lineNumber: 58,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -187,7 +108,7 @@ function CustomerStatusPage() {
                                                     children: order.orderNumber
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 89,
+                                                    lineNumber: 68,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -195,7 +116,7 @@ function CustomerStatusPage() {
                                                     children: order.customerName || 'Guest'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 92,
+                                                    lineNumber: 71,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -205,18 +126,18 @@ function CustomerStatusPage() {
                                                         children: order.stage === 'FIRED' ? 'Cooking' : 'In Queue'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/kds/status/page.tsx",
-                                                        lineNumber: 96,
+                                                        lineNumber: 75,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 95,
+                                                    lineNumber: 74,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, order.id, true, {
                                             fileName: "[project]/src/app/kds/status/page.tsx",
-                                            lineNumber: 85,
+                                            lineNumber: 64,
                                             columnNumber: 29
                                         }, this)),
                                     preparingOrders.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -226,31 +147,31 @@ function CustomerStatusPage() {
                                             children: "No pending orders"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/status/page.tsx",
-                                            lineNumber: 104,
+                                            lineNumber: 83,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/status/page.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 82,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 83,
+                                lineNumber: 62,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/status/page.tsx",
-                        lineNumber: 78,
+                        lineNumber: 57,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-px bg-gray-100 shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/src/app/kds/status/page.tsx",
-                        lineNumber: 111,
+                        lineNumber: 90,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -261,7 +182,7 @@ function CustomerStatusPage() {
                                 children: "Ready for pickup"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 115,
+                                lineNumber: 94,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -275,7 +196,7 @@ function CustomerStatusPage() {
                                                     children: order.orderNumber
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 107,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -283,7 +204,7 @@ function CustomerStatusPage() {
                                                     children: order.customerName || 'Guest'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 131,
+                                                    lineNumber: 110,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -293,18 +214,18 @@ function CustomerStatusPage() {
                                                         children: "Ready for Pickup"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/kds/status/page.tsx",
-                                                        lineNumber: 135,
+                                                        lineNumber: 114,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/status/page.tsx",
-                                                    lineNumber: 134,
+                                                    lineNumber: 113,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, order.id, true, {
                                             fileName: "[project]/src/app/kds/status/page.tsx",
-                                            lineNumber: 121,
+                                            lineNumber: 100,
                                             columnNumber: 29
                                         }, this)),
                                     readyOrders.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -314,30 +235,30 @@ function CustomerStatusPage() {
                                             children: "Ready orders will appear here"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/status/page.tsx",
-                                            lineNumber: 143,
+                                            lineNumber: 122,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/status/page.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 121,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 119,
+                                lineNumber: 98,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/status/page.tsx",
-                        lineNumber: 114,
+                        lineNumber: 93,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/kds/status/page.tsx",
-                lineNumber: 75,
+                lineNumber: 54,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -351,7 +272,7 @@ function CustomerStatusPage() {
                                 children: "Powered by"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 153,
+                                lineNumber: 132,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -359,13 +280,13 @@ function CustomerStatusPage() {
                                 children: "ZYAPPY"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 154,
+                                lineNumber: 133,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/status/page.tsx",
-                        lineNumber: 152,
+                        lineNumber: 131,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -376,7 +297,7 @@ function CustomerStatusPage() {
                                 children: "Live Status Cluster"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 157,
+                                lineNumber: 136,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -384,31 +305,30 @@ function CustomerStatusPage() {
                                 children: "Master Station Connected"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/status/page.tsx",
-                                lineNumber: 158,
+                                lineNumber: 137,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/status/page.tsx",
-                        lineNumber: 156,
+                        lineNumber: 135,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/kds/status/page.tsx",
-                lineNumber: 151,
+                lineNumber: 130,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/kds/status/page.tsx",
-        lineNumber: 73,
+        lineNumber: 52,
         columnNumber: 9
     }, this);
 }
-_s(CustomerStatusPage, "jw6w4WPpQ4pQQzfZfc8ITnyrLnw=", false, function() {
+_s(CustomerStatusPage, "lOaih+dmyEqhvy26C4j4j7KOB2Y=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$store$2f$kdsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKDSStore"]
     ];
 });

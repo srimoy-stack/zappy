@@ -4,36 +4,15 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useKDSStore } from '@/modules/kds/store/kdsStore';
 
 export default function CustomerStatusPage() {
-    const addOrUpdateOrder = useKDSStore((state) => state.addOrUpdateOrder);
+
     const ordersMap = useKDSStore((state) => state.orders);
     const orders = useMemo(() => Object.values(ordersMap), [ordersMap]);
 
-    // Mock Data Initialization if direct access
-    useEffect(() => {
-        if (Object.keys(ordersMap).length === 0 && typeof window !== 'undefined') {
-            const mockOrders = [
-                { id: 'S1', orderNumber: '1001', customerName: 'Samir Thai', stage: 'READY', createdAt: new Date(Date.now() - 900000).toISOString() },
-                { id: 'S2', orderNumber: '1002', customerName: 'Amazebowls', stage: 'READY', createdAt: new Date(Date.now() - 800000).toISOString() },
-                { id: 'S3', orderNumber: '1003', customerName: 'Mama Musubi', stage: 'READY', createdAt: new Date(Date.now() - 700000).toISOString() },
-                { id: 'S4', orderNumber: '1004', customerName: 'Halal Guys', stage: 'READY', createdAt: new Date(Date.now() - 600000).toISOString() },
-                { id: 'S5', orderNumber: '1005', customerName: 'Bad-Ass Breakfast', stage: 'FIRED', createdAt: new Date(Date.now() - 500000).toISOString() },
-                { id: 'S6', orderNumber: '1006', customerName: 'Zippy Pizza', stage: 'FIRED', createdAt: new Date(Date.now() - 400000).toISOString() },
-                { id: 'S7', orderNumber: '1007', customerName: 'Wok Walk', stage: 'ACCEPTED', createdAt: new Date(Date.now() - 300000).toISOString() },
-                { id: 'S8', orderNumber: '1008', customerName: 'Crispy Bun', stage: 'NEW', createdAt: new Date(Date.now() - 200000).toISOString() },
-            ];
+    // Initial data seeded by bootstrap service.
 
-            mockOrders.forEach(o => addOrUpdateOrder({
-                ...o,
-                fulfillment_type: 'PICKUP',
-                order_source: 'ONLINE',
-                updatedAt: new Date().toISOString(),
-                items: []
-            } as any));
-        }
-    }, [ordersMap, addOrUpdateOrder]);
 
     const preparingOrders = useMemo(() =>
-        orders.filter(o => ['NEW', 'ACCEPTED', 'FIRED'].includes(o.stage))
+        orders.filter(o => ['NEW', 'ACCEPTED', 'PREPARING'].includes(o.stage))
             .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
         , [orders]);
 
@@ -94,7 +73,7 @@ export default function CustomerStatusPage() {
                                 </span>
                                 <div className="mt-1 px-2 py-0.5 bg-gray-50 rounded-full">
                                     <span className="text-[8px] font-bold text-gray-400 uppercase">
-                                        {order.stage === 'FIRED' ? 'Cooking' : 'In Queue'}
+                                        {order.stage === 'PREPARING' ? 'Cooking' : 'In Queue'}
                                     </span>
                                 </div>
                             </div>

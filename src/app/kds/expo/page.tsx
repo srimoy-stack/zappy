@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+
 import { useShallow } from 'zustand/react/shallow';
 import { Inbox, AlertTriangle } from 'lucide-react';
 import { KDSHeader } from '@/modules/kds/components/KDSHeader';
@@ -10,8 +11,9 @@ import { useFilterStore } from '@/modules/kds/store/useFilterStore';
 import { FulfillmentType } from '@/modules/kds/types/kds';
 import { emitEvent } from '@/modules/kds/services/kdsEventDispatcher';
 import { getSLAState } from '@/modules/kds/utils/slaUtils';
-import { useAuth } from '@/app/providers/AuthProvider';
-import { isKDSModuleActive } from '@/modules/kds/utils/kdsModuleFlags';
+import { useKDSActionAuth } from '@/modules/kds/hooks/useKDSActionAuth';
+
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  KDS Expo Page — Read-only display of READY orders
@@ -24,103 +26,13 @@ import { isKDSModuleActive } from '@/modules/kds/utils/kdsModuleFlags';
 
 export default function KDSExpoPage() {
     const { fulfillment: filter, setFulfillment: setFilter } = useFilterStore();
-    const { addOrUpdateOrder, removeOrder } = useKDSStore();
+    const { removeOrder } = useKDSStore();
+    const { requireAuth, AuthModalElement } = useKDSActionAuth();
+
     const [handingOverId, setHandingOverId] = useState<string | null>(null);
-    const { enabledModules } = useAuth();
 
-    if (!isKDSModuleActive(enabledModules)) {
-        return (
-            <div className="h-screen w-screen bg-slate-950 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mb-6">
-                    <AlertTriangle size={40} className="text-red-500" />
-                </div>
-                <h1 className="text-2xl font-black text-white uppercase tracking-widest mb-2">KDS Module Inactive</h1>
-                <p className="text-slate-400 max-w-md font-medium">
-                    This feature requires <span className="text-white font-bold">Module 1A (KDS)</span> to be active.
-                </p>
-            </div>
-        );
-    }
+    // Initial data seeded by bootstrap service.
 
-    // ── Seed mock READY orders if the board is empty ──────────────────────────
-    useEffect(() => {
-        const hasReady = Object.values(useKDSStore.getState().orders).some(
-            o => o.stage === 'READY'
-        );
-        if (!hasReady) {
-            addOrUpdateOrder({
-                id: 'expo-1',
-                orderNumber: '5001',
-                order_source: 'POS',
-                fulfillment_type: 'PICKUP',
-                createdAt: new Date(Date.now() - 1000 * 60 * 18).toISOString(),
-                updatedAt: new Date().toISOString(),
-                stage: 'READY',
-                prepTimeMinutes: 10,
-                estimatedReadyTime: '',
-                isDelayed: false,
-                trackingToken: 'tok-5001',
-                customerName: 'Arjun Mehta',
-                items: [
-                    {
-                        id: 'item-1-1',
-                        name: 'Farmhouse Pizza',
-                        variant: 'Large',
-                        modifiers: [
-                            { name: 'Extra Cheese', groupType: 'PLACEMENT_TOPPING', placement: 'FULL' },
-                            { name: 'Thin Crust', groupType: 'CHOICE_ONE' }
-                        ]
-                    },
-                    { id: 'item-1-2', name: 'Garlic Bread', modifiers: [] }
-                ]
-            });
-
-            addOrUpdateOrder({
-                id: 'expo-2',
-                orderNumber: '5002',
-                order_source: 'ONLINE',
-                fulfillment_type: 'STORE_DELIVERY',
-                createdAt: new Date(Date.now() - 1000 * 60 * 7).toISOString(),
-                updatedAt: new Date().toISOString(),
-                stage: 'READY',
-                prepTimeMinutes: 20,
-                estimatedReadyTime: '',
-                isDelayed: false,
-                trackingToken: 'tok-5002',
-                customerName: 'Priya Sharma',
-                items: [
-                    {
-                        id: 'item-2-1',
-                        name: 'Classic Burger',
-                        modifiers: [
-                            { name: 'Jalapeños', groupType: 'QUANTITY_ONLY', quantity: 2 },
-                            { name: 'No Onion', groupType: 'PLACEMENT_TOPPING' }
-                        ]
-                    }
-                ]
-            });
-
-            addOrUpdateOrder({
-                id: 'expo-3',
-                orderNumber: '5003',
-                order_source: 'UBER_DIRECT',
-                fulfillment_type: 'UBER_DIRECT_DELIVERY',
-                createdAt: new Date(Date.now() - 1000 * 60 * 32).toISOString(),
-                updatedAt: new Date().toISOString(),
-                stage: 'READY',
-                prepTimeMinutes: 15,
-                estimatedReadyTime: '',
-                isDelayed: true,
-                delayReason: 'Packaging delay',
-                trackingToken: 'tok-5003',
-                customerName: 'Rohan Verma',
-                items: [
-                    { id: 'item-3-1', name: 'Veggie Supreme', variant: 'Medium', modifiers: [] },
-                    { id: 'item-3-2', name: 'Cola 600ml', modifiers: [] }
-                ]
-            });
-        }
-    }, [addOrUpdateOrder]);
 
     // ── Subscribe: READY only, sorted by createdAt (earliest = most urgent) ───
     const orders = useKDSStore(useShallow(state =>
@@ -141,28 +53,32 @@ export default function KDSExpoPage() {
 
     // ── Hand Over ─────────────────────────────────────────────────────────────
     const handleHandOver = async (orderId: string) => {
-        if (handingOverId) return; // prevent double-tap
-        setHandingOverId(orderId);
+        requireAuth('Complete Order', async () => {
+            if (handingOverId) return; // prevent double-tap
+            setHandingOverId(orderId);
 
-        // Emit domain event
-        emitEvent('order.handed_over', { orderId }, { idempotencyKey: `handover-${orderId}` });
+            // Emit domain event
+            emitEvent('order.handed_over', { orderId }, { idempotencyKey: `handover-${orderId}` });
 
-        // Visual confirmation delay, then remove from board
-        await new Promise(r => setTimeout(r, 600));
-        removeOrder(orderId);
-        setHandingOverId(null);
+            // Visual confirmation delay, then remove from board
+            await new Promise(r => setTimeout(r, 600));
+            removeOrder(orderId);
+            setHandingOverId(null);
+        });
     };
 
     // ── Print Receipt ─────────────────────────────────────────────────────────
     const handlePrint = (orderId: string) => {
-        const order = useKDSStore.getState().orders[orderId];
-        if (!order) return;
+        requireAuth('Print Receipt', () => {
+            const order = useKDSStore.getState().orders[orderId];
+            if (!order) return;
 
-        emitEvent('order.receipt_printed', { orderId, orderNumber: order.orderNumber });
+            emitEvent('order.receipt_printed', { orderId, orderNumber: order.orderNumber });
 
-        // Placeholder — in production: call thermal printer API / window.print()
-        console.log(`[Expo] Print receipt for order #${order.orderNumber}`);
-        alert(`🖨 Receipt sent to printer for Order #${order.orderNumber}`);
+            // Placeholder — in production: call thermal printer API / window.print()
+            console.log(`[Expo] Print receipt for order #${order.orderNumber}`);
+            alert(`🖨 Receipt sent to printer for Order #${order.orderNumber}`);
+        });
     };
 
     const fulfillmentFilters: (FulfillmentType | 'ALL')[] = [
@@ -258,6 +174,7 @@ export default function KDSExpoPage() {
                     Sorted by order time · Earliest first
                 </span>
             </div>
+            {AuthModalElement}
         </div>
     );
 }

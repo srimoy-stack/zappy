@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { KDSOrder, KitchenStage, KDSStation } from '../types/kds';
+import { KDSOrder, KitchenStage, KDSStation, KDSOrderTicket } from '../types/kds';
 import { calculateETA } from '../utils/etaUtils';
 import { KDSRole, canDelayOrder, canCancelOrder, canOverrideStage } from '../utils/kdsAccess';
 import { emitEvent } from '../services/kdsEventDispatcher';
+import { logKDSAction } from '../services/kdsAuditLogger';
 
 interface PendingAction {
     id: string;
@@ -15,7 +16,10 @@ interface PendingAction {
 export interface KDSState {
     orders: Record<string, KDSOrder>;
     externalOrderMap: Record<string, string>; // external_order_id -> order.id
+    tickets: Record<string, KDSOrderTicket>; // Requirement 9.2: kds_order_tickets
     isOnline: boolean;
+    isLoading: boolean;
+    error: string | null;
     pendingActions: PendingAction[];
 
     // Station Routing Settings
@@ -40,7 +44,7 @@ export interface KDSState {
     advanceStage: (orderId: string) => void;
     markDelayed: (orderId: string, reason?: string) => void;
     delayOrder: (orderId: string, additionalMinutes: number, role: KDSRole, reason?: string) => void;
-    cancelOrder: (orderId: string, role: KDSRole) => void;
+    cancelOrder: (orderId: string, role: KDSRole, reason?: string) => void;
     overrideStage: (orderId: string, stage: KitchenStage, role: KDSRole) => void;
     incrementPrepTime: (orderId: string, minutes?: number) => void;
     sendCustomerMessage: (orderId: string, channel: 'SMS' | 'EMAIL' | 'BOTH', message: string) => void;
@@ -57,13 +61,18 @@ export interface KDSState {
     updateItemStationMap: (map: Record<string, string>) => void;
     setSelectedStation: (stationId: string | 'ALL') => void;
     setMasterViewMode: (mode: 'FULL_ORDER' | 'STATION_ONLY') => void;
+
+    bootstrap: (stationId?: string) => Promise<void>;
     setOrderReadyRule: (rule: 'ALL_STATIONS_COMPLETE' | 'EXPO_CONFIRMS_READY') => void;
     setSoundScope: (scope: 'STATION_ONLY' | 'ALL_DEVICES') => void;
     setStationPrepTimeEnabled: (enabled: boolean) => void;
     setStationDelayAffectsGlobalEta: (affected: boolean) => void;
     setStationPrintMode: (mode: 'PRINT_BY_STATION' | 'PRINT_FULL_ORDER') => void;
+    setRoutingRules: (rules: Partial<KDSState>) => void;
+    setTickets: (tickets: KDSOrderTicket[]) => void;
 
     fulfilledOrders: KDSOrder[];
+
     historySettings: {
         limit: number;
         expiryMinutes: number;
@@ -73,7 +82,7 @@ export interface KDSState {
     recallFulfilledOrder: (orderId: string) => void;
     cleanupFulfilledOrders: () => void;
     injectStressTestOrders: (count: number) => void;
-    toggleItemCompletion: (orderId: string, itemId: string) => void;
+    updateItemCompletion: (orderId: string, itemIds: string[], completed: boolean) => void;
 }
 
 export const useKDSStore = create<KDSState>()(
@@ -81,7 +90,10 @@ export const useKDSStore = create<KDSState>()(
         (set, get) => ({
             orders: {},
             externalOrderMap: {},
+            tickets: {},
             isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+            isLoading: false,
+            error: null,
             pendingActions: [],
             fulfilledOrders: [],
             historySettings: {
@@ -95,14 +107,58 @@ export const useKDSStore = create<KDSState>()(
             allow_item_station_override: true,
             selectedStationId: 'ALL',
             kds_stations: [
-                { station_id: 'kitchen', station_name: 'Kitchen', active: true, display_order: 1 },
-                { station_id: 'bar', station_name: 'Bar', active: true, display_order: 2 },
-                { station_id: 'dessert', station_name: 'Dessert', active: true, display_order: 3 },
-                { station_id: 'drinks', station_name: 'Drinks', active: true, display_order: 4 },
-                { station_id: 'expo', station_name: 'Expo (Expeditor)', active: true, display_order: 5 },
+                {
+                    station_id: 'kitchen',
+                    station_name: 'Kitchen Main',
+                    type: 'KITCHEN',
+                    active: true,
+                    display_order: 1,
+                    default_view_mode: 'KANBAN',
+                    routing_category_ids: ['burgers', 'tacos', 'sides'],
+                    sound_config: { new_order: true, alert: true }
+                },
+                {
+                    station_id: 'pizza',
+                    station_name: 'Pizza Line',
+                    type: 'KITCHEN',
+                    active: true,
+                    display_order: 2,
+                    default_view_mode: 'KANBAN',
+                    routing_category_ids: ['pizza'],
+                    sound_config: { new_order: true, alert: true }
+                },
+                {
+                    station_id: 'bar',
+                    station_name: 'Bar / Drinks',
+                    type: 'BAR',
+                    active: true,
+                    display_order: 3,
+                    default_view_mode: 'GRID',
+                    routing_category_ids: ['drinks'],
+                    sound_config: { new_order: true, alert: true }
+                },
+                {
+                    station_id: 'expo',
+                    station_name: 'Expo Master',
+                    type: 'EXPO',
+                    active: true,
+                    display_order: 4,
+                    default_view_mode: 'SUMMARY',
+                    routing_category_ids: [],
+                    sound_config: { new_order: true, alert: true }
+                },
             ],
-            category_station_map: {},
-            item_station_map: {},
+            category_station_map: {
+                'burgers': 'kitchen',
+                'pizza': 'pizza',
+                'tacos': 'kitchen',
+                'drinks': 'bar',
+                'sides': 'kitchen'
+            },
+            item_station_map: {
+                'Beer': 'bar',
+                'Coke': 'bar'
+            },
             master_screen_view_mode: 'FULL_ORDER',
             order_ready_rule: 'ALL_STATIONS_COMPLETE',
             sound_scope: 'STATION_ONLY',
@@ -122,43 +178,76 @@ export const useKDSStore = create<KDSState>()(
             setStationPrepTimeEnabled: (enabled) => set({ station_prep_time_override_enabled: enabled }),
             setStationDelayAffectsGlobalEta: (affected) => set({ station_delay_affects_global_eta: affected }),
             setStationPrintMode: (mode) => set({ station_print_mode: mode }),
+            setRoutingRules: (rules) => set((state) => ({ ...state, ...rules })),
 
-            toggleItemCompletion: (orderId, itemId) => {
+            bootstrap: async (stationId?: string) => {
+                set({ isLoading: true, error: null });
+                try {
+                    // Requirement 10.1: Bootstrap / Config
+                    // Dynamic import to break circular dependency with kdsBootstrapService
+                    const { bootstrapKDS } = await import('../services/kdsBootstrapService');
+                    await bootstrapKDS(stationId);
+                    set({ isLoading: false });
+                } catch (err: any) {
+                    console.error('[KDSStore] Bootstrap failed:', err);
+                    set({ isLoading: false, error: err.message || 'Failed to initialize KDS' });
+                }
+            },
+
+            setTickets: (newTickets) => set((state) => {
+                const tickets = { ...state.tickets };
+                newTickets.forEach(ticket => {
+                    tickets[ticket.id] = ticket;
+                });
+                return { tickets };
+            }),
+
+
+            updateItemCompletion: (orderId, itemIds, completed) => {
                 set((state) => {
                     const order = state.orders[orderId];
                     if (!order) return state;
 
                     const now = new Date().toISOString();
                     const updatedItems = order.items.map((item) =>
-                        item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
+                        itemIds.includes(item.id) ? { ...item, isCompleted: completed } : item
                     );
 
+                    // Audit individual item completion
+                    itemIds.forEach(id => {
+                        const itm = order.items.find(i => i.id === id);
+                        logKDSAction('order.item_completed', {
+                            orderId,
+                            orderNumber: order.orderNumber,
+                            itemId: id,
+                            itemName: itm?.name,
+                            completed
+                        });
+                    });
+
                     const allCompleted = updatedItems.every(i => i.isCompleted);
-                    const shouldBumpToReady = allCompleted && order.stage === 'FIRED';
+                    const shouldBumpToReady = allCompleted && order.stage === 'PREPARING';
 
                     let nextStage = order.stage;
                     let stageHistory = order.stageHistory || [];
-                    let stageStartedAt = order.stageStartedAt;
 
                     if (shouldBumpToReady) {
                         nextStage = 'READY';
-                        stageStartedAt = now;
-                        stageHistory = [...stageHistory, {
-                            stage: order.stage,
-                            startedAt: order.stageStartedAt || order.createdAt,
-                            completedAt: now,
-                        }];
+                        stageHistory = [...stageHistory, { stage: 'READY', startedAt: now }];
 
-                        if (state.isOnline) {
-                            emitEvent('order.stage_advanced', {
-                                orderId,
-                                orderNumber: order.orderNumber,
-                                previousStage: order.stage,
-                                newStage: 'READY',
-                                timestamp: now,
-                                reason: 'AUTO_COMPLETE_ALL_ITEMS'
-                            });
-                        }
+                        emitEvent('order.bumped', {
+                            orderId,
+                            orderNumber: order.orderNumber,
+                            source: 'ITEM_COMPLETION'
+                        });
+
+                        logKDSAction('order.stage_advanced', {
+                            orderId,
+                            orderNumber: order.orderNumber,
+                            from_stage: order.stage,
+                            to_stage: 'READY',
+                            trigger: 'ALL_ITEMS_COMPLETED'
+                        });
                     }
 
                     return {
@@ -168,10 +257,10 @@ export const useKDSStore = create<KDSState>()(
                                 ...order,
                                 items: updatedItems,
                                 stage: nextStage,
-                                stageStartedAt,
-                                stageHistory
-                            }
-                        }
+                                stageHistory,
+                                updatedAt: now
+                            },
+                        },
                     };
                 });
             },
@@ -211,14 +300,23 @@ export const useKDSStore = create<KDSState>()(
                         const targetId = (extId ? updatedExternalMap[extId] : order.id) || order.id;
                         const existing = updatedOrders[targetId];
 
-                        if (existing && new Date(order.updatedAt) <= new Date(existing.updatedAt)) {
-                            return;
-                        }
+                        if (existing) {
+                            if (new Date(order.updatedAt) <= new Date(existing.updatedAt)) return;
 
-                        if (extId) {
-                            updatedExternalMap[extId] = targetId;
+                            // Requirement 5.2: If edited, preserve stage
+                            const mergedOrder: KDSOrder = {
+                                ...order,
+                                id: targetId,
+                                stage: existing.stage, // Preserve
+                                stageStartedAt: existing.stageStartedAt,
+                                stageHistory: existing.stageHistory,
+                            };
+                            updatedOrders[targetId] = mergedOrder;
+                            emitEvent('order.updated', { orderId: targetId, timestamp: new Date().toISOString() });
+                        } else {
+                            if (extId) updatedExternalMap[extId] = targetId;
+                            updatedOrders[targetId] = { ...order, id: targetId };
                         }
-                        updatedOrders[targetId] = { ...order, id: targetId };
                     });
 
                     return {
@@ -284,7 +382,7 @@ export const useKDSStore = create<KDSState>()(
                         isPendingSync: !isOnline,
                     };
 
-                    if (stage === 'FIRED') {
+                    if (stage === 'PREPARING') {
                         const prepTime = order.prepTimeMinutes || 10;
                         const createdAt = new Date(order.createdAt);
                         const estimatedTime = new Date(createdAt.getTime() + prepTime * 60000);
@@ -369,6 +467,18 @@ export const useKDSStore = create<KDSState>()(
                         queueAction('kitchen.prep_time_set', { ...eventPayload, idempotencyKey });
                     }
 
+                    // ── Audit: Accept Order ─────────────────────────────────
+                    logKDSAction('order.stage_advanced', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        from_stage: order.stage,
+                        to_stage: 'ACCEPTED',
+                        metadata: {
+                            forcedPrepDuration,
+                            etaFormatted
+                        }
+                    });
+
                     return {
                         orders: {
                             ...state.orders,
@@ -393,15 +503,15 @@ export const useKDSStore = create<KDSState>()(
 
                 if (currentOrder.stage === 'READY') {
                     const now = new Date().toISOString();
-                    const fulfilledOrder = {
+                    const completedOrder = {
                         ...currentOrder,
-                        stage: 'FULFILLED' as KitchenStage,
+                        stage: 'COMPLETED' as KitchenStage,
                         updatedAt: now,
                         isCompleting: true
                     };
 
                     set((state) => ({
-                        orders: { ...state.orders, [orderId]: fulfilledOrder }
+                        orders: { ...state.orders, [orderId]: completedOrder }
                     }));
 
                     const idempotencyKey = `fulfill-${orderId}`;
@@ -411,16 +521,24 @@ export const useKDSStore = create<KDSState>()(
                         timestamp: now
                     }, { idempotencyKey });
 
+                    // ── Audit: Order Completion ────────────────────────────
+                    logKDSAction('order.fulfilled', {
+                        orderId,
+                        orderNumber: currentOrder.orderNumber,
+                        from_stage: 'READY',
+                        to_stage: 'COMPLETED'
+                    });
+
                     setTimeout(() => {
                         set((state) => {
                             const newOrders = { ...state.orders };
                             delete newOrders[orderId];
                             const { limit } = state.historySettings;
-                            const newFulfilled = [fulfilledOrder, ...state.fulfilledOrders.filter(o => o.id !== orderId)].slice(0, limit);
+                            const newFulfilled = [completedOrder, ...state.fulfilledOrders.filter(o => o.id !== orderId)].slice(0, limit);
                             return {
                                 orders: newOrders,
                                 fulfilledOrders: newFulfilled,
-                                lastRemovedOrder: fulfilledOrder
+                                lastRemovedOrder: completedOrder
                             };
                         });
                     }, 1000);
@@ -431,14 +549,14 @@ export const useKDSStore = create<KDSState>()(
                     const order = state.orders[orderId];
                     if (!order) return state;
 
-                    const stages: KitchenStage[] = ['NEW', 'ACCEPTED', 'FIRED', 'READY', 'FULFILLED'];
+                    const stages: KitchenStage[] = ['NEW', 'ACCEPTED', 'PREPARING', 'READY', 'COMPLETED'];
                     let nextIndex = stages.indexOf(order.stage) + 1;
                     if (order.stage === 'NEW' || order.stage === 'ACCEPTED') {
-                        nextIndex = stages.indexOf('FIRED');
+                        nextIndex = stages.indexOf('PREPARING');
                     }
                     // Recalled orders go back into the cooking queue
                     if (order.stage === 'RECALLED') {
-                        nextIndex = stages.indexOf('FIRED');
+                        nextIndex = stages.indexOf('PREPARING');
                     }
                     const nextStage = stages[nextIndex];
                     if (!nextStage) return state;
@@ -466,6 +584,14 @@ export const useKDSStore = create<KDSState>()(
                     } else {
                         queueAction('order.stage_advanced', { ...eventPayload, idempotencyKey });
                     }
+
+                    // ── Audit: Stage Advance ────────────────────────────────
+                    logKDSAction('order.stage_advanced', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        from_stage: order.stage,
+                        to_stage: nextStage
+                    });
 
                     return {
                         orders: {
@@ -534,6 +660,17 @@ export const useKDSStore = create<KDSState>()(
                         queueAction('order.delayed', { ...eventPayload, idempotencyKey });
                     }
 
+                    // ── Audit: Delay Order ──────────────────────────────────
+                    logKDSAction('order.delayed', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        additionalMinutes,
+                        reason: reason || 'KITCHEN_DELAY',
+                        from_stage: order.stage,
+                        to_stage: order.stage,
+                        role
+                    });
+
                     return {
                         orders: {
                             ...state.orders,
@@ -551,7 +688,7 @@ export const useKDSStore = create<KDSState>()(
                 });
             },
 
-            cancelOrder: (orderId, role) => {
+            cancelOrder: (orderId, role, reason) => {
                 if (role && !canCancelOrder(role)) return;
                 const { isOnline, queueAction } = get();
                 set((state) => {
@@ -560,7 +697,7 @@ export const useKDSStore = create<KDSState>()(
 
                     const now = new Date().toISOString();
                     const idempotencyKey = `cancel-${orderId}`;
-                    const eventPayload = { orderId, role, timestamp: now };
+                    const eventPayload = { orderId, role, reason, timestamp: now };
 
                     if (isOnline) {
                         emitEvent('order.cancelled', eventPayload, { idempotencyKey });
@@ -568,17 +705,49 @@ export const useKDSStore = create<KDSState>()(
                         queueAction('order.cancelled', { ...eventPayload, idempotencyKey });
                     }
 
+                    // ── Audit: Cancel Order ─────────────────────────────────
+                    logKDSAction('order.cancelled', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        from_stage: order.stage,
+                        to_stage: 'CANCELLED',
+                        reason: reason || 'KDS_VOID',
+                        role
+                    });
+
+                    const logEntry = {
+                        action: 'CANCELLED' as const,
+                        note: reason || 'KDS Void',
+                        timestamp: now,
+                        user: role
+                    };
+
                     const newOrders = { ...state.orders };
                     const newExternalMap = { ...state.externalOrderMap };
                     if (order.external_order_id) delete newExternalMap[order.external_order_id];
                     delete newOrders[orderId];
 
-                    return { orders: newOrders, externalOrderMap: newExternalMap };
+                    // Note: In a real system we might keep the order in a "CANCELLED" bucket
+                    // For now we follow the existing pattern of removing it from active state
+                    return {
+                        orders: newOrders,
+                        externalOrderMap: newExternalMap,
+                        lastRemovedOrder: { ...order, stage: 'CANCELLED', auditLog: [...(order.auditLog || []), logEntry] }
+                    };
                 });
             },
 
             overrideStage: (orderId, stage, role) => {
                 if (role && !canOverrideStage(role)) return;
+                const order = get().orders[orderId];
+                // ── Audit: Override Stage ─────────────────────────────────
+                logKDSAction('order.stage_override', {
+                    orderId,
+                    orderNumber: order?.orderNumber,
+                    from_stage: order?.stage,
+                    to_stage: stage,
+                    role
+                });
                 get().updateOrderStage(orderId, stage);
             },
 
@@ -610,6 +779,16 @@ export const useKDSStore = create<KDSState>()(
                         queueAction('kitchen.prep_time_updated', { ...eventPayload, idempotencyKey });
                     }
 
+                    // ── Audit: Increment Prep Time ─────────────────────────
+                    logKDSAction('order.prep_time_incremented', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        additionalMinutes: minutes,
+                        newTotalMinutes: incrementedPrepTime,
+                        from_stage: order.stage,
+                        to_stage: order.stage
+                    });
+
                     return {
                         orders: {
                             ...state.orders,
@@ -634,6 +813,16 @@ export const useKDSStore = create<KDSState>()(
                     const idempotencyKey = `notification-${orderId}-${now}`;
 
                     emitEvent('order.customer_notification', { orderId, channel, message, sentAt: now }, { idempotencyKey });
+
+                    // ── Audit: Customer Message ─────────────────────────────
+                    logKDSAction('order.customer_notification', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        channel,
+                        messagePreview: message.slice(0, 30) + '...',
+                        from_stage: order.stage,
+                        to_stage: order.stage
+                    });
 
                     return {
                         orders: {
@@ -667,6 +856,15 @@ export const useKDSStore = create<KDSState>()(
                     } else {
                         queueAction(newHeldState ? 'order.held' : 'order.resumed', { orderId, idempotencyKey });
                     }
+
+                    // ── Audit: Toggle Hold ──────────────────────────────────
+                    logKDSAction(newHeldState ? 'order.held' : 'order.resumed', {
+                        orderId,
+                        orderNumber: order.orderNumber,
+                        from_stage: order.stage,
+                        to_stage: order.stage,
+                        isHeld: newHeldState
+                    });
 
                     return {
                         orders: {
@@ -728,6 +926,14 @@ export const useKDSStore = create<KDSState>()(
                         timestamp: now
                     }, { idempotencyKey: `recall-${orderId}-${Date.now()}` });
 
+                    // ── Audit: Order Reopened ───────────────────────────────
+                    logKDSAction('order.reopened', {
+                        orderId: recalledOrder.id,
+                        orderNumber: recalledOrder.orderNumber,
+                        from_stage: orderToRecall.stage,
+                        to_stage: 'RECALLED'
+                    });
+
                     return {
                         orders: {
                             ...state.orders,
@@ -760,7 +966,7 @@ export const useKDSStore = create<KDSState>()(
                         fulfillment_type: i % 3 === 0 ? 'STORE_DELIVERY' : 'PICKUP',
                         createdAt: new Date(now.getTime() - Math.random() * 1000000).toISOString(),
                         updatedAt: now.toISOString(),
-                        stage: (i % 4 === 0 ? 'NEW' : 'FIRED') as KitchenStage,
+                        stage: (i % 4 === 0 ? 'NEW' : 'PREPARING') as KitchenStage,
                         prepTimeMinutes: 10 + (i % 20),
                         estimatedReadyTime: new Date(now.getTime() + (10 + (i % 20)) * 60000).toISOString(),
                         trackingToken: `stress-${i}`,
@@ -782,11 +988,24 @@ export const useKDSStore = create<KDSState>()(
         }),
         {
             name: 'zyappy-kds-device-settings',
+            version: 1,
+            migrate: (persistedState: any, version: number) => {
+                if (version === 0) {
+                    // Update legacy stations to have the new routing_category_ids field if missing
+                    const stations = persistedState.kds_stations || [];
+                    persistedState.kds_stations = stations.map((s: any) => ({
+                        ...s,
+                        routing_category_ids: s.routing_category_ids || [],
+                        sound_config: s.sound_config || { new_order: true, alert: true },
+                        type: s.type || (s.station_id === 'expo' ? 'EXPO' : 'KITCHEN')
+                    }));
+                }
+                return persistedState;
+            },
             partialize: (state) => ({
                 enable_station_routing: state.enable_station_routing,
                 allow_item_station_override: state.allow_item_station_override,
                 kds_stations: state.kds_stations,
-                category_station_map: state.category_station_map,
                 item_station_map: state.item_station_map,
                 selectedStationId: state.selectedStationId,
                 master_screen_view_mode: state.master_screen_view_mode,

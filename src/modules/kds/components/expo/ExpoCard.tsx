@@ -5,6 +5,7 @@ import { Printer, CheckCircle2, Clock, AlertTriangle, Package, Bike, ExternalLin
 import { KDSOrder } from '../../types/kds';
 import { getSLAState, getRemainingSeconds } from '../../utils/slaUtils';
 import { SourceBadge } from '../ticket/SourceBadge';
+import { KDSPermissionGuard } from '../security/KDSPermissionGuard';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Live Timer Hook (per-card, 1s tick)
@@ -191,37 +192,41 @@ export const ExpoCard: React.FC<ExpoCardProps> = ({
             {/* ── Actions ────────────────────────────────────────────────── */}
             {/* Editing is NOT allowed. Only Hand Over and Print Receipt. */}
             <div className="px-5 pb-5 pt-3 flex items-center gap-3 border-t border-slate-100 bg-slate-50/60">
-                <button
-                    onClick={() => onPrint(order.id)}
-                    className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all active:scale-95 shadow-sm"
-                    title="Print receipt"
-                >
-                    <Printer size={16} />
-                    Receipt
-                </button>
+                <KDSPermissionGuard permission="KDS.PRINT">
+                    <button
+                        onClick={() => onPrint(order.id)}
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all active:scale-95 shadow-sm"
+                        title="Print receipt"
+                    >
+                        <Printer size={16} />
+                        Receipt
+                    </button>
+                </KDSPermissionGuard>
 
-                <button
-                    onClick={() => onHandOver(order.id)}
-                    disabled={isHandingOver}
-                    className={`
-                        flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-white
-                        text-[13px] font-black uppercase tracking-widest transition-all active:scale-[0.98]
-                        shadow-lg disabled:opacity-60
-                        ${isOverdue
-                            ? 'bg-red-600 hover:bg-red-700 shadow-red-200'
-                            : 'bg-slate-900 hover:bg-slate-800 shadow-slate-200'
-                        }
-                    `}
-                >
-                    {isHandingOver ? (
-                        <span className="animate-pulse">Confirming...</span>
-                    ) : (
-                        <>
-                            <CheckCircle2 size={18} />
-                            Handed Over
-                        </>
-                    )}
-                </button>
+                <KDSPermissionGuard permission="KDS.STAGE_UPDATE">
+                    <button
+                        onClick={() => onHandOver(order.id)}
+                        disabled={isHandingOver}
+                        className={`
+                            flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-white
+                            text-[13px] font-black uppercase tracking-widest transition-all active:scale-[0.98]
+                            shadow-lg disabled:opacity-60
+                            ${isOverdue
+                                ? 'bg-red-600 hover:bg-red-700 shadow-red-200'
+                                : 'bg-slate-900 hover:bg-slate-800 shadow-slate-200'
+                            }
+                        `}
+                    >
+                        {isHandingOver ? (
+                            <span className="animate-pulse">Confirming...</span>
+                        ) : (
+                            <>
+                                <CheckCircle2 size={18} />
+                                Handed Over
+                            </>
+                        )}
+                    </button>
+                </KDSPermissionGuard>
             </div>
         </div>
     );

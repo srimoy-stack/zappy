@@ -568,6 +568,12 @@
       "namedRegex": "^/kiosk/success(?:/)?$"
     },
     {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
       "page": "/platform/brands",
       "regex": "^/platform/brands(?:/)?$",
       "routeKeys": {},

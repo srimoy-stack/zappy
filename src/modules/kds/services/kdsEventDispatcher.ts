@@ -4,7 +4,7 @@
  * Central dispatcher for all KDS domain events.
  *
  * Responsibilities:
- *   1. Auto-inject tenant_id, store_id, timestamp into every event envelope.
+ *   1. Auto-inject tenant_id, store_id, timestamp, actor metadata into every event envelope.
  *   2. Enforce idempotency — events with a duplicate idempotencyKey are silently dropped.
  *   3. Maintain a local in-memory event log (capped at MAX_LOG_SIZE).
  *   4. Forward each event to the WebSocket layer (pluggable via setWebSocketEmitter).
@@ -14,15 +14,21 @@
  *   configureDispatcher({ tenantId: 'tenant-demo', storeId: 'store-01' });
  *
  *   // Emit anywhere — including Zustand store (no React hooks needed):
- *   emitEvent('order.stage_advanced', { orderId: '123', stage: 'CUTTING' });
+ *   emitEvent('order.stage_advanced', { orderId: '123', stage: 'PREPARING' });
  *
  *   // With idempotency key (safe to call multiple times, duplicate is dropped):
  *   emitEvent('order.accepted', { orderId: '123' }, { idempotencyKey: 'accept-123' });
  */
 
+import { useKDSAccessStore } from '../store/kdsAccessStore';
+import { getStationToken } from './stationDeviceService';
+
 // ─────────────────────────────────────────────────────────────────────────────
 //  Types
 // ─────────────────────────────────────────────────────────────────────────────
+
+/** Actor origin — "STATION" when operating in station/kiosk mode, otherwise "USER" */
+export type ActorType = 'STATION' | 'USER';
 
 export interface KDSEventEnvelope {
     /** Domain event type, e.g. "order.stage_advanced" */
@@ -31,6 +37,12 @@ export interface KDSEventEnvelope {
     tenant_id: string;
     /** Auto-injected store context (first storeId if multiple) */
     store_id: string;
+    /** Auto-injected actor user id from the access store */
+    actor_user_id: string;
+    /** Auto-injected actor type — "STATION" or "USER" */
+    actor_type: ActorType;
+    /** Auto-injected station token if in station mode */
+    station_token?: string;
     /** ISO-8601 UTC timestamp auto-injected at dispatch time */
     timestamp: string;
     /** Unique key used for idempotency de-duplication */
@@ -76,9 +88,23 @@ const _eventLog: KDSEventEnvelope[] = [];
  */
 let _wsEmitter: ((envelope: KDSEventEnvelope) => void) | null = null;
 
+/** Local subscribers to domain events */
+const _listeners = new Set<(envelope: KDSEventEnvelope) => void>();
+
 // ─────────────────────────────────────────────────────────────────────────────
 //  Public API
 // ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Subscribe to all dispatched events (local only).
+ * Useful for bridging events to Zustand stores or analytics.
+ * 
+ * @returns Unsubscribe function
+ */
+export function subscribeToEvents(fn: (envelope: KDSEventEnvelope) => void): () => void {
+    _listeners.add(fn);
+    return () => _listeners.delete(fn);
+}
 
 /**
  * Boot the dispatcher with session context.
@@ -130,36 +156,58 @@ export function emitEvent(
     }
     _seenKeys.add(idempotencyKey);
 
-    // ── 3. Build envelope ─────────────────────────────────────────────────────
+    // ── 3. Resolve actor metadata from access store ────────────────────────────
+    const accessState = useKDSAccessStore.getState();
+    const actor_user_id = accessState.isStationMode
+        ? (accessState.stationId ?? 'unknown-station')
+        : (accessState.userId ?? 'anonymous');
+    const actor_type: ActorType = accessState.isStationMode ? 'STATION' : 'USER';
+    const station_token = getStationToken() || undefined;
+
+    // ── 4. Build envelope ─────────────────────────────────────────────────────
     const envelope: KDSEventEnvelope = {
         type,
         tenant_id: _config.tenantId,
         store_id: _config.storeId,
+        actor_user_id,
+        actor_type,
+        station_token,
         timestamp: new Date().toISOString(),
         idempotencyKey,
         payload: rawPayload
     };
 
-    // ── 4. Local log (capped) ─────────────────────────────────────────────────
+    // ── 5. Notify local listeners ───────────────────────────────────────────
+    _listeners.forEach(fn => {
+        try {
+            fn(envelope);
+        } catch (err) {
+            console.error('[KDSDispatcher] Local listener threw an error:', err);
+        }
+    });
+
+    // ── 6. Local log (capped) ─────────────────────────────────────────────────
     _eventLog.push(envelope);
     if (_eventLog.length > MAX_LOG_SIZE) {
         _eventLog.shift(); // evict oldest
     }
 
-    // ── 5. Console trace (structured) ────────────────────────────────────────
+    // ── 7. Console trace (structured) ────────────────────────────────────────
     console.log(
         `%c[KDSEvent] ${envelope.type}`,
         'color: #1FA4A9; font-weight: bold;',
         {
             tenant_id: envelope.tenant_id,
             store_id: envelope.store_id,
+            actor_user_id: envelope.actor_user_id,
+            actor_type: envelope.actor_type,
             timestamp: envelope.timestamp,
             idempotencyKey: envelope.idempotencyKey,
             payload: envelope.payload
         }
     );
 
-    // ── 6. WebSocket emit (placeholder until real socket is wired) ────────────
+    // ── 7. WebSocket emit (placeholder until real socket is wired) ────────────
     if (_wsEmitter) {
         try {
             _wsEmitter(envelope);

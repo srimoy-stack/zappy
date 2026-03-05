@@ -5,11 +5,14 @@ import { useFilterStore } from '../store/useFilterStore';
 import { useKDSStore } from '../store/kdsStore';
 import {
     Settings2, History, Zap, Eye, EyeOff, X,
-    Printer, LayoutGrid, List, Maximize, ChefHat, Package, Volume2, Monitor
+    Printer, LayoutGrid, List, Maximize, ChefHat, Package, Volume2, Monitor, LogOut
 } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import { useKDSAccessStore } from '../store/kdsAccessStore';
 import { HistoryModal } from './modals/HistoryModal';
 
 export const KDSSidebar: React.FC = () => {
+    const clearAuth = useKDSAccessStore(state => state.clearAuth);
     const {
         isSidebarOpen, setIsSidebarOpen,
         viewMode, setViewMode,
@@ -110,7 +113,7 @@ export const KDSSidebar: React.FC = () => {
                                     }`}
                             >
                                 {showRecentlyFulfilled ? <Eye size={18} /> : <EyeOff size={18} />}
-                                Fulfilled Strip
+                                Completed Strip
                             </button>
                             <button
                                 onClick={() => window.print()}
@@ -131,14 +134,29 @@ export const KDSSidebar: React.FC = () => {
 
                     {/* Danger Zone / Dev Tools */}
                     <div className="space-y-3 pt-4">
-                        <span className="text-[9px] font-bold text-red-400 uppercase ml-2">Advanced</span>
-                        <button
-                            onClick={() => useKDSStore.getState().injectStressTestOrders(50)}
-                            className="flex items-center gap-3 w-full p-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-all font-bold text-sm uppercase"
-                        >
-                            <Zap size={18} />
-                            Stress Test (50 Orders)
-                        </button>
+                        <span className="text-[9px] font-bold text-red-500 uppercase ml-2">Advanced</span>
+                        <div className="space-y-2">
+                            <button
+                                onClick={() => useKDSStore.getState().injectStressTestOrders(50)}
+                                className="flex items-center gap-3 w-full p-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-all font-bold text-sm uppercase"
+                            >
+                                <Zap size={18} />
+                                Stress Test
+                            </button>
+
+                            <button
+                                onClick={async () => {
+                                    if (confirm('Log out from KDS?')) {
+                                        clearAuth();
+                                        await signOut({ callbackUrl: '/login' });
+                                    }
+                                }}
+                                className="flex items-center gap-3 w-full p-3 rounded-xl bg-gray-50 text-gray-900 hover:bg-red-600 hover:text-white transition-all font-bold text-sm"
+                            >
+                                <LogOut size={18} className="text-red-600 group-hover:text-white" />
+                                Logout Session
+                            </button>
+                        </div>
                     </div>
                 </div>
 

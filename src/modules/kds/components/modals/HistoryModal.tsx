@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, History, RotateCcw, Search, Clock, PackageCheck } from 'lucide-react';
 import { useKDSStore } from '../../store/kdsStore';
+import { useKDSActionAuth } from '../../hooks/useKDSActionAuth';
+
 
 interface HistoryModalProps {
     isOpen: boolean;
@@ -18,7 +20,9 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose }) =
     }, []);
 
     const { fulfilledOrders, recallFulfilledOrder } = useKDSStore();
+    const { requireAuth, AuthModalElement } = useKDSActionAuth();
     const [searchQuery, setSearchQuery] = useState('');
+
 
     if (!isOpen || !mounted) return null;
 
@@ -28,8 +32,11 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose }) =
     );
 
     const handleRecall = (orderId: string) => {
-        recallFulfilledOrder(orderId);
+        requireAuth('Recall Order', () => {
+            recallFulfilledOrder(orderId);
+        });
     };
+
 
     return createPortal(
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
@@ -39,7 +46,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose }) =
                 onClick={onClose}
             />
 
-            {/* Modal Content */}
+
             <div className="relative w-full max-w-3xl bg-white border border-gray-200 rounded-xl flex flex-col max-h-[85vh] overflow-hidden">
 
                 {/* Header */}
@@ -134,7 +141,9 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose }) =
                     </button>
                 </div>
             </div>
+            {AuthModalElement}
         </div>,
         document.body
     );
 };
+

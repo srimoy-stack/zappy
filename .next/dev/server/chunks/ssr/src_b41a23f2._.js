@@ -6412,7 +6412,7 @@ function KDSMasterPage() {
                     className: "text-red-500 mb-4"
                 }, void 0, false, {
                     fileName: "[project]/src/app/kds/master/page.tsx",
-                    lineNumber: 321,
+                    lineNumber: 320,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -6420,13 +6420,13 @@ function KDSMasterPage() {
                     children: "KDS Module Inactive"
                 }, void 0, false, {
                     fileName: "[project]/src/app/kds/master/page.tsx",
-                    lineNumber: 322,
+                    lineNumber: 321,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/kds/master/page.tsx",
-            lineNumber: 320,
+            lineNumber: 319,
             columnNumber: 13
         }, this);
     }
@@ -6436,7 +6436,7 @@ function KDSMasterPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSSidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSSidebar"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 331,
+                lineNumber: 330,
                 columnNumber: 13
             }, this),
             [
@@ -6445,7 +6445,7 @@ function KDSMasterPage() {
                 'COMPACT'
             ].includes(viewMode) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$KDSHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["KDSHeader"], {}, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 334,
+                lineNumber: 333,
                 columnNumber: 66
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -6460,20 +6460,20 @@ function KDSMasterPage() {
                                     className: "h-full w-full overflow-y-auto p-6 scrollbar-hide",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$board$2f$ProductionSummary$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProductionSummary"], {}, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 341,
+                                        lineNumber: 340,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 340,
+                                    lineNumber: 339,
                                     columnNumber: 29
                                 }, this) : viewMode === 'ROUTING' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$board$2f$RoutingConfig$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["RoutingConfig"], {}, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 344,
+                                    lineNumber: 343,
                                     columnNumber: 29
                                 }, this) : viewMode === 'SOUND_SETTINGS' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$sound$2f$SoundConfig$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SoundConfig"], {}, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 346,
+                                    lineNumber: 345,
                                     columnNumber: 29
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
@@ -6490,22 +6490,22 @@ function KDSMasterPage() {
                                                             onViewDetail: setSelectedOrderId
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 359,
+                                                            lineNumber: 358,
                                                             columnNumber: 53
                                                         }, this)
                                                     }, order.id, false, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 358,
+                                                        lineNumber: 357,
                                                         columnNumber: 49
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 356,
+                                                lineNumber: 355,
                                                 columnNumber: 41
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 351,
+                                            lineNumber: 350,
                                             columnNumber: 37
                                         }, this) : /* GRID & COMPACT VIEWS: Vertically scrollable mosaic */ /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex-1 overflow-y-auto p-8 scrollbar-hide",
@@ -6518,22 +6518,22 @@ function KDSMasterPage() {
                                                             onViewDetail: setSelectedOrderId
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 370,
+                                                            lineNumber: 369,
                                                             columnNumber: 53
                                                         }, this)
                                                     }, order.id, false, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 368,
                                                         columnNumber: 49
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 367,
+                                                lineNumber: 366,
                                                 columnNumber: 41
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 366,
+                                            lineNumber: 365,
                                             columnNumber: 37
                                         }, this),
                                         filteredOrders.length === 0 && (Object.keys(ordersMap).length > 0 || stageFilter === 'FULFILLED') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6544,7 +6544,7 @@ function KDSMasterPage() {
                                                     className: "mb-4 text-gray-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 379,
+                                                    lineNumber: 378,
                                                     columnNumber: 41
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6552,20 +6552,20 @@ function KDSMasterPage() {
                                                     children: "No orders match current filters"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 380,
+                                                    lineNumber: 379,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                            lineNumber: 378,
+                                            lineNumber: 377,
                                             columnNumber: 37
                                         }, this)
                                     ]
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 338,
+                                lineNumber: 337,
                                 columnNumber: 21
                             }, this),
                             [
@@ -6579,18 +6579,18 @@ function KDSMasterPage() {
                                     children: "Waiting for orders"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                    lineNumber: 389,
+                                    lineNumber: 388,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 388,
+                                lineNumber: 387,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 337,
+                        lineNumber: 336,
                         columnNumber: 17
                     }, this),
                     [
@@ -6607,7 +6607,7 @@ function KDSMasterPage() {
                                         className: "w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 398,
+                                        lineNumber: 397,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6615,13 +6615,13 @@ function KDSMasterPage() {
                                         children: "Recently Fulfilled"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 399,
+                                        lineNumber: 398,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 397,
+                                lineNumber: 396,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6640,7 +6640,7 @@ function KDSMasterPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 408,
+                                                        lineNumber: 407,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6648,13 +6648,13 @@ function KDSMasterPage() {
                                                         children: formatTimeOnly(order.updatedAt)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                                        lineNumber: 409,
+                                                        lineNumber: 408,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 407,
+                                                lineNumber: 406,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -6675,48 +6675,48 @@ function KDSMasterPage() {
                                                             d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 418,
+                                                            lineNumber: 417,
                                                             columnNumber: 184
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                             d: "M3 3v5h5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/kds/master/page.tsx",
-                                                            lineNumber: 418,
+                                                            lineNumber: 417,
                                                             columnNumber: 246
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/kds/master/page.tsx",
-                                                    lineNumber: 418,
+                                                    lineNumber: 417,
                                                     columnNumber: 41
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                                lineNumber: 413,
+                                                lineNumber: 412,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, order.id, true, {
                                         fileName: "[project]/src/app/kds/master/page.tsx",
-                                        lineNumber: 403,
+                                        lineNumber: 402,
                                         columnNumber: 33
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/kds/master/page.tsx",
-                                lineNumber: 401,
+                                lineNumber: 400,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/kds/master/page.tsx",
-                        lineNumber: 396,
+                        lineNumber: 395,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 336,
+                lineNumber: 335,
                 columnNumber: 13
             }, this),
             [
@@ -6729,7 +6729,7 @@ function KDSMasterPage() {
                 totalPages: totalPages
             }, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 428,
+                lineNumber: 427,
                 columnNumber: 88
             }, this),
             selectedOrder && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$kds$2f$components$2f$modals$2f$OrderDetailModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OrderDetailModal"], {
@@ -6738,13 +6738,13 @@ function KDSMasterPage() {
                 onClose: ()=>setSelectedOrderId(null)
             }, void 0, false, {
                 fileName: "[project]/src/app/kds/master/page.tsx",
-                lineNumber: 432,
+                lineNumber: 431,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/kds/master/page.tsx",
-        lineNumber: 330,
+        lineNumber: 329,
         columnNumber: 9
     }, this);
 }

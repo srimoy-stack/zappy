@@ -14,7 +14,9 @@ interface SoundState {
     setVolume: (volume: number) => void;
     toggleEvent: (event: keyof Omit<SoundSettings, 'volume'>) => void;
     markEventPlayed: (eventId: string) => void;
+    setSettings: (settings: SoundSettings) => void;
 }
+
 
 export const useSoundStore = create<SoundState>()(
     persist(
@@ -38,7 +40,9 @@ export const useSoundStore = create<SoundState>()(
                     newPlayed.add(eventId);
                     return { playedEvents: newPlayed };
                 }),
+            setSettings: (settings) => set({ settings }),
         }),
+
         {
             name: 'kds-sound-settings',
             partialize: (state) => ({ settings: state.settings }), // Only persist settings

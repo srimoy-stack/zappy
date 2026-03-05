@@ -1,9 +1,9 @@
-import { KDSItem, KDSOrder } from '../types/kds';
+import { KDSItem, KDSOrder, KDSStation } from '../types/kds';
 
 export interface RoutingConfig {
     enable_station_routing: boolean;
     selectedStationId: string | 'ALL';
-    category_station_map: Record<string, string>;
+    kds_stations: KDSStation[];
     allow_item_station_override: boolean;
     item_station_map: Record<string, string>;
     master_screen_view_mode: 'FULL_ORDER' | 'STATION_ONLY';
@@ -16,9 +16,6 @@ export function isItemVisibleOnStation(item: KDSItem, config: RoutingConfig): bo
     const {
         enable_station_routing,
         selectedStationId,
-        category_station_map,
-        allow_item_station_override,
-        item_station_map,
         master_screen_view_mode
     } = config;
 
@@ -28,17 +25,37 @@ export function isItemVisibleOnStation(item: KDSItem, config: RoutingConfig): bo
     }
 
     // 2. If we are in "Full Order" view mode, we show all items regardless of station, 
-    // BUT only if the order itself contains AT LEAST ONE item for this station (checked in isOrderVisibleOnStation).
-    // This maintains order context while ensuring station relevance.
+    // BUT only if the order itself contains AT LEAST ONE item for this station.
     if (master_screen_view_mode === 'FULL_ORDER') {
         return true;
     }
 
     // 3. Granular Item Routing (STATION_ONLY mode)
-    const catStation = (item.categoryId && category_station_map[item.categoryId]) || 'kitchen';
-    const itemStationId = (allow_item_station_override && item_station_map[item.name]) || catStation;
-
+    const itemStationId = getItemStation(item, config);
     return itemStationId === selectedStationId;
+}
+
+/**
+ * Gets the station ID for a specific item based on config.
+ * Resolves station by checking if item's category is in station's routing_category_ids.
+ */
+export function getItemStation(item: KDSItem, config: RoutingConfig): string {
+    const { kds_stations, allow_item_station_override, item_station_map } = config;
+
+    // 1. Check explicit item override first
+    if (allow_item_station_override) {
+        const itemOverride = item_station_map[item.name];
+        if (itemOverride) return itemOverride;
+    }
+
+    // 2. Find station that handles this category
+    if (item.categoryId && kds_stations) {
+        const station = kds_stations.find(s => s.routing_category_ids?.includes(item.categoryId!));
+        if (station) return station.station_id;
+    }
+
+    // 3. Fallback to 'kitchen'
+    return 'kitchen';
 }
 
 /**
@@ -50,15 +67,9 @@ export function isItemVisibleOnStation(item: KDSItem, config: RoutingConfig): bo
 export function isOrderVisibleOnStation(order: KDSOrder, config: RoutingConfig): boolean {
     const { enable_station_routing, selectedStationId } = config;
 
-    // 1. Base cases
     if (!enable_station_routing || selectedStationId === 'ALL') {
         return true;
     }
 
-    // 2. Check if ANY item in the order belongs to this station
-    return order.items.some(item => {
-        const catStation = (item.categoryId && config.category_station_map[item.categoryId]) || 'kitchen';
-        const itemStationId = (config.allow_item_station_override && config.item_station_map[item.name]) || catStation;
-        return itemStationId === selectedStationId;
-    });
+    return order.items.some(item => getItemStation(item, config) === selectedStationId);
 }

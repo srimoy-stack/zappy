@@ -21,7 +21,7 @@ export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage, o
     const {
         enable_station_routing,
         selectedStationId,
-        category_station_map,
+        kds_stations,
         allow_item_station_override,
         item_station_map,
         master_screen_view_mode
@@ -44,7 +44,7 @@ export const KDSColumn: React.FC<KDSColumnProps> = React.memo(({ title, stage, o
                 return isOrderVisibleOnStation(o, {
                     enable_station_routing,
                     selectedStationId,
-                    category_station_map,
+                    kds_stations,
                     allow_item_station_override,
                     item_station_map,
                     master_screen_view_mode

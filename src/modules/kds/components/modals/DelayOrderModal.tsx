@@ -36,10 +36,10 @@ export const DelayOrderModal: React.FC<Props> = ({ isOpen, onClose, onConfirm, o
         setReason('');
     };
 
-    const presets = [5, 10, 15];
+    const presets = [5, 10, 15, 20, 30];
 
     return createPortal(
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[3000] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
             <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
                 {/* Header */}
                 <div className="p-6 bg-slate-900 text-white">

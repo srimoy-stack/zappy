@@ -51,6 +51,24 @@
   scrollbar-width: none;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  display: block;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #0000001a;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0003;
+}
+
 .kds-ticket {
   border-radius: 8px;
   overflow: hidden;
