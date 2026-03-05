@@ -3,7 +3,7 @@
 import { useFilterStore } from '../store/useFilterStore';
 import { useKDSStore, KDSState } from '../store/kdsStore';
 import { useShallow } from 'zustand/react/shallow';
-import { LayoutGrid, List, Maximize, Settings2, ChefHat, Package, Eye, EyeOff } from 'lucide-react';
+import { LayoutGrid, List, Maximize, Settings2, Package, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { StationConfigModal } from '@/modules/kds/components/modals/StationConfigModal';
 import { HistoryModal } from './modals/HistoryModal';
@@ -91,13 +91,7 @@ export const KDSActionBar: React.FC = () => {
                         <Maximize size={14} />
                         Compact
                     </button>
-                    <button
-                        onClick={() => setViewMode('SUMMARY')}
-                        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'SUMMARY' ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'text-slate-500 hover:text-white'}`}
-                    >
-                        <ChefHat size={14} />
-                        Summary
-                    </button>
+
                     <button
                         onClick={() => setViewMode('ALL_DAY')}
                         className={`px-4 py-2 rounded-lg flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'ALL_DAY' ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'text-slate-500 hover:text-white'}`}

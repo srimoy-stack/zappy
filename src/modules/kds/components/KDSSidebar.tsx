@@ -5,7 +5,7 @@ import { useFilterStore } from '../store/useFilterStore';
 import { useKDSStore } from '../store/kdsStore';
 import {
     Settings2, History, Zap, Eye, EyeOff, X,
-    Printer, LayoutGrid, List, Maximize, ChefHat, Package, Volume2, Monitor, LogOut
+    Printer, LayoutGrid, List, Maximize, Package, Volume2, Monitor, LogOut
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { useKDSAccessStore } from '../store/kdsAccessStore';
@@ -62,7 +62,6 @@ export const KDSSidebar: React.FC = () => {
                                 { id: 'KANBAN', label: 'Line View (Scroll)', icon: List },
                                 { id: 'GRID', label: 'Grid 3xN', icon: LayoutGrid },
                                 { id: 'COMPACT', label: 'Compact 4xN', icon: Maximize },
-                                { id: 'SUMMARY', label: 'Production Summary', icon: ChefHat },
                                 { id: 'ALL_DAY', label: 'All-Day View', icon: Package }
                             ].map((mode) => (
                                 <button

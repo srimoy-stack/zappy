@@ -4,6 +4,7 @@
   "/backoffice/items/page": "app/backoffice/items/page.js",
   "/backoffice/settings/integrations/page": "app/backoffice/settings/integrations/page.js",
   "/kds/master/page": "app/kds/master/page.js",
+  "/kds/status/page": "app/kds/status/page.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",
   "/platform/brands/[brandId]/impersonate/page": "app/platform/brands/[brandId]/impersonate/page.js",

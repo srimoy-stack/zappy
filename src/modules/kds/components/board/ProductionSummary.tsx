@@ -145,7 +145,7 @@ export const ProductionSummary: React.FC<ProductionSummaryProps> = ({ compact })
                         <ChefHat size={32} />
                     </div>
                     <div>
-                        <h2 className="text-4xl font-black text-gray-900 uppercase tracking-tighter">Production Summary</h2>
+                        <h2 className="text-4xl font-black text-gray-900 uppercase tracking-tighter">All-Day View</h2>
                         <p className="text-gray-400 text-xs font-black uppercase tracking-[0.3em] mt-1">Real-time All-Day Aggregation</p>
                     </div>
                 </div>
