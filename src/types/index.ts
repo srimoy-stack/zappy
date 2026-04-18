@@ -79,7 +79,7 @@ export interface Brand {
     defaultTaxRate: number;
 }
 
-export type ModuleId = 'pos' | 'inventory' | 'kiosk' | 'loyalty' | 'analytics' | 'web-shop' | 'kds';
+export type ModuleId = 'pos' | 'inventory' | 'kiosk' | 'loyalty' | 'analytics' | 'web-shop' | 'kds' | 'email-campaigns';
 
 export interface ModuleEntitlement {
     id: ModuleId;

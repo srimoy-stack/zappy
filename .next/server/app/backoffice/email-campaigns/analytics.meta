@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/backoffice/layout,_N_T_/backoffice/email-campaigns/layout,_N_T_/backoffice/email-campaigns/analytics/layout,_N_T_/backoffice/email-campaigns/analytics/page,_N_T_/backoffice/email-campaigns/analytics"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/backoffice/email-campaigns/analytics/__PAGE__",
+    "/backoffice/email-campaigns/analytics",
+    "/backoffice/email-campaigns",
+    "/backoffice",
+    "/_index",
+    "/_head"
+  ]
+}

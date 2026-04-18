@@ -38,6 +38,22 @@
       "namedRegex": "^/backoffice/customers/(?<nxtPcustomerId>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/backoffice/email-campaigns/campaigns/[id]/edit",
+      "regex": "^/backoffice/email\\-campaigns/campaigns/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/email\\-campaigns/campaigns/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/segments/[id]/edit",
+      "regex": "^/backoffice/email\\-campaigns/segments/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/backoffice/email\\-campaigns/segments/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
       "page": "/backoffice/inventory/entries/[id]",
       "regex": "^/backoffice/inventory/entries/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -254,6 +270,60 @@
       "regex": "^/backoffice/customers(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/backoffice/customers(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns",
+      "regex": "^/backoffice/email\\-campaigns(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/analytics",
+      "regex": "^/backoffice/email\\-campaigns/analytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/analytics(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/campaigns",
+      "regex": "^/backoffice/email\\-campaigns/campaigns(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/campaigns(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/contacts",
+      "regex": "^/backoffice/email\\-campaigns/contacts(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/contacts(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/create",
+      "regex": "^/backoffice/email\\-campaigns/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/create(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/dashboard",
+      "regex": "^/backoffice/email\\-campaigns/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/dashboard(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/segments",
+      "regex": "^/backoffice/email\\-campaigns/segments(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/segments(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/suppression",
+      "regex": "^/backoffice/email\\-campaigns/suppression(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/suppression(?:/)?$"
+    },
+    {
+      "page": "/backoffice/email-campaigns/templates",
+      "regex": "^/backoffice/email\\-campaigns/templates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/backoffice/email\\-campaigns/templates(?:/)?$"
     },
     {
       "page": "/backoffice/finances",

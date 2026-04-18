@@ -12,7 +12,8 @@ import {
     LayoutGrid,
     Building2,
     Monitor,
-    Tv
+    Tv,
+    Mail
 } from 'lucide-react';
 import { UserRole, ModuleId } from '@/types';
 
@@ -128,6 +129,20 @@ export const navigationConfig: MenuConfig[] = [
             EMPLOYEE: 'read-only'
         },
         requiresStoreScope: true
+    },
+    // ── Marketing / Customer Engagement ──────────────────────────────────
+    {
+        id: 'email-campaigns',
+        label: 'Email Campaigns',
+        route: '/backoffice/email-campaigns',
+        icon: 'Mail',
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN'],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full'
+        },
+        requiresStoreScope: false,
+        requiredModule: 'email-campaigns'
     },
     {
         id: 'inventory',
@@ -257,5 +272,6 @@ export const iconMap = {
     LayoutGrid,
     Building2,
     Monitor,
-    Tv
+    Tv,
+    Mail
 };

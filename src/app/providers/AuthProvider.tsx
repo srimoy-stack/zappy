@@ -34,16 +34,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             id: 'user-1',
             name: 'John Doe',
             email: 'admin@zyappy.com',
-            role: 'PLATFORM_SUPER_ADMIN',
+            role: 'ADMIN',
             tenantId: 'tenant-demo',
             storeIds: ['store-01', 'store-02']
         },
         isAuthenticated: true,
         isLoading: false,
-        role: 'PLATFORM_SUPER_ADMIN',
+        role: 'ADMIN',
         tenantId: 'tenant-demo',
         storeIds: ['store-01', 'store-02'],
-        enabledModules: ['pos', 'inventory', 'kiosk', 'kds', 'messaging'],
+        enabledModules: ['pos', 'inventory', 'kiosk', 'kds', 'messaging', 'email-campaigns'],
     };
 
     return (

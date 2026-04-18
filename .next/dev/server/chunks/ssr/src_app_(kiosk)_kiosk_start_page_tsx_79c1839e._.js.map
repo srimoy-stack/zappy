@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/v2/zyappy_frontend/src/app/%28kiosk%29/kiosk/start/page.tsx"],"sourcesContent":["'use client';\n\n/**\n * Kiosk Start Page\n * This page exists solely to satisfy Next.js routing.\n * The actual UI is fully controlled by KioskViewController in the layout.\n * All screen transitions happen in-memory via kioskStore — zero page reloads.\n */\nexport default function KioskStartPage() {\n    return null;\n}\n"],"names":[],"mappings":";;;;AAAA;AAQe,SAAS;IACpB,OAAO;AACX"}}]
-}

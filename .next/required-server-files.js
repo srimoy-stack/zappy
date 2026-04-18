@@ -100,7 +100,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/lenovo/Desktop/v2/zyappy_frontend",
+    "outputFileTracingRoot": "/home/lenovo/Desktop/zappy",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -293,11 +293,11 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
     "turbopack": {
-      "root": "/home/lenovo/Desktop/v2/zyappy_frontend"
+      "root": "/home/lenovo/Desktop/zappy"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/home/lenovo/Desktop/v2/zyappy_frontend",
+  "appDir": "/home/lenovo/Desktop/zappy",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
