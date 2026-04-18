@@ -5,6 +5,7 @@ import {
     CampaignOption,
 } from '../types/analytics.types';
 import { DEV_SEED_ANALYTICS } from '../utils/analyticsSeeds';
+import { isDemoMode } from '../utils/demoMode';
 
 /**
  * Analytics API Service
@@ -26,7 +27,7 @@ export const analyticsService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 let data = [...DEV_SEED_ANALYTICS];
 
                 // Campaign filter
@@ -66,7 +67,7 @@ export const analyticsService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 return DEV_SEED_ANALYTICS.map((r) => ({
                     id: r.id,
                     name: r.campaign_name,

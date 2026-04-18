@@ -889,12 +889,16 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
     // Focus the cancel button when modal opens for safety
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ConfirmModal.useEffect": ()=>{
-            if (!open) return;
-            const timer = setTimeout({
-                "ConfirmModal.useEffect.timer": ()=>confirmRef.current?.focus()
-            }["ConfirmModal.useEffect.timer"], 50);
+            let timer;
+            if (open) {
+                timer = setTimeout({
+                    "ConfirmModal.useEffect": ()=>confirmRef.current?.focus()
+                }["ConfirmModal.useEffect"], 50);
+            }
             return ({
-                "ConfirmModal.useEffect": ()=>clearTimeout(timer)
+                "ConfirmModal.useEffect": ()=>{
+                    if (timer) clearTimeout(timer);
+                }
             })["ConfirmModal.useEffect"];
         }
     }["ConfirmModal.useEffect"], [
@@ -903,7 +907,7 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
     // Close on ESC
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ConfirmModal.useEffect": ()=>{
-            if (!open) return;
+            if (!open) return undefined;
             const handleKeyDown = {
                 "ConfirmModal.useEffect.handleKeyDown": (e)=>{
                     if (e.key === 'Escape' && !loading) onCancel();
@@ -922,7 +926,7 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
     // Prevent body scroll when modal is open
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ConfirmModal.useEffect": ()=>{
-            if (!open) return;
+            if (!open) return undefined;
             document.body.style.overflow = 'hidden';
             return ({
                 "ConfirmModal.useEffect": ()=>{
@@ -945,7 +949,7 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                 onClick: ()=>!loading && onCancel()
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                lineNumber: 107,
+                lineNumber: 111,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -960,12 +964,12 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                             className: "w-4 h-4"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                            lineNumber: 121,
+                            lineNumber: 125,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                        lineNumber: 115,
+                        lineNumber: 119,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -979,17 +983,17 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                                         className: `w-7 h-7 ${styles.iconColor}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 132,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 131,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                lineNumber: 126,
+                                lineNumber: 130,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -998,7 +1002,7 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                lineNumber: 133,
+                                lineNumber: 137,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1006,13 +1010,13 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                                 children: description
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                lineNumber: 141,
+                                lineNumber: 145,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                        lineNumber: 124,
+                        lineNumber: 128,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1025,7 +1029,7 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                                 children: cancelLabel
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                lineNumber: 148,
+                                lineNumber: 152,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1038,32 +1042,32 @@ const ConfirmModal = ({ open, title, description, confirmLabel = 'Confirm', canc
                                         className: "w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 166,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     loading ? 'Processing...' : confirmLabel
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                                lineNumber: 155,
+                                lineNumber: 159,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                        lineNumber: 147,
+                        lineNumber: 151,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-                lineNumber: 113,
+                lineNumber: 117,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/components/ConfirmModal.tsx",
-        lineNumber: 100,
+        lineNumber: 104,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

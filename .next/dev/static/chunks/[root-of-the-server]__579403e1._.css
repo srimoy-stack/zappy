@@ -8803,12 +8803,6 @@
   }
 
   @media (hover: hover) {
-    .group-hover\/tt\:opacity-100:is(:where(.group\/tt):hover *) {
-      opacity: 1;
-    }
-  }
-
-  @media (hover: hover) {
     .group-hover\/v\:opacity-100:is(:where(.group\/v):hover *) {
       opacity: 1;
     }

@@ -7,6 +7,7 @@ import {
     ManualUnsubscribePayload,
 } from '../types/suppression.types';
 import { DEV_SEED_SUPPRESSIONS, DEV_SEED_CONSENT } from '../utils/suppressionSeeds';
+import { isDemoMode } from '../utils/demoMode';
 
 /**
  * Suppression & Consent API Service
@@ -27,7 +28,7 @@ export const suppressionService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 let entries = [...DEV_SEED_SUPPRESSIONS];
 
                 if (filters?.reason && filters.reason !== 'all') {
@@ -68,7 +69,7 @@ export const suppressionService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 let entries = [...DEV_SEED_CONSENT];
 
                 if (filters?.consent_status && filters.consent_status !== 'all') {
@@ -101,7 +102,7 @@ export const suppressionService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 // Add to suppressions
                 const newEntry: SuppressionEntry = {
                     id: `sup-${Date.now()}`,
@@ -138,7 +139,7 @@ export const suppressionService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 const idx = DEV_SEED_SUPPRESSIONS.findIndex((e) => e.id === id);
                 if (idx !== -1) {
                     DEV_SEED_SUPPRESSIONS.splice(idx, 1);

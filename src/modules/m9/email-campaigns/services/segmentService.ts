@@ -1,5 +1,7 @@
 import apiClient from '@/api/axios';
 import { Segment, SegmentRulesPayload, EstimateCountResponse, StoreOption } from '../types/campaign.types';
+import { DEV_SEED_SEGMENTS } from '../utils/segmentSeeds';
+import { isDemoMode } from '../utils/demoMode';
 
 /**
  * Segments API Service
@@ -12,32 +14,74 @@ export const segmentService = {
      * Fetch all segments
      */
     getSegments: async (): Promise<Segment[]> => {
-        const response = await apiClient.get<Segment[]>('/email-campaigns/segments');
-        return response.data;
+        try {
+            const response = await apiClient.get<Segment[]>('/email-campaigns/segments');
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                return [...DEV_SEED_SEGMENTS];
+            }
+            throw new Error('Failed to load segments');
+        }
     },
 
     /**
      * Fetch a single segment by ID
      */
     getSegmentById: async (id: string): Promise<Segment> => {
-        const response = await apiClient.get<Segment>(`/email-campaigns/segments/${id}`);
-        return response.data;
+        try {
+            const response = await apiClient.get<Segment>(`/email-campaigns/segments/${id}`);
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                const found = DEV_SEED_SEGMENTS.find((s) => s.id === id);
+                if (found) return { ...found };
+                throw new Error('Segment not found');
+            }
+            throw new Error('Failed to load segment');
+        }
     },
 
     /**
      * Create a new segment
      */
     createSegment: async (payload: Omit<Segment, 'id' | 'created_at' | 'updated_at'>): Promise<Segment> => {
-        const response = await apiClient.post<Segment>('/email-campaigns/segments', payload);
-        return response.data;
+        try {
+            const response = await apiClient.post<Segment>('/email-campaigns/segments', payload);
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                const newSeg: Segment = {
+                    ...payload,
+                    id: `seg-${Date.now()}`,
+                    created_at: new Date().toISOString(),
+                };
+                DEV_SEED_SEGMENTS.unshift(newSeg);
+                return newSeg;
+            }
+            throw new Error('Failed to create segment');
+        }
     },
 
     /**
      * Update an existing segment
      */
     updateSegment: async (id: string, payload: Partial<Segment>): Promise<Segment> => {
-        const response = await apiClient.put<Segment>(`/email-campaigns/segments/${id}`, payload);
-        return response.data;
+        try {
+            const response = await apiClient.put<Segment>(`/email-campaigns/segments/${id}`, payload);
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                const idx = DEV_SEED_SEGMENTS.findIndex((s) => s.id === id);
+                if (idx !== -1) {
+                    const updated = { ...DEV_SEED_SEGMENTS[idx], ...payload, updated_at: new Date().toISOString() };
+                    DEV_SEED_SEGMENTS[idx] = updated as Segment;
+                    return updated as Segment;
+                }
+                throw new Error('Segment not found');
+            }
+            throw new Error('Failed to update segment');
+        }
     },
 
     /**
@@ -46,11 +90,30 @@ export const segmentService = {
      * Payload: { name: "<original_name> (Copy)" }
      */
     duplicateSegment: async (id: string, name: string): Promise<Segment> => {
-        const response = await apiClient.post<Segment>(
-            `/email-segments/${id}/duplicate`,
-            { name }
-        );
-        return response.data;
+        try {
+            const response = await apiClient.post<Segment>(
+                `/email-segments/${id}/duplicate`,
+                { name }
+            );
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                const original = DEV_SEED_SEGMENTS.find((s) => s.id === id);
+                if (original) {
+                    const dup: Segment = {
+                        ...original,
+                        id: `seg-${Date.now()}`,
+                        name,
+                        created_at: new Date().toISOString(),
+                        updated_at: undefined,
+                    };
+                    DEV_SEED_SEGMENTS.unshift(dup);
+                    return dup;
+                }
+                throw new Error('Segment not found');
+            }
+            throw new Error('Failed to duplicate segment');
+        }
     },
 
     /**
@@ -58,7 +121,16 @@ export const segmentService = {
      * DELETE /email-segments/:id
      */
     deleteSegment: async (id: string): Promise<void> => {
-        await apiClient.delete(`/email-segments/${id}`);
+        try {
+            await apiClient.delete(`/email-segments/${id}`);
+        } catch {
+            if (isDemoMode()) {
+                const idx = DEV_SEED_SEGMENTS.findIndex((s) => s.id === id);
+                if (idx !== -1) DEV_SEED_SEGMENTS.splice(idx, 1);
+                return;
+            }
+            throw new Error('Failed to delete segment');
+        }
     },
 
     /**
@@ -66,11 +138,24 @@ export const segmentService = {
      * PATCH /email-segments/:id/status
      */
     updateSegmentStatus: async (id: string, status: 'active' | 'inactive'): Promise<Segment> => {
-        const response = await apiClient.patch<Segment>(
-            `/email-segments/${id}/status`,
-            { status }
-        );
-        return response.data;
+        try {
+            const response = await apiClient.patch<Segment>(
+                `/email-segments/${id}/status`,
+                { status }
+            );
+            return response.data;
+        } catch {
+            if (isDemoMode()) {
+                const seg = DEV_SEED_SEGMENTS.find((s) => s.id === id);
+                if (seg) {
+                    seg.status = status;
+                    seg.updated_at = new Date().toISOString();
+                    return { ...seg };
+                }
+                throw new Error('Segment not found');
+            }
+            throw new Error('Failed to update segment status');
+        }
     },
 
     /**
@@ -88,7 +173,7 @@ export const segmentService = {
             return response.data;
         } catch {
             // Deterministic mock: derive count from rule values for a stable UI during dev
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 const base = 15000;
                 let modifier = 1;
                 for (const rule of rules.rules) {
@@ -138,7 +223,7 @@ export const segmentService = {
             const response = await apiClient.get<StoreOption[]>('/stores');
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 return [
                     { id: 'store_001', name: 'Flagship San Francisco' },
                     { id: 'store_002', name: 'New York Boutique' },

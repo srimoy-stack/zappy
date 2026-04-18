@@ -561,10 +561,10 @@ function parseCsvContacts(csvText) {
     for(let i = 1; i < lines.length; i++){
         const cols = parseCsvLine(lines[i]);
         const errors = [];
-        const name = cols[nameIdx]?.trim() || '';
-        const email = cols[emailIdx]?.trim() || '';
-        const store_id = cols[storeIdx]?.trim() || '';
-        const consent_status = cols[consentIdx]?.trim().toLowerCase() || '';
+        const name = (nameIdx >= 0 ? cols[nameIdx]?.trim() : '') || '';
+        const email = (emailIdx >= 0 ? cols[emailIdx]?.trim() : '') || '';
+        const store_id = (storeIdx >= 0 ? cols[storeIdx]?.trim() : '') || '';
+        const consent_status = (consentIdx >= 0 ? cols[consentIdx]?.trim().toLowerCase() : '') || '';
         // Validate name
         if (!name) {
             errors.push('Name is required');
@@ -943,7 +943,7 @@ const CONSENT_CONFIG = {
             className: "w-3 h-3"
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-            lineNumber: 48,
+            lineNumber: 46,
             columnNumber: 15
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -954,7 +954,7 @@ const CONSENT_CONFIG = {
             className: "w-3 h-3"
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-            lineNumber: 53,
+            lineNumber: 51,
             columnNumber: 15
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -965,7 +965,7 @@ const CONSENT_CONFIG = {
             className: "w-3 h-3"
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-            lineNumber: 58,
+            lineNumber: 56,
             columnNumber: 15
         }, ("TURBOPACK compile-time value", void 0))
     }
@@ -981,7 +981,7 @@ const SUPPRESSION_CONFIG = {
             className: "w-3 h-3"
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-            lineNumber: 73,
+            lineNumber: 71,
             columnNumber: 15
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -992,7 +992,7 @@ const SUPPRESSION_CONFIG = {
             className: "w-3 h-3"
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-            lineNumber: 78,
+            lineNumber: 76,
             columnNumber: 15
         }, ("TURBOPACK compile-time value", void 0))
     }
@@ -1144,7 +1144,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 210,
+                lineNumber: 208,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1165,12 +1165,12 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                             className: "w-4 h-4 text-white"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 224,
+                                            lineNumber: 222,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 223,
+                                        lineNumber: 221,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1180,7 +1180,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "Add Contact"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 225,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1188,19 +1188,19 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "Compliance-aware entry"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 226,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 224,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 222,
+                                lineNumber: 220,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1211,18 +1211,18 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 238,
+                                    lineNumber: 236,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 233,
+                                lineNumber: 231,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 221,
+                        lineNumber: 219,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1240,13 +1240,13 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 247,
+                                                lineNumber: 245,
                                                 columnNumber: 39
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 246,
+                                        lineNumber: 244,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1261,7 +1261,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                         className: `w-full px-3 py-2.5 text-sm bg-slate-50 border rounded-xl outline-none transition-all focus:bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 ${errors.name ? 'border-red-300 focus:ring-red-200 focus:border-red-400' : 'border-slate-200'}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 247,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     errors.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1271,20 +1271,20 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-3 h-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 263,
+                                                lineNumber: 261,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             errors.name
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 262,
+                                        lineNumber: 260,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 245,
+                                lineNumber: 243,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1298,13 +1298,13 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 272,
+                                                lineNumber: 270,
                                                 columnNumber: 43
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 271,
+                                        lineNumber: 269,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1319,7 +1319,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                         className: `w-full px-3 py-2.5 text-sm bg-slate-50 border rounded-xl outline-none transition-all focus:bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 ${errors.email ? 'border-red-300 focus:ring-red-200 focus:border-red-400' : 'border-slate-200'}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 274,
+                                        lineNumber: 272,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     errors.email && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1329,20 +1329,20 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-3 h-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 288,
+                                                lineNumber: 286,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             errors.email
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 287,
+                                        lineNumber: 285,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 270,
+                                lineNumber: 268,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1356,13 +1356,13 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 297,
+                                                lineNumber: 295,
                                                 columnNumber: 35
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 296,
+                                        lineNumber: 294,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1382,7 +1382,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                         children: "Select store…"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 308,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     stores.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1390,26 +1390,26 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                             children: s.name
                                                         }, s.id, false, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                            lineNumber: 312,
+                                                            lineNumber: 310,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 300,
+                                                lineNumber: 298,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 317,
+                                                lineNumber: 315,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 299,
+                                        lineNumber: 297,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     errors.storeId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1419,20 +1419,20 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-3 h-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 321,
+                                                lineNumber: 319,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             errors.storeId
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 320,
+                                        lineNumber: 318,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 295,
+                                lineNumber: 293,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1446,13 +1446,13 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 children: "*"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 330,
+                                                lineNumber: 328,
                                                 columnNumber: 44
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 329,
+                                        lineNumber: 327,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1491,20 +1491,20 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                         className: "w-4 h-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 358,
+                                                        lineNumber: 356,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     opt.label
                                                 ]
                                             }, opt.value, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 343,
+                                                lineNumber: 341,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0));
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 332,
+                                        lineNumber: 330,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     errors.consentStatus && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1514,14 +1514,14 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-3 h-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 366,
+                                                lineNumber: 364,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             errors.consentStatus
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 365,
+                                        lineNumber: 363,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1531,20 +1531,20 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-3 h-3 text-amber-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 369,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Consent status must be explicitly set — never assumed."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 368,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 328,
+                                lineNumber: 326,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1558,7 +1558,7 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 378,
+                                        lineNumber: 376,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1571,44 +1571,44 @@ const AddContactModal = ({ open, stores, loading, onSubmit, onClose })=>{
                                                 className: "w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 393,
+                                                lineNumber: 391,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 393,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Add Contact"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 386,
+                                        lineNumber: 384,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 377,
+                                lineNumber: 375,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 243,
+                        lineNumber: 241,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 216,
+                lineNumber: 214,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-        lineNumber: 208,
+        lineNumber: 206,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1677,7 +1677,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 467,
+                lineNumber: 465,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1698,12 +1698,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                             className: "w-4 h-4 text-white"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 481,
+                                            lineNumber: 479,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 480,
+                                        lineNumber: 478,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1713,7 +1713,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                 children: "Import Contacts"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 484,
+                                                lineNumber: 482,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1721,19 +1721,19 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                 children: "CSV Upload with validation"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 485,
+                                                lineNumber: 483,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 483,
+                                        lineNumber: 481,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 479,
+                                lineNumber: 477,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1744,18 +1744,18 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 495,
+                                    lineNumber: 493,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 490,
+                                lineNumber: 488,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 478,
+                        lineNumber: 476,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1774,12 +1774,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                     className: "w-6 h-6 text-indigo-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 509,
+                                                    lineNumber: 507,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 508,
+                                                lineNumber: 506,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1790,7 +1790,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         children: "Click to upload CSV"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 512,
+                                                        lineNumber: 510,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1798,19 +1798,19 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         children: "Required columns: name, email, store_id, consent_status"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 515,
+                                                        lineNumber: 513,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 511,
+                                                lineNumber: 509,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 504,
+                                        lineNumber: 502,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1821,7 +1821,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                         className: "hidden"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 520,
+                                        lineNumber: 518,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1832,7 +1832,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                 children: "Expected format"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 529,
+                                                lineNumber: 527,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
@@ -1841,20 +1841,20 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                     "name,email,store_id,consent_status",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 534,
+                                                        lineNumber: 532,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     "John Doe,john@example.com,store_001,eligible",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 536,
+                                                        lineNumber: 534,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     "Jane Smith,jane@example.com,store_002,no_consent"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 532,
+                                                lineNumber: 530,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1864,7 +1864,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         className: "w-3 h-3 text-amber-500 mt-0.5 shrink-0"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 540,
+                                                        lineNumber: 538,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1872,25 +1872,25 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         children: "consent_status is mandatory. Rows without explicit consent will be flagged as invalid."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 541,
+                                                        lineNumber: 539,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 539,
+                                                lineNumber: 537,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 528,
+                                        lineNumber: 526,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 503,
+                                lineNumber: 501,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             fileLoaded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1905,7 +1905,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         className: "w-4 h-4 text-slate-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 555,
+                                                        lineNumber: 553,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1913,13 +1913,13 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         children: fileName
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 556,
+                                                        lineNumber: 554,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 554,
+                                                lineNumber: 552,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1934,13 +1934,13 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: summary.total
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 560,
+                                                                lineNumber: 558,
                                                                 columnNumber: 48
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 559,
+                                                        lineNumber: 557,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1951,7 +1951,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 562,
+                                                        lineNumber: 560,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     summary.invalid > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1962,19 +1962,19 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 566,
+                                                        lineNumber: 564,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 558,
+                                                lineNumber: 556,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 553,
+                                        lineNumber: 551,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1991,7 +1991,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "#"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 578,
+                                                                lineNumber: 576,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1999,7 +1999,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 581,
+                                                                lineNumber: 579,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2007,7 +2007,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "Email"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 584,
+                                                                lineNumber: 582,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2015,7 +2015,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "Store ID"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 587,
+                                                                lineNumber: 585,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2023,7 +2023,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "Consent"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 590,
+                                                                lineNumber: 588,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2031,18 +2031,18 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 593,
+                                                                lineNumber: 591,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 577,
+                                                        lineNumber: 575,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 576,
+                                                    lineNumber: 574,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2055,7 +2055,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                     children: row.rowIndex
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 608,
+                                                                    lineNumber: 606,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2065,12 +2065,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                         children: "missing"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 613,
+                                                                        lineNumber: 611,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 611,
+                                                                    lineNumber: 609,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2080,12 +2080,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                         children: "missing"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 618,
+                                                                        lineNumber: 616,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 616,
+                                                                    lineNumber: 614,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2095,12 +2095,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                         children: "missing"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 623,
+                                                                        lineNumber: 621,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 621,
+                                                                    lineNumber: 619,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2110,12 +2110,12 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                         children: "missing"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 628,
+                                                                        lineNumber: 626,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 626,
+                                                                    lineNumber: 624,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2127,14 +2127,14 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                                lineNumber: 634,
+                                                                                lineNumber: 632,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             "Valid"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 633,
+                                                                        lineNumber: 631,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         children: [
@@ -2145,14 +2145,14 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                                         className: "w-3 h-3"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                                        lineNumber: 640,
+                                                                                        lineNumber: 638,
                                                                                         columnNumber: 65
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     "Invalid"
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                                lineNumber: 639,
+                                                                                lineNumber: 637,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -2165,45 +2165,45 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                                                                         ]
                                                                                     }, i, true, {
                                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                                        lineNumber: 645,
+                                                                                        lineNumber: 643,
                                                                                         columnNumber: 69
                                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                                lineNumber: 643,
+                                                                                lineNumber: 641,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                        lineNumber: 638,
+                                                                        lineNumber: 636,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                    lineNumber: 631,
+                                                                    lineNumber: 629,
                                                                     columnNumber: 49
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, row.rowIndex, true, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                            lineNumber: 600,
+                                                            lineNumber: 598,
                                                             columnNumber: 45
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 598,
+                                                    lineNumber: 596,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 575,
+                                            lineNumber: 573,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 574,
+                                        lineNumber: 572,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
@@ -2211,7 +2211,7 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 500,
+                        lineNumber: 498,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     fileLoaded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2237,14 +2237,14 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 680,
+                                        lineNumber: 678,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Choose Different File"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 668,
+                                lineNumber: 666,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2256,13 +2256,13 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                         className: "w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 689,
+                                        lineNumber: 687,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 691,
+                                        lineNumber: 689,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Import ",
@@ -2272,25 +2272,25 @@ const CsvImportModal = ({ open, onImport, onClose, importing })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 683,
+                                lineNumber: 681,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 667,
+                        lineNumber: 665,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 473,
+                lineNumber: 471,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-        lineNumber: 465,
+        lineNumber: 463,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2376,7 +2376,7 @@ const ContactsPage = ()=>{
                 onDismiss: toast.dismiss
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 820,
+                lineNumber: 818,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AddContactModal, {
@@ -2387,7 +2387,7 @@ const ContactsPage = ()=>{
                 onClose: ()=>setAddModalOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 823,
+                lineNumber: 821,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CsvImportModal, {
@@ -2397,7 +2397,7 @@ const ContactsPage = ()=>{
                 importing: csvImporting
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 832,
+                lineNumber: 830,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2412,12 +2412,12 @@ const ContactsPage = ()=>{
                                     className: "w-5 h-5 text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 843,
+                                    lineNumber: 841,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 842,
+                                lineNumber: 840,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2427,7 +2427,7 @@ const ContactsPage = ()=>{
                                         children: "Contacts"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 846,
+                                        lineNumber: 844,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2435,19 +2435,19 @@ const ContactsPage = ()=>{
                                         children: "Compliance-aware audience management"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 847,
+                                        lineNumber: 845,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 845,
+                                lineNumber: 843,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 841,
+                        lineNumber: 839,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2462,14 +2462,14 @@ const ContactsPage = ()=>{
                                         className: "w-4 h-4 text-slate-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 859,
+                                        lineNumber: 857,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Import CSV"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 854,
+                                lineNumber: 852,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2483,26 +2483,26 @@ const ContactsPage = ()=>{
                                         strokeWidth: 3
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 868,
+                                        lineNumber: 866,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Add Contact"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 862,
+                                lineNumber: 860,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 853,
+                        lineNumber: 851,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 840,
+                lineNumber: 838,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2554,12 +2554,12 @@ const ContactsPage = ()=>{
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 920,
+                                    lineNumber: 918,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 919,
+                                lineNumber: 917,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2569,7 +2569,7 @@ const ContactsPage = ()=>{
                                         children: tile.label
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 923,
+                                        lineNumber: 921,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2577,25 +2577,25 @@ const ContactsPage = ()=>{
                                         children: loading ? '…' : tile.value.toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 926,
+                                        lineNumber: 924,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 922,
+                                lineNumber: 920,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, tile.label, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 915,
+                        lineNumber: 913,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0));
                 })
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 875,
+                lineNumber: 873,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2605,7 +2605,7 @@ const ContactsPage = ()=>{
                         className: "w-5 h-5 text-red-500 shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 938,
+                        lineNumber: 936,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2616,7 +2616,7 @@ const ContactsPage = ()=>{
                                 children: "Failed to load contacts"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 940,
+                                lineNumber: 938,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2624,13 +2624,13 @@ const ContactsPage = ()=>{
                                 children: error
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 941,
+                                lineNumber: 939,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 939,
+                        lineNumber: 937,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2639,13 +2639,13 @@ const ContactsPage = ()=>{
                         children: "Retry"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 943,
+                        lineNumber: 941,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 937,
+                lineNumber: 935,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2661,7 +2661,7 @@ const ContactsPage = ()=>{
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 957,
+                                        lineNumber: 955,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2669,13 +2669,13 @@ const ContactsPage = ()=>{
                                         children: "Filters"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 958,
+                                        lineNumber: 956,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 956,
+                                lineNumber: 954,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2692,7 +2692,7 @@ const ContactsPage = ()=>{
                                                 children: "All Consent"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 976,
+                                                lineNumber: 974,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2700,7 +2700,7 @@ const ContactsPage = ()=>{
                                                 children: "Eligible"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 977,
+                                                lineNumber: 975,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2708,7 +2708,7 @@ const ContactsPage = ()=>{
                                                 children: "Unsubscribed"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 978,
+                                                lineNumber: 976,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2716,26 +2716,26 @@ const ContactsPage = ()=>{
                                                 children: "No Consent"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 979,
+                                                lineNumber: 977,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 965,
+                                        lineNumber: 963,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                         className: "absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 981,
+                                        lineNumber: 979,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 964,
+                                lineNumber: 962,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2752,7 +2752,7 @@ const ContactsPage = ()=>{
                                                 children: "All Stores"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 997,
+                                                lineNumber: 995,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             stores.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2760,26 +2760,26 @@ const ContactsPage = ()=>{
                                                     children: s.name
                                                 }, s.id, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 999,
+                                                    lineNumber: 997,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 986,
+                                        lineNumber: 984,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                         className: "absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1004,
+                                        lineNumber: 1002,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 985,
+                                lineNumber: 983,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2796,7 +2796,7 @@ const ContactsPage = ()=>{
                                                 children: "All Suppression"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 1020,
+                                                lineNumber: 1018,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2804,7 +2804,7 @@ const ContactsPage = ()=>{
                                                 children: "Active"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 1021,
+                                                lineNumber: 1019,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2812,26 +2812,26 @@ const ContactsPage = ()=>{
                                                 children: "Suppressed"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 1022,
+                                                lineNumber: 1020,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1009,
+                                        lineNumber: 1007,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                         className: "absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1024,
+                                        lineNumber: 1022,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1008,
+                                lineNumber: 1006,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2841,7 +2841,7 @@ const ContactsPage = ()=>{
                                         className: "absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1029,
+                                        lineNumber: 1027,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2853,13 +2853,13 @@ const ContactsPage = ()=>{
                                         className: "w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1030,
+                                        lineNumber: 1028,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1028,
+                                lineNumber: 1026,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             hasActiveFilters && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2870,20 +2870,20 @@ const ContactsPage = ()=>{
                                         className: "w-3 h-3"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1046,
+                                        lineNumber: 1044,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     "Reset"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1042,
+                                lineNumber: 1040,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 954,
+                        lineNumber: 952,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2898,7 +2898,7 @@ const ContactsPage = ()=>{
                                     children: loading ? '…' : contacts.length
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1056,
+                                    lineNumber: 1054,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 ' ',
@@ -2907,12 +2907,12 @@ const ContactsPage = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                            lineNumber: 1054,
+                            lineNumber: 1052,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 1053,
+                        lineNumber: 1051,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2923,12 +2923,12 @@ const ContactsPage = ()=>{
                                         className: "h-3 bg-slate-200 rounded-full w-3/4 animate-pulse"
                                     }, col.key, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1069,
+                                        lineNumber: 1067,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1067,
+                                lineNumber: 1065,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             [
@@ -2940,61 +2940,61 @@ const ContactsPage = ()=>{
                                             className: "h-3.5 bg-slate-100 rounded-full w-4/5 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1081,
+                                            lineNumber: 1079,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-3.5 bg-slate-100 rounded-full w-full animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1082,
+                                            lineNumber: 1080,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-3.5 bg-slate-100 rounded-full w-3/5 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1083,
+                                            lineNumber: 1081,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-3.5 bg-slate-100 rounded-full w-2/3 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1084,
+                                            lineNumber: 1082,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-3.5 bg-slate-100 rounded-full w-16 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
+                                            lineNumber: 1083,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "h-6 bg-slate-100 rounded-full w-20 animate-pulse"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
+                                            lineNumber: 1084,
+                                            columnNumber: 33
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "h-6 bg-slate-100 rounded-full w-20 animate-pulse"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
                                             lineNumber: 1085,
-                                            columnNumber: 33
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "h-6 bg-slate-100 rounded-full w-20 animate-pulse"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1086,
-                                            columnNumber: 33
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "h-6 bg-slate-100 rounded-full w-20 animate-pulse"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1087,
                                             columnNumber: 33
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, i, true, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1077,
+                                    lineNumber: 1075,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 1065,
+                        lineNumber: 1063,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     !loading && !error && contacts.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3006,12 +3006,12 @@ const ContactsPage = ()=>{
                                     className: "w-10 h-10 text-indigo-400"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1097,
+                                    lineNumber: 1095,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1096,
+                                lineNumber: 1094,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3019,7 +3019,7 @@ const ContactsPage = ()=>{
                                 children: hasActiveFilters ? 'No contacts match your filters' : 'No contacts yet'
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1099,
+                                lineNumber: 1097,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3027,7 +3027,7 @@ const ContactsPage = ()=>{
                                 children: hasActiveFilters ? 'Try adjusting your filter criteria or reset all filters.' : 'Add your first contact or import a CSV file to get started.'
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1104,
+                                lineNumber: 1102,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3040,14 +3040,14 @@ const ContactsPage = ()=>{
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1115,
+                                            lineNumber: 1113,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         "Reset Filters"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1111,
+                                    lineNumber: 1109,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
@@ -3060,14 +3060,14 @@ const ContactsPage = ()=>{
                                                     strokeWidth: 3
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1124,
+                                                    lineNumber: 1122,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Add Contact"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1120,
+                                            lineNumber: 1118,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3078,27 +3078,27 @@ const ContactsPage = ()=>{
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1131,
+                                                    lineNumber: 1129,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Import CSV"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1127,
+                                            lineNumber: 1125,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                lineNumber: 1109,
+                                lineNumber: 1107,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 1095,
+                        lineNumber: 1093,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     !loading && contacts.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3114,17 +3114,17 @@ const ContactsPage = ()=>{
                                                 children: col.label
                                             }, col.key, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                lineNumber: 1147,
+                                                lineNumber: 1145,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                        lineNumber: 1145,
+                                        lineNumber: 1143,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1144,
+                                    lineNumber: 1142,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -3142,12 +3142,12 @@ const ContactsPage = ()=>{
                                                         children: contact.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1169,
+                                                        lineNumber: 1167,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1168,
+                                                    lineNumber: 1166,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3157,12 +3157,12 @@ const ContactsPage = ()=>{
                                                         children: contact.email
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1176,
+                                                        lineNumber: 1174,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1175,
+                                                    lineNumber: 1173,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3175,7 +3175,7 @@ const ContactsPage = ()=>{
                                                                 children: contact.store_name || contact.store_id
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 1184,
+                                                                lineNumber: 1182,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             contact.store_name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3183,18 +3183,18 @@ const ContactsPage = ()=>{
                                                                 children: contact.store_id
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                                lineNumber: 1188,
+                                                                lineNumber: 1186,
                                                                 columnNumber: 57
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1183,
+                                                        lineNumber: 1181,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1182,
+                                                    lineNumber: 1180,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3204,12 +3204,12 @@ const ContactsPage = ()=>{
                                                         children: formatDate(contact.last_order)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1197,
+                                                        lineNumber: 1195,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1196,
+                                                    lineNumber: 1194,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3219,12 +3219,12 @@ const ContactsPage = ()=>{
                                                         children: formatCurrency(contact.total_spend)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1204,
+                                                        lineNumber: 1202,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1203,
+                                                    lineNumber: 1201,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3237,12 +3237,12 @@ const ContactsPage = ()=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1211,
+                                                        lineNumber: 1209,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1210,
+                                                    lineNumber: 1208,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3257,41 +3257,41 @@ const ContactsPage = ()=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                        lineNumber: 1221,
+                                                        lineNumber: 1219,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                                    lineNumber: 1220,
+                                                    lineNumber: 1218,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, contact.id, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                            lineNumber: 1163,
+                                            lineNumber: 1161,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0));
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                                    lineNumber: 1156,
+                                    lineNumber: 1154,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                            lineNumber: 1143,
+                            lineNumber: 1141,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                        lineNumber: 1142,
+                        lineNumber: 1140,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 953,
+                lineNumber: 951,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
@@ -3309,13 +3309,13 @@ const ContactsPage = ()=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-                lineNumber: 1249,
+                lineNumber: 1247,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/ContactsPage.tsx",
-        lineNumber: 818,
+        lineNumber: 816,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3350,7 +3350,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$emai
 function ContactsRoute() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$modules$2f$m9$2f$email$2d$campaigns$2f$pages$2f$ContactsPage$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ContactsPage"], {}, void 0, false, {
         fileName: "[project]/src/app/backoffice/email-campaigns/contacts/page.tsx",
-        lineNumber: 7,
+        lineNumber: 6,
         columnNumber: 12
     }, this);
 }

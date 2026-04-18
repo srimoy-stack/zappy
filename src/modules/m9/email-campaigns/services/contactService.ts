@@ -6,6 +6,7 @@ import {
 } from '../types/contact.types';
 import { StoreOption } from '../types/campaign.types';
 import { DEV_SEED_CONTACTS } from '../utils/contactSeeds';
+import { isDemoMode } from '../utils/demoMode';
 
 /**
  * Contact API Service
@@ -24,7 +25,7 @@ export const contactService = {
             });
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 let contacts = [...DEV_SEED_CONTACTS];
 
                 // Apply client-side filtering for dev
@@ -66,7 +67,7 @@ export const contactService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 // Generate a mock record for dev
                 const storeNames: Record<string, string> = {
                     store_001: 'Flagship San Francisco',
@@ -107,7 +108,7 @@ export const contactService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 const storeNames: Record<string, string> = {
                     store_001: 'Flagship San Francisco',
                     store_002: 'New York Boutique',
@@ -149,7 +150,7 @@ export const contactService = {
             );
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 const contact = DEV_SEED_CONTACTS.find((c) => c.id === contactId);
                 if (contact) {
                     contact.suppression_status = status;
@@ -170,7 +171,7 @@ export const contactService = {
             const response = await apiClient.get<StoreOption[]>('/stores');
             return response.data;
         } catch {
-            if (process.env.NODE_ENV === 'development') {
+            if (isDemoMode()) {
                 return [
                     { id: 'store_001', name: 'Flagship San Francisco' },
                     { id: 'store_002', name: 'New York Boutique' },

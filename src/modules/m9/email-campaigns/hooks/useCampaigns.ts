@@ -4,11 +4,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { Campaign } from '../types/campaign.types';
 import { emailCampaignService } from '../services/emailCampaignService';
 
-import { DEV_SEED_CAMPAIGNS } from '../utils/campaignSeeds';
-
 /**
  * Hook to fetch and manage the email campaigns list.
  * Provides loading/error state and a refetch function.
+ *
+ * Fallback to seed data is handled in the service layer via isDemoMode().
  */
 export function useCampaigns() {
     const [data, setData] = useState<Campaign[]>([]);
@@ -22,15 +22,8 @@ export function useCampaigns() {
             const campaigns = await emailCampaignService.getCampaigns();
             setData(campaigns);
         } catch (err: unknown) {
-            // In development: fallback to seed data if API is unavailable
-            if (process.env.NODE_ENV === 'development') {
-                console.warn('[useCampaigns] API unavailable — falling back to dev seed data');
-                setData(DEV_SEED_CAMPAIGNS);
-                setError(null);
-            } else {
-                const message = err instanceof Error ? err.message : 'Failed to load campaigns';
-                setError(message);
-            }
+            const message = err instanceof Error ? err.message : 'Failed to load campaigns';
+            setError(message);
         } finally {
             setLoading(false);
         }

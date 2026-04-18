@@ -2687,7 +2687,7 @@ const INITIAL_DATA = {
                         children: "Campaign Name *"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 94,
+                        lineNumber: 93,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2700,13 +2700,13 @@ const INITIAL_DATA = {
                         className: "w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 97,
+                        lineNumber: 96,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 93,
+                lineNumber: 92,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2716,7 +2716,7 @@ const INITIAL_DATA = {
                         children: "Email Subject *"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 106,
+                        lineNumber: 105,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2729,13 +2729,13 @@ const INITIAL_DATA = {
                         className: "w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 109,
+                        lineNumber: 108,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 105,
+                lineNumber: 104,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2745,7 +2745,7 @@ const INITIAL_DATA = {
                         children: "Preview Text"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 118,
+                        lineNumber: 117,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2758,13 +2758,13 @@ const INITIAL_DATA = {
                         className: "w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 121,
+                        lineNumber: 120,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 117,
+                lineNumber: 116,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2777,7 +2777,7 @@ const INITIAL_DATA = {
                                 children: "Sender Name *"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 131,
+                                lineNumber: 130,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2790,13 +2790,13 @@ const INITIAL_DATA = {
                                 className: "w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 134,
+                                lineNumber: 133,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 130,
+                        lineNumber: 129,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2806,7 +2806,7 @@ const INITIAL_DATA = {
                                 children: "Reply-To Email *"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 143,
+                                lineNumber: 142,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2819,25 +2819,25 @@ const INITIAL_DATA = {
                                 className: "w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 146,
+                                lineNumber: 145,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 142,
+                        lineNumber: 141,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 129,
+                lineNumber: 128,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 92,
+        lineNumber: 91,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2906,7 +2906,7 @@ _c = BasicsStep;
                         children: "Audience Selection *"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 198,
+                        lineNumber: 197,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2919,7 +2919,7 @@ _c = BasicsStep;
                                 children: "All Contacts"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 206,
+                                lineNumber: 205,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2927,19 +2927,19 @@ _c = BasicsStep;
                                 children: "Custom Segment (Build Rules)"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 207,
+                                lineNumber: 206,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 201,
+                        lineNumber: 200,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 197,
+                lineNumber: 196,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             data.segmentId === 'custom' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2949,12 +2949,12 @@ _c = BasicsStep;
                     onChange: handleRulesChange
                 }, void 0, false, {
                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                    lineNumber: 214,
+                    lineNumber: 213,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 213,
+                lineNumber: 212,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2964,7 +2964,7 @@ _c = BasicsStep;
                         className: "w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 220,
+                        lineNumber: 219,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2972,13 +2972,13 @@ _c = BasicsStep;
                         children: "Calculating eligibility..."
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 221,
+                        lineNumber: 220,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 219,
+                lineNumber: 218,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3",
@@ -2987,7 +2987,7 @@ _c = BasicsStep;
                         className: "w-5 h-5 text-red-500"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 225,
+                        lineNumber: 224,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2995,13 +2995,13 @@ _c = BasicsStep;
                         children: "Failed to calculate audience."
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 226,
+                        lineNumber: 225,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 224,
+                lineNumber: 223,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : eligibility ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "space-y-6 animate-in fade-in slide-in-from-top-2 duration-500",
@@ -3017,7 +3017,7 @@ _c = BasicsStep;
                                         children: "Total"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 231,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3025,13 +3025,13 @@ _c = BasicsStep;
                                         children: eligibility.total.toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 233,
+                                        lineNumber: 232,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 231,
+                                lineNumber: 230,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3042,7 +3042,7 @@ _c = BasicsStep;
                                         children: "Eligible"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 236,
+                                        lineNumber: 235,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3050,13 +3050,13 @@ _c = BasicsStep;
                                         children: eligibility.eligible.toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 237,
+                                        lineNumber: 236,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 235,
+                                lineNumber: 234,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3067,7 +3067,7 @@ _c = BasicsStep;
                                         children: "Excluded"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 240,
+                                        lineNumber: 239,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3075,19 +3075,19 @@ _c = BasicsStep;
                                         children: eligibility.excluded.toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 241,
+                                        lineNumber: 240,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 239,
+                                lineNumber: 238,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 230,
+                        lineNumber: 229,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     eligibility.excluded > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3100,7 +3100,7 @@ _c = BasicsStep;
                                         className: "w-4 h-4 text-slate-400"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 248,
+                                        lineNumber: 247,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -3108,13 +3108,13 @@ _c = BasicsStep;
                                         children: "Exclusions"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 248,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 247,
+                                lineNumber: 246,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3144,7 +3144,7 @@ _c = BasicsStep;
                                                 children: item.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 259,
+                                                lineNumber: 258,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3152,36 +3152,36 @@ _c = BasicsStep;
                                                 children: item.count.toLocaleString()
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 260,
+                                                lineNumber: 259,
                                                 columnNumber: 41
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, item.label, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 258,
+                                        lineNumber: 257,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 251,
+                                lineNumber: 250,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 246,
+                        lineNumber: 245,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 229,
+                lineNumber: 228,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 196,
+        lineNumber: 195,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3287,14 +3287,14 @@ function replaceVariables(html) {
                                                 size: 14
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 348,
+                                                lineNumber: 347,
                                                 columnNumber: 30
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             " Select Template"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 347,
+                                        lineNumber: 346,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3305,19 +3305,19 @@ function replaceVariables(html) {
                                                 className: "h-20 w-32 bg-slate-50 border border-slate-100 rounded-xl animate-pulse shrink-0"
                                             }, i, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 353,
+                                                lineNumber: 352,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 350,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "p-4 bg-red-50 text-red-600 rounded-xl text-xs font-medium",
                                         children: "Failed to load templates."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 357,
+                                        lineNumber: 356,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex gap-2 p-1 overflow-x-auto pb-2 custom-scrollbar",
@@ -3337,20 +3337,20 @@ function replaceVariables(html) {
                                                                 children: template.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 370,
+                                                                lineNumber: 369,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             data.templateId === template.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "w-3 h-3 text-white"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 373,
+                                                                lineNumber: 372,
                                                                 columnNumber: 81
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 368,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3359,29 +3359,29 @@ function replaceVariables(html) {
                                                             className: "absolute inset-0 bg-gradient-to-br from-indigo-50/20 to-transparent"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                            lineNumber: 376,
+                                                            lineNumber: 375,
                                                             columnNumber: 46
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 375,
+                                                        lineNumber: 374,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, template.id, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 361,
+                                                lineNumber: 360,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 359,
+                                        lineNumber: 358,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 346,
+                                lineNumber: 345,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             data.templateId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3394,14 +3394,14 @@ function replaceVariables(html) {
                                                 size: 14
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 387,
+                                                lineNumber: 386,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             " HTML Editor"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 386,
+                                        lineNumber: 385,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3415,7 +3415,7 @@ function replaceVariables(html) {
                                                         children: "template.html"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 391,
+                                                        lineNumber: 390,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3423,13 +3423,13 @@ function replaceVariables(html) {
                                                         children: "Editable"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 391,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 390,
+                                                lineNumber: 389,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -3441,7 +3441,7 @@ function replaceVariables(html) {
                                                 placeholder: "Paste or write your HTML content..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 394,
+                                                lineNumber: 393,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             unknownVars.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3452,7 +3452,7 @@ function replaceVariables(html) {
                                                         className: "text-amber-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 401,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3463,13 +3463,13 @@ function replaceVariables(html) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 403,
+                                                        lineNumber: 402,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 401,
+                                                lineNumber: 400,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3483,7 +3483,7 @@ function replaceVariables(html) {
                                                                 className: "text-emerald-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 410,
+                                                                lineNumber: 409,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3491,13 +3491,13 @@ function replaceVariables(html) {
                                                                 children: compliance.valid ? 'Compliant' : 'Footer Auto-Appended'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 411,
+                                                                lineNumber: 410,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 409,
+                                                        lineNumber: 408,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3505,31 +3505,31 @@ function replaceVariables(html) {
                                                         children: "Legal footer is automatically appended to ensure regulatory compliance."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 415,
+                                                        lineNumber: 414,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 408,
+                                                lineNumber: 407,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 389,
+                                        lineNumber: 388,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 385,
+                                lineNumber: 384,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 345,
+                        lineNumber: 344,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3542,14 +3542,14 @@ function replaceVariables(html) {
                                         size: 14
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 427,
+                                        lineNumber: 426,
                                         columnNumber: 26
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Desktop Preview"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 426,
+                                lineNumber: 425,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3565,27 +3565,27 @@ function replaceVariables(html) {
                                                         className: "w-2.5 h-2.5 rounded-full bg-rose-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 433,
+                                                        lineNumber: 432,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-2.5 h-2.5 rounded-full bg-amber-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 434,
+                                                        lineNumber: 433,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-2.5 h-2.5 rounded-full bg-emerald-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 435,
+                                                        lineNumber: 434,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 432,
+                                                lineNumber: 431,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3593,13 +3593,13 @@ function replaceVariables(html) {
                                                 children: "outlook.zyappy.com/inbox/preview"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 437,
+                                                lineNumber: 436,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 431,
+                                        lineNumber: 430,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     data.templateId ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3613,7 +3613,7 @@ function replaceVariables(html) {
                                                         children: "Subject:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 445,
+                                                        lineNumber: 444,
                                                         columnNumber: 38
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3621,13 +3621,13 @@ function replaceVariables(html) {
                                                         children: replaceVariables(selectedTemplate?.subject || '(No Subject)')
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 446,
+                                                        lineNumber: 445,
                                                         columnNumber: 38
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 444,
+                                                lineNumber: 443,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3637,13 +3637,13 @@ function replaceVariables(html) {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 448,
+                                                lineNumber: 447,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 443,
+                                        lineNumber: 442,
                                         columnNumber: 30
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex-1 flex flex-col items-center justify-center p-12 text-center opacity-40",
@@ -3654,12 +3654,12 @@ function replaceVariables(html) {
                                                     className: "w-8 h-8 text-slate-300"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 456,
+                                                    lineNumber: 455,
                                                     columnNumber: 37
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 455,
+                                                lineNumber: 454,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3667,19 +3667,19 @@ function replaceVariables(html) {
                                                 children: "Select a template to preview"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 458,
+                                                lineNumber: 457,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 454,
+                                        lineNumber: 453,
                                         columnNumber: 30
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 430,
+                                lineNumber: 429,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3695,14 +3695,14 @@ function replaceVariables(html) {
                                                         size: 10
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 467,
+                                                        lineNumber: 466,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Quick Test Send"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 466,
+                                                lineNumber: 465,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             testFeedback && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3710,13 +3710,13 @@ function replaceVariables(html) {
                                                 children: testFeedback.message
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 470,
+                                                lineNumber: 469,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 465,
+                                        lineNumber: 464,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3732,12 +3732,12 @@ function replaceVariables(html) {
                                                     className: "w-full h-10 px-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium focus:ring-1 focus:ring-indigo-500 outline-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 477,
+                                                    lineNumber: 476,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 476,
+                                                lineNumber: 475,
                                                 columnNumber: 30
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3747,31 +3747,31 @@ function replaceVariables(html) {
                                                 children: sendingTest ? 'Sending...' : 'Send Test'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 485,
+                                                lineNumber: 484,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 475,
+                                        lineNumber: 474,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 464,
+                                lineNumber: 463,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 425,
+                        lineNumber: 424,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 343,
+                lineNumber: 342,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             data.templateId && !compliance.valid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3784,7 +3784,7 @@ function replaceVariables(html) {
                                 className: "w-5 h-5 text-rose-500 shrink-0 mt-0.5"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 501,
+                                lineNumber: 500,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3794,7 +3794,7 @@ function replaceVariables(html) {
                                         children: "Compliance Alert"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 503,
+                                        lineNumber: 502,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3802,19 +3802,19 @@ function replaceVariables(html) {
                                         children: "Mandatory tags are missing from your custom HTML. A fallback compliance footer will be auto-appended."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 504,
+                                        lineNumber: 503,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 502,
+                                lineNumber: 501,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 500,
+                        lineNumber: 499,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3824,24 +3824,24 @@ function replaceVariables(html) {
                                 children: tag
                             }, tag, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 511,
+                                lineNumber: 510,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 509,
+                        lineNumber: 508,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 499,
+                lineNumber: 498,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 342,
+        lineNumber: 341,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3932,19 +3932,19 @@ _c2 = ContentStep;
                                     className: "text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 588,
+                                    lineNumber: 587,
                                     columnNumber: 38
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldCheck$3e$__["ShieldCheck"], {
                                     size: 32,
                                     className: "text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 588,
+                                    lineNumber: 587,
                                     columnNumber: 91
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 586,
+                                lineNumber: 585,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3954,7 +3954,7 @@ _c2 = ContentStep;
                                         children: isBlocked ? 'Compliance Gate Active' : 'Ready for Dispatch'
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 591,
+                                        lineNumber: 590,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3962,19 +3962,19 @@ _c2 = ContentStep;
                                         children: isBlocked ? 'Campaign cannot be sent until resolved' : 'All security & legal protocols passed'
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 594,
+                                        lineNumber: 593,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 590,
+                                lineNumber: 589,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 585,
+                        lineNumber: 584,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     !isBlocked && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3984,7 +3984,7 @@ _c2 = ContentStep;
                                 className: "w-2 h-2 rounded-full bg-emerald-500"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 601,
+                                lineNumber: 600,
                                 columnNumber: 26
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3992,19 +3992,19 @@ _c2 = ContentStep;
                                 children: "System Signal: Fully Compliant"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 602,
+                                lineNumber: 601,
                                 columnNumber: 26
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 600,
+                        lineNumber: 599,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 583,
+                lineNumber: 582,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4026,14 +4026,14 @@ _c2 = ContentStep;
                                                         size: 14
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 614,
+                                                        lineNumber: 613,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Campaign Summary"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 613,
+                                                lineNumber: 612,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
@@ -4041,13 +4041,13 @@ _c2 = ContentStep;
                                                 className: "text-emerald-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 616,
+                                                lineNumber: 615,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 612,
+                                        lineNumber: 611,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4077,7 +4077,7 @@ _c2 = ContentStep;
                                                         children: f.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 626,
+                                                        lineNumber: 625,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4087,29 +4087,29 @@ _c2 = ContentStep;
                                                             children: "Configuration Missing"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                            lineNumber: 628,
+                                                            lineNumber: 627,
                                                             columnNumber: 53
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 627,
+                                                        lineNumber: 626,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, f.label, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 625,
+                                                lineNumber: 624,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 618,
+                                        lineNumber: 617,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 611,
+                                lineNumber: 610,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4125,14 +4125,14 @@ _c2 = ContentStep;
                                                         size: 14
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 639,
+                                                        lineNumber: 638,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Audience Intelligence"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 638,
+                                                lineNumber: 637,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4140,13 +4140,13 @@ _c2 = ContentStep;
                                                 children: "Real-time"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 641,
+                                                lineNumber: 640,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 637,
+                                        lineNumber: 636,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     audienceLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4156,20 +4156,20 @@ _c2 = ContentStep;
                                                 className: "h-4 bg-slate-100 rounded-full w-2/3 animate-pulse"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 645,
+                                                lineNumber: 644,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "h-4 bg-slate-100 rounded-full w-full animate-pulse"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 646,
+                                                lineNumber: 645,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 644,
+                                        lineNumber: 643,
                                         columnNumber: 30
                                     }, ("TURBOPACK compile-time value", void 0)) : eligibility ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "p-6 space-y-6",
@@ -4185,7 +4185,7 @@ _c2 = ContentStep;
                                                                 children: "Total"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 652,
+                                                                lineNumber: 651,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4193,13 +4193,13 @@ _c2 = ContentStep;
                                                                 children: eligibility.total.toLocaleString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 653,
+                                                                lineNumber: 652,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 651,
+                                                        lineNumber: 650,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4210,7 +4210,7 @@ _c2 = ContentStep;
                                                                 children: "Eligible"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 656,
+                                                                lineNumber: 655,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4218,13 +4218,13 @@ _c2 = ContentStep;
                                                                 children: eligibility.eligible.toLocaleString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 657,
+                                                                lineNumber: 656,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 655,
+                                                        lineNumber: 654,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4235,7 +4235,7 @@ _c2 = ContentStep;
                                                                 children: "Excluded"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 660,
+                                                                lineNumber: 659,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4243,19 +4243,19 @@ _c2 = ContentStep;
                                                                 children: eligibility.excluded.toLocaleString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 661,
+                                                                lineNumber: 660,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 659,
+                                                        lineNumber: 658,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 650,
+                                                lineNumber: 649,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             eligibility.excluded > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4266,7 +4266,7 @@ _c2 = ContentStep;
                                                         children: "Exclusion Breakdown"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 667,
+                                                        lineNumber: 666,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4300,7 +4300,7 @@ _c2 = ContentStep;
                                                                         children: r.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                        lineNumber: 676,
+                                                                        lineNumber: 675,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4308,49 +4308,49 @@ _c2 = ContentStep;
                                                                         children: r.count.toLocaleString()
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                        lineNumber: 677,
+                                                                        lineNumber: 676,
                                                                         columnNumber: 53
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, r.label, true, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 675,
+                                                                lineNumber: 674,
                                                                 columnNumber: 49
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 668,
+                                                        lineNumber: 667,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 666,
+                                                lineNumber: 665,
                                                 columnNumber: 38
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 649,
+                                        lineNumber: 648,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "p-10 text-center text-slate-400 italic text-sm",
                                         children: "Audience eligibility data currently unavailable."
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 685,
+                                        lineNumber: 684,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 636,
+                                lineNumber: 635,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 609,
+                        lineNumber: 608,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4372,14 +4372,14 @@ _c2 = ContentStep;
                                                         size: 14
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 699,
+                                                        lineNumber: 698,
                                                         columnNumber: 33
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Legal & Compliance"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 697,
+                                                lineNumber: 696,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4388,13 +4388,13 @@ _c2 = ContentStep;
                                                 children: allChecksPassed ? 'Verified' : 'Action Required'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 701,
+                                                lineNumber: 700,
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 695,
+                                        lineNumber: 694,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4408,18 +4408,18 @@ _c2 = ContentStep;
                                                             size: 18
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                            lineNumber: 710,
+                                                            lineNumber: 709,
                                                             columnNumber: 57
                                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
                                                             size: 18
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                            lineNumber: 710,
+                                                            lineNumber: 709,
                                                             columnNumber: 86
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 709,
+                                                        lineNumber: 708,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4433,7 +4433,7 @@ _c2 = ContentStep;
                                                                         children: check.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                        lineNumber: 714,
+                                                                        lineNumber: 713,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4442,13 +4442,13 @@ _c2 = ContentStep;
                                                                         children: check.passed ? 'PASSED' : 'MISSING'
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                        lineNumber: 717,
+                                                                        lineNumber: 716,
                                                                         columnNumber: 45
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 713,
+                                                                lineNumber: 712,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4456,24 +4456,24 @@ _c2 = ContentStep;
                                                                 children: check.desc
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                                lineNumber: 722,
+                                                                lineNumber: 721,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 712,
+                                                        lineNumber: 711,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, check.id, true, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 708,
+                                                lineNumber: 707,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 706,
+                                        lineNumber: 705,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     !allChecksPassed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4484,7 +4484,7 @@ _c2 = ContentStep;
                                                 children: "Critical Block"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 729,
+                                                lineNumber: 728,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4492,19 +4492,19 @@ _c2 = ContentStep;
                                                 children: "Your campaign is missing legal tokens required for delivery. Please return to the Content step to restore these elements."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 730,
+                                                lineNumber: 729,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 728,
+                                        lineNumber: 727,
                                         columnNumber: 30
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 693,
+                                lineNumber: 692,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4520,7 +4520,7 @@ _c2 = ContentStep;
                                                     className: "text-slate-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 739,
+                                                    lineNumber: 738,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4528,18 +4528,18 @@ _c2 = ContentStep;
                                                     children: "Final Preview Output"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 740,
+                                                    lineNumber: 739,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 738,
+                                            lineNumber: 737,
                                             columnNumber: 30
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 737,
+                                        lineNumber: 736,
                                         columnNumber: 26
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4551,18 +4551,18 @@ _c2 = ContentStep;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 744,
+                                            lineNumber: 743,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 743,
+                                        lineNumber: 742,
                                         columnNumber: 26
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 736,
+                                lineNumber: 735,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4581,7 +4581,7 @@ _c2 = ContentStep;
                                                     className: "peer sr-only"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 760,
+                                                    lineNumber: 759,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4591,18 +4591,18 @@ _c2 = ContentStep;
                                                         className: "text-white"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                        lineNumber: 767,
+                                                        lineNumber: 766,
                                                         columnNumber: 59
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 766,
+                                                    lineNumber: 765,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 759,
+                                            lineNumber: 758,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4612,7 +4612,7 @@ _c2 = ContentStep;
                                                     children: "I confirm this campaign complies with email regulations"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 771,
+                                                    lineNumber: 770,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4620,36 +4620,36 @@ _c2 = ContentStep;
                                                     children: "By checking this, you agree that you have explicit permission to contact this audience and that your template contains valid unsubscribe links and physical business details."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                    lineNumber: 774,
+                                                    lineNumber: 773,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 770,
+                                            lineNumber: 769,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 758,
+                                    lineNumber: 757,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 754,
+                                lineNumber: 753,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 691,
+                        lineNumber: 690,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 607,
+                lineNumber: 606,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             !isBlocked && (eligibility?.excluded ?? 0) > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4662,12 +4662,12 @@ _c2 = ContentStep;
                             className: "text-white"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 787,
+                            lineNumber: 786,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 786,
+                        lineNumber: 785,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4678,7 +4678,7 @@ _c2 = ContentStep;
                                 children: "System Notice: High Exclusion Rate"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 790,
+                                lineNumber: 789,
                                 columnNumber: 26
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4690,25 +4690,25 @@ _c2 = ContentStep;
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 791,
+                                lineNumber: 790,
                                 columnNumber: 26
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 789,
+                        lineNumber: 788,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 785,
+                lineNumber: 784,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 581,
+        lineNumber: 580,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -4733,12 +4733,12 @@ _c3 = ReviewStep;
                             className: "text-white w-8 h-8 rotate-12"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 808,
+                            lineNumber: 807,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 807,
+                        lineNumber: 806,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -4746,7 +4746,7 @@ _c3 = ReviewStep;
                         children: "Launch Protocol"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 810,
+                        lineNumber: 809,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4754,13 +4754,13 @@ _c3 = ReviewStep;
                         children: "Select your deployment strategy"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 811,
+                        lineNumber: 810,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 806,
+                lineNumber: 805,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4783,25 +4783,25 @@ _c3 = ReviewStep;
                                             className: !isScheduled ? 'text-white' : 'text-slate-400'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 825,
+                                            lineNumber: 824,
                                             columnNumber: 30
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 824,
+                                        lineNumber: 823,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     !isScheduled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-2 h-2 rounded-full bg-white animate-pulse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 827,
+                                        lineNumber: 826,
                                         columnNumber: 42
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 823,
+                                lineNumber: 822,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -4809,7 +4809,7 @@ _c3 = ReviewStep;
                                 children: "Send Immediately"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 829,
+                                lineNumber: 828,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4817,13 +4817,13 @@ _c3 = ReviewStep;
                                 children: "Your campaign will join the global queue and start sending within minutes."
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 830,
+                                lineNumber: 829,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 816,
+                        lineNumber: 815,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4845,25 +4845,25 @@ _c3 = ReviewStep;
                                             className: isScheduled ? 'text-white' : 'text-slate-400'
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                            lineNumber: 845,
+                                            lineNumber: 844,
                                             columnNumber: 30
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 844,
+                                        lineNumber: 843,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     isScheduled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-2 h-2 rounded-full bg-white animate-pulse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 847,
+                                        lineNumber: 846,
                                         columnNumber: 41
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 843,
+                                lineNumber: 842,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -4871,7 +4871,7 @@ _c3 = ReviewStep;
                                 children: "Schedule Later"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 849,
+                                lineNumber: 848,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4879,19 +4879,19 @@ _c3 = ReviewStep;
                                 children: "Set a specific time for your campaign to maximize open rates and engagement."
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 850,
+                                lineNumber: 849,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 836,
+                        lineNumber: 835,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 814,
+                lineNumber: 813,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             isScheduled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4905,14 +4905,14 @@ _c3 = ReviewStep;
                                 className: "text-indigo-400"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 859,
+                                lineNumber: 858,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             " Dispatch Timestamp"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 858,
+                        lineNumber: 857,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4924,7 +4924,7 @@ _c3 = ReviewStep;
                         className: "w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black text-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-700"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 861,
+                        lineNumber: 860,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4935,7 +4935,7 @@ _c3 = ReviewStep;
                                 className: "text-emerald-400"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 868,
+                                lineNumber: 867,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4943,19 +4943,19 @@ _c3 = ReviewStep;
                                 children: "Campaign will be held in escrow until this time."
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 869,
+                                lineNumber: 868,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 867,
+                        lineNumber: 866,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 857,
+                lineNumber: 856,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4966,7 +4966,7 @@ _c3 = ReviewStep;
                         className: "text-indigo-600 mt-1 shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 875,
+                        lineNumber: 874,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4974,19 +4974,19 @@ _c3 = ReviewStep;
                         children: "Once you confirm, the campaign settings and audience will be locked. You can still pause or cancel the campaign from the dashboard after it has been scheduled."
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 876,
+                        lineNumber: 875,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 874,
+                lineNumber: 873,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 805,
+        lineNumber: 804,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -5068,7 +5068,7 @@ const CreateCampaignPage = ()=>{
                         className: "absolute -top-24 -right-24 w-64 h-64 bg-indigo-50 rounded-full opacity-50 transition-transform group-hover:scale-110 duration-700"
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 965,
+                        lineNumber: 964,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5082,12 +5082,12 @@ const CreateCampaignPage = ()=>{
                                     strokeWidth: 3
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 969,
+                                    lineNumber: 968,
                                     columnNumber: 30
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 968,
+                                lineNumber: 967,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -5095,7 +5095,7 @@ const CreateCampaignPage = ()=>{
                                 children: "Command Acknowledged"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 971,
+                                lineNumber: 970,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5111,7 +5111,7 @@ const CreateCampaignPage = ()=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 973,
+                                        lineNumber: 972,
                                         columnNumber: 43
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " has been ",
@@ -5120,7 +5120,7 @@ const CreateCampaignPage = ()=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 972,
+                                lineNumber: 971,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5132,7 +5132,7 @@ const CreateCampaignPage = ()=>{
                                         children: "Dispatch Dashboard"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 977,
+                                        lineNumber: 976,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5142,37 +5142,37 @@ const CreateCampaignPage = ()=>{
                                                 className: "w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                                lineNumber: 984,
+                                                lineNumber: 983,
                                                 columnNumber: 34
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             "Auto-redirecting in 3s"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 983,
+                                        lineNumber: 982,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 976,
+                                lineNumber: 975,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 967,
+                        lineNumber: 966,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 963,
+                lineNumber: 962,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-            lineNumber: 962,
+            lineNumber: 961,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -5187,7 +5187,7 @@ const CreateCampaignPage = ()=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 997,
+                lineNumber: 996,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5202,12 +5202,12 @@ const CreateCampaignPage = ()=>{
                             className: "text-slate-600"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1005,
+                            lineNumber: 1004,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1000,
+                        lineNumber: 999,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5216,18 +5216,18 @@ const CreateCampaignPage = ()=>{
                             className: "w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1008,
+                            lineNumber: 1007,
                             columnNumber: 58
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"], {
                             className: "w-5 h-5 text-white"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1008,
+                            lineNumber: 1007,
                             columnNumber: 154
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1007,
+                        lineNumber: 1006,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5238,7 +5238,7 @@ const CreateCampaignPage = ()=>{
                                 children: "Create Campaign"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1011,
+                                lineNumber: 1010,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5253,19 +5253,19 @@ const CreateCampaignPage = ()=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1012,
+                                lineNumber: 1011,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1010,
+                        lineNumber: 1009,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 999,
+                lineNumber: 998,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -5287,13 +5287,13 @@ const CreateCampaignPage = ()=>{
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 1026,
+                                        lineNumber: 1025,
                                         columnNumber: 50
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(s.icon, {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 1026,
+                                        lineNumber: 1025,
                                         columnNumber: 86
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5301,31 +5301,31 @@ const CreateCampaignPage = ()=>{
                                         children: s.label
                                     }, void 0, false, {
                                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                        lineNumber: 1027,
+                                        lineNumber: 1026,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1019,
+                                lineNumber: 1018,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             idx < STEPS.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: `flex-1 h-px max-w-8 ${idx < currentStep ? 'bg-indigo-300' : 'bg-slate-200'}`
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1029,
+                                lineNumber: 1028,
                                 columnNumber: 52
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, s.id, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1018,
+                        lineNumber: 1017,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 1016,
+                lineNumber: 1015,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             errorMsg && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5338,12 +5338,12 @@ const CreateCampaignPage = ()=>{
                             className: "text-white"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1037,
+                            lineNumber: 1036,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1036,
+                        lineNumber: 1035,
                         columnNumber: 22
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5354,7 +5354,7 @@ const CreateCampaignPage = ()=>{
                                 children: "Deployment Failure"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1040,
+                                lineNumber: 1039,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5362,19 +5362,19 @@ const CreateCampaignPage = ()=>{
                                 children: errorMsg
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1041,
+                                lineNumber: 1040,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1039,
+                        lineNumber: 1038,
                         columnNumber: 22
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 1035,
+                lineNumber: 1034,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -5390,7 +5390,7 @@ const CreateCampaignPage = ()=>{
                                     children: step?.label
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 1050,
+                                    lineNumber: 1049,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5404,18 +5404,18 @@ const CreateCampaignPage = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 1051,
+                                    lineNumber: 1050,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1049,
+                            lineNumber: 1048,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1048,
+                        lineNumber: 1047,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5426,18 +5426,18 @@ const CreateCampaignPage = ()=>{
                             onValidate: (v)=>setIsStepValid(v)
                         }, void 0, false, {
                             fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                            lineNumber: 1062,
+                            lineNumber: 1061,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1060,
+                        lineNumber: 1059,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 1046,
+                lineNumber: 1045,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5452,14 +5452,14 @@ const CreateCampaignPage = ()=>{
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1077,
+                                lineNumber: 1076,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             " Back"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1072,
+                        lineNumber: 1071,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     isLast ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5473,7 +5473,7 @@ const CreateCampaignPage = ()=>{
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                    lineNumber: 1090,
+                                    lineNumber: 1089,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 " ",
@@ -5482,7 +5482,7 @@ const CreateCampaignPage = ()=>{
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1080,
+                        lineNumber: 1079,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handleNext,
@@ -5494,25 +5494,25 @@ const CreateCampaignPage = ()=>{
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                                lineNumber: 1096,
+                                lineNumber: 1095,
                                 columnNumber: 30
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                        lineNumber: 1095,
+                        lineNumber: 1094,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-                lineNumber: 1071,
+                lineNumber: 1070,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/m9/email-campaigns/pages/CreateCampaignPage.tsx",
-        lineNumber: 995,
+        lineNumber: 994,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
