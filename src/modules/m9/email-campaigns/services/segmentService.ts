@@ -49,7 +49,7 @@ export const segmentService = {
         try {
             const response = await apiClient.post<Segment>('/email-campaigns/segments', payload);
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const newSeg: Segment = {
                     ...payload,
@@ -59,7 +59,7 @@ export const segmentService = {
                 DEV_SEED_SEGMENTS.unshift(newSeg);
                 return newSeg;
             }
-            throw new Error('Failed to create segment');
+            throw new Error(err?.response?.data?.message || err?.response?.data?.error || 'Failed to create segment');
         }
     },
 
@@ -70,7 +70,7 @@ export const segmentService = {
         try {
             const response = await apiClient.put<Segment>(`/email-campaigns/segments/${id}`, payload);
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const idx = DEV_SEED_SEGMENTS.findIndex((s) => s.id === id);
                 if (idx !== -1) {
@@ -80,7 +80,7 @@ export const segmentService = {
                 }
                 throw new Error('Segment not found');
             }
-            throw new Error('Failed to update segment');
+            throw new Error(err?.response?.data?.message || err?.response?.data?.error || 'Failed to update segment');
         }
     },
 
@@ -92,11 +92,11 @@ export const segmentService = {
     duplicateSegment: async (id: string, name: string): Promise<Segment> => {
         try {
             const response = await apiClient.post<Segment>(
-                `/email-segments/${id}/duplicate`,
+                `/email-campaigns/segments/${id}/duplicate`,
                 { name }
             );
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const original = DEV_SEED_SEGMENTS.find((s) => s.id === id);
                 if (original) {
@@ -112,7 +112,7 @@ export const segmentService = {
                 }
                 throw new Error('Segment not found');
             }
-            throw new Error('Failed to duplicate segment');
+            throw new Error(err?.response?.data?.message || err?.response?.data?.error || 'Failed to duplicate segment');
         }
     },
 
@@ -122,14 +122,14 @@ export const segmentService = {
      */
     deleteSegment: async (id: string): Promise<void> => {
         try {
-            await apiClient.delete(`/email-segments/${id}`);
-        } catch {
+            await apiClient.delete(`/email-campaigns/segments/${id}`);
+        } catch (err: any) {
             if (isDemoMode()) {
                 const idx = DEV_SEED_SEGMENTS.findIndex((s) => s.id === id);
                 if (idx !== -1) DEV_SEED_SEGMENTS.splice(idx, 1);
                 return;
             }
-            throw new Error('Failed to delete segment');
+            throw new Error(err?.response?.data?.message || err?.response?.data?.error || 'Failed to delete segment');
         }
     },
 
@@ -140,11 +140,11 @@ export const segmentService = {
     updateSegmentStatus: async (id: string, status: 'active' | 'inactive'): Promise<Segment> => {
         try {
             const response = await apiClient.patch<Segment>(
-                `/email-segments/${id}/status`,
+                `/email-campaigns/segments/${id}/status`,
                 { status }
             );
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const seg = DEV_SEED_SEGMENTS.find((s) => s.id === id);
                 if (seg) {
@@ -154,7 +154,7 @@ export const segmentService = {
                 }
                 throw new Error('Segment not found');
             }
-            throw new Error('Failed to update segment status');
+            throw new Error(err?.response?.data?.message || err?.response?.data?.error || 'Failed to update segment status');
         }
     },
 
@@ -220,7 +220,7 @@ export const segmentService = {
      */
     getStores: async (): Promise<StoreOption[]> => {
         try {
-            const response = await apiClient.get<StoreOption[]>('/stores');
+            const response = await apiClient.get<StoreOption[]>('/email-campaigns/stores');
             return response.data;
         } catch {
             if (isDemoMode()) {

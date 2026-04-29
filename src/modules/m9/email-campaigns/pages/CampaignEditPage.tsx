@@ -421,22 +421,21 @@ export const CampaignEditPage: React.FC = () => {
                 setCampaignData({
                     name: data.name,
                     subject: data.subject,
-                    previewText: (data as any).previewText || '',
-                    senderName: (data as any).senderName || '',
-                    replyTo: (data as any).replyTo || '',
-                    templateId: (data as any).templateId || '',
-                    customHtml: (data as any).customHtml || '',
-                    segmentId: (data as any).segmentId || (data.audience === 'Global List' ? 'all' : 'custom'),
-                    rulesJson: (data as any).rulesJson,
+                    previewText: data.previewText || '',
+                    senderName: data.senderName || '',
+                    replyTo: data.replyTo || '',
+                    templateId: data.templateId || '',
+                    customHtml: data.customHtml || '',
+                    segmentId: data.segmentId || (data.audience === 'All Contacts' ? 'all' : 'custom'),
                     scheduledAt: data.scheduledAt,
                 });
             } catch (err: any) {
                 // Fallback for dev seeds if ID is camp-xxx
                 if (process.env.NODE_ENV === 'development' && id.startsWith('camp-')) {
-                     // We could import seeds but let's just keep it simple
-                     setCampaignData({ ...INITIAL_DATA, name: 'Sample Campaign', id } as any);
+                     setCampaignData({ ...INITIAL_DATA, name: 'Sample Campaign' });
                 } else {
-                    setErrorMsg("Forbidden or non-existent resource.");
+                    const backendError = err?.response?.data?.error || err?.message || "Forbidden or non-existent resource.";
+                    setErrorMsg(backendError);
                 }
             } finally {
                 setLoading(false);
@@ -473,7 +472,11 @@ export const CampaignEditPage: React.FC = () => {
             toast.success("Changes Persisted", `Campaign "${campaignData.name}" updated successfully.`);
             setTimeout(() => router.push('/backoffice/email-campaigns'), 2000);
         } catch (err: any) {
-            setErrorMsg(err.message || "Failed to update campaign.");
+            const backendError = err?.response?.data?.error 
+                || err?.response?.data?.message 
+                || err?.message 
+                || "Failed to update campaign.";
+            setErrorMsg(backendError);
             setSaving(false);
         }
     };

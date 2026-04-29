@@ -19,6 +19,13 @@ import {
     TrendingUp,
     TrendingDown,
     Minus,
+    Users,
+    Mail,
+    Search,
+    ChevronLeft,
+    ChevronRight,
+    MousePointerClick,
+    Activity,
 } from 'lucide-react';
 import { useAnalytics } from '../hooks/useAnalytics';
 import { AnalyticsFilters } from '../types/analytics.types';
@@ -150,7 +157,7 @@ function rateIcon(rate: number, type: 'open' | 'click' | 'unsub' | 'bounce'): Re
 // HELPER: Format date for display
 // ============================================================================
 
-function formatDate(dateStr?: string): string {
+function formatDate(dateStr?: string | null): string {
     if (!dateStr) return '—';
     try {
         return new Intl.DateTimeFormat('en-US', {
@@ -188,7 +195,14 @@ export const AnalyticsPage: React.FC = () => {
         updateFilter,
         resetFilters,
         refetch,
+        // Destructure all new hook properties
+        contactActivity,
+        contactSearch,
+        setContactSearch,
+        setContactPage,
+        contactLoading,
     } = useAnalytics();
+
     const toast = useToast();
 
     // ── Check if filters are non-default ───────────────────────────────
@@ -251,44 +265,70 @@ export const AnalyticsPage: React.FC = () => {
             </div>
 
             {/* ── Summary Tiles ────────────────────────────────────────── */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {[
-                    {
-                        label: 'Campaigns',
-                        value: summary.campaigns,
-                        icon: BarChart3,
-                        color: 'bg-indigo-50 text-indigo-700 ring-indigo-200',
-                        iconBg: 'bg-indigo-200 text-indigo-700',
-                    },
                     {
                         label: 'Total Sent',
                         value: summary.totalSent,
                         icon: Send,
-                        color: 'bg-violet-50 text-violet-700 ring-violet-200',
-                        iconBg: 'bg-violet-200 text-violet-700',
+                        color: 'bg-slate-50 text-slate-700 ring-slate-200',
+                        iconBg: 'bg-slate-200 text-slate-700',
                     },
                     {
-                        label: 'Total Delivered',
+                        label: 'Delivered',
                         value: summary.totalDelivered,
                         icon: CheckCircle2,
                         color: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
                         iconBg: 'bg-emerald-200 text-emerald-700',
+                    },
+                    {
+                        label: 'Opened',
+                        value: summary.totalOpened,
+                        icon: Mail,
+                        color: 'bg-indigo-50 text-indigo-700 ring-indigo-200',
+                        iconBg: 'bg-indigo-200 text-indigo-700',
+                    },
+                    {
+                        label: 'Clicked',
+                        value: summary.totalClicked,
+                        icon: MousePointerClick,
+                        color: 'bg-blue-50 text-blue-700 ring-blue-200',
+                        iconBg: 'bg-blue-200 text-blue-700',
+                    },
+                    {
+                        label: 'Bounced',
+                        value: summary.totalBounced,
+                        icon: XCircle,
+                        color: 'bg-red-50 text-red-700 ring-red-200',
+                        iconBg: 'bg-red-200 text-red-700',
+                    },
+                    {
+                        label: 'Unsubscribed',
+                        value: summary.totalUnsubscribed,
+                        icon: Users,
+                        color: 'bg-amber-50 text-amber-700 ring-amber-200',
+                        iconBg: 'bg-amber-200 text-amber-700',
                     },
                 ].map((tile) => {
                     const Icon = tile.icon;
                     return (
                         <div
                             key={tile.label}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl ring-1 ${tile.color}`}
+                            className={`flex flex-col gap-2 px-4 py-3 rounded-xl ring-1 ${tile.color} transition-all hover:shadow-md cursor-default`}
                         >
-                            <div className={`p-2 rounded-lg ${tile.iconBg}`}>
-                                <Icon className="w-4 h-4" />
+                            <div className="flex items-center justify-between">
+                                <div className={`p-1.5 rounded-lg ${tile.iconBg}`}>
+                                    <Icon className="w-3.5 h-3.5" />
+                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
+                                    {tile.label.split(' ')[0]}
+                                </span>
                             </div>
                             <div>
-                                <p className="text-[10px] font-bold uppercase tracking-wider opacity-70">
+                                <p className="text-[10px] font-bold uppercase tracking-wider opacity-70 mb-0.5">
                                     {tile.label}
                                 </p>
-                                <p className="text-lg font-black tabular-nums">
+                                <p className="text-xl font-black tabular-nums tracking-tight">
                                     {loading ? '…' : formatNumber(tile.value)}
                                 </p>
                             </div>
@@ -557,6 +597,111 @@ export const AnalyticsPage: React.FC = () => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
+                )}
+            </section>
+
+            {/* ── Contact Activity Section ─────────────────────────────── */}
+            <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mt-8">
+                <div className="px-4 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-slate-100 rounded-lg">
+                            <Activity className="w-4 h-4 text-slate-600" />
+                        </div>
+                        <div>
+                            <h2 className="text-base font-bold text-slate-900">Contact Activity</h2>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
+                                Per-contact engagement history
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Search Activity */}
+                    <div className="relative w-full sm:w-64">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                        <input
+                            type="text"
+                            placeholder="Search email..."
+                            value={contactSearch}
+                            onChange={(e) => setContactSearch(e.target.value)}
+                            className="w-full pl-9 pr-4 py-2 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all"
+                        />
+                    </div>
+                </div>
+
+                {/* Activity Table */}
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-slate-50 border-b border-slate-200">
+                                <th className="px-4 py-2.5 text-[10px] font-black text-slate-500 uppercase tracking-widest">Contact</th>
+                                <th className="px-4 py-2.5 text-[10px] font-black text-slate-500 uppercase tracking-widest">Last Sent</th>
+                                <th className="px-4 py-2.5 text-[10px] font-black text-slate-500 uppercase tracking-widest">Last Open</th>
+                                <th className="px-4 py-2.5 text-[10px] font-black text-slate-500 uppercase tracking-widest">Last Click</th>
+                                <th className="px-4 py-2.5 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">Total Sent</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                            {contactLoading ? (
+                                [...Array(5)].map((_, i) => (
+                                    <tr key={i}>
+                                        <td className="px-4 py-3"><div className="h-3.5 bg-slate-100 rounded-full w-40 animate-pulse" /></td>
+                                        <td className="px-4 py-3"><div className="h-3.5 bg-slate-100 rounded-full w-24 animate-pulse" /></td>
+                                        <td className="px-4 py-3"><div className="h-3.5 bg-slate-100 rounded-full w-24 animate-pulse" /></td>
+                                        <td className="px-4 py-3"><div className="h-3.5 bg-slate-100 rounded-full w-24 animate-pulse" /></td>
+                                        <td className="px-4 py-3 text-right"><div className="h-3.5 bg-slate-100 rounded-full w-8 animate-pulse ml-auto" /></td>
+                                    </tr>
+                                ))
+                            ) : contactActivity?.data.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5} className="px-4 py-10 text-center text-sm text-slate-400">
+                                        No activity found.
+                                    </td>
+                                </tr>
+                            ) : (
+                                contactActivity?.data.map((contact) => (
+                                    <tr key={contact.email} className="hover:bg-slate-50/50 transition-colors">
+                                        <td className="px-4 py-3">
+                                            <div className="flex flex-col">
+                                                <span className="text-xs font-bold text-slate-900">{contact.name || 'Unknown'}</span>
+                                                <span className="text-[10px] text-slate-400 font-medium">{contact.email}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-3 text-xs font-bold text-slate-700">{formatDate(contact.last_sent)}</td>
+                                        <td className="px-4 py-3 text-xs font-bold text-slate-700">{formatDate(contact.last_open)}</td>
+                                        <td className="px-4 py-3 text-xs font-bold text-slate-700">{formatDate(contact.last_click)}</td>
+                                        <td className="px-4 py-3 text-right text-xs font-black text-indigo-600 tabular-nums">
+                                            {contact.total_emails_received}
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* Activity Pagination */}
+                {contactActivity && contactActivity.last_page > 1 && (
+                    <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            Page {contactActivity.current_page} of {contactActivity.last_page}
+                        </span>
+                        <div className="flex items-center gap-1">
+                            <button
+                                onClick={() => setContactPage(p => Math.max(1, p - 1))}
+                                disabled={contactActivity.current_page === 1}
+                                className="p-1.5 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            >
+                                <ChevronLeft className="w-3.5 h-3.5 text-slate-600" />
+                            </button>
+                            <button
+                                onClick={() => setContactPage(p => Math.min(contactActivity!.last_page, p + 1))}
+                                disabled={contactActivity.current_page === contactActivity.last_page}
+                                className="p-1.5 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            >
+                                <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+                            </button>
+                        </div>
                     </div>
                 )}
             </section>

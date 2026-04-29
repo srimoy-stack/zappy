@@ -83,7 +83,7 @@ export const SegmentEditPage: React.FC = () => {
     // ── Derive validation ──────────────────────────────────────────────
     const validation = useMemo(() => {
         if (!segment?.rules_json) return { valid: false, errors: ['No rules configured'] };
-        return validateRules(segment.rules_json.rules);
+        return validateRules(segment.rules_json.rules || []);
     }, [segment]);
 
     // ── Handlers ───────────────────────────────────────────────────────

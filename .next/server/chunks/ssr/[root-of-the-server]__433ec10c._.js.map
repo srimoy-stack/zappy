@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/backoffice/shop/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation';\n\nexport default function ShopRootPage() {\n    redirect('/backoffice/shop/packaging');\n}\n"],"names":[],"mappings":"0XAAA,EAAA,CAAA,CAAA,OAAA,IAAA,EAAA,EAAA,CAAA,CAAA,OAEe,SAAS,IACpB,CAAA,EAAA,EAAA,QAAA,AAAQ,EAAC,6BACb"}

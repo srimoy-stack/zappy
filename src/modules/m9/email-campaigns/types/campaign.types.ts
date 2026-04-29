@@ -19,6 +19,7 @@ export interface Campaign {
     replyTo?: string;
     segmentId?: string;
     storeId?: string;
+    customHtml?: string;
     scheduledAt?: string;
     sentAt?: string;
     createdBy: string;
@@ -47,6 +48,9 @@ export type SegmentField =
     | 'total_spend' 
     | 'orders_count' 
     | 'store_id' 
+    | 'favorite_category'
+    | 'opened_campaigns_count'
+    | 'clicked_campaigns_count'
     | 'consent_status';
 
 export type SegmentOperator = 
@@ -61,7 +65,10 @@ export type SegmentOperator =
 export type SegmentLogic = 'AND' | 'OR';
 
 /** Consent status values as per PRD compliance requirements */
-export type ConsentStatus = 'eligible' | 'unsubscribed' | 'suppressed';
+export type ConsentStatus = 'eligible' | 'unsubscribed' | 'no_consent';
+
+/** Suppression status values as per PRD compliance requirements */
+export type SuppressionStatus = 'active' | 'suppressed';
 
 /** Store option used in multi-tenant store filter */
 export interface StoreOption {

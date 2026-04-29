@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     ShieldAlert,
     ShieldCheck,
@@ -25,7 +25,7 @@ import { useSuppression } from '../hooks/useSuppression';
 import { suppressionService } from '../services/suppressionService';
 import {
     SuppressionReason,
-    ConsentStatus,
+    ComplianceConsentStatus,
     SuppressionEntry,
     ConsentEntry,
 } from '../types/suppression.types';
@@ -62,7 +62,7 @@ const REASON_CONFIG: Record<
 // ============================================================================
 
 const CONSENT_CONFIG: Record<
-    ConsentStatus,
+    ComplianceConsentStatus,
     { label: string; className: string; icon: React.ReactNode }
 > = {
     eligible: {
@@ -320,28 +320,6 @@ export const SuppressionPage: React.FC = () => {
     const [inlineUnsubConfirm, setInlineUnsubConfirm] = useState<ConsentEntry | null>(null);
     const [inlineUnsubLoading, setInlineUnsubLoading] = useState(false);
 
-    // ── Debounced search ──────────────────────────────────────────────
-    const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const handleSuppressionSearch = useCallback(
-        (value: string) => {
-            if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
-            searchTimerRef.current = setTimeout(() => {
-                updateSuppressionFilter('search', value);
-            }, 300);
-        },
-        [updateSuppressionFilter]
-    );
-
-    const consentSearchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const handleConsentSearch = useCallback(
-        (value: string) => {
-            if (consentSearchTimerRef.current) clearTimeout(consentSearchTimerRef.current);
-            consentSearchTimerRef.current = setTimeout(() => {
-                updateConsentFilter('search', value);
-            }, 300);
-        },
-        [updateConsentFilter]
-    );
 
     // ── Active filter checks ──────────────────────────────────────────
     const hasSuppressionFilters = useMemo(
@@ -716,7 +694,7 @@ export const SuppressionPage: React.FC = () => {
                             <input
                                 id="filter-sup-date-from"
                                 type="date"
-                                value={suppressionFilters.date_from || ''}
+                                value={suppressionFilters.date_from ?? ''}
                                 onChange={(e) =>
                                     updateSuppressionFilter('date_from', e.target.value)
                                 }
@@ -728,7 +706,7 @@ export const SuppressionPage: React.FC = () => {
                             <input
                                 id="filter-sup-date-to"
                                 type="date"
-                                value={suppressionFilters.date_to || ''}
+                                value={suppressionFilters.date_to ?? ''}
                                 onChange={(e) =>
                                     updateSuppressionFilter('date_to', e.target.value)
                                 }
@@ -743,8 +721,8 @@ export const SuppressionPage: React.FC = () => {
                                 id="search-suppression"
                                 type="text"
                                 placeholder="Search email or source…"
-                                defaultValue={suppressionFilters.search}
-                                onChange={(e) => handleSuppressionSearch(e.target.value)}
+                                value={suppressionFilters.search ?? ''}
+                                onChange={(e) => updateSuppressionFilter('search', e.target.value)}
                                 className="pl-8 pr-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all min-w-[220px]"
                             />
                         </div>
@@ -778,7 +756,7 @@ export const SuppressionPage: React.FC = () => {
                                 onChange={(e) =>
                                     updateConsentFilter(
                                         'consent_status',
-                                        e.target.value as ConsentStatus | 'all'
+                                        e.target.value as ComplianceConsentStatus | 'all'
                                     )
                                 }
                                 className="appearance-none px-3 py-1.5 pr-8 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all min-w-[180px]"
@@ -798,8 +776,8 @@ export const SuppressionPage: React.FC = () => {
                                 id="search-consent"
                                 type="text"
                                 placeholder="Search email or name…"
-                                defaultValue={consentFilters.search}
-                                onChange={(e) => handleConsentSearch(e.target.value)}
+                                value={consentFilters.search ?? ''}
+                                onChange={(e) => updateConsentFilter('search', e.target.value)}
                                 className="pl-8 pr-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all min-w-[220px]"
                             />
                         </div>

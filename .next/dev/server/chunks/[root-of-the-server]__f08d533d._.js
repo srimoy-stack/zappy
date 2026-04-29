@@ -129,36 +129,57 @@ const handler = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
                 }
             },
             async authorize (credentials) {
-                // Mock authentication - in production, verify with your API
-                if (credentials?.email === "admin@zyappy.com" && credentials?.password === "password") {
-                    return {
-                        id: "user-1",
-                        name: "John Doe",
-                        email: "admin@zyappy.com",
-                        role: "ADMIN",
-                        tenantId: "tenant-demo",
-                        storeIds: [
-                            "store-01",
-                            "store-02"
-                        ]
-                    };
+                try {
+                    // Authenticate against the Laravel JWT API
+                    const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8001/api") || 'http://localhost:8000/api';
+                    const res = await fetch(`${apiUrl}/auth/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: credentials?.email,
+                            password: credentials?.password
+                        })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.access_token) {
+                        // Return user object with JWT token embedded
+                        return {
+                            id: String(data.user.id),
+                            name: data.user.name,
+                            email: data.user.email,
+                            role: data.user.role,
+                            accessToken: data.access_token,
+                            tokenExpiry: data.expires_in
+                        };
+                    }
+                    // Auth failed
+                    return null;
+                } catch (error) {
+                    console.error('[NextAuth] Login API error:', error);
+                    return null;
                 }
-                return null;
             }
         })
     ],
     callbacks: {
         async jwt ({ token, user }) {
+            // On initial sign-in, persist user fields + JWT into the token
             if (user) {
                 token.role = user.role;
+                token.accessToken = user.accessToken;
+                token.tokenExpiry = user.tokenExpiry;
                 token.tenantId = user.tenantId;
                 token.storeIds = user.storeIds;
             }
             return token;
         },
         async session ({ session, token }) {
+            // Expose role and access token to client-side session
             if (session.user) {
                 session.user.role = token.role;
+                session.user.accessToken = token.accessToken;
                 session.user.tenantId = token.tenantId;
                 session.user.storeIds = token.storeIds;
             }

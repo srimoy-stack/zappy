@@ -9,7 +9,7 @@
 export type SuppressionReason = 'unsubscribed' | 'bounced' | 'complained';
 
 // ── Consent Status ─────────────────────────────────────────────────────
-export type ConsentStatus = 'eligible' | 'unsubscribed' | 'no_consent';
+export type ComplianceConsentStatus = 'eligible' | 'unsubscribed' | 'no_consent';
 
 // ── Suppression List Entry ─────────────────────────────────────────────
 export interface SuppressionEntry {
@@ -25,8 +25,12 @@ export interface ConsentEntry {
     id: string;
     email: string;
     name: string;
-    consent_status: ConsentStatus;
-    updated_at: string;       // ISO date string
+    consent_status: ComplianceConsentStatus;
+    consent_source?: string;
+    consent_timestamp?: string;   // ISO date
+    unsubscribed_at?: string;     // ISO date
+    suppression_status?: string;
+    updated_at: string;           // ISO date string
 }
 
 // ── Filters ────────────────────────────────────────────────────────────
@@ -38,7 +42,7 @@ export interface SuppressionFilters {
 }
 
 export interface ConsentFilters {
-    consent_status: ConsentStatus | 'all';
+    consent_status: ComplianceConsentStatus | 'all';
     search: string;
 }
 

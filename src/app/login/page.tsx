@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Lock, Mail, Loader2, AlertCircle } from 'lucide-react';
+import { Lock, Mail, Loader2, AlertCircle, ArrowRight, UserPlus } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginPage() {
     const router = useRouter();
-    const [email, setEmail] = useState('admin@zyappy.com');
-    const [password, setPassword] = useState('password');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -25,90 +26,125 @@ export default function LoginPage() {
             });
 
             if (result?.error) {
-                setError('Invalid credentials. Try admin@zyappy.com / password');
+                setError('Invalid credentials. Please check your email and password.');
             } else {
-                router.push('/kds/master');
+                router.push('/backoffice/home');
                 router.refresh();
             }
         } catch (err) {
-            setError('An unexpected error occurred');
+            setError('An unexpected error occurred. Please try again.');
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-900 to-emerald-950/20">
-            <div className="w-full max-w-[400px] animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6 relative overflow-hidden">
+            {/* Background effects */}
+            <div className="absolute inset-0">
+                <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px]" />
+                <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-500/5 blur-[120px]" />
+            </div>
+
+            <div className="w-full max-w-[420px] relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                 {/* Logo Area */}
                 <div className="flex flex-col items-center mb-10">
-                    <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20 mb-6 rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20 mb-6 rotate-3 hover:rotate-0 transition-transform duration-500">
                         <Lock className="text-white" size={32} strokeWidth={2.5} />
                     </div>
                     <h1 className="text-4xl font-black text-white tracking-tighter mb-2">ZYAPPY</h1>
-                    <p className="text-slate-500 font-bold uppercase text-[10px] tracking-[0.3em]">Kitchen Display System</p>
+                    <p className="text-slate-500 font-bold uppercase text-[10px] tracking-[0.3em]">Email Campaign Platform</p>
                 </div>
 
                 {/* Login Card */}
-                <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-[2.5rem] p-10 shadow-2xl">
-                    <form onSubmit={handleLogin} className="space-y-6">
+                <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-[2rem] p-8 shadow-2xl">
+                    <div className="mb-6">
+                        <h2 className="text-xl font-black text-white tracking-tight">Sign In</h2>
+                        <p className="text-slate-500 text-sm mt-1">Access your campaign dashboard</p>
+                    </div>
+
+                    <form onSubmit={handleLogin} className="space-y-5">
                         {/* Email */}
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
                             <div className="relative group">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-500 transition-colors" size={18} />
                                 <input
+                                    id="login-email"
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="your@email.com"
-                                    className="w-full h-14 bg-slate-950/50 border border-slate-800 rounded-2xl pl-12 pr-4 text-white font-bold placeholder:text-slate-700 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all"
+                                    placeholder="admin@zyappy.com"
+                                    className="w-full h-13 bg-slate-950/50 border border-slate-800 rounded-xl pl-12 pr-4 text-white font-medium placeholder:text-slate-700 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all"
                                     required
+                                    autoComplete="email"
                                 />
                             </div>
                         </div>
 
                         {/* Password */}
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Secure Password</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Password</label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-500 transition-colors" size={18} />
                                 <input
+                                    id="login-password"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full h-14 bg-slate-950/50 border border-slate-800 rounded-2xl pl-12 pr-4 text-white font-bold placeholder:text-slate-700 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all"
+                                    className="w-full h-13 bg-slate-950/50 border border-slate-800 rounded-xl pl-12 pr-4 text-white font-medium placeholder:text-slate-700 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all"
                                     required
+                                    autoComplete="current-password"
                                 />
                             </div>
                         </div>
 
                         {error && (
-                            <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 animate-in shake duration-300">
-                                <AlertCircle size={18} shrink-0 />
-                                <p className="text-xs font-bold uppercase tracking-tight leading-tight">{error}</p>
+                            <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 animate-in fade-in duration-300">
+                                <AlertCircle size={18} className="shrink-0" />
+                                <p className="text-xs font-bold leading-tight">{error}</p>
                             </div>
                         )}
 
                         <button
+                            id="login-submit"
                             type="submit"
                             disabled={isLoading}
-                            className="w-full h-14 bg-emerald-500 hover:bg-emerald-400 disabled:bg-slate-800 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 mt-4"
+                            className="w-full h-13 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 disabled:from-slate-800 disabled:to-slate-800 text-white rounded-xl font-bold text-sm shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 mt-2"
                         >
                             {isLoading ? (
                                 <Loader2 className="animate-spin text-white" size={20} />
                             ) : (
-                                "Authenticate Session"
+                                <>
+                                    Sign In
+                                    <ArrowRight size={16} />
+                                </>
                             )}
                         </button>
                     </form>
+
+                    {/* Divider */}
+                    <div className="flex items-center gap-4 my-6">
+                        <div className="flex-1 h-px bg-slate-800" />
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">or</span>
+                        <div className="flex-1 h-px bg-slate-800" />
+                    </div>
+
+                    {/* Sign Up Link */}
+                    <Link
+                        href="/signup"
+                        className="w-full h-13 border border-slate-700 hover:border-emerald-500/30 text-slate-400 hover:text-emerald-400 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-3 active:scale-[0.98]"
+                    >
+                        <UserPlus size={16} />
+                        Create Admin Account
+                    </Link>
                 </div>
 
-                {/* Footer Info */}
-                <div className="mt-8 text-center text-slate-600">
-                    <p className="text-[10px] font-bold uppercase tracking-widest">
-                        Demo Account: <span className="text-slate-400">admin@zyappy.com</span> / <span className="text-slate-400">password</span>
+                {/* Footer */}
+                <div className="mt-8 text-center">
+                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+                        Secure JWT Authentication
                     </p>
                 </div>
             </div>

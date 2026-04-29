@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
     FileText,
     Plus,
@@ -30,6 +30,7 @@ import {
     getUnknownVariables, 
     AVAILABLE_VARIABLES, 
 } from '../utils/compliance';
+import { emailCampaignService } from '../services/emailCampaignService';
 
 // ============================================================================
 // CONSTANTS & CONFIG
@@ -59,27 +60,6 @@ const DEFAULT_HTML_CONTENT = `
   </div>
 </div>`;
 
-// Sample data for initial population
-const SEED_TEMPLATES: EmailTemplate[] = [
-    {
-        id: 'tpl-vip',
-        name: 'VIP Rewards Access',
-        subject: 'An exclusive offer for our VIPs!',
-        type: 'vip-offer',
-        htmlBody: DEFAULT_HTML_CONTENT.replace('launched our latest collection', 'unlocked your exclusive VIP rewards dashboard'),
-        createdAt: '2026-04-01T10:00:00Z',
-        updatedAt: '2026-04-15T09:20:00Z',
-    },
-    {
-        id: 'tpl-rev',
-        name: 'Post-Purchase Review',
-        subject: 'How did we do, {{customer_name}}?',
-        type: 'review-request',
-        htmlBody: DEFAULT_HTML_CONTENT.replace('Explore Collection', 'Leave a Review'),
-        createdAt: '2026-03-20T14:00:00Z',
-        updatedAt: '2026-04-10T11:15:00Z',
-    }
-];
 
 // ============================================================================
 // HELPERS
@@ -146,20 +126,14 @@ const TemplateEditor: React.FC<EditorProps> = ({ initialData, onSave, onCancel }
     const unknownVars = useMemo(() => getUnknownVariables(formData.htmlBody), [formData.htmlBody]);
 
     const handleSave = () => {
+        console.log('[TemplateEditor] handleSave triggered', formData);
         if (!formData.name.trim()) {
             toast.error('Validation Error', 'Template name is required.');
             return;
         }
 
-        const finalValidation = validateCompliance(formData.htmlBody);
-        if (!finalValidation.valid) {
-            toast.error('Compliance Block', 'Template must include required compliance footer tags in the body.');
-            return;
-        }
-
         onSave({
             ...formData,
-            // Even though we block, we still ensure the saved version is compliant as a safety net if any bypass happens
             htmlBody: getCompliantHtml(formData.htmlBody),
             updatedAt: new Date().toISOString(),
             createdAt: formData.createdAt || new Date().toISOString()
@@ -424,10 +398,27 @@ const TemplateEditor: React.FC<EditorProps> = ({ initialData, onSave, onCancel }
 
 export const TemplatesPage: React.FC = () => {
     const toast = useToast();
-    const [templates, setTemplates] = useState<EmailTemplate[]>(SEED_TEMPLATES);
+    const [templates, setTemplates] = useState<EmailTemplate[]>([]);
     const [view, setView] = useState<'list' | 'editor'>('list');
     const [editingTpl, setEditingTpl] = useState<EmailTemplate | null>(null);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    const fetchTemplates = async () => {
+        setLoading(true);
+        try {
+            const data = await emailCampaignService.getTemplates();
+            setTemplates(data);
+        } catch (error) {
+            toast.error('Sync Error', 'Failed to synchronize template library.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchTemplates();
+    }, []);
 
     const filtered = useMemo(() => {
         if (!search.trim()) return templates;
@@ -445,36 +436,76 @@ export const TemplatesPage: React.FC = () => {
         setView('editor');
     };
 
-    const handleDuplicate = (tpl: EmailTemplate) => {
-        const dup: EmailTemplate = {
-            ...tpl,
-            id: generateTemplateId(),
-            name: `${tpl.name} (Copy)`,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-        setTemplates(prev => [dup, ...prev]);
-        toast.info("Blueprint Duplicated", `"${dup.name}" was added to your library.`);
+    const handleDuplicate = async (tpl: EmailTemplate) => {
+        try {
+            const dupPayload = {
+                ...tpl,
+                name: `${tpl.name} (Copy)`,
+            };
+            delete (dupPayload as any).id;
+            delete (dupPayload as any).createdAt;
+            delete (dupPayload as any).updatedAt;
+
+            const dup = await emailCampaignService.createTemplate(dupPayload);
+            setTemplates(prev => [dup, ...prev]);
+            toast.info("Blueprint Duplicated", `"${dup.name}" was added to your library.`);
+        } catch (error) {
+            toast.error('Duplication Failed', 'Could not copy the selected template.');
+        }
     };
 
-    const handleSave = (tpl: EmailTemplate) => {
-        setTemplates(prev => {
-            const idx = prev.findIndex(t => t.id === tpl.id);
-            if (idx >= 0) {
-                const updated = [...prev];
-                updated[idx] = tpl;
-                return updated;
+    const handleSave = async (tpl: EmailTemplate) => {
+        console.log('[TemplatesPage] handleSave received', tpl);
+        try {
+            // If the ID is a string like 'tpl-welcome' (seed) or 'tpl-random' (new),
+            // we should perform a CREATE because it's not a real database ID yet.
+            // Real database IDs are returned as strings but are numeric (e.g. "1", "25").
+            const isRealDatabaseId = tpl.id && !isNaN(Number(tpl.id)) && !tpl.id.startsWith('tpl-');
+
+            if (editingTpl && isRealDatabaseId) {
+                const updated = await emailCampaignService.updateTemplate(tpl.id, tpl);
+                setTemplates(prev => {
+                    const idx = prev.findIndex(t => t.id === tpl.id);
+                    if (idx >= 0) {
+                        const next = [...prev];
+                        next[idx] = updated;
+                        return next;
+                    }
+                    return [updated, ...prev];
+                });
+                toast.success("Library Updated", `Template "${tpl.name}" persisted successfully.`);
+            } else {
+                const payload = { ...tpl };
+                delete (payload as any).id;
+                const created = await emailCampaignService.createTemplate(payload);
+                setTemplates(prev => [created, ...prev]);
+                toast.success("Library Updated", `New template "${tpl.name}" persisted successfully.`);
             }
-            return [tpl, ...prev];
-        });
-        setView('list');
-        toast.success("Library Updated", `Template "${tpl.name}" persisted successfully.`);
+            setView('list');
+        } catch (error: any) {
+            console.error('[TemplatesPage] handleSave Error:', error);
+            toast.error('Persistence Error', error.message || 'Failed to save template to the backend.');
+        }
     };
 
-    const handleDelete = (id: string) => {
-        setTemplates(prev => prev.filter(t => t.id !== id));
-        toast.info("Resource Purged", "The template has been removed from the system.");
+    const handleDelete = async (id: string) => {
+        try {
+            await emailCampaignService.deleteTemplate(id);
+            setTemplates(prev => prev.filter(t => t.id !== id));
+            toast.info("Resource Purged", "The template has been removed from the system.");
+        } catch (error) {
+            toast.error('Purge Failed', 'Could not delete the template.');
+        }
     };
+
+    if (loading && templates.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center py-32 space-y-4">
+                <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
+                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Syncing Library...</p>
+            </div>
+        );
+    }
 
     if (view === 'editor') {
         return (

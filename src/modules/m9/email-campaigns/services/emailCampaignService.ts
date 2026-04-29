@@ -51,7 +51,8 @@ export const emailCampaignService = {
         try {
             const response = await apiClient.post<Campaign>('/email-campaigns', payload);
             return response.data;
-        } catch {
+        } catch (err: any) {
+            // In demo mode, fall back to mock
             if (isDemoMode()) {
                 const newCampaign: Campaign = {
                     id: `camp-${Date.now()}`,
@@ -71,7 +72,8 @@ export const emailCampaignService = {
                 DEV_SEED_CAMPAIGNS.unshift(newCampaign);
                 return newCampaign;
             }
-            throw new Error('Failed to create campaign');
+            // Re-throw the full Axios error so the component can read response.data
+            throw err;
         }
     },
 
@@ -82,7 +84,7 @@ export const emailCampaignService = {
         try {
             const response = await apiClient.put<Campaign>(`/email-campaigns/${id}`, payload);
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const idx = DEV_SEED_CAMPAIGNS.findIndex((c) => c.id === id);
                 if (idx !== -1) {
@@ -92,7 +94,8 @@ export const emailCampaignService = {
                 }
                 throw new Error('Campaign not found');
             }
-            throw new Error('Failed to update campaign');
+            // Re-throw the full Axios error so the component can read response.data
+            throw err;
         }
     },
 
@@ -103,7 +106,7 @@ export const emailCampaignService = {
         try {
             const response = await apiClient.post<Campaign>(`/email-campaigns/${id}/duplicate`);
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const original = DEV_SEED_CAMPAIGNS.find((c) => c.id === id);
                 if (original) {
@@ -121,7 +124,7 @@ export const emailCampaignService = {
                 }
                 throw new Error('Campaign not found');
             }
-            throw new Error('Failed to duplicate campaign');
+            throw err;
         }
     },
 
@@ -156,7 +159,7 @@ export const emailCampaignService = {
         try {
             const response = await apiClient.post<Campaign>(`/email-campaigns/${id}/pause`);
             return response.data;
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const campaign = DEV_SEED_CAMPAIGNS.find((c) => c.id === id);
                 if (campaign) {
@@ -165,7 +168,7 @@ export const emailCampaignService = {
                 }
                 throw new Error('Campaign not found');
             }
-            throw new Error('Failed to pause campaign');
+            throw err;
         }
     },
 
@@ -181,6 +184,69 @@ export const emailCampaignService = {
                 return [...DEV_SEED_TEMPLATES];
             }
             throw new Error('Failed to load templates');
+        }
+    },
+
+    /**
+     * Create a new template
+     */
+    createTemplate: async (payload: Partial<EmailTemplate>): Promise<EmailTemplate> => {
+        try {
+            const response = await apiClient.post<EmailTemplate>('/email-campaigns/templates', payload);
+            return response.data;
+        } catch (err: any) {
+            console.error('[emailCampaignService] createTemplate Error:', err.response?.data || err.message);
+            if (isDemoMode()) {
+                const newTpl: EmailTemplate = {
+                    ...payload,
+                    id: `tpl-${Date.now()}`,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                } as EmailTemplate;
+                DEV_SEED_TEMPLATES.unshift(newTpl);
+                return newTpl;
+            }
+            throw new Error('Failed to create template');
+        }
+    },
+
+    /**
+     * Update an existing template
+     */
+    updateTemplate: async (id: string, payload: Partial<EmailTemplate>): Promise<EmailTemplate> => {
+        try {
+            const response = await apiClient.put<EmailTemplate>(`/email-campaigns/templates/${id}`, payload);
+            return response.data;
+        } catch (err: any) {
+            console.error('[emailCampaignService] updateTemplate Error:', err.response?.data || err.message);
+            if (isDemoMode()) {
+                const idx = DEV_SEED_TEMPLATES.findIndex((t) => t.id === id);
+                if (idx !== -1) {
+                    const updated = { ...DEV_SEED_TEMPLATES[idx], ...payload, updatedAt: new Date().toISOString() };
+                    DEV_SEED_TEMPLATES[idx] = updated as EmailTemplate;
+                    return updated as EmailTemplate;
+                }
+                throw new Error('Template not found');
+            }
+            throw new Error('Failed to update template');
+        }
+    },
+
+    /**
+     * Delete a template
+     */
+    deleteTemplate: async (id: string): Promise<void> => {
+        try {
+            await apiClient.delete(`/email-campaigns/templates/${id}`);
+        } catch {
+            if (isDemoMode()) {
+                const idx = DEV_SEED_TEMPLATES.findIndex((t) => t.id === id);
+                if (idx !== -1) {
+                    DEV_SEED_TEMPLATES.splice(idx, 1);
+                }
+                return;
+            }
+            throw new Error('Failed to delete template');
         }
     },
 
@@ -231,7 +297,7 @@ export const emailCampaignService = {
     archiveCampaign: async (id: string): Promise<void> => {
         try {
             await apiClient.post(`/email-campaigns/${id}/archive`);
-        } catch {
+        } catch (err: any) {
             if (isDemoMode()) {
                 const idx = DEV_SEED_CAMPAIGNS.findIndex((c) => c.id === id);
                 if (idx !== -1) {
@@ -239,7 +305,7 @@ export const emailCampaignService = {
                 }
                 return;
             }
-            throw new Error('Failed to archive campaign');
+            throw err;
         }
     },
     /**

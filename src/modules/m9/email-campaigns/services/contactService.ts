@@ -97,17 +97,23 @@ export const contactService = {
     /**
      * Import contacts from parsed CSV rows.
      * Only valid rows are submitted to the backend.
+     * consent_acknowledged must be true — the backend blocks without it.
      */
     importContacts: async (
-        contacts: CreateContactPayload[]
-    ): Promise<{ imported: number; failed: number }> => {
+        contacts: CreateContactPayload[],
+        consentAcknowledged: boolean = true
+    ): Promise<{ imported: number; updated: number; failed: number; suppressed_blocked: number; message: string }> => {
         try {
-            const response = await apiClient.post<{ imported: number; failed: number }>(
+            const response = await apiClient.post<{ imported: number; updated: number; failed: number; suppressed_blocked: number; message: string }>(
                 '/email-campaigns/contacts/import',
-                { contacts }
+                { contacts, consent_acknowledged: consentAcknowledged }
             );
             return response.data;
-        } catch {
+        } catch (err: any) {
+            // Surface backend compliance errors to the UI
+            if (err.response?.data?.code === 'consent_acknowledgment_required') {
+                throw new Error(err.response.data.error);
+            }
             if (isDemoMode()) {
                 const storeNames: Record<string, string> = {
                     store_001: 'Flagship San Francisco',
@@ -125,14 +131,42 @@ export const contactService = {
                         store_name: storeNames[c.store_id] || c.store_id,
                         total_spend: 0,
                         consent_status: c.consent_status,
-                        suppression_status: 'not_suppressed',
+                        suppression_status: 'active',
                         created_at: new Date().toISOString(),
                     };
                     DEV_SEED_CONTACTS.unshift(newContact);
                 }
-                return { imported: contacts.length, failed: 0 };
+                return { imported: contacts.length, updated: 0, failed: 0, suppressed_blocked: 0, message: `${contacts.length} contacts imported (demo)` };
             }
             throw new Error('Failed to import contacts');
+        }
+    },
+
+    /**
+     * Update an existing contact.
+     */
+    updateContact: async (
+        contactId: string,
+        payload: Partial<CreateContactPayload>
+    ): Promise<ContactRecord> => {
+        try {
+            const response = await apiClient.put<ContactRecord>(
+                `/email-campaigns/contacts/${contactId}`,
+                payload
+            );
+            return response.data;
+        } catch (err: any) {
+            if (isDemoMode()) {
+                const contact = DEV_SEED_CONTACTS.find((c) => c.id === contactId);
+                if (contact) {
+                    Object.assign(contact, payload);
+                    contact.updated_at = new Date().toISOString();
+                    return { ...contact };
+                }
+                throw new Error('Contact not found');
+            }
+            const message = err.response?.data?.error || 'Failed to update contact';
+            throw new Error(message);
         }
     },
 
@@ -168,7 +202,7 @@ export const contactService = {
      */
     getStores: async (): Promise<StoreOption[]> => {
         try {
-            const response = await apiClient.get<StoreOption[]>('/stores');
+            const response = await apiClient.get<StoreOption[]>('/email-campaigns/stores');
             return response.data;
         } catch {
             if (isDemoMode()) {

@@ -13,6 +13,10 @@ export interface CampaignAnalyticsRow {
     status: CampaignStatus;
     sent: number;
     delivered: number;
+    opened: number;
+    clicked: number;
+    unsubscribes: number;
+    bounced: number;
     open_rate: number;        // percentage from API
     click_rate: number;       // percentage from API
     unsubscribe_rate: number; // percentage from API
@@ -27,14 +31,22 @@ export interface AnalyticsFilters {
     date_to: string;   // YYYY-MM-DD
 }
 
-/** Default 30‑day date range ending today */
+/** Default 30‑day date range ending today (local time) */
 function defaultDateRange(): { from: string; to: string } {
-    const to = new Date();
-    const from = new Date();
-    from.setDate(from.getDate() - 30);
+    const toDate = new Date();
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - 30);
+
+    const formatDate = (d: Date) => {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     return {
-        from: from.toISOString().split('T')[0]!,
-        to: to.toISOString().split('T')[0]!,
+        from: formatDate(fromDate),
+        to: formatDate(toDate),
     };
 }
 
@@ -50,4 +62,35 @@ export const DEFAULT_ANALYTICS_FILTERS: AnalyticsFilters = {
 export interface CampaignOption {
     id: string;
     name: string;
+}
+
+// ── Contact Activity Row ───────────────────────────────────────────────
+export interface ContactActivityRow {
+    email: string;
+    name?: string | null;
+    last_sent?: string | null;
+    last_open?: string | null;
+    last_click?: string | null;
+    unsubscribe_date?: string | null;
+    complaint_date?: string | null;
+    total_emails_received: number;
+}
+
+// ── Paginated Response ─────────────────────────────────────────────────
+export interface PaginatedResponse<T> {
+    data: T[];
+    current_page: number;
+    last_page: number;
+    total: number;
+    per_page: number;
+}
+
+// ── Webhook Status ─────────────────────────────────────────────────────
+export interface WebhookStatus {
+    last_event_received_at?: string | null;
+    last_event_type?: string | null;
+    total_events_today: number;
+    events_by_type_today: Record<string, number>;
+    failed_today: number;
+    status: 'active' | 'idle';
 }

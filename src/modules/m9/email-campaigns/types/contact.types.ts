@@ -11,7 +11,7 @@
 export type ContactConsentStatus = 'eligible' | 'unsubscribed' | 'no_consent';
 
 // ── Suppression Status ─────────────────────────────────────────────────
-export type ContactSuppressionStatus = 'suppressed' | 'not_suppressed';
+export type ContactSuppressionStatus = 'suppressed' | 'active' | 'not_suppressed';
 
 // ── Contact Entity ─────────────────────────────────────────────────────
 export interface ContactRecord {
@@ -20,10 +20,18 @@ export interface ContactRecord {
     email: string;
     store_id: string;
     store_name?: string;
+    phone?: string;
+    customer_id?: number;
+    tags_json?: string[] | null;
     last_order?: string;          // ISO date string or null
     total_spend: number;
     consent_status: ContactConsentStatus;
+    consent_source?: string;
+    consent_timestamp?: string;   // ISO date
+    consent_expiry_at?: string;   // ISO date
+    unsubscribed_at?: string;     // ISO date
     suppression_status: ContactSuppressionStatus;
+    suppression_reason?: string;
     created_at: string;
     updated_at?: string;
 }
@@ -34,6 +42,9 @@ export interface CreateContactPayload {
     email: string;
     store_id: string;
     consent_status: ContactConsentStatus;
+    phone?: string;
+    customer_id?: number;
+    consent_source?: string;
 }
 
 // ── CSV Import Types ───────────────────────────────────────────────────
@@ -54,6 +65,15 @@ export interface CsvImportResult {
     rows: CsvImportRow[];
 }
 
+// ── Import Response (from backend) ─────────────────────────────────────
+export interface ImportResponse {
+    imported: number;
+    updated: number;
+    failed: number;
+    suppressed_blocked: number;
+    message: string;
+}
+
 // ── Contact Filters ────────────────────────────────────────────────────
 export interface ContactFilters {
     consent_status: ContactConsentStatus | 'all';
@@ -68,3 +88,4 @@ export const DEFAULT_CONTACT_FILTERS: ContactFilters = {
     suppression_status: 'all',
     search: '',
 };
+

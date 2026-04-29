@@ -119,23 +119,44 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$query$2d$core$2f$build$2f$modern$2f$queryClient$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/query-core/build/modern/queryClient.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/providers/ImpersonationProvider.tsx [app-ssr] (ecmascript)");
 'use client';
 ;
 ;
 ;
+;
+;
 function ClientProviders({ children }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SessionProvider"], {
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImpersonationProvider"], {
-            children: children
+    const [queryClient] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(()=>new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$query$2d$core$2f$build$2f$modern$2f$queryClient$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["QueryClient"]({
+            defaultOptions: {
+                queries: {
+                    staleTime: 30_000,
+                    retry: 1,
+                    refetchOnWindowFocus: false
+                }
+            }
+        }));
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["QueryClientProvider"], {
+        client: queryClient,
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SessionProvider"], {
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2f$ImpersonationProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImpersonationProvider"], {
+                children: children
+            }, void 0, false, {
+                fileName: "[project]/src/app/providers/ClientProviders.tsx",
+                lineNumber: 25,
+                columnNumber: 17
+            }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/providers/ClientProviders.tsx",
-            lineNumber: 10,
+            lineNumber: 24,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/providers/ClientProviders.tsx",
-        lineNumber: 9,
+        lineNumber: 23,
         columnNumber: 9
     }, this);
 }
@@ -151,7 +172,9 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 const AuthContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createContext"])(undefined);
@@ -163,34 +186,50 @@ const useAuth = ()=>{
     return context;
 };
 const AuthProvider = ({ children })=>{
-    // TEMPORARY: Hardcoded session to bypass authentication without backend
+    const { data: session, status } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSession"])();
+    const isLoading = status === 'loading';
+    const isAuthenticated = status === 'authenticated' && !!session?.user;
+    const user = session?.user ?? null;
+    const sessionUser = session?.user;
+    // Map the backend role to the frontend UserRole type
+    // Phase 1: backend sends 'admin' → map to 'ADMIN'
+    const mapRole = (backendRole)=>{
+        if (!backendRole) return null;
+        const roleMap = {
+            'admin': 'ADMIN',
+            'brand_admin': 'BRAND_ADMIN',
+            'store_manager': 'STORE_MANAGER',
+            'employee': 'EMPLOYEE',
+            'pos_user': 'POS_USER',
+            'kds_user': 'KDS_USER',
+            'platform_super_admin': 'PLATFORM_SUPER_ADMIN'
+        };
+        return roleMap[backendRole.toLowerCase()] || 'ADMIN';
+    };
     const value = {
-        user: {
-            id: 'user-1',
-            name: 'John Doe',
-            email: 'admin@zyappy.com',
-            role: 'ADMIN',
-            tenantId: 'tenant-demo',
-            storeIds: [
-                'store-01',
-                'store-02'
-            ]
-        },
-        isAuthenticated: true,
-        isLoading: false,
-        role: 'ADMIN',
-        tenantId: 'tenant-demo',
-        storeIds: [
-            'store-01',
-            'store-02'
-        ],
+        user: user ? {
+            id: sessionUser?.id || sessionUser?.sub || 'unknown',
+            name: user.name,
+            email: user.email,
+            role: mapRole(sessionUser?.role) || 'ADMIN',
+            tenantId: sessionUser?.tenantId || null,
+            storeIds: sessionUser?.storeIds || []
+        } : null,
+        isAuthenticated,
+        isLoading,
+        role: mapRole(sessionUser?.role),
+        tenantId: sessionUser?.tenantId || null,
+        storeIds: sessionUser?.storeIds || [],
+        accessToken: sessionUser?.accessToken || null,
+        // Phase 1: all modules enabled for admin
         enabledModules: [
             'pos',
             'inventory',
             'kiosk',
             'kds',
             'messaging',
-            'email-campaigns'
+            'email-campaigns',
+            'analytics'
         ]
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
@@ -198,7 +237,7 @@ const AuthProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/providers/AuthProvider.tsx",
-        lineNumber: 50,
+        lineNumber: 86,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
