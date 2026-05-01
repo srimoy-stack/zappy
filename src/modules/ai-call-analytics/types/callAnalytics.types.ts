@@ -74,11 +74,14 @@ export interface AiCall {
     call_datetime: string;
     duration_seconds: number | null;
     call_status: CallStatus;
+    call_type: 'webCall' | 'inboundPhoneCall' | 'outboundPhoneCall' | null;
+    ended_reason: string | null;
     customer_intent: CustomerIntent;
     sentiment: Sentiment;
     emotion: Emotion | null;
     success_status: SuccessStatus;
     success_score: number | null;
+    cost: number | null;
     follow_up_required: boolean;
     issue_detected: IssueDetected;
     status_color: StatusColor; // Computed by backend accessor
@@ -117,6 +120,11 @@ export interface CallStats {
     partial_calls: number;
     follow_up_required_count: number;
     negative_sentiment_count: number;
+    avg_duration: number;
+    total_cost: number;
+    inbound_calls: number;
+    outbound_calls: number;
+    web_calls: number;
 }
 
 // ─── API Response Types ─────────────────────────────────────────────────────

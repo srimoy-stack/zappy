@@ -3,307 +3,482 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import {
     ArrowLeft, Phone, Brain, Flag, Shield, Headphones,
-    AlertTriangle, CheckCircle, XCircle, Play, Pause, Volume2,
+    Play, Pause, PhoneIncoming, PhoneOutgoing, Globe, DollarSign, Clock,
+    MessageSquare, Cpu, Mic, Volume2, Zap, ExternalLink, Timer,
+    CheckCircle, AlertTriangle, XCircle, User, Bot,
 } from 'lucide-react';
 import { useCallDetail } from '../hooks/useCallDetail';
 import { ErrorBanner } from '../components/ErrorBanner';
 import { aiCallService } from '../services/aiCallService';
-import type { StatusColor } from '../types/callAnalytics.types';
 
-const COLOR_BADGE: Record<StatusColor, { bg: string; text: string; label: string }> = {
-    green: { bg: 'bg-emerald-100', text: 'text-emerald-800', label: 'Healthy' },
-    yellow: { bg: 'bg-amber-100', text: 'text-amber-800', label: 'Needs Attention' },
-    red: { bg: 'bg-red-100', text: 'text-red-800', label: 'Critical' },
+const fmtDur = (s: number | null) => { if (!s) return '—'; const m = Math.floor(s / 60), r = s % 60; return m > 0 ? `${m}m ${r}s` : `${r}s`; };
+const fmtTime = (s: number) => { const m = Math.floor(s / 60), r = Math.floor(s % 60); return `${m}:${r.toString().padStart(2, '0')}`; };
+
+const STATUS_CFG: Record<string, { gradient: string; icon: React.FC<{className?:string; style?: React.CSSProperties}>; label: string }> = {
+    green: { gradient: 'from-emerald-500 to-teal-600', icon: CheckCircle, label: 'Healthy' },
+    yellow: { gradient: 'from-amber-500 to-orange-600', icon: AlertTriangle, label: 'Needs Attention' },
+    red: { gradient: 'from-red-500 to-rose-600', icon: XCircle, label: 'Critical' },
 };
 
-interface Props {
-    callId: number | string;
-    onBack?: () => void;
-}
+const TYPE_CFG: Record<string, { label: string; Icon: React.FC<{className?:string; style?: React.CSSProperties}> }> = {
+    inboundPhoneCall: { label: 'Inbound Call', Icon: PhoneIncoming },
+    outboundPhoneCall: { label: 'Outbound Call', Icon: PhoneOutgoing },
+    webCall: { label: 'Web Call', Icon: Globe },
+};
+
+const BADGE_CLR: Record<string, string> = {
+    positive: 'bg-emerald-100 text-emerald-700', negative: 'bg-red-100 text-red-700',
+    neutral: 'bg-slate-100 text-slate-700', successful: 'bg-emerald-100 text-emerald-700',
+    partial: 'bg-amber-100 text-amber-700', failed: 'bg-red-100 text-red-700',
+};
+
+interface Props { callId: number | string; onBack?: () => void; }
 
 export default function CallDetailPage({ callId, onBack }: Props) {
     const { data: call, loading, error, refetch } = useCallDetail(callId);
 
-    if (loading) {
-        return (
-            <div className="max-w-[900px] mx-auto px-4 lg:px-6">
-                <div className="animate-pulse space-y-4 pt-4">
-                    <div className="h-8 w-48 bg-slate-200 rounded-lg" />
-                    <div className="h-64 bg-slate-100 rounded-xl" />
-                    <div className="h-48 bg-slate-100 rounded-xl" />
-                    <div className="h-20 bg-slate-100 rounded-xl" />
-                </div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="max-w-[900px] mx-auto px-4 lg:px-6 pt-4">
-                {onBack && (
-                    <button onClick={onBack} className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 mb-4 transition-colors">
-                        <ArrowLeft className="h-4 w-4" /> Back to calls
-                    </button>
-                )}
-                <ErrorBanner message={error} onRetry={refetch} autoRetrySeconds={10} />
-            </div>
-        );
-    }
-
+    if (loading) return (
+        <div className="max-w-[1000px] mx-auto px-4 lg:px-6 animate-pulse space-y-4 pt-6">
+            <div className="h-32 bg-gradient-to-r from-slate-200 to-slate-100 rounded-2xl" />
+            <div className="h-64 bg-slate-100 rounded-2xl" />
+        </div>
+    );
+    if (error) return (
+        <div className="max-w-[1000px] mx-auto px-4 lg:px-6 pt-6">
+            {onBack && <BackBtn onClick={onBack} />}
+            <ErrorBanner message={error} onRetry={refetch} autoRetrySeconds={10} />
+        </div>
+    );
     if (!call) return null;
 
-    const badge = COLOR_BADGE[call.status_color];
+    const d = call as any;
+    const status = (STATUS_CFG[d.status_color] || STATUS_CFG.yellow)!;
+    const StatusIcon = status.icon;
+    const typeInfo = TYPE_CFG[d.call_type] || null;
 
     return (
-        <div className="max-w-[900px] mx-auto px-4 lg:px-6">
-            {/* Back + Header */}
-            {onBack && (
-                <button onClick={onBack} className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 mb-4 transition-colors">
-                    <ArrowLeft className="h-4 w-4" /> Back to calls
-                </button>
-            )}
+        <div className="max-w-[1000px] mx-auto px-4 lg:px-6 pb-10">
+            {onBack && <BackBtn onClick={onBack} />}
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-                <div>
-                    <h1 className="text-xl font-bold text-slate-900">Call Detail</h1>
-                    <p className="text-sm text-slate-500 font-mono mt-1">{call.call_id}</p>
+            {/* ━━ Hero Banner ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+            <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${status.gradient} p-6 text-white shadow-lg mb-6`}>
+                <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/10" />
+                <div className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-white/5" />
+                <div className="relative z-10">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div>
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                <span className="inline-flex items-center gap-1 bg-white/20 rounded-full px-2.5 py-0.5 text-xs font-semibold backdrop-blur-sm">
+                                    <StatusIcon className="h-3 w-3" /> {status.label}
+                                </span>
+                                {typeInfo && (
+                                    <span className="inline-flex items-center gap-1 bg-white/15 rounded-full px-2.5 py-0.5 text-xs backdrop-blur-sm">
+                                        <typeInfo.Icon className="h-3 w-3" /> {typeInfo.label}
+                                    </span>
+                                )}
+                                <span className="bg-white/15 rounded-full px-2.5 py-0.5 text-xs capitalize backdrop-blur-sm">
+                                    {d.call_status?.replace(/_/g, ' ')}
+                                </span>
+                            </div>
+                            <h1 className="text-xl font-bold mb-1">Call Detail</h1>
+                            <p className="text-white/60 text-xs font-mono">{d.call_id}</p>
+                        </div>
+                        <div className="flex gap-5 shrink-0">
+                            <HeroStat icon={Clock} label="Duration" value={fmtDur(d.duration_seconds)} />
+                            <HeroStat icon={Timer} label="Started" value={d.started_at ? new Date(d.started_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—'} />
+                            <HeroStat icon={DollarSign} label="Cost" value={d.cost != null ? `$${Number(d.cost).toFixed(3)}` : '—'} />
+                        </div>
+                    </div>
                 </div>
-                <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold ${badge.bg} ${badge.text} self-start`}>
-                    {call.status_color === 'green' && <CheckCircle className="h-4 w-4" />}
-                    {call.status_color === 'yellow' && <AlertTriangle className="h-4 w-4" />}
-                    {call.status_color === 'red' && <XCircle className="h-4 w-4" />}
-                    {badge.label}
-                </span>
             </div>
 
-            {/* Section 1: Core Info */}
-            <Section title="Call Information" icon={<Phone className="h-4 w-4" />}>
-                <Grid>
-                    <Field label="Call ID" value={call.call_id} mono />
-                    <Field label="Caller Number" value={call.caller_number} />
-                    <Field label="Location ID" value={call.location_id} mono />
-                    <Field label="Agent ID" value={call.agent_id || '—'} mono />
-                    <Field label="Call Status" value={call.call_status} badge />
-                    <Field label="Duration" value={call.duration_seconds ? `${Math.floor(call.duration_seconds / 60)}m ${call.duration_seconds % 60}s` : '—'} />
-                    <Field label="Date/Time" value={new Date(call.call_datetime).toLocaleString()} />
-                    <Field label="Success Status" value={call.success_status} badge />
-                </Grid>
-            </Section>
+            {/* ━━ Main Layout ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-            {/* Section 2: AI Analysis */}
-            <Section title="AI Analysis" icon={<Brain className="h-4 w-4" />}>
-                {call.summary && (
-                    <div className="mb-4 rounded-lg bg-slate-50 border border-slate-200 p-4">
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Summary</p>
-                        <p className="text-sm text-slate-700 leading-relaxed">{call.summary}</p>
-                    </div>
-                )}
-                <Grid>
-                    <Field label="Customer Intent" value={call.customer_intent} badge />
-                    <Field label="Sentiment" value={call.sentiment} badge />
-                    <Field label="Emotion" value={call.emotion || '—'} badge />
-                    <Field label="Success Score" value={call.success_score !== null ? `${call.success_score}%` : '—'} />
-                </Grid>
-            </Section>
+                {/* ── Left (2/3) ──────────────────────────────── */}
+                <div className="lg:col-span-2 space-y-5">
 
-            {/* Section 3: Actions & Issues */}
-            <Section title="Actions & Issues" icon={<Flag className="h-4 w-4" />}>
-                <Grid>
-                    <Field label="Action Taken" value={call.action_taken || 'None recorded'} />
-                    <Field label="Issue Detected" value={call.issue_detected} badge />
-                    <Field label="Follow-up Required" value={call.follow_up_required ? 'Yes' : 'No'} highlight={call.follow_up_required} />
-                    <Field label="Follow-up Reason" value={call.follow_up_reason || '—'} />
-                </Grid>
-            </Section>
-
-            {/* Section 4: Recording Player */}
-            <Section title="Recording" icon={<Headphones className="h-4 w-4" />}>
-                {call.has_recording ? (
-                    <RecordingPlayer callId={call.id} />
-                ) : (
-                    <div className="flex items-center gap-2 text-sm text-slate-400 py-2">
-                        <Volume2 className="h-4 w-4" />
-                        <span>No recording available for this call</span>
-                    </div>
-                )}
-            </Section>
-
-            {/* Section 5: Data Source */}
-            <Section title="Data Source" icon={<Shield className="h-4 w-4" />}>
-                <div className="text-xs text-slate-500 space-y-1">
-                    <p><span className="font-medium">Internal ID:</span> {call.id}</p>
-                    <p><span className="font-medium">Status Color:</span> {call.status_color} (computed by backend)</p>
-                    <p className="text-slate-400 italic">recording_url, raw_payload, and transcript are excluded from this view for security.</p>
-                </div>
-            </Section>
-        </div>
-    );
-}
-
-// ─── Recording Player ───────────────────────────────────────────────────────
-
-function RecordingPlayer({ callId }: { callId: number }) {
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const [blobUrl, setBlobUrl] = useState<string | null>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [hasError, setHasError] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [duration, setDuration] = useState(0);
-
-    // Clean up blob URL on unmount to prevent memory leaks
-    useEffect(() => {
-        return () => {
-            if (blobUrl) URL.revokeObjectURL(blobUrl);
-        };
-    }, [blobUrl]);
-
-    const loadAndPlay = useCallback(async () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        setIsLoading(true);
-        setHasError(false);
-
-        try {
-            // Fetch with auth headers on first play, reuse blob URL after
-            let url = blobUrl;
-            if (!url) {
-                url = await aiCallService.fetchRecordingBlob(callId);
-                setBlobUrl(url);
-                audio.src = url;
-            }
-            await audio.play();
-        } catch {
-            setHasError(true);
-            setIsLoading(false);
-        }
-    }, [callId, blobUrl]);
-
-    const togglePlay = useCallback(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        if (isPlaying) {
-            audio.pause();
-        } else {
-            loadAndPlay();
-        }
-    }, [isPlaying, loadAndPlay]);
-
-    const handleTimeUpdate = useCallback(() => {
-        const audio = audioRef.current;
-        if (audio && audio.duration) {
-            setProgress((audio.currentTime / audio.duration) * 100);
-        }
-    }, []);
-
-    const handleSeek = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-        const audio = audioRef.current;
-        if (!audio || !audio.duration) return;
-        const rect = e.currentTarget.getBoundingClientRect();
-        const pct = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = pct * audio.duration;
-    }, []);
-
-    const formatTime = (s: number) => {
-        const m = Math.floor(s / 60);
-        const sec = Math.floor(s % 60);
-        return `${m}:${sec.toString().padStart(2, '0')}`;
-    };
-
-    return (
-        <div className="space-y-3">
-            <audio
-                ref={audioRef}
-                preload="none"
-                onPlay={() => { setIsPlaying(true); setIsLoading(false); }}
-                onPause={() => setIsPlaying(false)}
-                onEnded={() => { setIsPlaying(false); setProgress(0); }}
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-                onError={() => { setHasError(true); setIsLoading(false); setIsPlaying(false); }}
-            />
-
-            <div className="flex items-center gap-3">
-                {/* Play/Pause Button */}
-                <button
-                    id="recording-play-btn"
-                    onClick={togglePlay}
-                    disabled={hasError}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-all shadow-sm ${
-                        hasError
-                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                            : isPlaying
-                                ? 'bg-red-500 text-white hover:bg-red-600'
-                                : 'bg-blue-600 text-white hover:bg-blue-700'
-                    }`}
-                >
-                    {isLoading ? (
-                        <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    ) : isPlaying ? (
-                        <Pause className="h-4 w-4" />
-                    ) : (
-                        <Play className="h-4 w-4 ml-0.5" />
+                    {/* AI Summary */}
+                    {d.summary && (
+                        <Card title="AI Summary" icon={Brain} accent="indigo">
+                            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100/50">
+                                <p className="text-sm text-slate-700 leading-relaxed">{d.summary}</p>
+                            </div>
+                        </Card>
                     )}
-                </button>
 
-                {/* Progress Bar */}
-                <div className="flex-1 space-y-1">
-                    <div
-                        className="h-2 bg-slate-100 rounded-full cursor-pointer overflow-hidden group"
-                        onClick={handleSeek}
-                    >
-                        <div
-                            className="h-full bg-blue-500 rounded-full transition-all duration-150 group-hover:bg-blue-600"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                    <div className="flex justify-between text-[10px] text-slate-400 tabular-nums">
-                        <span>{duration > 0 ? formatTime((progress / 100) * duration) : '0:00'}</span>
-                        <span>{duration > 0 ? formatTime(duration) : '—'}</span>
-                    </div>
+                    {/* Conversation */}
+                    {d.messages?.length > 0 ? (
+                        <Card title={`Conversation · ${d.messages.length} messages`} icon={MessageSquare} accent="blue">
+                            <ChatBubbles messages={d.messages} />
+                        </Card>
+                    ) : d.transcript ? (
+                        <Card title="Transcript" icon={MessageSquare} accent="blue">
+                            <FallbackTranscript text={d.transcript} />
+                        </Card>
+                    ) : null}
+
+                    {/* Recording */}
+                    <Card title="Recording" icon={Headphones} accent="purple">
+                        {d.has_recording ? <Player callId={d.id} /> : (
+                            <div className="flex items-center gap-2 text-sm text-slate-400 py-2">
+                                <Volume2 className="h-4 w-4" /> No recording available
+                            </div>
+                        )}
+                    </Card>
+
+                    {/* Cost Breakdown */}
+                    {d.cost_breakdown && (
+                        <Card title="Cost Breakdown" icon={DollarSign} accent="cyan">
+                            <CostViz data={d.cost_breakdown} />
+                        </Card>
+                    )}
+                </div>
+
+                {/* ── Right (1/3) ─────────────────────────────── */}
+                <div className="space-y-5">
+
+                    <Card title="Call Info" icon={Phone} accent="blue" compact>
+                        <InfoRows items={[
+                            { k: 'Caller', v: d.caller_number },
+                            { k: 'Location', v: d.location_id, mono: true },
+                            { k: 'Agent ID', v: d.agent_id || '—', mono: true },
+                            { k: 'Date/Time', v: d.call_datetime ? new Date(d.call_datetime).toLocaleString() : '—' },
+                            { k: 'Duration', v: fmtDur(d.duration_seconds) },
+                            { k: 'Ended', v: d.ended_reason?.replace(/-/g, ' ').replace(/\./g, ' › ') || '—' },
+                        ]} />
+                    </Card>
+
+                    <Card title="AI Analysis" icon={Brain} accent="violet" compact>
+                        <div className="space-y-1.5">
+                            <Badge label="Sentiment" value={d.sentiment} />
+                            <Badge label="Intent" value={d.customer_intent?.replace(/_/g, ' ')} />
+                            <Badge label="Emotion" value={d.emotion || 'neutral'} />
+                            <Badge label="Success" value={d.success_status} />
+                            {d.success_score != null && <ScoreBar score={d.success_score} />}
+                        </div>
+                    </Card>
+
+                    <Card title="Actions & Issues" icon={Flag} accent="orange" compact>
+                        <InfoRows items={[
+                            { k: 'Action', v: Array.isArray(d.action_taken) ? d.action_taken.join(', ') : (d.action_taken || 'None') },
+                            { k: 'Issue', v: d.issue_detected?.replace(/_/g, ' ') || 'none' },
+                            { k: 'Follow-up', v: d.follow_up_required ? '⚠️ Required' : 'No', warn: d.follow_up_required },
+                            ...(d.follow_up_reason ? [{ k: 'Reason', v: d.follow_up_reason }] : []),
+                        ]} />
+                    </Card>
+
+                    {d.tech_stack && (
+                        <Card title="Tech Stack" icon={Cpu} accent="slate" compact>
+                            <div className="space-y-2">
+                                {d.tech_stack.llm_model && <TechPill icon={Zap} color="#f59e0b" label="LLM" value={`${d.tech_stack.llm_model}`} sub={d.tech_stack.llm_provider} />}
+                                {d.tech_stack.stt_model && <TechPill icon={Mic} color="#3b82f6" label="STT" value={`${d.tech_stack.stt_model}`} sub={d.tech_stack.stt_provider} />}
+                                {d.tech_stack.tts_model && <TechPill icon={Volume2} color="#8b5cf6" label="TTS" value={`${d.tech_stack.tts_model}`} sub={d.tech_stack.tts_provider} />}
+                            </div>
+                        </Card>
+                    )}
+
+                    <Card title="System" icon={Shield} accent="slate" compact>
+                        <div className="text-xs text-slate-500 space-y-1">
+                            <p><span className="font-medium text-slate-600">ID:</span> {d.id}</p>
+                            <p><span className="font-medium text-slate-600">Status:</span> {d.status_color}</p>
+                            {d.log_url && (
+                                <a href={d.log_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-indigo-600 hover:underline mt-2">
+                                    <ExternalLink className="h-3 w-3" /> View Vapi Logs
+                                </a>
+                            )}
+                        </div>
+                    </Card>
                 </div>
             </div>
-
-            {hasError && (
-                <p className="text-xs text-red-500">
-                    Unable to load recording. The recording may have expired or authentication may be required.
-                </p>
-            )}
         </div>
     );
 }
 
-// ─── Helper Components ──────────────────────────────────────────────────────
+// ━━ Sub Components ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function Section({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
+function BackBtn({ onClick }: { onClick: () => void }) {
     return (
-        <div className="mb-6 rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md">
-            <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-5 py-3">
-                <span className="text-slate-500">{icon}</span>
-                <h2 className="text-sm font-semibold text-slate-700">{title}</h2>
-            </div>
-            <div className="p-5">{children}</div>
+        <button onClick={onClick} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 mb-4 transition-colors group">
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" /> Back
+        </button>
+    );
+}
+
+function HeroStat({ icon: I, label, value }: { icon: React.FC<{className?:string; style?: React.CSSProperties}>; label: string; value: string }) {
+    return (
+        <div className="text-center min-w-[60px]">
+            <I className="h-4 w-4 text-white/60 mx-auto mb-1" />
+            <p className="text-sm font-bold">{value}</p>
+            <p className="text-[9px] text-white/50 uppercase tracking-wider">{label}</p>
         </div>
     );
 }
 
-function Grid({ children }: { children: React.ReactNode }) {
-    return <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">{children}</div>;
-}
+const ACCENT: Record<string, string> = {
+    indigo: 'border-l-indigo-400', blue: 'border-l-blue-400', purple: 'border-l-purple-400',
+    cyan: 'border-l-cyan-400', violet: 'border-l-violet-400', orange: 'border-l-orange-400', slate: 'border-l-slate-300',
+};
 
-function Field({ label, value, mono, badge, highlight }: {
-    label: string; value: string; mono?: boolean; badge?: boolean; highlight?: boolean;
+function Card({ title, icon: I, accent, children, compact }: {
+    title: string; icon: React.FC<{className?:string; style?: React.CSSProperties}>; accent: string; children: React.ReactNode; compact?: boolean;
 }) {
     return (
+        <div className={`rounded-2xl border border-slate-200/80 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden border-l-4 ${ACCENT[accent] || ''}`}>
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50/60 border-b border-slate-100">
+                <I className="h-4 w-4 text-slate-500" />
+                <h3 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">{title}</h3>
+            </div>
+            <div className={compact ? 'p-4' : 'p-5'}>{children}</div>
+        </div>
+    );
+}
+
+function InfoRows({ items }: { items: { k: string; v: string; mono?: boolean; warn?: boolean }[] }) {
+    return (
+        <div className="space-y-2">
+            {items.map((i, idx) => (
+                <div key={idx} className="flex items-start justify-between gap-3">
+                    <span className="text-[11px] text-slate-400 shrink-0">{i.k}</span>
+                    <span className={`text-[11px] text-right font-medium ${i.warn ? 'text-orange-600 font-bold' : i.mono ? 'font-mono text-slate-500 text-[10px]' : 'text-slate-700'}`}>{i.v}</span>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function Badge({ label, value }: { label: string; value: string }) {
+    const cls = BADGE_CLR[value] || 'bg-slate-100 text-slate-600';
+    return (
+        <div className="flex items-center justify-between py-1">
+            <span className="text-[11px] text-slate-400">{label}</span>
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold capitalize ${cls}`}>{value.replace(/_/g, ' ')}</span>
+        </div>
+    );
+}
+
+function ScoreBar({ score }: { score: number }) {
+    const color = score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444';
+    return (
+        <div className="pt-1">
+            <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] text-slate-400">Score</span>
+                <span className="text-xs font-bold" style={{ color }}>{score}%</span>
+            </div>
+            <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-full rounded-full transition-all duration-700" style={{ width: `${score}%`, backgroundColor: color }} />
+            </div>
+        </div>
+    );
+}
+
+function TechPill({ icon: I, color, label, value, sub }: { icon: React.FC<{className?:string; style?: React.CSSProperties}>; color: string; label: string; value: string; sub: string }) {
+    return (
+        <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2">
+            <I className="h-3.5 w-3.5 shrink-0" style={{ color }} />
+            <div className="min-w-0">
+                <p className="text-[11px] font-semibold text-slate-700">{value}</p>
+                <p className="text-[9px] text-slate-400">{label} · {sub}</p>
+            </div>
+        </div>
+    );
+}
+
+// ━━ Chat Bubbles ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function ChatBubbles({ messages }: { messages: { role: string; content: string; time: number | null }[] }) {
+    const [expanded, setExpanded] = useState(false);
+    const visible = expanded ? messages : messages.slice(0, 14);
+    const hasMore = messages.length > 14;
+
+    return (
         <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</p>
-            {badge ? (
-                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700 mt-0.5">{value}</span>
-            ) : (
-                <p className={`text-sm mt-0.5 ${mono ? 'font-mono text-slate-600' : 'text-slate-800'} ${highlight ? 'font-semibold text-orange-600' : ''}`}>{value}</p>
+            {/* Conversation header */}
+            <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1.5 text-[10px] text-slate-400">
+                        <span className="h-2 w-2 rounded-full bg-indigo-400" />
+                        AI Assistant
+                    </span>
+                    <span className="flex items-center gap-1.5 text-[10px] text-slate-400">
+                        <span className="h-2 w-2 rounded-full bg-slate-400" />
+                        Caller
+                    </span>
+                </div>
+                <span className="text-[10px] text-slate-400">{messages.length} messages</span>
+            </div>
+
+            {/* Messages */}
+            <div className="space-y-3 bg-slate-50 rounded-xl p-4 border border-slate-100">
+                {visible.map((m, i) => {
+                    const isBot = m.role === 'bot' || m.role === 'assistant';
+                    return (
+                        <div key={i} className={`flex gap-2.5 ${isBot ? '' : 'flex-row-reverse'}`}>
+                            {/* Avatar */}
+                            <div className={`flex h-8 w-8 items-center justify-center rounded-full shrink-0 shadow-sm ${
+                                isBot ? 'bg-gradient-to-br from-indigo-400 to-indigo-600' : 'bg-gradient-to-br from-slate-400 to-slate-600'
+                            }`}>
+                                {isBot ? <Bot className="h-3.5 w-3.5 text-white" /> : <User className="h-3.5 w-3.5 text-white" />}
+                            </div>
+
+                            {/* Bubble */}
+                            <div className={`max-w-[78%] ${isBot ? '' : 'flex flex-col items-end'}`}>
+                                {/* Role label */}
+                                <div className={`flex items-center gap-1.5 mb-1 ${isBot ? '' : 'flex-row-reverse'}`}>
+                                    <span className={`text-[10px] font-semibold ${isBot ? 'text-indigo-500' : 'text-slate-500'}`}>
+                                        {isBot ? 'AI Assistant' : 'Caller'}
+                                    </span>
+                                    {m.time != null && (
+                                        <span className="text-[9px] text-slate-300 tabular-nums">{fmtTime(m.time)}</span>
+                                    )}
+                                </div>
+
+                                {/* Message body */}
+                                <div className={`rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm ${
+                                    isBot
+                                        ? 'bg-white border border-indigo-100 text-slate-700 rounded-tl-sm'
+                                        : 'bg-indigo-600 text-white rounded-tr-sm'
+                                }`}>
+                                    {m.content}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Expand button */}
+            {hasMore && (
+                <button onClick={() => setExpanded(!expanded)}
+                    className="w-full text-center text-xs text-indigo-600 hover:text-indigo-700 font-semibold py-2.5 mt-2 rounded-xl hover:bg-indigo-50 transition-colors border border-transparent hover:border-indigo-100">
+                    {expanded ? '▲ Show less' : `▼ Show all ${messages.length} messages`}
+                </button>
             )}
+        </div>
+    );
+}
+
+function FallbackTranscript({ text }: { text: string }) {
+    const lines = text.split('\n').filter(l => l.trim());
+    return (
+        <div className="space-y-3 bg-slate-50 rounded-xl p-4 border border-slate-100">
+            {lines.map((line, i) => {
+                const isAI = line.startsWith('AI:');
+                const content = line.replace(/^(AI|User):\s*/, '');
+                return (
+                    <div key={i} className={`flex gap-2.5 ${isAI ? '' : 'flex-row-reverse'}`}>
+                        <div className={`flex h-7 w-7 items-center justify-center rounded-full shrink-0 shadow-sm ${
+                            isAI ? 'bg-gradient-to-br from-indigo-400 to-indigo-600' : 'bg-gradient-to-br from-slate-400 to-slate-600'
+                        }`}>
+                            {isAI ? <Bot className="h-3 w-3 text-white" /> : <User className="h-3 w-3 text-white" />}
+                        </div>
+                        <div className={`max-w-[78%] ${isAI ? '' : 'flex flex-col items-end'}`}>
+                            <span className={`text-[10px] font-semibold mb-0.5 ${isAI ? 'text-indigo-500' : 'text-slate-500'}`}>
+                                {isAI ? 'AI Assistant' : 'Caller'}
+                            </span>
+                            <div className={`rounded-2xl px-3.5 py-2 text-[13px] leading-relaxed shadow-sm ${
+                                isAI ? 'bg-white border border-indigo-100 text-slate-700 rounded-tl-sm' : 'bg-indigo-600 text-white rounded-tr-sm'
+                            }`}>
+                                {content}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+// ━━ Cost Visualization ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function CostViz({ data }: { data: Record<string, number> }) {
+    const total = data.total || Object.values(data).reduce((s, v) => s + v, 0);
+    const items = [
+        { key: 'llm', label: 'Language Model', color: '#f59e0b', icon: Zap },
+        { key: 'stt', label: 'Speech-to-Text', color: '#3b82f6', icon: Mic },
+        { key: 'tts', label: 'Text-to-Speech', color: '#8b5cf6', icon: Volume2 },
+        { key: 'vapi', label: 'Vapi Platform', color: '#06b6d4', icon: Cpu },
+        { key: 'transport', label: 'Transport', color: '#64748b', icon: Phone },
+    ].filter(i => (data[i.key] ?? 0) > 0);
+
+    return (
+        <div className="space-y-4">
+            <div className="h-3 rounded-full overflow-hidden flex bg-slate-100">
+                {items.map(i => (
+                    <div key={i.key} className="transition-all hover:opacity-80" style={{ width: `${((data[i.key]||0)/total)*100}%`, backgroundColor: i.color }}
+                        title={`${i.label}: $${data[i.key]?.toFixed(4)}`} />
+                ))}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+                {items.map(i => {
+                    const pct = total > 0 ? Math.round(((data[i.key] || 0) / total) * 100) : 0;
+                    return (
+                        <div key={i.key} className="flex items-center gap-2.5 rounded-lg bg-slate-50 px-3 py-2">
+                            <i.icon className="h-3.5 w-3.5 shrink-0" style={{ color: i.color }} />
+                            <div className="flex-1 min-w-0">
+                                <p className="text-[11px] text-slate-600 truncate">{i.label}</p>
+                                <p className="text-xs font-bold text-slate-800">${data[i.key]?.toFixed(4)}<span className="text-slate-400 font-normal ml-1">({pct}%)</span></p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+            <div className="flex justify-end pt-2 border-t border-slate-100">
+                <span className="text-sm font-bold text-slate-900">Total: ${total.toFixed(4)}</span>
+            </div>
+        </div>
+    );
+}
+
+// ━━ Recording Player ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function Player({ callId }: { callId: number }) {
+    const ref = useRef<HTMLAudioElement>(null);
+    const [url, setUrl] = useState<string | null>(null);
+    const [playing, setPlaying] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [prog, setProg] = useState(0);
+    const [dur, setDur] = useState(0);
+
+    useEffect(() => () => { if (url) URL.revokeObjectURL(url); }, [url]);
+
+    const play = useCallback(async () => {
+        const a = ref.current; if (!a) return;
+        setLoading(true); setErr(false);
+        try {
+            if (!url) { const u = await aiCallService.fetchRecordingBlob(callId); setUrl(u); a.src = u; }
+            await a.play();
+        } catch { setErr(true); setLoading(false); }
+    }, [callId, url]);
+
+    const toggle = useCallback(() => { const a = ref.current; if (!a) return; playing ? a.pause() : play(); }, [playing, play]);
+    const seek = useCallback((e: React.MouseEvent<HTMLDivElement>) => { const a = ref.current; if (!a?.duration) return; a.currentTime = ((e.clientX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.getBoundingClientRect().width) * a.duration; }, []);
+
+    return (
+        <div>
+            <audio ref={ref} preload="none"
+                onPlay={() => { setPlaying(true); setLoading(false); }} onPause={() => setPlaying(false)}
+                onEnded={() => { setPlaying(false); setProg(0); }}
+                onTimeUpdate={() => { const a = ref.current; if (a?.duration) setProg((a.currentTime / a.duration) * 100); }}
+                onLoadedMetadata={() => setDur(ref.current?.duration || 0)}
+                onError={() => { setErr(true); setLoading(false); setPlaying(false); }} />
+            <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <button onClick={toggle} disabled={err}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full shadow-sm shrink-0 transition-all ${err ? 'bg-slate-200 text-slate-400' : playing ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}>
+                    {loading ? <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
+                </button>
+                <div className="flex-1 space-y-1">
+                    <div className="h-2 bg-slate-200 rounded-full cursor-pointer overflow-hidden group" onClick={seek}>
+                        <div className="h-full bg-indigo-500 rounded-full transition-all group-hover:bg-indigo-600" style={{ width: `${prog}%` }} />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-slate-400 tabular-nums">
+                        <span>{dur > 0 ? fmtTime((prog / 100) * dur) : '0:00'}</span>
+                        <span>{dur > 0 ? fmtTime(dur) : '—'}</span>
+                    </div>
+                </div>
+            </div>
+            {err && <p className="text-xs text-red-500 mt-2">Unable to load recording.</p>}
         </div>
     );
 }
