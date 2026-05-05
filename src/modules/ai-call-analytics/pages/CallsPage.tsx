@@ -162,19 +162,18 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
             ) : (
                 <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm" style={{ minWidth: '900px' }}>
+                        <table className="w-full text-sm" style={{ minWidth: '860px' }}>
                             <thead>
                                 <tr className="border-b border-slate-100 bg-slate-50">
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 w-10"></th>
-                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Call ID</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600">Caller</th>
-                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Location</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Type</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600">Status</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('sentiment')}>
                                         <span className="flex items-center gap-1">Sentiment <SortIcon col="sentiment" /></span>
                                     </th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('success_status')}>
-                                        <span className="flex items-center gap-1">Success <SortIcon col="success_status" /></span>
+                                        <span className="flex items-center gap-1">Result <SortIcon col="success_status" /></span>
                                     </th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('duration_seconds')}>
                                         <span className="flex items-center gap-1">Duration <SortIcon col="duration_seconds" /></span>
@@ -182,14 +181,14 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('call_datetime')}>
                                         <span className="flex items-center gap-1">Date <SortIcon col="call_datetime" /></span>
                                     </th>
-                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Follow-up</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Ended</th>
                                     <th className="px-4 py-3 text-center font-semibold text-slate-600 w-12"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {sortedCalls.length === 0 ? (
                                     <tr>
-                                        <td colSpan={11} className="px-4 py-16 text-center">
+                                        <td colSpan={10} className="px-4 py-16 text-center">
                                             <div className="text-slate-400">
                                                 <p className="text-base font-medium">No calls found</p>
                                                 <p className="text-sm mt-1">Try adjusting your filters or check back later</p>
@@ -210,20 +209,30 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                                     call.status_color === 'yellow' ? 'bg-amber-500' : 'bg-red-500'
                                                 }`} />
                                             </td>
-                                            <td className="px-4 py-3 font-mono text-xs text-slate-600 max-w-[110px] truncate">{call.call_id}</td>
-                                            <td className="px-4 py-3 text-slate-700">{call.caller_number}</td>
-                                            <td className="px-4 py-3 text-slate-600 font-mono text-xs">{call.location_id}</td>
-                                            <td className="px-4 py-3"><StatusBadge type="call_status" value={call.call_status} /></td>
-                                            <td className="px-4 py-3"><StatusBadge type="sentiment" value={call.sentiment} /></td>
-                                            <td className="px-4 py-3"><StatusBadge type="success_status" value={call.success_status} /></td>
-                                            <td className="px-4 py-3 text-slate-600 tabular-nums">{fmt(call.duration_seconds)}</td>
-                                            <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmtDate(call.call_datetime)}</td>
+                                            <td className="px-4 py-3 text-slate-700 font-medium text-xs">{call.caller_number || '—'}</td>
                                             <td className="px-4 py-3">
-                                                {call.follow_up_required ? (
-                                                    <span className="inline-flex items-center rounded-full bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-700">Yes</span>
-                                                ) : (
-                                                    <span className="text-slate-400 text-xs">No</span>
-                                                )}
+                                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                                                    call.call_type === 'inboundPhoneCall' ? 'bg-blue-50 text-blue-700' :
+                                                    call.call_type === 'outboundPhoneCall' ? 'bg-purple-50 text-purple-700' :
+                                                    call.call_type === 'webCall' ? 'bg-cyan-50 text-cyan-700' :
+                                                    'bg-slate-50 text-slate-500'
+                                                }`}>
+                                                    {call.call_type === 'inboundPhoneCall' ? 'Inbound' :
+                                                     call.call_type === 'outboundPhoneCall' ? 'Outbound' :
+                                                     call.call_type === 'webCall' ? 'Web' : '—'}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3"><StatusBadge type="call_status" value={call.call_status} /></td>
+                                            <td className="px-4 py-3">
+                                                {call.has_analysis ? <StatusBadge type="sentiment" value={call.sentiment} /> : <span className="text-[10px] text-slate-400">—</span>}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                {call.has_analysis ? <StatusBadge type="success_status" value={call.success_status} /> : <span className="text-[10px] text-slate-400">—</span>}
+                                            </td>
+                                            <td className="px-4 py-3 text-slate-600 tabular-nums text-xs">{fmt(call.duration_seconds)}</td>
+                                            <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmtDate(call.call_datetime)}</td>
+                                            <td className="px-4 py-3 text-slate-500 text-[11px] max-w-[120px] truncate capitalize">
+                                                {call.ended_reason?.replace(/-/g, ' ') || '—'}
                                             </td>
                                             <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
                                                 <button

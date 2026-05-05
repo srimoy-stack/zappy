@@ -3,8 +3,8 @@
 import React from 'react';
 import {
     Phone, CheckCircle, XCircle, AlertTriangle, Clock, Frown, Activity,
-    Bell, PhoneIncoming, PhoneOutgoing, Globe, DollarSign,
-    Timer, TrendingUp, TrendingDown, BarChart3,
+    Bell, PhoneIncoming, PhoneOutgoing, Globe,
+    Timer, TrendingUp, TrendingDown, BarChart3, Microscope,
 } from 'lucide-react';
 import { useStats } from '../hooks/useStats';
 import { useAlerts } from '../hooks/useAlerts';
@@ -52,7 +52,7 @@ export default function DashboardPage() {
                 </div>
             </div>
 
-            <DataStatusBar lastUpdated={lastUpdated} isRefreshing={isRefreshing} error={error} totalRecords={stats?.total_calls ?? 0} onRefresh={refetch} />
+            <DataStatusBar lastUpdated={lastUpdated} isRefreshing={isRefreshing} error={error} totalRecords={stats?.total_calls ?? 0} analyzedRecords={stats?.analyzed_calls} analysisCoverage={stats?.analysis_coverage_pct} onRefresh={refetch} />
 
             {error && <div className="mt-4"><ErrorBanner message={error} onRetry={refetch} autoRetrySeconds={15} dismissible /></div>}
 
@@ -65,10 +65,10 @@ export default function DashboardPage() {
                 <div className="mt-6 space-y-5">
                     {/* Row 1 — Hero KPIs (gradient cards) */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <HeroCard icon={Phone} label="Total Calls" value={stats.total_calls.toLocaleString()} from="#6366f1" to="#8b5cf6" />
-                        <HeroCard icon={TrendingUp} label="Success Rate" value={fmtPct(stats.successful_calls, stats.total_calls)} sub={`${stats.successful_calls} of ${stats.total_calls}`} from="#10b981" to="#059669" />
+                        <HeroCard icon={Phone} label="Total Calls" value={stats.total_calls.toLocaleString()} sub={`${stats.analyzed_calls} analyzed`} from="#6366f1" to="#8b5cf6" />
+                        <HeroCard icon={TrendingUp} label="Success Rate" value={fmtPct(stats.successful_calls, stats.analyzed_calls)} sub={`${stats.successful_calls} of ${stats.analyzed_calls} analyzed`} from="#10b981" to="#059669" />
                         <HeroCard icon={Timer} label="Avg Duration" value={fmtDur(stats.avg_duration)} from="#8b5cf6" to="#a78bfa" />
-                        <HeroCard icon={DollarSign} label="Total Cost" value={`$${stats.total_cost.toFixed(2)}`} sub={stats.total_calls > 0 ? `$${(stats.total_cost / stats.total_calls).toFixed(3)}/call` : ''} from="#06b6d4" to="#0891b2" />
+                        <HeroCard icon={Microscope} label="Analysis Coverage" value={`${stats.analysis_coverage_pct}%`} sub={`${stats.analyzed_calls} of ${stats.total_calls} calls`} from="#06b6d4" to="#0891b2" />
                     </div>
 
                     {/* Row 2 — Call Type + Status Mini Cards */}
@@ -83,9 +83,9 @@ export default function DashboardPage() {
 
                     {/* Row 3 — Attention indicators (horizontal bar cards) */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <AttentionBar icon={Frown} label="Negative Sentiment" count={stats.negative_sentiment_count} total={stats.total_calls} color="#ef4444" />
-                        <AttentionBar icon={Clock} label="Follow-ups Needed" count={stats.follow_up_required_count} total={stats.total_calls} color="#f59e0b" />
-                        <AttentionBar icon={TrendingDown} label="Failure Rate" count={stats.failed_calls} total={stats.total_calls} color="#ef4444" />
+                        <AttentionBar icon={Frown} label="Negative Sentiment" count={stats.negative_sentiment_count} total={stats.analyzed_calls} color="#ef4444" />
+                        <AttentionBar icon={Clock} label="Follow-ups Needed" count={stats.follow_up_required_count} total={stats.analyzed_calls} color="#f59e0b" />
+                        <AttentionBar icon={TrendingDown} label="Failure Rate" count={stats.failed_calls} total={stats.analyzed_calls} color="#ef4444" />
                     </div>
                 </div>
             ) : null}

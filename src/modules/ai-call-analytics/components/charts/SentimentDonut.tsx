@@ -24,7 +24,7 @@ export const SentimentDonut: React.FC<Props> = ({ data }) => {
             <div className="flex items-start justify-between mb-1">
                 <div>
                     <h3 className="text-sm font-semibold text-slate-800">Sentiment Distribution</h3>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Customer mood across {total} calls</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Customer mood across {total} analyzed calls</p>
                 </div>
                 <div className="text-right">
                     <p className="text-sm font-bold text-slate-800">{dominant.name} {COLORS[dominant.name]?.emoji}</p>

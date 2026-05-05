@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionEvent, PaymentStatus } from '../../types/sales-activity';
+import { TransactionEvent, PaymentStatus, SalesChannel } from '../../types/sales-activity';
 import { formatCurrency } from '@/utils';
 import { cn } from '@/utils';
 import {
@@ -65,6 +65,7 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
                             <TableHead label="Customer name" />
                             <TableHead label="Contact number" />
                             <TableHead label="Location" />
+                            <TableHead label="Order Source" />
                             <TableHead label="Payment status" />
                             <TableHead label="Payment Method" />
                             <TableHead label="Total amount" align="right" />
@@ -282,6 +283,9 @@ const ActivityRow = ({ row, onClick }: { row: TransactionEvent; onClick: () => v
                 </div>
             </td>
             <td className="px-4 py-3">
+                <OrderSourceBadge channel={row.channel} />
+            </td>
+            <td className="px-4 py-3">
                 <div className="flex justify-center">
                     <PaymentStatusBadge status={row.paymentStatus} />
                 </div>
@@ -344,6 +348,20 @@ const PaymentStatusBadge = ({ status }: { status: PaymentStatus }) => {
     return (
         <span className={cn("px-2 py-0.5 rounded text-[9px] font-black uppercase border tracking-widest", styles[status])}>
             {status}
+        </span>
+    );
+};
+
+const OrderSourceBadge = ({ channel }: { channel: SalesChannel }) => {
+    const styles: Record<SalesChannel, string> = {
+        POS: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+        ONLINE: 'bg-blue-50 text-blue-600 border-blue-100',
+        UBER: 'bg-violet-50 text-violet-600 border-violet-100',
+        PHONE: 'bg-amber-50 text-amber-600 border-amber-100',
+    };
+    return (
+        <span className={cn('px-2 py-0.5 rounded text-[9px] font-black uppercase border tracking-widest', styles[channel] || 'bg-slate-50 text-slate-500 border-slate-100')}>
+            {channel}
         </span>
     );
 };

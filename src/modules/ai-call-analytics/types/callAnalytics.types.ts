@@ -86,6 +86,7 @@ export interface AiCall {
     issue_detected: IssueDetected;
     status_color: StatusColor; // Computed by backend accessor
     agent_id: string | null; // Vapi Assistant ID
+    has_analysis: boolean;
 }
 
 /**
@@ -115,6 +116,8 @@ export interface AiCallAlert {
  */
 export interface CallStats {
     total_calls: number;
+    analyzed_calls: number;
+    analysis_coverage_pct: number;
     successful_calls: number;
     failed_calls: number;
     partial_calls: number;

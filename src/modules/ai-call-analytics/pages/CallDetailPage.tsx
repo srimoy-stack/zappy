@@ -15,9 +15,9 @@ const fmtDur = (s: number | null) => { if (!s) return '—'; const m = Math.floo
 const fmtTime = (s: number) => { const m = Math.floor(s / 60), r = Math.floor(s % 60); return `${m}:${r.toString().padStart(2, '0')}`; };
 
 const STATUS_CFG: Record<string, { gradient: string; icon: React.FC<{className?:string; style?: React.CSSProperties}>; label: string }> = {
-    green: { gradient: 'from-emerald-500 to-teal-600', icon: CheckCircle, label: 'Healthy' },
-    yellow: { gradient: 'from-amber-500 to-orange-600', icon: AlertTriangle, label: 'Needs Attention' },
-    red: { gradient: 'from-red-500 to-rose-600', icon: XCircle, label: 'Critical' },
+    green: { gradient: 'from-emerald-600 to-emerald-700', icon: CheckCircle, label: 'Successful' },
+    yellow: { gradient: 'from-slate-600 to-slate-700', icon: AlertTriangle, label: 'Needs Review' },
+    red: { gradient: 'from-slate-700 to-slate-800', icon: XCircle, label: 'Failed' },
 };
 
 const TYPE_CFG: Record<string, { label: string; Icon: React.FC<{className?:string; style?: React.CSSProperties}> }> = {
@@ -61,29 +61,39 @@ export default function CallDetailPage({ callId, onBack }: Props) {
             {onBack && <BackBtn onClick={onBack} />}
 
             {/* ━━ Hero Banner ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-            <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${status.gradient} p-6 text-white shadow-lg mb-6`}>
-                <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/10" />
-                <div className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-white/5" />
+            <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${status.gradient} p-6 text-white shadow-lg mb-6`}>
+                <div className="absolute -right-8 -top-8 h-36 w-36 rounded-full bg-white/[0.04]" />
+                <div className="absolute -right-12 -bottom-12 h-44 w-44 rounded-full bg-white/[0.03]" />
                 <div className="relative z-10">
                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                         <div>
-                            <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                <span className="inline-flex items-center gap-1 bg-white/20 rounded-full px-2.5 py-0.5 text-xs font-semibold backdrop-blur-sm">
-                                    <StatusIcon className="h-3 w-3" /> {status.label}
+                            <div className="flex items-center gap-2 mb-3 flex-wrap">
+                                <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-sm ${
+                                    d.status_color === 'green' ? 'bg-emerald-400/25 text-emerald-100' :
+                                    d.status_color === 'red' ? 'bg-red-400/25 text-red-200' :
+                                    'bg-amber-400/20 text-amber-200'
+                                }`}>
+                                    <StatusIcon className="h-3.5 w-3.5" /> {status.label}
                                 </span>
                                 {typeInfo && (
-                                    <span className="inline-flex items-center gap-1 bg-white/15 rounded-full px-2.5 py-0.5 text-xs backdrop-blur-sm">
+                                    <span className="inline-flex items-center gap-1 bg-white/10 rounded-full px-2.5 py-1 text-xs text-white/80 backdrop-blur-sm">
                                         <typeInfo.Icon className="h-3 w-3" /> {typeInfo.label}
                                     </span>
                                 )}
-                                <span className="bg-white/15 rounded-full px-2.5 py-0.5 text-xs capitalize backdrop-blur-sm">
+                                <span className="bg-white/10 rounded-full px-2.5 py-1 text-xs text-white/80 capitalize backdrop-blur-sm">
                                     {d.call_status?.replace(/_/g, ' ')}
                                 </span>
                             </div>
-                            <h1 className="text-xl font-bold mb-1">Call Detail</h1>
-                            <p className="text-white/60 text-xs font-mono">{d.call_id}</p>
+                            <h1 className="text-lg font-semibold mb-1 tracking-tight">
+                                {d.caller_number || 'Unknown Caller'}
+                            </h1>
+                            <p className="text-white/50 text-xs">
+                                {d.call_datetime ? new Date(d.call_datetime).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : ''}
+                                {d.started_at ? ` · ${new Date(d.started_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
+                                {d.ended_reason ? ` · ${d.ended_reason.replace(/-/g, ' ')}` : ''}
+                            </p>
                         </div>
-                        <div className="flex gap-5 shrink-0">
+                        <div className="flex gap-6 shrink-0">
                             <HeroStat icon={Clock} label="Duration" value={fmtDur(d.duration_seconds)} />
                             <HeroStat icon={Timer} label="Started" value={d.started_at ? new Date(d.started_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—'} />
                             <HeroStat icon={DollarSign} label="Cost" value={d.cost != null ? `$${Number(d.cost).toFixed(3)}` : '—'} />
@@ -140,9 +150,9 @@ export default function CallDetailPage({ callId, onBack }: Props) {
 
                     <Card title="Call Info" icon={Phone} accent="blue" compact>
                         <InfoRows items={[
-                            { k: 'Caller', v: d.caller_number },
-                            { k: 'Location', v: d.location_id, mono: true },
-                            { k: 'Agent ID', v: d.agent_id || '—', mono: true },
+                            { k: 'Caller', v: d.caller_number || '—' },
+                            ...(d.location_id ? [{ k: 'Location', v: d.location_id, mono: true }] : []),
+                            { k: 'Agent', v: d.agent_id ? `${d.agent_id.slice(0, 8)}…` : '—', mono: true },
                             { k: 'Date/Time', v: d.call_datetime ? new Date(d.call_datetime).toLocaleString() : '—' },
                             { k: 'Duration', v: fmtDur(d.duration_seconds) },
                             { k: 'Ended', v: d.ended_reason?.replace(/-/g, ' ').replace(/\./g, ' › ') || '—' },
@@ -179,12 +189,19 @@ export default function CallDetailPage({ callId, onBack }: Props) {
                     )}
 
                     <Card title="System" icon={Shield} accent="slate" compact>
-                        <div className="text-xs text-slate-500 space-y-1">
-                            <p><span className="font-medium text-slate-600">ID:</span> {d.id}</p>
-                            <p><span className="font-medium text-slate-600">Status:</span> {d.status_color}</p>
+                        <div className="text-xs text-slate-500 space-y-1.5">
+                            <p><span className="font-medium text-slate-600">Ref:</span> #{String(d.id).padStart(4, '0')}</p>
+                            <p className="flex items-center gap-1.5">
+                                <span className="font-medium text-slate-600">Health:</span>
+                                <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                                    d.status_color === 'green' ? 'bg-emerald-50 text-emerald-700' :
+                                    d.status_color === 'red' ? 'bg-red-50 text-red-700' :
+                                    'bg-amber-50 text-amber-700'
+                                }`}>{d.status_color === 'green' ? 'Healthy' : d.status_color === 'red' ? 'Critical' : 'Review'}</span>
+                            </p>
                             {d.log_url && (
                                 <a href={d.log_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-indigo-600 hover:underline mt-2">
-                                    <ExternalLink className="h-3 w-3" /> View Vapi Logs
+                                    <ExternalLink className="h-3 w-3" /> View Call Logs
                                 </a>
                             )}
                         </div>

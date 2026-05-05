@@ -8,6 +8,8 @@ interface DataStatusBarProps {
     isRefreshing: boolean;
     error: string | null;
     totalRecords: number;
+    analyzedRecords?: number;
+    analysisCoverage?: number;
     onRefresh: () => void;
 }
 
@@ -20,6 +22,8 @@ export const DataStatusBar: React.FC<DataStatusBarProps> = ({
     isRefreshing,
     error,
     totalRecords,
+    analyzedRecords,
+    analysisCoverage,
     onRefresh,
 }) => {
     const [timeAgo, setTimeAgo] = useState('');
@@ -72,6 +76,14 @@ export const DataStatusBar: React.FC<DataStatusBarProps> = ({
                     <Database className="h-3 w-3" />
                     <span>{totalRecords.toLocaleString()} records</span>
                 </div>
+
+                {/* Analysis coverage */}
+                {analyzedRecords !== undefined && analysisCoverage !== undefined && (
+                    <div className="flex items-center gap-1 text-slate-500">
+                        <span className={`inline-block h-1.5 w-1.5 rounded-full ${analysisCoverage >= 80 ? 'bg-emerald-500' : analysisCoverage >= 50 ? 'bg-amber-500' : 'bg-red-500'}`} />
+                        <span>{analysisCoverage}% analyzed ({analyzedRecords})</span>
+                    </div>
+                )}
 
                 {/* Last updated */}
                 {lastUpdated && (

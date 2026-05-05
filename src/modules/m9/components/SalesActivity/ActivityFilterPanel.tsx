@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouteAccess } from '@/hooks/useRouteAccess';
-import { ActivityFilters, PaymentStatus } from '../../types/sales-activity';
+import { ActivityFilters, PaymentStatus, SalesChannel } from '../../types/sales-activity';
 import { Calendar, Filter, RotateCcw } from 'lucide-react';
 
 interface ActivityFilterPanelProps {
@@ -88,6 +88,20 @@ export const ActivityFilterPanel: React.FC<ActivityFilterPanelProps> = ({
                         <option>Cash</option>
                         <option>Card</option>
                         <option>Online</option>
+                    </select>
+                </FilterField>
+
+                <FilterField label="Order Source">
+                    <select
+                        className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        value={filters.channel?.[0] || ''}
+                        onChange={(e) => onFilterChange({ ...filters, channel: e.target.value ? [e.target.value as SalesChannel] : [] })}
+                    >
+                        <option value="">All</option>
+                        <option value="POS">POS</option>
+                        <option value="ONLINE">Online</option>
+                        <option value="UBER">Uber Eats</option>
+                        <option value="PHONE">Phone</option>
                     </select>
                 </FilterField>
 

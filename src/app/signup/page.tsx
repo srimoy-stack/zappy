@@ -46,7 +46,14 @@ export default function SignupPage() {
                 }),
             });
 
-            const data = await res.json();
+            let data;
+            try {
+                data = await res.json();
+            } catch {
+                setError('Server returned an invalid response. Please try again.');
+                setIsLoading(false);
+                return;
+            }
 
             if (!res.ok) {
                 // Extract validation errors

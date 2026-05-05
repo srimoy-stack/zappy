@@ -16,8 +16,9 @@ interface InsightCardsProps {
 export const InsightCards: React.FC<InsightCardsProps> = ({ stats, alertCount }) => {
     if (!stats || stats.total_calls === 0) return null;
 
-    const successRate = ((stats.successful_calls / stats.total_calls) * 100).toFixed(1);
-    const failureRate = ((stats.failed_calls / stats.total_calls) * 100).toFixed(1);
+    const base = stats.analyzed_calls || stats.total_calls; // fallback for backward compat
+    const successRate = base > 0 ? ((stats.successful_calls / base) * 100).toFixed(1) : '0.0';
+    const failureRate = base > 0 ? ((stats.failed_calls / base) * 100).toFixed(1) : '0.0';
 
     const cards = [
         {
