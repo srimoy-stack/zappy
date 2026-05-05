@@ -13,7 +13,8 @@ import {
     Building2,
     Monitor,
     Tv,
-    Mail
+    Mail,
+    Phone
 } from 'lucide-react';
 import { UserRole, ModuleId } from '@/types';
 
@@ -144,6 +145,20 @@ export const navigationConfig: MenuConfig[] = [
         requiresStoreScope: false,
         requiredModule: 'email-campaigns'
     },
+    // ── AI Call Analytics ────────────────────────────────────────────────
+    {
+        id: 'call-analytics',
+        label: 'Call Analytics',
+        route: '/backoffice/call-analytics',
+        icon: 'Phone',
+        allowedRoles: ['BRAND_ADMIN', 'ADMIN'],
+        accessMode: {
+            BRAND_ADMIN: 'full',
+            ADMIN: 'full'
+        },
+        requiresStoreScope: false,
+        requiredModule: 'analytics'
+    },
     {
         id: 'inventory',
         label: 'Inventory',
@@ -273,5 +288,6 @@ export const iconMap = {
     Building2,
     Monitor,
     Tv,
-    Mail
+    Mail,
+    Phone
 };

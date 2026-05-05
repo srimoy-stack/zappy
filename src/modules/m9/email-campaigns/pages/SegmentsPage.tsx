@@ -416,7 +416,7 @@ export const SegmentsPage: React.FC = () => {
                                     const isDeleting = deleteInProgress && deleteModal.segmentId === segment.id;
                                     const isUpdatingStatus = rowLoading?.segmentId === segment.id && rowLoading?.action === 'status';
                                     const isDisabled = isAnyBusy;
-                                    const hasRules = segment.rules_json && segment.rules_json.rules.length > 0;
+                                    const hasRules = !!segment.rules_json?.rules?.length;
                                     const rowError = inlineErrors.find((e) => e.segmentId === segment.id);
 
                                     return (
@@ -434,7 +434,7 @@ export const SegmentsPage: React.FC = () => {
                                                         </span>
                                                         <span className="text-[11px] text-slate-400 mt-0.5">
                                                             {hasRules
-                                                                ? `${segment.rules_json!.rules.length} rule${segment.rules_json!.rules.length !== 1 ? 's' : ''} · ${segment.rules_json!.logic}`
+                                                                ? `${segment.rules_json?.rules?.length || 0} rule${segment.rules_json?.rules?.length !== 1 ? 's' : ''} · ${segment.rules_json?.logic || 'AND'}`
                                                                 : 'No rules configured'}
                                                         </span>
                                                     </div>

@@ -166,6 +166,10 @@ export const SalesActivityPage: React.FC = () => {
             result = result.filter(e => filters.paymentStatus?.includes(e.paymentStatus));
         }
 
+        if (filters.channel && filters.channel.length > 0) {
+            result = result.filter(e => filters.channel?.includes(e.channel));
+        }
+
         setFilteredData(result);
         setCurrentPage(1);
     }, [filters, data]);

@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///home/lenovo/Desktop/zappy/src/app/backoffice/email-campaigns/suppression/page.tsx"],"sourcesContent":["'use client';\n\nimport React from 'react';\nimport { SuppressionPage } from '@/modules/m9/email-campaigns/pages/SuppressionPage';\n\nexport default function SuppressionRoute() {\n    return <SuppressionPage />;\n}\n"],"names":[],"mappings":";;;;;AAGA;AAHA;;;AAKe,SAAS;IACpB,qBAAO,8OAAC,0LAAe;;;;;AAC3B"}}]
-}

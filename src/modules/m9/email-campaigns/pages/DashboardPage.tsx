@@ -92,12 +92,12 @@ export const DashboardPage: React.FC = () => {
     }, [filters]);
 
     // ── Stat Card Component ───────────────────────────────────────────
-    const StatCard = ({ 
-        label, 
-        value, 
-        icon: Icon, 
-        trend, 
-        suffix = '', 
+    const StatCard = ({
+        label,
+        value,
+        icon: Icon,
+        trend,
+        suffix = '',
         colorClass = 'text-indigo-600',
         bgClass = 'bg-indigo-50'
     }: any) => (
@@ -155,12 +155,12 @@ export const DashboardPage: React.FC = () => {
                         <Filter className="w-3.5 h-3.5 text-slate-400" />
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Filters</span>
                     </div>
-                    
+
                     {/* Date Selector */}
                     <div className="relative group/select">
-                        <select 
+                        <select
                             value={filters.dateRange}
-                            onChange={(e) => setFilters({...filters, dateRange: e.target.value})}
+                            onChange={(e) => setFilters({ ...filters, dateRange: e.target.value })}
                             className="appearance-none bg-slate-50 hover:bg-indigo-50 border border-slate-200 rounded-xl px-4 py-2 pr-10 text-xs font-bold text-slate-700 outline-none transition-all cursor-pointer min-w-[160px]"
                         >
                             <option value="today">Today</option>
@@ -174,9 +174,9 @@ export const DashboardPage: React.FC = () => {
 
                     {/* Store Selector */}
                     <div className="relative group/select">
-                        <select 
+                        <select
                             value={filters.store}
-                            onChange={(e) => setFilters({...filters, store: e.target.value})}
+                            onChange={(e) => setFilters({ ...filters, store: e.target.value })}
                             className="appearance-none bg-slate-50 hover:bg-indigo-50 border border-slate-200 rounded-xl px-4 py-2 pr-10 text-xs font-bold text-slate-700 outline-none transition-all cursor-pointer min-w-[140px]"
                         >
                             <option value="all">All Stores</option>
@@ -189,9 +189,9 @@ export const DashboardPage: React.FC = () => {
 
                     {/* Type Selector */}
                     <div className="relative group/select">
-                        <select 
+                        <select
                             value={filters.type}
-                            onChange={(e) => setFilters({...filters, type: e.target.value})}
+                            onChange={(e) => setFilters({ ...filters, type: e.target.value })}
                             className="appearance-none bg-slate-50 hover:bg-indigo-50 border border-slate-200 rounded-xl px-4 py-2 pr-10 text-xs font-bold text-slate-700 outline-none transition-all cursor-pointer min-w-[140px]"
                         >
                             <option value="all">Every Type</option>
@@ -204,9 +204,9 @@ export const DashboardPage: React.FC = () => {
 
                     {/* Status Selector */}
                     <div className="relative group/select">
-                        <select 
+                        <select
                             value={filters.status}
-                            onChange={(e) => setFilters({...filters, status: e.target.value})}
+                            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
                             className="appearance-none bg-slate-50 hover:bg-indigo-50 border border-slate-200 rounded-xl px-4 py-2 pr-10 text-xs font-bold text-slate-700 outline-none transition-all cursor-pointer min-w-[140px]"
                         >
                             <option value="all">All Status</option>
@@ -221,36 +221,36 @@ export const DashboardPage: React.FC = () => {
 
             {/* ── Main Stats Grid ─────────────────────────────────────── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard 
-                    label="Campaigns Sent" 
-                    value={s.totalSent} 
-                    icon={Mail} 
+                <StatCard
+                    label="Campaigns Sent"
+                    value={s.totalSent}
+                    icon={Mail}
                     trend={s.trends.sent}
                     colorClass="text-indigo-600"
                     bgClass="bg-indigo-50"
                 />
-                <StatCard 
-                    label="Total Recipients" 
-                    value={s.totalRecipients} 
-                    icon={Users} 
+                <StatCard
+                    label="Total Recipients"
+                    value={s.totalRecipients}
+                    icon={Users}
                     colorClass="text-blue-600"
                     bgClass="bg-blue-50"
                 />
-                <StatCard 
-                    label="Avg. Open Rate" 
-                    value={s.openRate} 
-                    suffix="%" 
+                <StatCard
+                    label="Avg. Open Rate"
+                    value={s.openRate}
+                    suffix="%"
                     trend={s.trends.open}
-                    icon={MailCheck} 
+                    icon={MailCheck}
                     colorClass="text-emerald-600"
                     bgClass="bg-emerald-50"
                 />
-                <StatCard 
-                    label="Avg. Click Rate" 
-                    value={s.clickRate} 
-                    suffix="%" 
+                <StatCard
+                    label="Avg. Click Rate"
+                    value={s.clickRate}
+                    suffix="%"
                     trend={s.trends.click}
-                    icon={MousePointerClick} 
+                    icon={MousePointerClick}
                     colorClass="text-amber-600"
                     bgClass="bg-amber-50"
                 />
@@ -262,11 +262,11 @@ export const DashboardPage: React.FC = () => {
                 <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
                     <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                         <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                             Performance Metrics
+                            Performance Metrics
                         </h3>
                         <span className="text-[10px] font-bold text-slate-400">Past {filters.dateRange.replace(/_/g, ' ')}</span>
                     </div>
-                    
+
                     <div className="p-8 grid grid-cols-1 sm:grid-cols-3 gap-8 flex-1">
                         <div className="space-y-2">
                             <div className="flex items-center gap-3 mb-4">
@@ -350,7 +350,7 @@ export const DashboardPage: React.FC = () => {
                                 <span className="animate-pulse flex h-2 w-2 rounded-full bg-amber-600"></span>
                             )}
                         </div>
-                        
+
                         <div className="space-y-4">
                             <div className="flex justify-between items-center">
                                 <span className="text-xs font-bold text-slate-500">Alerts</span>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import {
     Contact2,
     Plus,
@@ -19,10 +19,12 @@ import {
     UserCheck,
     UserX,
     MailWarning,
+    Edit,
 } from 'lucide-react';
 import { useContactsList } from '../hooks/useContactsList';
 import { contactService } from '../services/contactService';
 import {
+    ContactRecord,
     ContactConsentStatus,
     ContactSuppressionStatus,
     ContactFilters,
@@ -71,6 +73,11 @@ const SUPPRESSION_CONFIG: Record<
         icon: <ShieldAlert className="w-3 h-3" />,
     },
     not_suppressed: {
+        label: 'Active',
+        className: 'bg-sky-50 text-sky-700 ring-sky-200/60',
+        icon: <ShieldCheck className="w-3 h-3" />,
+    },
+    active: {
         label: 'Active',
         className: 'bg-sky-50 text-sky-700 ring-sky-200/60',
         icon: <ShieldCheck className="w-3 h-3" />,
@@ -393,6 +400,179 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
                                 <Plus className="w-4 h-4" />
                             )}
                             Add Contact
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+// ============================================================================
+// MODAL: Edit Contact
+// ============================================================================
+
+interface EditContactModalProps {
+    open: boolean;
+    contact: ContactRecord | null;
+    stores: { id: string; name: string }[];
+    loading: boolean;
+    onSubmit: (id: string, payload: Partial<CreateContactPayload>) => void;
+    onClose: () => void;
+}
+
+const EditContactModal: React.FC<EditContactModalProps> = ({
+    open,
+    contact,
+    stores,
+    loading,
+    onSubmit,
+    onClose,
+}) => {
+    const [name, setName] = useState('');
+    const [storeId, setStoreId] = useState('');
+    const [consentStatus, setConsentStatus] = useState<ContactConsentStatus | ''>('');
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const clearError = useCallback((key: string) => {
+        setErrors((prev) => {
+            if (!prev[key]) return prev;
+            const next = { ...prev };
+            delete next[key];
+            return next;
+        });
+    }, []);
+
+    useEffect(() => {
+        if (contact) {
+            setName(contact.name || '');
+            setStoreId(contact.store_id || '');
+            setConsentStatus(contact.consent_status || '');
+            setErrors({});
+        }
+    }, [contact]);
+
+    const validate = useCallback((): boolean => {
+        const e: Record<string, string> = {};
+        if (!name.trim()) e.name = 'Name is required';
+        if (!storeId) e.storeId = 'Store is required';
+        if (!consentStatus) e.consentStatus = 'Consent status is required';
+        setErrors(e);
+        return Object.keys(e).length === 0;
+    }, [name, storeId, consentStatus]);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validate() || !contact) return;
+        onSubmit(contact.id, {
+            name: name.trim(),
+            store_id: storeId,
+            consent_status: consentStatus as ContactConsentStatus,
+        });
+    };
+
+    if (!open || !contact) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 mx-4 overflow-hidden">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-indigo-600 rounded-xl text-white">
+                            <Edit className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-bold text-slate-900">Edit Contact</h2>
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{contact.email}</p>
+                        </div>
+                    </div>
+                    <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-600"><X className="w-4 h-4" /></button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                    <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => { setName(e.target.value); clearError('name'); }}
+                            className={`w-full px-3 py-2 text-sm bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-200 transition-all ${
+                                errors.name ? 'border-red-300 focus:ring-red-200' : 'border-slate-200'
+                            }`}
+                        />
+                        {errors.name && (
+                            <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1">
+                                <AlertCircle className="w-3 h-3" />
+                                {errors.name}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">Store</label>
+                        <select
+                            value={storeId}
+                            onChange={(e) => { setStoreId(e.target.value); clearError('storeId'); }}
+                            className={`w-full px-3 py-2 text-sm bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-200 transition-all ${
+                                errors.storeId ? 'border-red-300 focus:ring-red-200' : 'border-slate-200'
+                            }`}
+                        >
+                            <option value="">Select store…</option>
+                            {stores.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                        </select>
+                        {errors.storeId && (
+                            <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1">
+                                <AlertCircle className="w-3 h-3" />
+                                {errors.storeId}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">Consent Status</label>
+                        <div className="grid grid-cols-3 gap-2">
+                            {([
+                                { value: 'eligible', label: 'Eligible', icon: UserCheck, color: 'emerald' },
+                                { value: 'unsubscribed', label: 'Unsubscribed', icon: UserX, color: 'amber' },
+                                { value: 'no_consent', label: 'No Consent', icon: MailWarning, color: 'red' },
+                            ] as const).map(opt => {
+                                const isSelected = consentStatus === opt.value;
+                                return (
+                                    <button
+                                        key={opt.value}
+                                        type="button"
+                                        onClick={() => { setConsentStatus(opt.value); clearError('consentStatus'); }}
+                                        className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all text-xs font-bold ${
+                                            isSelected
+                                                ? opt.color === 'emerald' ? 'border-emerald-400 bg-emerald-50 text-emerald-700' :
+                                                  opt.color === 'amber' ? 'border-amber-400 bg-amber-50 text-amber-700' :
+                                                  'border-red-400 bg-red-50 text-red-700'
+                                                : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300'
+                                        }`}
+                                    >
+                                        <opt.icon className="w-4 h-4" />
+                                        {opt.label}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        {errors.consentStatus && (
+                            <p className="text-[11px] text-red-600 mt-1.5 flex items-center gap-1">
+                                <ShieldAlert className="w-3 h-3" />
+                                {errors.consentStatus}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                        <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-bold text-slate-500">Cancel</button>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-sm hover:bg-indigo-700 transition-all active:scale-95"
+                        >
+                            {loading ? 'Saving...' : 'Save Changes'}
                         </button>
                     </div>
                 </form>
@@ -732,6 +912,9 @@ export const ContactsPage: React.FC = () => {
     // ── Modal state ────────────────────────────────────────────────────
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [addLoading, setAddLoading] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
+    const [selectedContact, setSelectedContact] = useState<ContactRecord | null>(null);
     const [csvModalOpen, setCsvModalOpen] = useState(false);
     const [csvImporting, setCsvImporting] = useState(false);
 
@@ -773,6 +956,22 @@ export const ContactsPage: React.FC = () => {
         }
     };
 
+    // ── Update contact ─────────────────────────────────────────────────
+    const handleUpdateContact = async (id: string, payload: Partial<CreateContactPayload>) => {
+        setEditLoading(true);
+        try {
+            await contactService.updateContact(id, payload);
+            setEditModalOpen(false);
+            await refetch();
+            toast.success('Contact updated', 'Changes have been saved successfully.');
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Failed to update contact';
+            toast.error('Update failed', message);
+        } finally {
+            setEditLoading(false);
+        }
+    };
+
     // ── CSV import ─────────────────────────────────────────────────────
     const handleCsvImport = async (validRows: CreateContactPayload[]) => {
         setCsvImporting(true);
@@ -795,7 +994,7 @@ export const ContactsPage: React.FC = () => {
     // ── Toggle suppression ─────────────────────────────────────────────
     const handleToggleSuppression = async (
         contactId: string,
-        current: 'suppressed' | 'not_suppressed'
+        current: ContactSuppressionStatus
     ) => {
         const newStatus = current === 'suppressed' ? 'not_suppressed' : 'suppressed';
         try {
@@ -824,6 +1023,16 @@ export const ContactsPage: React.FC = () => {
                 loading={addLoading}
                 onSubmit={handleAddContact}
                 onClose={() => setAddModalOpen(false)}
+            />
+
+            {/* ── Edit Contact Modal ──────────────────────────────────── */}
+            <EditContactModal
+                open={editModalOpen}
+                contact={selectedContact}
+                stores={stores}
+                loading={editLoading}
+                onSubmit={handleUpdateContact}
+                onClose={() => setEditModalOpen(false)}
             />
 
             {/* ── CSV Import Modal ────────────────────────────────────── */}
@@ -1149,13 +1358,14 @@ export const ContactsPage: React.FC = () => {
                                             {col.label}
                                         </th>
                                     ))}
+                                    <th className="px-4 py-2 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {contacts.map((contact) => {
-                                    const consentCfg = CONSENT_CONFIG[contact.consent_status];
+                                    const consentCfg = CONSENT_CONFIG[contact.consent_status] || CONSENT_CONFIG.no_consent;
                                     const suppressionCfg =
-                                        SUPPRESSION_CONFIG[contact.suppression_status];
+                                        SUPPRESSION_CONFIG[contact.suppression_status] || SUPPRESSION_CONFIG.active;
 
                                     return (
                                         <tr
@@ -1232,6 +1442,20 @@ export const ContactsPage: React.FC = () => {
                                                 >
                                                     {suppressionCfg.icon}
                                                     {suppressionCfg.label}
+                                                </button>
+                                            </td>
+
+                                            {/* Actions */}
+                                            <td className="px-4 py-2.5 text-right">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedContact(contact);
+                                                        setEditModalOpen(true);
+                                                    }}
+                                                    className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                                    title="Edit contact"
+                                                >
+                                                    <Edit className="w-3.5 h-3.5" />
                                                 </button>
                                             </td>
                                         </tr>

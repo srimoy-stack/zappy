@@ -32,6 +32,9 @@ const FIELDS: FieldConfig[] = [
     { value: 'total_spend', label: 'Total Spend ($)', type: 'number', icon: <DollarSign className="w-3.5 h-3.5" />, description: 'Cumulative spend amount' },
     { value: 'orders_count', label: 'Orders Count', type: 'number', icon: <ShoppingCart className="w-3.5 h-3.5" />, description: 'Number of orders placed' },
     { value: 'store_id', label: 'Store', type: 'multi', icon: <Store className="w-3.5 h-3.5" />, description: 'Multi-tenant store filter' },
+    { value: 'favorite_category', label: 'Favorite Category', type: 'string', icon: <Hash className="w-3.5 h-3.5" />, description: 'Top purchased category' },
+    { value: 'opened_campaigns_count', label: 'Opened Campaigns', type: 'number', icon: <Clock className="w-3.5 h-3.5" />, description: 'Count of opened campaigns' },
+    { value: 'clicked_campaigns_count', label: 'Clicked Campaigns', type: 'number', icon: <Clock className="w-3.5 h-3.5" />, description: 'Count of clicked campaigns' },
     { value: 'consent_status', label: 'Consent Status', type: 'select', icon: <Shield className="w-3.5 h-3.5" />, description: 'Compliance consent state' },
 ];
 
@@ -60,7 +63,7 @@ const OPERATORS_FOR_TYPE: Record<'number' | 'string' | 'select' | 'multi', { val
 const CONSENT_OPTIONS: { value: ConsentStatus; label: string; color: string }[] = [
     { value: 'eligible', label: 'Eligible', color: '#059669' },
     { value: 'unsubscribed', label: 'Unsubscribed', color: '#d97706' },
-    { value: 'suppressed', label: 'Suppressed', color: '#dc2626' },
+    { value: 'no_consent', label: 'No Consent', color: '#dc2626' },
 ];
 
 // ============================================================================
@@ -113,10 +116,13 @@ function getValueLabel(rule: SegmentRule, stores: StoreOption[]): string {
  * Strips internal `id` fields and maps to { field, operator, value }.
  */
 export function buildRulesJson(name: string, payload: SegmentRulesPayload): RulesJsonOutput {
+    const logic = payload?.logic || 'AND';
+    const rules = payload?.rules || [];
+    
     return {
         name,
-        logic: payload.logic,
-        conditions: payload.rules.map((r) => ({
+        logic,
+        conditions: rules.map((r) => ({
             field: r.field,
             operator: r.operator,
             value: r.value,
@@ -135,13 +141,14 @@ export interface ValidationResult {
 
 export function validateRules(rules: SegmentRule[]): ValidationResult {
     const errors: string[] = [];
+    const safeRules = rules || [];
 
-    if (rules.length === 0) {
+    if (safeRules.length === 0) {
         errors.push('At least 1 rule is required');
         return { valid: false, errors };
     }
 
-    rules.forEach((r, idx) => {
+    safeRules.forEach((r, idx) => {
         const label = `Rule #${idx + 1}`;
         const cfg = getFieldConfig(r.field);
 
@@ -214,7 +221,8 @@ export const SegmentRuleBuilder: React.FC<SegmentRuleBuilderProps> = ({
     segmentName = '',
     showSummary = true,
 }) => {
-    const { logic, rules } = value;
+    const logic = value?.logic || 'AND';
+    const rules = value?.rules || [];
     const [stores, setStores] = useState<StoreOption[]>([]);
     const [estimate, setEstimate] = useState<EstimateCountResponse | null>(null);
     const [estimateLoading, setEstimateLoading] = useState(false);

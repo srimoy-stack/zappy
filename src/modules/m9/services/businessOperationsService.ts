@@ -57,9 +57,9 @@ const INITIAL_DATA: BusinessOperationsSettings = {
     },
     sms: {
         provider: 'Twilio',
-        accountSid: 'ACxxxxxxxxxxxxxxxxxxxxxxxx',
-        authToken: '••••••••••••••••••••••••',
-        senderNumber: '+1234567890'
+        accountSid: 'AC' + '•'.repeat(32),
+        authToken: '•'.repeat(32),
+        senderNumber: '+10000000000'
     },
     loyalty: {
         isEnabled: true,

@@ -40,11 +40,11 @@ import {
 // ============================================================================
 
 const STEPS = [
-    { id: 'basics', label: 'Basics', icon: Mail },
-    { id: 'audience', label: 'Audience', icon: Users },
-    { id: 'content', label: 'Content', icon: FileText },
-    { id: 'review', label: 'Review & Comply', icon: ShieldCheck },
-    { id: 'send', label: 'Send', icon: Send },
+    { id: 'basics', label: 'Basics', icon: Mail, description: 'Campaign details' },
+    { id: 'audience', label: 'Audience', icon: Users, description: 'Choose recipients' },
+    { id: 'content', label: 'Content', icon: FileText, description: 'Template & preview' },
+    { id: 'review', label: 'Review & Comply', icon: ShieldCheck, description: 'Final checks' },
+    { id: 'send', label: 'Send', icon: Send, description: 'Schedule or send' },
 ] as const;
 
 type StepId = (typeof STEPS)[number]['id'];
@@ -72,6 +72,46 @@ const INITIAL_DATA: CreateCampaignPayload = {
 };
 
 // ============================================================================
+// REUSABLE UI PIECES
+// ============================================================================
+
+/** Standard form label */
+const Label: React.FC<{ children: React.ReactNode; required?: boolean }> = ({ children, required }) => (
+    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+        {children}{required && <span className="text-rose-500 ml-0.5">*</span>}
+    </label>
+);
+
+/** Standard text input */
+const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => (
+    <input
+        {...props}
+        className={`w-full h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400
+            focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all ${props.className || ''}`}
+    />
+);
+
+/** Stat card for audience numbers */
+const StatCard: React.FC<{ label: string; value: number; variant?: 'default' | 'success' | 'danger' }> = ({ label, value, variant = 'default' }) => {
+    const styles = {
+        default: 'bg-slate-50 border-slate-200',
+        success: 'bg-emerald-50 border-emerald-200',
+        danger: 'bg-rose-50 border-rose-200',
+    };
+    const textStyles = {
+        default: 'text-slate-800',
+        success: 'text-emerald-700',
+        danger: 'text-rose-700',
+    };
+    return (
+        <div className={`p-4 rounded-lg border ${styles[variant]}`}>
+            <p className="text-xs font-medium text-slate-500 mb-1">{label}</p>
+            <p className={`text-2xl font-bold ${textStyles[variant]}`}>{value.toLocaleString()}</p>
+        </div>
+    );
+};
+
+// ============================================================================
 // STEP COMPONENTS
 // ============================================================================
 
@@ -88,66 +128,56 @@ const BasicsStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
     }, [onValidate]);
 
     return (
-    <div className="space-y-5">
+    <div className="max-w-2xl space-y-6">
         <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                Campaign Name *
-            </label>
-            <input
+            <Label required>Campaign Name</Label>
+            <Input
                 type="text"
                 value={data.name}
                 onChange={(e) => onChange({ name: e.target.value })}
                 placeholder="e.g. Spring Sale Announcement"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
             />
+            <p className="mt-1.5 text-xs text-slate-400">Internal name — not visible to recipients.</p>
         </div>
+
         <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                Email Subject *
-            </label>
-            <input
+            <Label required>Email Subject</Label>
+            <Input
                 type="text"
                 value={data.subject}
                 onChange={(e) => onChange({ subject: e.target.value })}
                 placeholder="e.g. 🔥 Don't miss our spring sale!"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
             />
+            <p className="mt-1.5 text-xs text-slate-400">Shown in the inbox. Keep it under 60 characters for best results.</p>
         </div>
+
         <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                Preview Text
-            </label>
-            <input
+            <Label>Preview Text</Label>
+            <Input
                 type="text"
                 value={data.previewText}
                 onChange={(e) => onChange({ previewText: e.target.value })}
-                placeholder="Short text shown in inbox preview"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+                placeholder="Short summary shown next to the subject line"
             />
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                    Sender Name *
-                </label>
-                <input
+                <Label required>Sender Name</Label>
+                <Input
                     type="text"
                     value={data.senderName}
                     onChange={(e) => onChange({ senderName: e.target.value })}
                     placeholder="e.g. Zyappy"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                 />
             </div>
             <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                    Reply-To Email *
-                </label>
-                <input
+                <Label required>Reply-To Email</Label>
+                <Input
                     type="email"
                     value={data.replyTo}
                     onChange={(e) => onChange({ replyTo: e.target.value })}
                     placeholder="e.g. hello@zyappy.com"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                 />
             </div>
         </div>
@@ -192,15 +222,15 @@ const AudienceStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
     }, [data.segmentId, localRules, eligibility, loading, error, onValidate]);
 
     return (
-        <div className="space-y-6">
+        <div className="max-w-3xl space-y-6">
             <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                    Audience Selection *
-                </label>
+                <Label required>Audience</Label>
                 <select
                     value={data.segmentId}
                     onChange={(e) => handleSegmentChange(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 outline-none transition-all font-medium"
+                    className="w-full h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800
+                        focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all appearance-none
+                        bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M6%208l4%204%204-4%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
                 >
                     <option value="all">All Contacts</option>
                     <option value="custom">Custom Segment (Build Rules)</option>
@@ -209,54 +239,45 @@ const AudienceStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
 
             {/* Rule Builder — visible when custom segment is selected */}
             {data.segmentId === 'custom' && (
-                <div className="p-5 bg-white border border-indigo-100 rounded-2xl ring-1 ring-indigo-50">
+                <div className="p-5 bg-white border border-slate-200 rounded-xl">
                     <SegmentRuleBuilder value={localRules} onChange={handleRulesChange} />
                 </div>
             )}
 
             {loading ? (
-                <div className="py-10 flex flex-col items-center justify-center gap-3">
-                    <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Calculating eligibility...</p>
+                <div className="py-12 flex flex-col items-center justify-center gap-3">
+                    <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
+                    <p className="text-sm text-slate-500">Calculating audience size…</p>
                 </div>
             ) : error ? (
-                <div className="p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-500" />
-                    <p className="text-sm text-red-700 font-medium">Failed to calculate audience.</p>
+                <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg flex items-center gap-3">
+                    <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                    <p className="text-sm text-rose-700">Failed to load audience data. Please try again.</p>
                 </div>
             ) : eligibility ? (
-                <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="space-y-5">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total</p>
-                            <p className="text-2xl font-black text-slate-900">{eligibility.total.toLocaleString()}</p>
-                        </div>
-                        <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl ring-1 ring-emerald-200/50">
-                            <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">Eligible</p>
-                            <p className="text-2xl font-black text-emerald-700">{eligibility.eligible.toLocaleString()}</p>
-                        </div>
-                        <div className="p-4 bg-rose-50 border border-rose-100 rounded-2xl ring-1 ring-rose-200/50">
-                            <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-1">Excluded</p>
-                            <p className="text-2xl font-black text-rose-700">{eligibility.excluded.toLocaleString()}</p>
-                        </div>
+                        <StatCard label="Total contacts" value={eligibility.total} />
+                        <StatCard label="Eligible to receive" value={eligibility.eligible} variant="success" />
+                        <StatCard label="Excluded" value={eligibility.excluded} variant="danger" />
                     </div>
 
                     {eligibility.excluded > 0 && (
                         <div className="space-y-3">
-                            <div className="flex items-center gap-2">
+                            <p className="text-sm font-semibold text-slate-600 flex items-center gap-2">
                                 <Info className="w-4 h-4 text-slate-400" />
-                                <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Exclusions</h3>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                Exclusion reasons
+                            </p>
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                 {[
                                     { label: 'No Consent', count: eligibility.reasons.noConsent },
                                     { label: 'Unsubscribed', count: eligibility.reasons.unsubscribed },
                                     { label: 'Suppressed', count: eligibility.reasons.suppressed },
                                     { label: 'Invalid', count: eligibility.reasons.invalid },
                                 ].map((item) => (
-                                    <div key={item.label} className="px-4 py-3 bg-white border border-slate-100 rounded-xl shadow-sm flex items-center justify-between">
-                                        <span className="text-xs font-bold text-slate-500">{item.label}</span>
-                                        <span className="text-sm font-black text-slate-900">{item.count.toLocaleString()}</span>
+                                    <div key={item.label} className="px-4 py-3 bg-white border border-slate-200 rounded-lg flex items-center justify-between">
+                                        <span className="text-xs text-slate-500">{item.label}</span>
+                                        <span className="text-sm font-bold text-slate-800">{item.count.toLocaleString()}</span>
                                     </div>
                                 ))}
                             </div>
@@ -270,18 +291,22 @@ const AudienceStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
 
 // ── Content Step Constants ───────────────────────────────────────────
 
-const PLACEHOLDERS = {
+// Default placeholder fallbacks (used if backend unreachable)
+const DEFAULT_PLACEHOLDERS: Record<string, string> = {
     '{{customer_name}}': 'John Doe',
-    '{{store_name}}': 'Zyappy Store',
-    '{{brand_name}}': 'Zyappy',
-    '{{unsubscribe_url}}': '#unsubscribe',
-    '{{business_address}}': '123 Tech Lane, Silicon Valley, CA',
-    '{{contact_email}}': 'support@zyappy.com',
+    '{{first_name}}': 'John',
+    '{{email}}': 'recipient@example.com',
+    '{{store_name}}': 'Your Store',
+    '{{brand_name}}': 'Your Brand',
+    '{{unsubscribe_url}}': '#unsubscribe-preview',
+    '{{business_address}}': 'Not configured',
+    '{{contact_email}}': 'Not configured',
+    '{{contact_phone}}': '',
 };
 
-function replaceVariables(html: string): string {
+function replaceVariables(html: string, placeholders: Record<string, string> = DEFAULT_PLACEHOLDERS): string {
     let result = html;
-    Object.entries(PLACEHOLDERS).forEach(([key, value]) => {
+    Object.entries(placeholders).forEach(([key, value]) => {
         result = result.split(key).join(value);
     });
     return result;
@@ -293,6 +318,24 @@ const ContentStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
     const [testEmail, setTestEmail] = useState('');
     const [sendingTest, setSendingTest] = useState(false);
     const [testFeedback, setTestFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+    const [editorOpen, setEditorOpen] = useState(false);
+    const [placeholders, setPlaceholders] = useState<Record<string, string>>(DEFAULT_PLACEHOLDERS);
+
+    // Fetch real placeholder values from backend settings
+    React.useEffect(() => {
+        const fetchPlaceholders = async () => {
+            try {
+                const { default: apiClient } = await import('@/api/axios');
+                const res = await apiClient.get('/email-campaigns/settings/preview-placeholders');
+                if (res.data && typeof res.data === 'object') {
+                    setPlaceholders({ ...DEFAULT_PLACEHOLDERS, ...res.data });
+                }
+            } catch {
+                // Fallback to defaults silently
+            }
+        };
+        fetchPlaceholders();
+    }, []);
 
     const selectedTemplate = templates.find((t: EmailTemplate) => t.id === data.templateId);
 
@@ -339,178 +382,186 @@ const ContentStep: React.FC<StepProps> = ({ data, onChange, onValidate }) => {
 
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* ── Left Column: Selection & Editor ────────────────────── */}
-                <div className="space-y-5">
-                    <section className="space-y-3">
-                        <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                             <FileText size={14} /> Select Template
-                        </h3>
-                        {loading ? (
-                            <div className="flex gap-2 p-1 overflow-x-auto">
-                                {[...Array(3)].map((_, i) => (
-                                    <div key={i} className="h-20 w-32 bg-slate-50 border border-slate-100 rounded-xl animate-pulse shrink-0" />
-                                ))}
-                            </div>
-                        ) : error ? (
-                            <div className="p-4 bg-red-50 text-red-600 rounded-xl text-xs font-medium">Failed to load templates.</div>
-                        ) : (
-                            <div className="flex gap-2 p-1 overflow-x-auto pb-2 custom-scrollbar">
-                                {templates.map((template) => (
-                                    <button
-                                        key={template.id}
-                                        onClick={() => onChange({ templateId: template.id, customHtml: template.htmlBody.replace(COMPLIANCE_FOOTER, '') })}
-                                        className={`shrink-0 w-44 text-left p-3 rounded-xl border transition-all
-                                            ${data.templateId === template.id 
-                                                ? 'bg-indigo-600 border-indigo-600 shadow-lg shadow-indigo-100' 
-                                                : 'bg-white border-slate-200 hover:border-indigo-300'}`}
-                                    >
-                                        <div className="flex items-center justify-between mb-1.5">
-                                            <span className={`text-[11px] font-black truncate ${data.templateId === template.id ? 'text-white' : 'text-slate-900'}`}>
-                                                {template.name}
-                                            </span>
-                                            {data.templateId === template.id && <Check className="w-3 h-3 text-white" />}
-                                        </div>
-                                        <div className="h-12 bg-slate-50/10 rounded-lg border border-white/10 overflow-hidden relative">
-                                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/20 to-transparent" />
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </section>
+            {/* ── Template Selection ──────────────────────────────────── */}
+            <section>
+                <Label required>Select Template</Label>
+                {loading ? (
+                    <div className="flex gap-3 mt-2">
+                        {[...Array(3)].map((_, i) => (
+                            <div key={i} className="h-24 w-40 bg-slate-100 rounded-lg animate-pulse shrink-0" />
+                        ))}
+                    </div>
+                ) : error ? (
+                    <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-lg text-sm">Failed to load templates.</div>
+                ) : (
+                    <div className="flex gap-3 mt-2 overflow-x-auto pb-2">
+                        {templates.map((template) => {
+                            const isSelected = data.templateId === template.id;
+                            return (
+                                <button
+                                    key={template.id}
+                                    onClick={() => onChange({ templateId: template.id, customHtml: template.htmlBody.replace(COMPLIANCE_FOOTER, '') })}
+                                    className={`shrink-0 w-44 text-left p-4 rounded-xl border-2 transition-all duration-200
+                                        ${isSelected
+                                            ? 'border-brand bg-brand/5 shadow-sm'
+                                            : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className={`text-sm font-semibold truncate ${isSelected ? 'text-brand-dark' : 'text-slate-700'}`}>
+                                            {template.name}
+                                        </span>
+                                        {isSelected && (
+                                            <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center shrink-0">
+                                                <Check className="w-3 h-3 text-white" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="h-10 bg-slate-50 rounded border border-slate-100" />
+                                </button>
+                            );
+                        })}
+                    </div>
+                )}
+            </section>
 
-                    {data.templateId && (
-                        <section className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                            <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                                <Code size={14} /> HTML Editor
-                            </h3>
-                            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-                                <div className="px-4 py-2.5 bg-slate-800/50 border-b border-white/5 flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">template.html</span>
-                                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">Editable</span>
+            {/* ── Two column: Editor + Preview ────────────────────────── */}
+            {data.templateId && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left: HTML Editor */}
+                    <section className="space-y-3">
+                        <button
+                            onClick={() => setEditorOpen(!editorOpen)}
+                            className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
+                        >
+                            <Code size={16} className="text-slate-400" />
+                            HTML Editor
+                            <ArrowRight size={14} className={`text-slate-400 transition-transform duration-200 ${editorOpen ? 'rotate-90' : ''}`} />
+                        </button>
+
+                        {editorOpen && (
+                            <div className="rounded-xl overflow-hidden border border-slate-700 bg-slate-900 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="px-4 py-2.5 bg-slate-800 border-b border-slate-700 flex items-center justify-between">
+                                    <span className="text-xs font-medium text-slate-400">template.html</span>
+                                    <span className="text-[10px] font-medium text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">Editable</span>
                                 </div>
                                 <textarea
                                     value={data.customHtml || ''}
                                     onChange={(e) => onChange({ customHtml: e.target.value })}
-                                    className="w-full h-[350px] p-5 font-mono text-sm text-slate-300 bg-transparent outline-none resize-none leading-relaxed"
+                                    className="w-full h-[320px] p-4 font-mono text-sm text-slate-300 bg-transparent outline-none resize-none leading-relaxed"
                                     placeholder="Paste or write your HTML content..."
                                 />
                                 {unknownVars.length > 0 && (
-                                    <div className="px-5 py-2 bg-amber-400/10 border-t border-amber-400/20 flex items-center gap-2">
-                                        <TriangleAlert size={12} className="text-amber-400" />
-                                        <p className="text-[9px] font-bold text-amber-400 uppercase tracking-widest">
+                                    <div className="px-4 py-2 bg-amber-900/30 border-t border-amber-500/20 flex items-center gap-2">
+                                        <TriangleAlert size={14} className="text-amber-400 shrink-0" />
+                                        <p className="text-xs text-amber-300">
                                             Unknown variables: {unknownVars.join(', ')}
                                         </p>
                                     </div>
                                 )}
-                                <div className="px-5 py-3 bg-emerald-900/20 border-t border-emerald-400/10">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <ShieldCheck size={12} className="text-emerald-400" />
-                                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
-                                            {compliance.valid ? 'Compliant' : 'Footer Auto-Appended'}
-                                        </span>
-                                    </div>
-                                    <p className="text-[10px] text-emerald-400/60 font-medium italic">
-                                        Legal footer is automatically appended to ensure regulatory compliance.
-                                    </p>
+                                <div className="px-4 py-2.5 bg-emerald-900/20 border-t border-emerald-500/10 flex items-center gap-2">
+                                    <ShieldCheck size={14} className="text-emerald-400" />
+                                    <span className="text-xs text-emerald-400/80">
+                                        {compliance.valid ? 'Compliant' : 'Compliance footer will be auto-appended'}
+                                    </span>
                                 </div>
                             </div>
-                        </section>
-                    )}
-                </div>
+                        )}
 
-                {/* ── Right Column: Live Preview ─────────────────────────── */}
-                <div className="space-y-5 flex flex-col">
-                    <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                         <Eye size={14} /> Desktop Preview
-                    </h3>
-                    
-                    <div className="flex-1 bg-slate-100 border border-slate-200 rounded-3xl overflow-hidden min-h-[500px] flex flex-col shadow-inner">
-                        <div className="px-5 py-3 bg-white border-b border-slate-200 flex items-center gap-3">
-                            <div className="flex gap-1.5">
-                                <div className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                            </div>
-                            <div className="flex-1 max-w-sm mx-auto h-7 bg-slate-50 border border-slate-100 rounded-lg flex items-center px-3 text-[10px] text-slate-400 font-medium">
-                                outlook.zyappy.com/inbox/preview
-                            </div>
-                        </div>
+                        {!editorOpen && (
+                            <p className="text-xs text-slate-400 pl-6">Click to edit the raw HTML of this template.</p>
+                        )}
+                    </section>
 
-                        {data.templateId ? (
-                             <div className="flex-1 overflow-y-auto bg-white p-6 custom-scrollbar">
-                                <div className="p-5 border-b border-slate-50 mb-6 flex gap-2 text-xs">
-                                     <span className="font-bold text-slate-400 uppercase shrink-0">Subject:</span>
-                                     <span className="font-semibold text-slate-900">{replaceVariables(selectedTemplate?.subject || '(No Subject)')}</span>
+                    {/* Right: Live Preview */}
+                    <section className="space-y-3">
+                        <p className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <Eye size={16} className="text-slate-400" /> Preview
+                        </p>
+                        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                            {/* Fake browser chrome */}
+                            <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                                <div className="flex gap-1.5">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-rose-300" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-amber-300" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-300" />
+                                </div>
+                                <div className="flex-1 max-w-xs mx-auto h-6 bg-white border border-slate-200 rounded flex items-center px-3 text-[11px] text-slate-400">
+                                    outlook.zyappy.com/inbox/preview
+                                </div>
+                            </div>
+
+                            <div className="max-h-[420px] overflow-y-auto">
+                                <div className="px-6 py-3 border-b border-slate-100 flex gap-2 text-xs">
+                                    <span className="font-semibold text-slate-400 shrink-0">Subject:</span>
+                                    <span className="font-medium text-slate-800">{replaceVariables(selectedTemplate?.subject || data.subject || '(No Subject)', placeholders)}</span>
                                 </div>
                                 <div 
-                                    className="preview-container"
-                                    dangerouslySetInnerHTML={{ __html: replaceVariables(fullHtml) }}
-                                />
-                             </div>
-                        ) : (
-                             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center opacity-40">
-                                <div className="w-16 h-16 bg-white rounded-3xl shadow-sm border border-slate-200 flex items-center justify-center mb-4">
-                                    <Mail className="w-8 h-8 text-slate-300" />
-                                </div>
-                                <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Select a template to preview</p>
-                             </div>
-                        )}
-                    </div>
-
-                    {/* Test Email utility */}
-                    <div className="p-4 bg-white border border-slate-200 shadow-sm rounded-2xl space-y-3">
-                        <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                                <Send size={10} /> Quick Test Send
-                            </span>
-                            {testFeedback && (
-                                <span className={`text-[10px] font-bold ${testFeedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>
-                                    {testFeedback.message}
-                                </span>
-                            )}
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-2">
-                             <div className="flex-1 relative">
-                                <input
-                                    type="email"
-                                    value={testEmail}
-                                    onChange={(e) => setTestEmail(e.target.value)}
-                                    placeholder="Enter test email address..."
-                                    className="w-full h-10 px-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    className="p-6 preview-container"
+                                    dangerouslySetInnerHTML={{ __html: replaceVariables(fullHtml, placeholders) }}
                                 />
                             </div>
-                            <button
-                                onClick={handleSendTest}
-                                disabled={!isValid || !testEmail || sendingTest}
-                                className="h-10 px-5 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 transition-all shadow-lg shadow-indigo-100 disabled:shadow-none flex items-center justify-center gap-2"
-                            >
-                                {sendingTest ? 'Sending...' : 'Send Test'}
-                            </button>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            </div>
+            )}
 
-            {/* Compliance Monitor */}
-            {data.templateId && !compliance.valid && (
-                <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl animate-in shake duration-500">
-                    <div className="flex items-start gap-4">
-                        <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
-                        <div>
-                            <p className="text-sm font-black text-rose-900 uppercase tracking-tight">Compliance Alert</p>
-                            <p className="text-xs text-rose-700 mt-0.5 font-medium leading-relaxed">
-                                Mandatory tags are missing from your custom HTML. A fallback compliance footer will be auto-appended.
-                            </p>
-                        </div>
+            {/* No template selected empty state */}
+            {!data.templateId && (
+                <div className="py-16 flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
+                    <div className="w-14 h-14 bg-white rounded-xl border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
+                        <Mail className="w-7 h-7 text-slate-300" />
                     </div>
-                    <div className="mt-3 flex flex-wrap gap-2 ml-9">
-                        {compliance.missing.map(tag => (
-                            <span key={tag} className="px-2 py-1 bg-rose-100 text-[9px] font-mono text-rose-700 rounded border border-rose-200">
-                                {tag}
-                            </span>
-                        ))}
+                    <p className="text-sm font-medium text-slate-500">Select a template above to preview your email</p>
+                </div>
+            )}
+
+            {/* Test Email */}
+            {data.templateId && (
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <div className="flex items-center gap-2 shrink-0">
+                        <Send size={14} className="text-slate-400" />
+                        <span className="text-sm font-semibold text-slate-600">Send test</span>
+                    </div>
+                    <div className="flex-1 w-full sm:w-auto">
+                        <Input
+                            type="email"
+                            value={testEmail}
+                            onChange={(e) => setTestEmail(e.target.value)}
+                            placeholder="test@example.com"
+                            className="!h-9 !text-xs"
+                        />
+                    </div>
+                    <button
+                        onClick={handleSendTest}
+                        disabled={!isValid || !testEmail || sendingTest}
+                        className="h-9 px-5 bg-brand text-white rounded-lg text-xs font-semibold hover:bg-brand-dark disabled:bg-slate-200 disabled:text-slate-400 transition-all shrink-0"
+                    >
+                        {sendingTest ? 'Sending…' : 'Send Test'}
+                    </button>
+                    {testFeedback && (
+                        <span className={`text-xs font-medium ${testFeedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>
+                            {testFeedback.message}
+                        </span>
+                    )}
+                </div>
+            )}
+
+            {/* Compliance Alert */}
+            {data.templateId && !compliance.valid && (
+                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-sm font-semibold text-amber-800">Missing compliance tags</p>
+                        <p className="text-xs text-amber-700 mt-0.5">
+                            A compliance footer will be auto-appended to meet CAN-SPAM requirements.
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                            {compliance.missing.map(tag => (
+                                <span key={tag} className="px-2 py-0.5 bg-amber-100 text-xs font-mono text-amber-700 rounded border border-amber-200">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             )}
@@ -524,6 +575,23 @@ const ReviewStep: React.FC<StepProps> = ({ data, onValidate }) => {
     const { data: eligibility, loading: audienceLoading } = useContacts();
     const { data: templates } = useTemplates();
     const [complianceChecked, setComplianceChecked] = useState(false);
+    const [placeholders, setPlaceholders] = useState<Record<string, string>>(DEFAULT_PLACEHOLDERS);
+
+    // Fetch real placeholder values from backend settings
+    React.useEffect(() => {
+        const fetchPlaceholders = async () => {
+            try {
+                const { default: apiClient } = await import('@/api/axios');
+                const res = await apiClient.get('/email-campaigns/settings/preview-placeholders');
+                if (res.data && typeof res.data === 'object') {
+                    setPlaceholders({ ...DEFAULT_PLACEHOLDERS, ...res.data });
+                }
+            } catch {
+                // Fallback to defaults silently
+            }
+        };
+        fetchPlaceholders();
+    }, []);
 
     const selectedTemplate = templates.find((t: EmailTemplate) => t.id === data.templateId);
 
@@ -534,31 +602,31 @@ const ReviewStep: React.FC<StepProps> = ({ data, onValidate }) => {
     const complianceChecks = useMemo(() => [
         {
             id: 'unsubscribe',
-            label: 'Unsubscribe link ({{unsubscribe_url}})',
+            label: 'Unsubscribe link',
             passed: rawHtml.includes('{{unsubscribe_url}}') || !compliance.missing.includes('{{unsubscribe_url}}'),
             desc: 'Required by CAN-SPAM for all promotional emails.'
         },
         {
             id: 'sender_id',
-            label: 'Commercial sender identity',
+            label: 'Sender identity & address',
             passed: !!(data.senderName && data.replyTo && (rawHtml.includes('{{business_address}}') || !compliance.missing.includes('{{business_address}}'))),
             desc: 'Business name and physical address must be present.'
         },
         {
             id: 'contact',
-            label: 'Contact method verified',
+            label: 'Contact information',
             passed: rawHtml.includes('{{contact_email}}') || !compliance.missing.includes('{{contact_email}}'),
-            desc: 'Clear way for recipients to contact the sender.'
+            desc: 'Clear way for recipients to reach the sender.'
         },
         {
             id: 'consent',
-            label: 'Explicit consent verified',
+            label: 'Recipient consent verified',
             passed: !!(eligibility && eligibility.eligible > 0),
             desc: 'Only targeting contacts with "Subscribed" status.'
         },
         {
             id: 'suppression',
-            label: 'Suppression rules applied',
+            label: 'Suppression list applied',
             passed: !!(eligibility && (eligibility.reasons.unsubscribed > 0 || eligibility.reasons.suppressed >= 0)),
             desc: 'Global and list-level opt-outs are respected.'
         },
@@ -577,217 +645,177 @@ const ReviewStep: React.FC<StepProps> = ({ data, onValidate }) => {
     const finalPreviewHtml = getCompliantHtml(rawHtml);
 
     return (
-        <div className="space-y-8 pb-10">
-            {/* ── 1. Top Level Status Plate ───────────────────────────── */}
-            <div className={`p-6 rounded-[2rem] border-2 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-6
-                ${isBlocked ? 'bg-rose-50 border-rose-100 shadow-xl shadow-rose-100/20' : 'bg-emerald-50 border-emerald-100 shadow-xl shadow-emerald-100/20'}`}>
-                <div className="flex items-center gap-5">
-                    <div className={`w-16 h-16 rounded-3xl flex items-center justify-center shadow-lg transform transition-transform hover:scale-105
-                        ${isBlocked ? 'bg-rose-500 shadow-rose-300' : 'bg-emerald-500 shadow-emerald-300'}`}>
-                        {isBlocked ? <TriangleAlert size={32} className="text-white" /> : <ShieldCheck size={32} className="text-white" />}
-                    </div>
-                    <div>
-                        <h2 className={`text-xl font-black uppercase tracking-tight ${isBlocked ? 'text-rose-900' : 'text-emerald-900'}`}>
-                            {isBlocked ? 'Compliance Gate Active' : 'Ready for Dispatch'}
-                        </h2>
-                        <p className={`text-xs font-bold uppercase tracking-[0.1em] opacity-70 ${isBlocked ? 'text-rose-700' : 'text-emerald-700'}`}>
-                            {isBlocked ? 'Campaign cannot be sent until resolved' : 'All security & legal protocols passed'}
-                        </p>
-                    </div>
+        <div className="space-y-6">
+            {/* Status banner */}
+            <div className={`p-4 rounded-lg flex items-center gap-4 ${isBlocked ? 'bg-rose-50 border border-rose-200' : 'bg-emerald-50 border border-emerald-200'}`}>
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isBlocked ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                    {isBlocked ? <TriangleAlert size={20} className="text-white" /> : <ShieldCheck size={20} className="text-white" />}
                 </div>
-                {!isBlocked && (
-                    <div className="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-2xl border border-emerald-200 animate-pulse">
-                         <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                         <span className="text-[10px] font-black text-emerald-800 uppercase tracking-widest">System Signal: Fully Compliant</span>
-                    </div>
-                )}
+                <div>
+                    <p className={`text-sm font-bold ${isBlocked ? 'text-rose-800' : 'text-emerald-800'}`}>
+                        {isBlocked ? 'Action needed before sending' : 'Ready to send'}
+                    </p>
+                    <p className={`text-xs ${isBlocked ? 'text-rose-600' : 'text-emerald-600'}`}>
+                        {isBlocked ? 'Complete all checks below to proceed.' : 'All compliance checks passed.'}
+                    </p>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* ── Left Column: Summary & Audience ─────────────────── */}
-                <div className="space-y-8">
-                    {/* Campaign Summary Card */}
-                    <div className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                                <Mail size={14} /> Campaign Summary
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Left: Summary + Audience */}
+                <div className="space-y-6">
+                    {/* Campaign Summary */}
+                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div className="px-5 py-3 bg-slate-50 border-b border-slate-100">
+                            <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <Mail size={14} className="text-slate-400" /> Campaign Summary
                             </h3>
-                            <CheckCircle2 size={14} className="text-emerald-500" />
                         </div>
                         <div className="divide-y divide-slate-100">
                             {[
                                 { label: 'Name', value: data.name },
                                 { label: 'Subject', value: data.subject },
                                 { label: 'Sender', value: data.senderName ? `${data.senderName} <${data.replyTo}>` : '' },
-                                { label: 'Schedule', value: data.scheduledAt || 'Immediate Dispatch' },
+                                { label: 'Schedule', value: data.scheduledAt || 'Send immediately' },
                             ].map((f) => (
-                                <div key={f.label} className="flex px-6 py-4 text-sm group hover:bg-slate-50 transition-colors">
-                                    <span className="w-28 text-[10px] font-black text-slate-400 uppercase tracking-widest pt-0.5">{f.label}</span>
-                                    <span className="font-bold text-slate-900 flex-1">
-                                        {f.value || <span className="text-rose-500 text-xs italic">Configuration Missing</span>}
+                                <div key={f.label} className="flex px-5 py-3.5 text-sm">
+                                    <span className="w-24 text-xs font-medium text-slate-400 pt-0.5 shrink-0">{f.label}</span>
+                                    <span className="font-medium text-slate-800 flex-1">
+                                        {f.value || <span className="text-rose-500 text-xs">Missing</span>}
                                     </span>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Audience Breakdown Card */}
-                    <div className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
-                        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-                            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                                <Users size={14} /> Audience Intelligence
+                    {/* Audience card */}
+                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div className="px-5 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                            <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <Users size={14} className="text-slate-400" /> Audience
                             </h3>
-                            <span className="text-[10px] font-black bg-indigo-50 text-indigo-600 px-2.5 py-1 rounded-full uppercase tracking-widest">Real-time</span>
                         </div>
                         {audienceLoading ? (
-                             <div className="p-10 space-y-4">
-                                <div className="h-4 bg-slate-100 rounded-full w-2/3 animate-pulse" />
-                                <div className="h-4 bg-slate-100 rounded-full w-full animate-pulse" />
+                             <div className="p-8 space-y-3">
+                                <div className="h-4 bg-slate-100 rounded w-2/3 animate-pulse" />
+                                <div className="h-4 bg-slate-100 rounded w-full animate-pulse" />
                              </div>
                         ) : eligibility ? (
-                            <div className="p-6 space-y-6">
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total</p>
-                                        <p className="text-2xl font-black text-slate-900">{eligibility.total.toLocaleString()}</p>
-                                    </div>
-                                    <div className={`p-5 rounded-2xl border text-center transition-colors ${eligibility.eligible > 0 ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'}`}>
-                                        <p className={`text-[10px] font-black uppercase tracking-widest mb-1 ${eligibility.eligible > 0 ? 'text-emerald-600' : 'text-rose-600'}`}>Eligible</p>
-                                        <p className={`text-2xl font-black ${eligibility.eligible > 0 ? 'text-emerald-700' : 'text-rose-700'}`}>{eligibility.eligible.toLocaleString()}</p>
-                                    </div>
-                                    <div className="p-5 bg-rose-50/50 border border-rose-100 rounded-2xl text-center">
-                                        <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-1">Excluded</p>
-                                        <p className="text-2xl font-black text-rose-700">{eligibility.excluded.toLocaleString()}</p>
-                                    </div>
+                            <div className="p-5 space-y-4">
+                                <div className="grid grid-cols-3 gap-3">
+                                    <StatCard label="Total" value={eligibility.total} />
+                                    <StatCard label="Eligible" value={eligibility.eligible} variant={eligibility.eligible > 0 ? 'success' : 'danger'} />
+                                    <StatCard label="Excluded" value={eligibility.excluded} variant="danger" />
                                 </div>
-
                                 {eligibility.excluded > 0 && (
-                                     <div className="space-y-3">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Exclusion Breakdown</p>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {[
-                                                { label: 'Opted Out', count: eligibility.reasons.unsubscribed, icon: CheckCircle2 },
-                                                { label: 'No Consent', count: eligibility.reasons.noConsent, icon: TriangleAlert },
-                                                { label: 'Global Suppression', count: eligibility.reasons.suppressed, icon: ShieldCheck },
-                                                { label: 'Invalid Format', count: eligibility.reasons.invalid, icon: XCircle },
-                                            ].map((r) => (
-                                                <div key={r.label} className="p-3 bg-slate-50/50 border border-slate-100 rounded-xl flex items-center justify-between">
-                                                    <span className="text-[10px] font-bold text-slate-500 uppercase truncate">{r.label}</span>
-                                                    <span className="text-xs font-black text-slate-800">{r.count.toLocaleString()}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                     </div>
+                                     <div className="grid grid-cols-2 gap-2">
+                                        {[
+                                            { label: 'Opted Out', count: eligibility.reasons.unsubscribed },
+                                            { label: 'No Consent', count: eligibility.reasons.noConsent },
+                                            { label: 'Suppressed', count: eligibility.reasons.suppressed },
+                                            { label: 'Invalid', count: eligibility.reasons.invalid },
+                                        ].map((r) => (
+                                            <div key={r.label} className="px-3 py-2.5 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
+                                                <span className="text-xs text-slate-500">{r.label}</span>
+                                                <span className="text-xs font-bold text-slate-700">{r.count.toLocaleString()}</span>
+                                            </div>
+                                        ))}
+                                    </div>
                                 )}
                             </div>
                         ) : (
-                            <div className="p-10 text-center text-slate-400 italic text-sm">Audience eligibility data currently unavailable.</div>
+                            <div className="p-8 text-center text-sm text-slate-400">Audience data unavailable.</div>
                         )}
                     </div>
                 </div>
 
-                {/* ── Right Column: Compliance & Validation ────────────── */}
-                <div className="space-y-8">
-                    {/* Mandatory Compliance Dashboard */}
-                    <div className={`bg-white border-2 rounded-[2rem] overflow-hidden shadow-sm transition-all
-                        ${allChecksPassed ? 'border-emerald-200 shadow-emerald-50' : 'border-rose-200 shadow-rose-50'}`}>
-                        <div className={`px-6 py-4 flex items-center justify-between border-b
-                            ${allChecksPassed ? 'bg-emerald-50/50 border-emerald-100' : 'bg-rose-50/50 border-rose-100'}`}>
-                            <h3 className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2
-                                ${allChecksPassed ? 'text-emerald-700' : 'text-rose-700'}`}>
-                                <ShieldCheck size={14} /> Legal & Compliance
+                {/* Right: Compliance + Preview */}
+                <div className="space-y-6">
+                    {/* Compliance checklist */}
+                    <div className={`bg-white border rounded-xl overflow-hidden ${allChecksPassed ? 'border-emerald-200' : 'border-rose-200'}`}>
+                        <div className={`px-5 py-3 border-b flex items-center justify-between ${allChecksPassed ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'}`}>
+                            <h3 className={`text-sm font-semibold flex items-center gap-2 ${allChecksPassed ? 'text-emerald-800' : 'text-rose-800'}`}>
+                                <ShieldCheck size={14} /> Compliance
                             </h3>
-                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest
-                                ${allChecksPassed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
-                                {allChecksPassed ? 'Verified' : 'Action Required'}
+                            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full 
+                                ${allChecksPassed ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                                {allChecksPassed ? 'All passed' : 'Action required'}
                             </span>
                         </div>
                         <div className="divide-y divide-slate-100">
                              {complianceChecks.map((check) => (
-                                <div key={check.id} className="p-5 flex items-start gap-4 hover:bg-slate-50 transition-colors">
-                                    <div className={`mt-1 shrink-0 ${check.passed ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                        {check.passed ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
+                                <div key={check.id} className="px-5 py-3.5 flex items-start gap-3">
+                                    <div className={`mt-0.5 shrink-0 ${check.passed ? 'text-emerald-500' : 'text-rose-400'}`}>
+                                        {check.passed ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center justify-between mb-0.5">
-                                            <p className={`text-sm font-black tracking-tight ${check.passed ? 'text-slate-900' : 'text-rose-900'}`}>
-                                                {check.label}
-                                            </p>
-                                            <span className={`text-[10px] font-black uppercase tracking-widest
-                                                ${check.passed ? 'text-emerald-600' : 'text-rose-600'}`}>
-                                                {check.passed ? 'PASSED' : 'MISSING'}
-                                            </span>
-                                        </div>
-                                        <p className="text-[11px] text-slate-500 font-medium leading-relaxed">{check.desc}</p>
+                                        <p className={`text-sm font-medium ${check.passed ? 'text-slate-800' : 'text-rose-800'}`}>
+                                            {check.label}
+                                        </p>
+                                        <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{check.desc}</p>
                                     </div>
+                                    <span className={`text-[10px] font-semibold uppercase mt-0.5 shrink-0
+                                        ${check.passed ? 'text-emerald-600' : 'text-rose-500'}`}>
+                                        {check.passed ? 'OK' : 'FAIL'}
+                                    </span>
                                 </div>
                              ))}
                         </div>
-                        {!allChecksPassed && (
-                             <div className="p-5 bg-rose-900 text-white">
-                                <p className="text-xs font-black uppercase tracking-[0.05em] mb-1">Critical Block</p>
-                                <p className="text-[10px] leading-relaxed text-rose-100 opacity-90">Your campaign is missing legal tokens required for delivery. Please return to the Content step to restore these elements.</p>
-                             </div>
-                        )}
                     </div>
 
-                    {/* Final Preview & Variables */}
-                    <div className="bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl">
-                         <div className="px-6 py-4 bg-slate-800/80 border-b border-white/5 flex items-center justify-between">
-                             <div className="flex items-center gap-2">
-                                <Eye size={14} className="text-slate-400" />
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-white/60">Final Preview Output</span>
-                             </div>
-                         </div>
-                         <div className="p-8 bg-white m-4 rounded-[1.5rem] shadow-inner max-h-[350px] overflow-y-auto custom-scrollbar">
+                    {/* Final preview */}
+                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div className="px-5 py-3 bg-slate-50 border-b border-slate-100 flex items-center gap-2">
+                            <Eye size={14} className="text-slate-400" />
+                            <span className="text-sm font-semibold text-slate-700">Final Email Preview</span>
+                        </div>
+                        <div className="p-5 max-h-[300px] overflow-y-auto">
                             <div 
                                 className="preview-container text-sm leading-relaxed text-slate-600"
                                 dangerouslySetInnerHTML={{ 
-                                    __html: replaceVariables(finalPreviewHtml) 
+                                    __html: replaceVariables(finalPreviewHtml, placeholders) 
                                 }}
                             />
-                         </div>
+                        </div>
                     </div>
 
-                    {/* Mandatory Confirmation Gate */}
-                    <div className={`p-6 rounded-[2rem] border-2 transition-all duration-300
+                    {/* Confirmation checkbox */}
+                    <label className={`flex items-start gap-3.5 p-4 rounded-xl border-2 cursor-pointer select-none transition-all duration-200
                         ${complianceChecked
-                            ? 'bg-indigo-600 border-indigo-600 shadow-xl shadow-indigo-100'
-                            : 'bg-slate-50 border-slate-200'}`}>
-                        <label className="flex items-start gap-4 cursor-pointer select-none">
-                            <div className="relative mt-1">
-                                <input
-                                    type="checkbox"
-                                    checked={complianceChecked}
-                                    onChange={(e) => setComplianceChecked(e.target.checked)}
-                                    className="peer sr-only"
-                                />
-                                <div className="w-6 h-6 border-2 rounded-lg border-slate-300 peer-checked:border-white peer-checked:bg-indigo-400 transition-all flex items-center justify-center">
-                                    {complianceChecked && <Check size={16} className="text-white" />}
-                                </div>
+                            ? 'bg-brand/5 border-brand'
+                            : 'bg-white border-slate-200 hover:border-slate-300'}`}
+                    >
+                        <div className="relative mt-0.5">
+                            <input
+                                type="checkbox"
+                                checked={complianceChecked}
+                                onChange={(e) => setComplianceChecked(e.target.checked)}
+                                className="peer sr-only"
+                            />
+                            <div className={`w-5 h-5 border-2 rounded transition-all flex items-center justify-center
+                                ${complianceChecked ? 'border-brand bg-brand' : 'border-slate-300'}`}>
+                                {complianceChecked && <Check size={13} className="text-white" />}
                             </div>
-                            <div>
-                                <p className={`text-sm font-black tracking-tight ${complianceChecked ? 'text-white' : 'text-slate-900'}`}>
-                                    I confirm this campaign complies with email regulations
-                                </p>
-                                <p className={`text-[11px] mt-1 leading-relaxed ${complianceChecked ? 'text-indigo-100' : 'text-slate-500'}`}>
-                                    By checking this, you agree that you have explicit permission to contact this audience and that your template contains valid unsubscribe links and physical business details.
-                                </p>
-                            </div>
-                        </label>
-                    </div>
+                        </div>
+                        <div>
+                            <p className={`text-sm font-semibold ${complianceChecked ? 'text-brand-dark' : 'text-slate-800'}`}>
+                                I confirm this campaign complies with email regulations
+                            </p>
+                            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                                You have permission to contact this audience and the template includes valid unsubscribe links and business details.
+                            </p>
+                        </div>
+                    </label>
                 </div>
             </div>
 
-            {/* Warning Signal Plate */}
+            {/* High exclusion warning */}
             {!isBlocked && (eligibility?.excluded ?? 0) > 0 && (
-                <div className="mx-auto max-w-4xl p-5 bg-amber-50 border border-amber-200 rounded-3xl flex items-center gap-4 animate-in slide-in-from-bottom-5">
-                    <div className="w-10 h-10 bg-amber-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-amber-200">
-                        <TriangleAlert size={20} className="text-white" />
-                    </div>
-                    <div className="flex-1">
-                         <p className="text-sm font-black text-amber-900 tracking-tight">System Notice: High Exclusion Rate</p>
-                         <p className="text-xs text-amber-700/80 font-medium">We found {eligibility?.excluded.toLocaleString()} contacts that do not meet your store's consent criteria. They will be automatically removed from the send list.</p>
+                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-3">
+                    <TriangleAlert size={18} className="text-amber-500 shrink-0" />
+                    <div>
+                         <p className="text-sm font-semibold text-amber-800">High exclusion rate</p>
+                         <p className="text-xs text-amber-600">{eligibility?.excluded.toLocaleString()} contacts don&apos;t meet consent criteria and will be excluded.</p>
                     </div>
                 </div>
             )}
@@ -801,80 +829,83 @@ const SendStep: React.FC<StepProps> = ({ data, onChange }) => {
     const isScheduled = !!data.scheduledAt;
 
     return (
-        <div className="space-y-8 py-4 px-2">
-            <div className="text-center space-y-2 mb-8">
-                <div className="w-16 h-16 bg-indigo-600 rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-indigo-100 mb-4 animate-bounce">
-                    <Send className="text-white w-8 h-8 rotate-12" />
+        <div className="max-w-2xl mx-auto space-y-6 py-4">
+            <div className="text-center mb-8">
+                <div className="w-14 h-14 bg-brand rounded-xl mx-auto flex items-center justify-center shadow-lg shadow-brand/20 mb-4">
+                    <Send className="text-white w-7 h-7" />
                 </div>
-                <h2 className="text-xl font-black text-slate-900 tracking-tight uppercase">Launch Protocol</h2>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Select your deployment strategy</p>
+                <h2 className="text-xl font-bold text-slate-800">When should we send?</h2>
+                <p className="text-sm text-slate-500 mt-1">Choose to send now or schedule for later.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* ── Option 1: Send Now ──────────────────────────────── */}
+                {/* Send Now */}
                 <button 
                     onClick={() => onChange({ scheduledAt: undefined })}
-                    className={`p-6 rounded-[2rem] border-2 text-left transition-all duration-300 group
+                    className={`p-5 rounded-xl border-2 text-left transition-all duration-200
                         ${!isScheduled 
-                            ? 'bg-indigo-600 border-indigo-600 shadow-xl shadow-indigo-100 ring-4 ring-indigo-50' 
-                            : 'bg-white border-slate-100 hover:border-slate-200 shadow-sm'}`}
+                            ? 'border-brand bg-brand/5 shadow-sm' 
+                            : 'border-slate-200 bg-white hover:border-slate-300'}`}
                 >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className={`p-3 rounded-2xl transition-colors ${!isScheduled ? 'bg-white/20' : 'bg-slate-50'}`}>
-                             <Zap size={20} className={!isScheduled ? 'text-white' : 'text-slate-400'} />
+                    <div className="flex items-center justify-between mb-3">
+                        <div className={`p-2.5 rounded-lg ${!isScheduled ? 'bg-brand/10' : 'bg-slate-50'}`}>
+                             <Zap size={20} className={!isScheduled ? 'text-brand-dark' : 'text-slate-400'} />
                         </div>
-                        {!isScheduled && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
+                        {!isScheduled && (
+                            <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center">
+                                <Check className="w-3 h-3 text-white" />
+                            </div>
+                        )}
                     </div>
-                    <h3 className={`text-sm font-black uppercase tracking-widest mb-1 ${!isScheduled ? 'text-white' : 'text-slate-900'}`}>Send Immediately</h3>
-                    <p className={`text-[10px] font-medium leading-relaxed ${!isScheduled ? 'text-indigo-100' : 'text-slate-500'}`}>
-                        Your campaign will join the global queue and start sending within minutes.
+                    <h3 className={`text-sm font-bold mb-1 ${!isScheduled ? 'text-brand-dark' : 'text-slate-700'}`}>Send immediately</h3>
+                    <p className={`text-xs leading-relaxed ${!isScheduled ? 'text-brand-dark/60' : 'text-slate-400'}`}>
+                        Starts sending within minutes of confirmation.
                     </p>
                 </button>
 
-                {/* ── Option 2: Schedule ─────────────────────────────── */}
+                {/* Schedule */}
                 <button 
                     onClick={() => { if (!data.scheduledAt) onChange({ scheduledAt: new Date().toISOString().slice(0, 16) })}}
-                    className={`p-6 rounded-[2rem] border-2 text-left transition-all duration-300
+                    className={`p-5 rounded-xl border-2 text-left transition-all duration-200
                         ${isScheduled 
-                            ? 'bg-indigo-600 border-indigo-600 shadow-xl shadow-indigo-100 ring-4 ring-indigo-50' 
-                            : 'bg-white border-slate-100 hover:border-slate-200 shadow-sm'}`}
+                            ? 'border-brand bg-brand/5 shadow-sm' 
+                            : 'border-slate-200 bg-white hover:border-slate-300'}`}
                 >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className={`p-3 rounded-2xl transition-colors ${isScheduled ? 'bg-white/20' : 'bg-slate-50'}`}>
-                             <Calendar size={20} className={isScheduled ? 'text-white' : 'text-slate-400'} />
+                    <div className="flex items-center justify-between mb-3">
+                        <div className={`p-2.5 rounded-lg ${isScheduled ? 'bg-brand/10' : 'bg-slate-50'}`}>
+                             <Calendar size={20} className={isScheduled ? 'text-brand-dark' : 'text-slate-400'} />
                         </div>
-                        {isScheduled && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
+                        {isScheduled && (
+                            <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center">
+                                <Check className="w-3 h-3 text-white" />
+                            </div>
+                        )}
                     </div>
-                    <h3 className={`text-sm font-black uppercase tracking-widest mb-1 ${isScheduled ? 'text-white' : 'text-slate-900'}`}>Schedule Later</h3>
-                    <p className={`text-[10px] font-medium leading-relaxed ${isScheduled ? 'text-indigo-100' : 'text-slate-500'}`}>
-                        Set a specific time for your campaign to maximize open rates and engagement.
+                    <h3 className={`text-sm font-bold mb-1 ${isScheduled ? 'text-brand-dark' : 'text-slate-700'}`}>Schedule for later</h3>
+                    <p className={`text-xs leading-relaxed ${isScheduled ? 'text-brand-dark/60' : 'text-slate-400'}`}>
+                        Pick a date & time to maximize engagement.
                     </p>
                 </button>
             </div>
 
             {isScheduled && (
-                <div className="mt-8 p-6 bg-slate-900 rounded-[2rem] shadow-2xl animate-in slide-in-from-top-4 duration-300">
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                        <Clock size={12} className="text-indigo-400" /> Dispatch Timestamp
+                <div className="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                        <Clock size={14} className="text-slate-400" /> Scheduled date & time
                     </label>
                     <input
                         type="datetime-local"
                         value={data.scheduledAt || ''}
                         onChange={(e) => onChange({ scheduledAt: e.target.value || undefined })}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black text-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-700"
+                        className="w-full h-12 px-4 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
                     />
-                    <div className="mt-4 flex items-center gap-3 px-2">
-                        <ShieldCheck size={14} className="text-emerald-400" />
-                        <p className="text-[10px] font-medium text-slate-400 italic">Campaign will be held in escrow until this time.</p>
-                    </div>
                 </div>
             )}
 
-            <div className="p-6 bg-indigo-50/50 border border-indigo-100 rounded-2xl flex items-start gap-4">
-                <Info size={16} className="text-indigo-600 mt-1 shrink-0" />
-                <p className="text-[11px] text-indigo-700/80 font-medium leading-relaxed">
-                    Once you confirm, the campaign settings and audience will be locked. 
-                    You can still pause or cancel the campaign from the dashboard after it has been scheduled.
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start gap-3">
+                <Info size={16} className="text-blue-500 mt-0.5 shrink-0" />
+                <p className="text-xs text-blue-700 leading-relaxed">
+                    Once confirmed, your campaign settings will be locked. You can pause or cancel from the dashboard after scheduling.
                 </p>
             </div>
         </div>
@@ -892,6 +923,7 @@ export const CreateCampaignPage: React.FC = () => {
     const [isStepValid, setIsStepValid] = useState(true);
     const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [warningMsg, setWarningMsg] = useState<string | null>(null);
 
     // Reset validation state whenever step changes
     React.useEffect(() => {
@@ -921,18 +953,31 @@ export const CreateCampaignPage: React.FC = () => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (asDraft = false) => {
         setSubmissionStatus('submitting');
         setErrorMsg(null);
+        setWarningMsg(null);
         
         try {
             const finalPayload = {
                 ...campaignData,
-                sendNow: !campaignData.scheduledAt,
+                sendNow: asDraft ? false : !campaignData.scheduledAt,
+                scheduledAt: asDraft ? undefined : campaignData.scheduledAt,
                 customHtml: campaignData.customHtml ? getCompliantHtml(campaignData.customHtml) : undefined
             };
+
+            // If saving as draft with no HTML, still send what we have
+            if (asDraft && !finalPayload.customHtml) {
+                finalPayload.customHtml = undefined;
+            }
             
-            await emailCampaignService.createCampaign(finalPayload);
+            const result = await emailCampaignService.createCampaign(finalPayload);
+            
+            // Check for warning from backend (compliance issues etc.)
+            if ((result as any)?.warning) {
+                setWarningMsg((result as any).warning);
+            }
+            
             setSubmissionStatus('success');
             
             // Auto-redirect after a short delay
@@ -942,7 +987,13 @@ export const CreateCampaignPage: React.FC = () => {
         } catch (err: any) {
             console.error('[CreateCampaign] FAILED:', err);
             setSubmissionStatus('error');
-            setErrorMsg(err?.response?.data?.message || 'Something went wrong while launching the campaign. Please try again.');
+            // Backend returns { error: '...' }, not { message: '...' }
+            const backendError = err?.response?.data?.error 
+                || err?.response?.data?.message 
+                || err?.response?.data?.details?.join?.(', ')
+                || err?.message
+                || 'Something went wrong. Please try again.';
+            setErrorMsg(backendError);
         }
     };
 
@@ -956,105 +1007,109 @@ export const CreateCampaignPage: React.FC = () => {
 
     const ActiveStepComponent = step ? STEP_COMPONENTS[step.id] : null;
 
+    // ── Success State ────────────────────────────────────────────────────
     if (submissionStatus === 'success') {
         return (
-            <div className="max-w-[800px] mx-auto min-h-[600px] flex items-center justify-center px-4 animate-in fade-in zoom-in duration-500">
-                <div className="bg-white border border-slate-100 rounded-[3rem] p-12 text-center shadow-2xl shadow-indigo-100 relative overflow-hidden group">
-                     {/* Dynamic background element */}
-                    <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-50 rounded-full opacity-50 transition-transform group-hover:scale-110 duration-700" />
-                    
-                    <div className="relative z-10">
-                        <div className="w-24 h-24 bg-emerald-500 rounded-[2.5rem] mx-auto flex items-center justify-center shadow-xl shadow-emerald-200 mb-8 animate-in slide-in-from-bottom-5">
-                             <Check size={48} className="text-white" strokeWidth={3} />
-                        </div>
-                        <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Command Acknowledged</h1>
-                        <p className="text-slate-500 font-medium max-w-sm mx-auto mb-10 leading-relaxed text-sm">
-                            Your campaign <span className="text-indigo-600 font-black">"{campaignData.name}"</span> has been {campaignData.scheduledAt ? 'successfully scheduled for dispatch' : 'launched into our processing engine'}.
-                        </p>
-                        
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <button 
-                                onClick={() => router.push('/backoffice/email-campaigns')}
-                                className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 active:scale-95"
-                            >
-                                Dispatch Dashboard
-                            </button>
-                            <div className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest">
-                                 <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
-                                 Auto-redirecting in 3s
-                            </div>
-                        </div>
+            <div className="max-w-lg mx-auto min-h-[500px] flex items-center justify-center px-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm w-full">
+                    <div className="w-16 h-16 bg-emerald-500 rounded-xl mx-auto flex items-center justify-center shadow-lg shadow-emerald-100 mb-6">
+                         <Check size={32} className="text-white" strokeWidth={3} />
                     </div>
+                    <h1 className="text-2xl font-bold text-slate-800 mb-2">Campaign Created!</h1>
+                    <p className="text-sm text-slate-500 max-w-sm mx-auto mb-8 leading-relaxed">
+                        Your campaign <span className="text-brand-dark font-semibold">&ldquo;{campaignData.name}&rdquo;</span> has been {campaignData.scheduledAt ? 'scheduled' : 'queued for sending'}.
+                    </p>
+                    
+                    <button 
+                        onClick={() => router.push('/backoffice/email-campaigns')}
+                        className="px-6 py-2.5 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors"
+                    >
+                        Go to Campaigns
+                    </button>
+                    <p className="text-xs text-slate-400 mt-4">Redirecting automatically…</p>
                 </div>
             </div>
         );
     }
 
+    // ── Main Wizard ──────────────────────────────────────────────────────
     return (
-        <div className="max-w-[950px] mx-auto space-y-6 pb-20 px-2 lg:px-4 relative">
-             {/* Background Decoration */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'radial-gradient(#4f46e5 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-            
-            <div className="relative z-10 flex items-center gap-3 border-b border-slate-100 pb-6 pt-2">
+        <div className="max-w-[960px] mx-auto pb-20 px-4 lg:px-6">
+
+            {/* ── Header ──────────────────────────────────────────────── */}
+            <div className="flex items-center gap-3 py-5 mb-2">
                 <button 
                     disabled={submissionStatus === 'submitting'}
                     onClick={() => router.push('/backoffice/email-campaigns')} 
-                    className="p-2 hover:bg-slate-100 rounded-xl transition-colors mr-2 disabled:opacity-30"
+                    className="p-2 hover:bg-slate-100 rounded-lg transition-colors disabled:opacity-30"
                 >
-                    <ArrowLeft size={20} className="text-slate-600" />
+                    <ArrowLeft size={18} className="text-slate-500" />
                 </button>
-                <div className={`p-2.5 rounded-xl shadow-lg transition-colors ${submissionStatus === 'submitting' ? 'bg-indigo-400' : 'bg-indigo-600 shadow-indigo-100'}`}>
-                    {submissionStatus === 'submitting' ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Mail className="w-5 h-5 text-white" />}
-                </div>
                 <div className="flex-1">
-                    <h1 className="text-2xl font-black text-slate-900 tracking-tight">Create Campaign</h1>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-0.5">Step {currentStep + 1} of {STEPS.length} — {step?.label}</p>
+                    <h1 className="text-xl font-bold text-slate-800">Create Campaign</h1>
                 </div>
             </div>
 
-            <nav className={`flex items-center gap-1 transition-opacity ${submissionStatus === 'submitting' ? 'opacity-30 pointer-events-none' : ''}`}>
-                {STEPS.map((s, idx) => (
-                    <React.Fragment key={s.id}>
-                        <button
-                            onClick={() => { if (idx <= currentStep) { setIsStepValid(true); setCurrentStep(idx); } }}
-                            disabled={idx > currentStep}
-                            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all
-                                ${idx === currentStep ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200' : 
-                                  idx < currentStep ? 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100' : 'bg-slate-50 text-slate-400 cursor-not-allowed'}`}
-                        >
-                            {idx < currentStep ? <Check className="w-3.5 h-3.5" /> : <s.icon className="w-3.5 h-3.5" />}
-                            <span className="hidden sm:inline">{s.label}</span>
-                        </button>
-                        {idx < STEPS.length - 1 && <div className={`flex-1 h-px max-w-8 ${idx < currentStep ? 'bg-indigo-300' : 'bg-slate-200'}`} />}
-                    </React.Fragment>
-                ))}
+            {/* ── Stepper ─────────────────────────────────────────────── */}
+            <nav className={`flex items-center mb-8 transition-opacity ${submissionStatus === 'submitting' ? 'opacity-30 pointer-events-none' : ''}`}>
+                {STEPS.map((s, idx) => {
+                    const isActive = idx === currentStep;
+                    const isCompleted = idx < currentStep;
+                    const isDisabled = idx > currentStep;
+                    return (
+                        <React.Fragment key={s.id}>
+                            <button
+                                onClick={() => { if (!isDisabled) { setIsStepValid(true); setCurrentStep(idx); } }}
+                                disabled={isDisabled}
+                                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
+                                    ${isActive ? 'bg-brand/10 text-brand-dark' : 
+                                      isCompleted ? 'text-brand-dark/70 hover:bg-brand/5' : 'text-slate-400 cursor-not-allowed'}`}
+                            >
+                                {/* Step number / check */}
+                                <div className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center shrink-0 transition-all
+                                    ${isActive ? 'bg-brand text-white' :
+                                      isCompleted ? 'bg-brand/20 text-brand-dark' : 'bg-slate-100 text-slate-400'}`}>
+                                    {isCompleted ? <Check className="w-3.5 h-3.5" /> : idx + 1}
+                                </div>
+                                <span className="hidden sm:inline">{s.label}</span>
+                            </button>
+                            {idx < STEPS.length - 1 && (
+                                <div className={`flex-1 h-px max-w-[40px] mx-1 ${isCompleted ? 'bg-brand/40' : 'bg-slate-200'}`} />
+                            )}
+                        </React.Fragment>
+                    );
+                })}
             </nav>
 
+            {/* ── Error banner ────────────────────────────────────────── */}
             {errorMsg && (
-                <div className="p-4 bg-rose-50 border border-rose-100 rounded-3xl flex items-center gap-4 animate-in slide-in-from-top-4">
-                     <div className="w-10 h-10 bg-rose-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-rose-200">
-                        <TriangleAlert size={20} className="text-white" />
-                     </div>
-                     <div className="flex-1">
-                        <p className="text-[10px] font-black text-rose-800 uppercase tracking-widest mb-0.5">Deployment Failure</p>
-                        <p className="text-xs text-rose-700 font-bold leading-tight">{errorMsg}</p>
+                <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-lg flex items-center gap-3">
+                     <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                     <div>
+                        <p className="text-sm font-semibold text-rose-800">Failed to create campaign</p>
+                        <p className="text-xs text-rose-600 mt-0.5">{errorMsg}</p>
                      </div>
                 </div>
             )}
 
-            <section className={`bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden min-h-[450px] transition-all
-                ${submissionStatus === 'submitting' ? 'opacity-60 scale-[0.99] grayscale-[0.2]' : ''}`}>
-                <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                    <div>
-                        <h2 className="text-base font-bold text-slate-800">{step?.label}</h2>
-                        <p className="text-xs text-slate-400 mt-0.5">
-                            {step?.id === 'basics' && 'Configure campaign details.'}
-                            {step?.id === 'audience' && 'Verify audience compliance.'}
-                            {step?.id === 'content' && 'Select template and preview content.'}
-                            {step?.id === 'review' && 'Verify compliance before sending.'}
-                            {step?.id === 'send' && 'Choose when to launch.'}
-                        </p>
-                    </div>
+            {warningMsg && (
+                <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-3">
+                     <AlertCircle className="w-5 h-5 text-amber-500 shrink-0" />
+                     <div>
+                        <p className="text-sm font-semibold text-amber-800">Campaign saved with notice</p>
+                        <p className="text-xs text-amber-600 mt-0.5">{warningMsg}</p>
+                     </div>
+                </div>
+            )}
+
+            {/* ── Step Content Card ───────────────────────────────────── */}
+            <section className={`bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all
+                ${submissionStatus === 'submitting' ? 'opacity-50 pointer-events-none' : ''}`}>
+                <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/60">
+                    <h2 className="text-base font-semibold text-slate-800">{step?.label}</h2>
+                    <p className="text-sm text-slate-400 mt-0.5">
+                        {step?.description}
+                    </p>
                 </div>
                 <div className="p-6">
                     {ActiveStepComponent && (
@@ -1067,31 +1122,53 @@ export const CreateCampaignPage: React.FC = () => {
                 </div>
             </section>
 
-            <div className="flex items-center justify-between">
+            {/* ── Footer Navigation ───────────────────────────────────── */}
+            <div className="flex items-center justify-between mt-6">
                 <button 
                     onClick={handleBack} 
                     disabled={isFirst || submissionStatus === 'submitting'} 
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 disabled:opacity-30"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 disabled:opacity-30"
                 >
                     <ArrowLeft className="w-4 h-4" /> Back
                 </button>
                 {isLast ? (
-                    <button 
-                        onClick={handleSubmit} 
-                        disabled={submissionStatus === 'submitting'}
-                        className={`flex items-center gap-3 px-8 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all
-                            ${submissionStatus === 'submitting' 
-                                ? 'bg-slate-200 text-slate-400 cursor-not-allowed' 
-                                : 'bg-indigo-600 text-white shadow-xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95'}`}
-                    >
-                        {submissionStatus === 'submitting' ? 'Initializing...' : (
-                            <>
-                                <Send className="w-4 h-4" /> {campaignData.scheduledAt ? 'Authenticate & Schedule' : 'Authenticate & Launch'}
-                            </>
-                        )}
-                    </button>
+                    <div className="flex items-center gap-3">
+                        {/* Save as Draft */}
+                        <button 
+                            onClick={() => handleSubmit(true)} 
+                            disabled={submissionStatus === 'submitting'}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 disabled:opacity-30"
+                        >
+                            <FileText className="w-4 h-4" />
+                            Save as Draft
+                        </button>
+                        {/* Send / Schedule */}
+                        <button 
+                            onClick={() => handleSubmit(false)} 
+                            disabled={submissionStatus === 'submitting'}
+                            className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all
+                                ${submissionStatus === 'submitting' 
+                                    ? 'bg-slate-200 text-slate-400 cursor-not-allowed' 
+                                    : 'bg-brand text-white shadow-md shadow-brand/20 hover:bg-brand-dark active:scale-[0.98]'}`}
+                        >
+                            {submissionStatus === 'submitting' ? (
+                                <>
+                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    Creating…
+                                </>
+                            ) : (
+                                <>
+                                    <Send className="w-4 h-4" /> {campaignData.scheduledAt ? 'Schedule Campaign' : 'Send Campaign'}
+                                </>
+                            )}
+                        </button>
+                    </div>
                 ) : (
-                    <button onClick={handleNext} disabled={!isStepValid} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 disabled:bg-slate-300 disabled:shadow-none transition-all active:scale-95">
+                    <button 
+                        onClick={handleNext} 
+                        disabled={!isStepValid} 
+                        className="flex items-center gap-2 px-6 py-2.5 bg-brand text-white rounded-lg text-sm font-semibold shadow-md shadow-brand/20 hover:bg-brand-dark disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none transition-all active:scale-[0.98]"
+                    >
                         Next <ArrowRight className="w-4 h-4" />
                     </button>
                 )}

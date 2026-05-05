@@ -1,7 +1,0 @@
-{
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/backoffice/email-campaigns/campaigns/page": "app/backoffice/email-campaigns/campaigns/page.js",
-  "/backoffice/email-campaigns/contacts/page": "app/backoffice/email-campaigns/contacts/page.js",
-  "/backoffice/email-campaigns/dashboard/page": "app/backoffice/email-campaigns/dashboard/page.js",
-  "/backoffice/email-campaigns/segments/page": "app/backoffice/email-campaigns/segments/page.js"
-}

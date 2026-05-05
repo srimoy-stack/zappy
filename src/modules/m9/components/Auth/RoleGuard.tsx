@@ -69,7 +69,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
                 router.replace(fallback);
             }
         } else if (!isLoading && !isAuthenticated) {
-            router.replace('/api/auth/signin');
+            router.replace('/login');
         }
     }, [isLoading, isAuthenticated, pathname, isUserAuthorized, getVisibleMenuItems, router, mode]);
 
