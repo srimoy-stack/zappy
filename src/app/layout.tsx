@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../index.css';
 import { ClientProviders } from './providers/ClientProviders';
-import { AuthProvider } from './providers/AuthProvider';
-import { TenantStoreProvider } from './providers/TenantStoreProvider';
+import { TenantProvider, StoreProvider, ModuleProvider, ApiContextBridge } from '@/shared/contexts';
+import { AuthProvider } from '@/shared/contexts/AuthContext';
+import { EntitlementProvider } from '@/shared/entitlements';
+import { PermissionDeniedToast } from '@/shared/components/PermissionDeniedToast';
+import { ContextErrorBoundary } from '@/shared/components/ContextErrorBoundary';
+import { ApiErrorToast } from '@/shared/components/ApiErrorToast';
+import { TokenRefreshProvider } from '@/shared/providers/TokenRefreshProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,11 +26,24 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning={true}>
             <body className={inter.className} suppressHydrationWarning={true}>
                 <ClientProviders>
-                    <AuthProvider>
-                        <TenantStoreProvider>
-                            {children}
-                        </TenantStoreProvider>
-                    </AuthProvider>
+                    <TenantProvider>
+                        <StoreProvider>
+                            <ModuleProvider>
+                                <AuthProvider>
+                                    <EntitlementProvider>
+                                        <TokenRefreshProvider>
+                                            <ApiContextBridge />
+                                            <ContextErrorBoundary>
+                                                {children}
+                                            </ContextErrorBoundary>
+                                            <PermissionDeniedToast />
+                                            <ApiErrorToast />
+                                        </TokenRefreshProvider>
+                                    </EntitlementProvider>
+                                </AuthProvider>
+                            </ModuleProvider>
+                        </StoreProvider>
+                    </TenantProvider>
                 </ClientProviders>
             </body>
         </html>

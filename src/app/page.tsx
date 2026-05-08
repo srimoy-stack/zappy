@@ -12,7 +12,7 @@ export default function RootPage() {
         if (isLoading) return;
 
         if (role === 'PLATFORM_SUPER_ADMIN') {
-            router.replace('/platform/brands');
+            router.replace('/platform/tenants');
         } else {
             router.replace('/backoffice/home');
         }
