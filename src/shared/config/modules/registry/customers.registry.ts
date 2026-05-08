@@ -5,7 +5,7 @@ export const CUSTOMERS_REGISTRY: RegistryNode[] = [
         id: 'customers', label: 'Customers', description: 'CRM, loyalty and customer insights',
         icon: 'UserCircle', parentId: null, moduleKey: 'customers', level: 'module', sortOrder: 7,
         route: '/backoffice/customers', routePrefix: '/backoffice', entitlementKey: 'customers',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'management',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'management',
     },
     // ── Submodules
     { id: 'customers.crm', label: 'CRM', parentId: 'customers', moduleKey: 'customers', level: 'submodule', sortOrder: 1, entitlementKey: 'customers.crm', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

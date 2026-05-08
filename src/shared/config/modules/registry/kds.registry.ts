@@ -13,11 +13,11 @@ export const KDS_REGISTRY: RegistryNode[] = [
         icon: 'Monitor', parentId: null, moduleKey: 'kds', level: 'module', sortOrder: 9,
         route: '/kds/master', routePrefix: '/kds', entitlementKey: 'kds',
         allowedUserTypes: [UserType.KITCHEN_USER, UserType.BRAND_ADMIN, UserType.ADMIN, UserType.MANAGER],
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
-    { id: 'kds.master', label: 'KDS Master', parentId: 'kds', moduleKey: 'kds', level: 'submodule', sortOrder: 1, entitlementKey: 'kds.master', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, route: '/kds/master', routePrefix: '/kds', icon: 'Monitor' },
-    { id: 'kds.expo', label: 'KDS Expo', parentId: 'kds', moduleKey: 'kds', level: 'submodule', sortOrder: 2, entitlementKey: 'kds.expo', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, route: '/kds/expo', routePrefix: '/kds', icon: 'Tv' },
+    { id: 'kds.master', label: 'KDS Master', parentId: 'kds', moduleKey: 'kds', level: 'submodule', sortOrder: 1, entitlementKey: 'kds.master', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, route: '/kds/master', routePrefix: '/kds', icon: 'Monitor' },
+    { id: 'kds.expo', label: 'KDS Expo', parentId: 'kds', moduleKey: 'kds', level: 'submodule', sortOrder: 2, entitlementKey: 'kds.expo', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, route: '/kds/expo', routePrefix: '/kds', icon: 'Tv' },
     { id: 'kds.stations', label: 'Station Management', parentId: 'kds', moduleKey: 'kds', level: 'submodule', sortOrder: 3, entitlementKey: 'kds.stations', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },
     // ── Pages
     { id: 'kds.master.screen', label: 'Kitchen Screen', parentId: 'kds.master', moduleKey: 'kds', level: 'page', sortOrder: 1, route: '/kds/master', entitlementKey: 'kds.master.screen', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

@@ -1,10 +1,10 @@
 /**
  * Audit Service — Sends audit logs to the backend.
  *
- * Silent: never throws, never blocks UI.
+ * Silent: never throws, never blocks UI, never logs errors.
+ * Uses raw fetch to avoid apiClient interceptor noise.
  */
 
-import apiClient from '@/shared/api/apiClient';
 import type { AuditLogPayload } from '@/shared/types/audit';
 import { env } from '@/shared/config/env';
 
@@ -13,12 +13,22 @@ import { env } from '@/shared/config/env';
  */
 export async function sendAuditLog(payload: AuditLogPayload): Promise<boolean> {
     if (env.apiMode === 'mock') {
-        console.log('[MOCK AUDIT]', payload);
+        // Silent in mock — no console spam
         return true;
     }
 
     try {
-        await apiClient.post('/audit-logs', payload);
+        const token = typeof window !== 'undefined'
+            ? document.cookie.match(/next-auth.session-token=([^;]+)/)?.[1]
+            : null;
+        await fetch(`${env.apiBaseUrl}/audit-logs`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+            body: JSON.stringify(payload),
+        });
         return true;
     } catch {
         // Silently fail — audit must never block
@@ -33,12 +43,15 @@ export async function sendAuditLogBatch(payloads: AuditLogPayload[]): Promise<bo
     if (payloads.length === 0) return true;
 
     if (env.apiMode === 'mock') {
-        console.log('[MOCK AUDIT BATCH]', payloads);
         return true;
     }
 
     try {
-        await apiClient.post('/audit-logs/batch', { logs: payloads });
+        await fetch(`${env.apiBaseUrl}/audit-logs/batch`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ logs: payloads }),
+        });
         return true;
     } catch {
         return false;

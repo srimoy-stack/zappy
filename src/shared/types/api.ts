@@ -46,16 +46,18 @@ export interface MeResponse {
     name: string;
     email: string;
     role: string;
+    user_type?: string;
     tenant: {
         id: string;
         name: string;
-        slug: string;
+        slug?: string;
     } | null;
     stores: Array<{
         id: string;
         name: string;
-        code: string;
+        code?: string;
     }>;
     permissions: string[];
     enabledModules: string[];
+    entitlementPaths?: string[];
 }

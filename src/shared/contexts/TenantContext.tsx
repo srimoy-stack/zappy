@@ -8,7 +8,7 @@
  * Throws if tenant is missing on tenant-required routes.
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
 interface TenantContextValue {
     tenantId: string | null;
@@ -43,6 +43,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
 
     const setTenantId = useCallback((id: string | null) => {
         setTenantIdState(id);
+        setIsResolved(true);
         if (typeof window !== 'undefined') {
             if (id) {
                 sessionStorage.setItem(SESSION_KEY, id);
@@ -53,13 +54,6 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const getTenantId = useCallback(() => tenantId, [tenantId]);
-
-    // Mark as resolved once we have a value or explicitly null
-    useEffect(() => {
-        if (!isResolved && tenantId !== undefined) {
-            setIsResolved(true);
-        }
-    }, [tenantId, isResolved]);
 
     return (
         <TenantContext.Provider value={{

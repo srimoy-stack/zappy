@@ -5,7 +5,7 @@ export const ONLINE_ORDERING_REGISTRY: RegistryNode[] = [
         id: 'online-ordering', label: 'Online Ordering', description: 'Web shop, delivery and collection channels',
         icon: 'Globe', parentId: null, moduleKey: 'online-ordering', level: 'module', sortOrder: 8,
         route: '/backoffice/shop', routePrefix: '/backoffice', entitlementKey: 'online-ordering',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'channels',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'channels',
     },
     // ── Submodules
     { id: 'online-ordering.webshop', label: 'Web Shop', parentId: 'online-ordering', moduleKey: 'online-ordering', level: 'submodule', sortOrder: 1, entitlementKey: 'online-ordering.webshop', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

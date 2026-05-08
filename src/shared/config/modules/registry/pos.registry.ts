@@ -7,7 +7,7 @@ export const POS_REGISTRY: RegistryNode[] = [
         icon: 'ShoppingCart', parentId: null, moduleKey: 'pos', level: 'module', sortOrder: 1,
         route: '/pos', routePrefix: '/pos', entitlementKey: 'pos',
         isCore: true, isSystem: false, isBeta: false, isProtected: true,
-        status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
 
     // ── Submodules ───────────────────────────────────────

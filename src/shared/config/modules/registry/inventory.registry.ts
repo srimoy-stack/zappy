@@ -5,7 +5,7 @@ export const INVENTORY_REGISTRY: RegistryNode[] = [
         id: 'inventory', label: 'Inventory', description: 'Stock management, recipes, purchasing and waste tracking',
         icon: 'Warehouse', parentId: null, moduleKey: 'inventory', level: 'module', sortOrder: 5,
         route: '/backoffice/inventory', routePrefix: '/backoffice', entitlementKey: 'inventory',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
     { id: 'inventory.stock', label: 'Stock', parentId: 'inventory', moduleKey: 'inventory', level: 'submodule', sortOrder: 1, entitlementKey: 'inventory.stock', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

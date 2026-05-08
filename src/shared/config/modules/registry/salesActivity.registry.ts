@@ -5,7 +5,7 @@ export const SALES_ACTIVITY_REGISTRY: RegistryNode[] = [
         id: 'sales-activity', label: 'Sales Activity', description: 'Real-time sales monitoring and transaction tracking',
         icon: 'TrendingUp', parentId: null, moduleKey: 'sales-activity', level: 'module', sortOrder: 2,
         route: '/backoffice/sales-activity', routePrefix: '/backoffice', entitlementKey: 'sales-activity',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
     { id: 'sales-activity.live', label: 'Live Sales', parentId: 'sales-activity', moduleKey: 'sales-activity', level: 'submodule', sortOrder: 1, entitlementKey: 'sales-activity.live', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

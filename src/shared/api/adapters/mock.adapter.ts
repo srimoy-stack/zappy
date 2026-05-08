@@ -41,21 +41,13 @@ const MOCK_ME: MeResponse = {
     id: 'user-001',
     name: 'Platform Admin',
     email: 'admin@zyappy.com',
-    role: 'PLATFORM_SUPER_ADMIN',
+    role: 'platform_super_admin',
+    user_type: 'platform_super_admin',
     tenant: null, // Super admin has no tenant
     stores: [],
-    permissions: [
-        'tenants.view', 'tenants.create', 'tenants.edit', 'tenants.suspend',
-        'users.view', 'users.create', 'users.edit', 'users.delete',
-        'roles.view', 'roles.create', 'roles.edit', 'roles.delete',
-        'stores.view', 'stores.create', 'stores.edit',
-        'modules.view', 'modules.assign',
-        'items.view', 'items.create', 'items.edit',
-        'inventory.view', 'inventory.create',
-        'pos.access', 'kds.access', 'kiosk.access',
-        'reports.view', 'finances.view',
-    ],
-    enabledModules: ['pos', 'inventory', 'kiosk', 'kds', 'messaging', 'email-campaigns', 'analytics', 'ai-call-analytics'],
+    permissions: ['*'],
+    enabledModules: ['email-campaigns', 'ai-call-analytics'],
+    entitlementPaths: ['email-campaigns', 'ai-call-analytics'],
 };
 
 const MOCK_BRANDS: Brand[] = [

@@ -5,7 +5,7 @@ export const ITEMS_REGISTRY: RegistryNode[] = [
         id: 'items', label: 'Items & Catalog', description: 'Product catalog, categories, modifiers and pricing',
         icon: 'Package', parentId: null, moduleKey: 'items', level: 'module', sortOrder: 4,
         route: '/backoffice/items', routePrefix: '/backoffice', entitlementKey: 'items',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
     { id: 'items.management', label: 'Item Management', parentId: 'items', moduleKey: 'items', level: 'submodule', sortOrder: 1, entitlementKey: 'items.management', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

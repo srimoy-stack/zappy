@@ -5,7 +5,7 @@ export const REPORTS_REGISTRY: RegistryNode[] = [
         id: 'reports', label: 'Reports', description: 'Enterprise reporting and analytics',
         icon: 'FileText', parentId: null, moduleKey: 'reports', level: 'module', sortOrder: 3,
         route: '/backoffice/reports', routePrefix: '/backoffice', entitlementKey: 'reports',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
     { id: 'reports.financial', label: 'Financial Reports', parentId: 'reports', moduleKey: 'reports', level: 'submodule', sortOrder: 1, entitlementKey: 'reports.financial', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

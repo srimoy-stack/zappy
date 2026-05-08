@@ -43,15 +43,16 @@ const USER_TYPE_PREFIX: Record<UserType, string> = {
 
 // ─── Platform Navigation (Super Admin Only) ──────────────────────────────────
 
-import { Building2, Users, Shield, Settings, FileText, LayoutGrid } from 'lucide-react';
+import { Building2, Users, Settings, FileText } from 'lucide-react';
 
 const PLATFORM_NAV: NavItem[] = [
     { id: 'platform-brands', label: 'Tenants', href: '/platform/tenants', icon: Building2 },
     { id: 'platform-users', label: 'Users', href: '/platform/users', icon: Users },
-    { id: 'platform-roles', label: 'Roles', href: '/platform/roles', icon: Shield },
-    { id: 'platform-modules', label: 'Modules', href: '/platform/modules', icon: LayoutGrid },
     { id: 'platform-audit', label: 'Audit Logs', href: '/platform/audit', icon: FileText },
     { id: 'platform-settings', label: 'Settings', href: '/platform/settings', icon: Settings },
+    // ── Phase 2: Uncomment ──
+    // { id: 'platform-roles', label: 'Roles', href: '/platform/roles', icon: Shield },
+    // { id: 'platform-modules', label: 'Modules', href: '/platform/modules', icon: LayoutGrid },
 ];
 
 // ─── Transform Registry → NavItem ────────────────────────────────────────────
@@ -85,8 +86,8 @@ export function getNavigationByUserType(
 ): NavItem[] {
     if (!userType) return [];
 
-    // Platform admin gets static platform nav
-    if (userType === UserType.PLATFORM_SUPER_ADMIN && !opts?.isSuperAdmin) {
+    // Platform Super Admin gets static platform nav
+    if (userType === UserType.PLATFORM_SUPER_ADMIN) {
         return PLATFORM_NAV;
     }
 

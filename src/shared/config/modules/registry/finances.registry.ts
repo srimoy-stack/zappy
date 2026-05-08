@@ -5,7 +5,7 @@ export const FINANCES_REGISTRY: RegistryNode[] = [
         id: 'finances', label: 'Finances', description: 'Payment processing, refunds, payouts and tax management',
         icon: 'DollarSign', parentId: null, moduleKey: 'finances', level: 'module', sortOrder: 12,
         route: '/backoffice/finances', routePrefix: '/backoffice', entitlementKey: 'finances',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'operations',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'operations',
     },
     // ── Submodules
     { id: 'finances.payments', label: 'Payments', parentId: 'finances', moduleKey: 'finances', level: 'submodule', sortOrder: 1, entitlementKey: 'finances.payments', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

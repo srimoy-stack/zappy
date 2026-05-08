@@ -14,6 +14,7 @@ import { getNavigationByUserType } from '@/shared/config/navigation';
 import { useEntitlements } from '@/shared/entitlements';
 import { useAuth } from '@/shared/contexts';
 import { useImpersonation } from '@/app/providers/ImpersonationProvider';
+import { TenantStoreProvider } from '@/app/providers/TenantStoreProvider';
 import { UserType } from '@/shared/types/auth';
 
 export default function BackofficeLayout({ children }: { children: React.ReactNode }) {
@@ -34,34 +35,36 @@ export default function BackofficeLayout({ children }: { children: React.ReactNo
 
     return (
         <RouteGuard allowedPrefix="/backoffice">
-            <ToastProvider>
-                <CartProvider>
-                    <Suspense fallback={null}>
-                        <div className="min-h-screen bg-slate-50 flex flex-col">
-                            <ImpersonationBanner />
-                            <div className="flex flex-1">
-                                <Sidebar
-                                    navItems={filteredNav}
-                                    variant="backoffice"
-                                    showNewSale={!!canShowNewSale}
-                                    logoHref="/backoffice/home"
-                                />
-                                <div className="flex-1 flex flex-col min-h-screen ml-64 transition-all duration-300 min-w-0">
-                                    <Header />
-                                    <main className={cn(
-                                        "flex-1 overflow-y-auto overflow-x-hidden",
-                                        isShop ? "p-0" : "p-6"
-                                    )}>
-                                        <div className="animate-in fade-in duration-500">
-                                            {children}
-                                        </div>
-                                    </main>
+            <TenantStoreProvider>
+                <ToastProvider>
+                    <CartProvider>
+                        <Suspense fallback={null}>
+                            <div className="min-h-screen bg-slate-50 flex flex-col">
+                                <ImpersonationBanner />
+                                <div className="flex flex-1">
+                                    <Sidebar
+                                        navItems={filteredNav}
+                                        variant="backoffice"
+                                        showNewSale={!!canShowNewSale}
+                                        logoHref="/backoffice/home"
+                                    />
+                                    <div className="flex-1 flex flex-col min-h-screen ml-64 transition-all duration-300 min-w-0">
+                                        <Header />
+                                        <main className={cn(
+                                            "flex-1 overflow-y-auto overflow-x-hidden",
+                                            isShop ? "p-0" : "p-6"
+                                        )}>
+                                            <div className="animate-in fade-in duration-500">
+                                                {children}
+                                            </div>
+                                        </main>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Suspense>
-                </CartProvider>
-            </ToastProvider>
+                        </Suspense>
+                    </CartProvider>
+                </ToastProvider>
+            </TenantStoreProvider>
         </RouteGuard>
     );
 }

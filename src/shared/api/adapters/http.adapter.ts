@@ -16,7 +16,7 @@ import type { TenantModule } from '@/shared/types/module';
 export const httpAdapter: ApiAdapter = {
     // ─── Auth ────────────────────────────────────────────
     async getMe(): Promise<MeResponse> {
-        const { data } = await apiClient.get('/me');
+        const { data } = await apiClient.get('/auth/me');
         return data;
     },
 
@@ -123,6 +123,11 @@ export const httpAdapter: ApiAdapter = {
     },
 
     // ─── Modules ─────────────────────────────────────────
+    async getModules(): Promise<TenantModule[]> {
+        const { data } = await apiClient.get('/modules');
+        return data;
+    },
+
     async getTenantModules(tenantId): Promise<TenantModule[]> {
         const { data } = await apiClient.get(`/tenants/${tenantId}/modules`);
         return data;
@@ -130,6 +135,17 @@ export const httpAdapter: ApiAdapter = {
 
     async setTenantModules(tenantId, modules): Promise<TenantModule[]> {
         const { data } = await apiClient.post(`/tenants/${tenantId}/modules`, { modules });
+        return data;
+    },
+
+    // ─── Config ──────────────────────────────────────────
+    async getTenantConfig(tenantId: string): Promise<any> {
+        const { data } = await apiClient.get(`/tenants/${tenantId}`);
+        return data.settings || {};
+    },
+
+    async updateTenantConfig(tenantId: string, configData: any): Promise<any> {
+        const { data } = await apiClient.post(`/tenants/${tenantId}/config`, configData);
         return data;
     },
 };

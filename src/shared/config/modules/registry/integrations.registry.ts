@@ -5,7 +5,7 @@ export const INTEGRATIONS_REGISTRY: RegistryNode[] = [
         id: 'integrations', label: 'Integrations', description: 'Third-party delivery, payment and communication providers',
         icon: 'Plug', parentId: null, moduleKey: 'integrations', level: 'module', sortOrder: 14,
         route: '/backoffice/settings/integrations', routePrefix: '/backoffice', entitlementKey: 'integrations',
-        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: true, sidebarGroup: 'system',
+        isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false /* Phase 1: hidden */, sidebarGroup: 'system',
     },
     // ── Submodules
     { id: 'integrations.delivery', label: 'Delivery Platforms', parentId: 'integrations', moduleKey: 'integrations', level: 'submodule', sortOrder: 1, entitlementKey: 'integrations.delivery', isCore: false, isSystem: false, isBeta: false, status: 'active', showInSidebar: false },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { signOut } from 'next-auth/react';
 import { StoreSelector } from './StoreSelector';
 import { DateRangePicker } from './DateRangePicker';
 import { Search, Bell } from 'lucide-react';
@@ -154,7 +155,7 @@ export const Header: React.FC = () => {
                                 </button>
                                 <div className="h-px bg-slate-100 my-1 px-1" />
                                 <button
-                                    onClick={() => alert('Logging out...')}
+                                    onClick={() => signOut({ callbackUrl: '/login' })}
                                     className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                 >
                                     Log Out

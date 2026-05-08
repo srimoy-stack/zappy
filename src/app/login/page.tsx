@@ -28,7 +28,23 @@ export default function LoginPage() {
             if (result?.error) {
                 setError('Invalid credentials. Please check your email and password.');
             } else {
-                router.push('/backoffice/home');
+                // Read the session to get the user's role for correct redirect
+                const { getSession } = await import('next-auth/react');
+                const session = await getSession();
+                const rawRole = (session?.user as any)?.role || '';
+
+                // Resolve correct landing page based on role
+                const roleKey = rawRole.toLowerCase();
+                const ROLE_LANDING: Record<string, string> = {
+                    'platform_super_admin': '/platform/tenants',
+                    'super_admin': '/platform/tenants',
+                    'admin': '/platform/tenants',
+                    'brand_admin': '/backoffice/home',
+                    'manager': '/backoffice/home',
+                };
+                const landingPage = ROLE_LANDING[roleKey] || '/backoffice/home';
+
+                router.push(landingPage);
                 router.refresh();
             }
         } catch (err) {
