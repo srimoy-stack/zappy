@@ -168,7 +168,7 @@ export const USER_TYPE_BASE_ROUTE: Record<UserType, string> = {
 
 /** Default landing page for each user type */
 export const USER_TYPE_DEFAULT_PAGE: Record<UserType, string> = {
-    [UserType.PLATFORM_SUPER_ADMIN]: '/platform/tenants',
+    [UserType.PLATFORM_SUPER_ADMIN]: '/platform/brands',
     [UserType.PLATFORM_ADMIN]: '/platform/tenants',
     [UserType.PLATFORM_SUPPORT]: '/platform/tenants',
     [UserType.PLATFORM_OPERATIONS]: '/platform/dashboard',

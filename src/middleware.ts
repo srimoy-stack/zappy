@@ -71,7 +71,7 @@ const PUBLIC_ROUTES = [
 // ─── UserType → Default Landing Page ─────────────────────────────────────────
 
 const DEFAULT_PAGE: Record<CanonicalUserType, string> = {
-    [CanonicalUserType.PLATFORM_SUPER_ADMIN]: '/platform/tenants',
+    [CanonicalUserType.PLATFORM_SUPER_ADMIN]: '/platform/brands',
     [CanonicalUserType.BRAND_ADMIN]: '/backoffice/home',
     [CanonicalUserType.ADMIN]: '/backoffice/home',
     [CanonicalUserType.MANAGER]: '/backoffice/home',

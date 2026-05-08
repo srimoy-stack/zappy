@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { resolveUserType, getDefaultPage } from '@/shared/types/auth';
 import { Lock, Mail, User, Loader2, AlertCircle, ArrowRight, LogIn, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -78,7 +79,14 @@ export default function SignupPage() {
                 // Registration succeeded but auto-login failed — redirect to login
                 router.push('/login');
             } else {
-                router.push('/backoffice/home');
+                // Fetch the session to get the user's role/type
+                const session = await getSession();
+                const userType = resolveUserType(session?.user?.role);
+                const targetPage = userType ? getDefaultPage(userType) : '/backoffice/home';
+
+                console.log(`[Signup] Role: ${session?.user?.role} -> UserType: ${userType} -> Target: ${targetPage}`);
+
+                router.push(targetPage);
                 router.refresh();
             }
         } catch (err) {
