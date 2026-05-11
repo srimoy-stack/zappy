@@ -7,12 +7,13 @@
  *   1. Brand Identity (always)
  *   2. Entitlements — unified module tree (always)
  *   3. Email Config (only if email-campaigns enabled)
- *   4. SMS Config (only if communication modules enabled)
- *   5. Tenant Admin (always)
- *   6. Review & Deploy (always)
+ *   4. SMS Config (only if email-campaigns enabled — optional)
+ *   5. AI Call Config (only if ai-call-analytics enabled)
+ *   6. Tenant Admin (always)
+ *   7. Review & Deploy (always)
  *
- * Steps 3 & 4 are conditionally shown based on Step 2 selections.
- * If a brand doesn't need email campaigns, those steps are auto-skipped.
+ * Steps 3–5 are conditionally shown based on Step 2 selections.
+ * Validation is enforced BEFORE advancing to the next step.
  */
 
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
@@ -30,7 +31,8 @@ const DRAFT_KEY = 'zyappy_onboarding_draft';
 
 // ── Modules that trigger conditional steps ──────────────────────────────────
 const EMAIL_MODULES = ['email-campaigns'];
-const SMS_MODULES = ['email-campaigns', 'online-ordering']; // SMS needed for OTP, order notifications
+const SMS_MODULES = ['email-campaigns', 'online-ordering'];
+const VAPI_MODULES = ['ai-call-analytics'];
 
 function loadDraft(): OnboardingFormData | null {
     if (typeof window === 'undefined') return null;
@@ -48,6 +50,7 @@ function loadDraft(): OnboardingFormData | null {
             admin: { ...initial.admin, ...(draft.admin || {}) },
             email: { ...initial.email, ...(draft.email || {}) },
             sms: { ...initial.sms, ...(draft.sms || {}) },
+            vapi: { ...initial.vapi, ...(draft.vapi || {}) },
             enabledModuleIds: draft.enabledModuleIds || initial.enabledModuleIds,
             selectedEntitlementPaths: draft.selectedEntitlementPaths || initial.selectedEntitlementPaths,
         };
@@ -66,15 +69,6 @@ function clearDraft() {
     sessionStorage.removeItem(DRAFT_KEY);
 }
 
-const ORCHESTRATION_LABELS = [
-    'Creating brand',
-    'Enabling modules',
-    'Configuring email',
-    'Configuring SMS',
-    'Creating tenant admin',
-    'Finalizing onboarding',
-];
-
 export function useOnboardingFlow() {
     const [currentStep, setCurrentStep] = useState<OnboardingStep>(1);
     const [formData, setFormData] = useState<OnboardingFormData>(
@@ -84,10 +78,9 @@ export function useOnboardingFlow() {
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [createdTenantId, setCreatedTenantId] = useState<string | null>(null);
-    const [orchestrationSteps, setOrchestrationSteps] = useState<OrchestrationStepStatus[]>(
-        ORCHESTRATION_LABELS.map((label) => ({ label, status: 'pending' }))
-    );
+    const [orchestrationSteps, setOrchestrationSteps] = useState<OrchestrationStepStatus[]>([]);
     const [submitError, setSubmitError] = useState<string | null>(null);
+    const [stepErrors, setStepErrors] = useState<string[]>([]);
     const submitAttempted = useRef(false);
 
     // ── Conditional step visibility ──────────────────────────────────────────
@@ -99,33 +92,29 @@ export function useOnboardingFlow() {
         return formData.enabledModuleIds.some(id => SMS_MODULES.includes(id));
     }, [formData.enabledModuleIds]);
 
+    const needsVapi = useMemo(() => {
+        return formData.enabledModuleIds.some(id => VAPI_MODULES.includes(id));
+    }, [formData.enabledModuleIds]);
+
     /**
      * Active steps — dynamically computed based on entitlement selection.
-     * Steps 3 (Email) and 4 (SMS) only appear if relevant modules are enabled.
+     * Steps 3-5 only appear if relevant modules are enabled.
      */
     const activeSteps = useMemo((): OnboardingStep[] => {
         const steps: OnboardingStep[] = [1, 2]; // Brand + Entitlements (always)
         if (needsEmail) steps.push(3);
         if (needsSms) steps.push(4);
-        steps.push(5, 6); // Admin + Review (always)
+        if (needsVapi) steps.push(5);
+        steps.push(6, 7); // Admin + Review (always)
         return steps;
-    }, [needsEmail, needsSms]);
+    }, [needsEmail, needsSms, needsVapi]);
 
-    /**
-     * Total active step count (for progress bar).
-     */
     const totalSteps = activeSteps.length;
 
-    /**
-     * Check if a step is active in current flow.
-     */
     const isStepActive = useCallback((step: OnboardingStep) => {
         return activeSteps.includes(step);
     }, [activeSteps]);
 
-    /**
-     * Current step index within active steps (for progress display).
-     */
     const currentStepIndex = activeSteps.indexOf(currentStep);
 
     // ── Persist draft on change ──────────────────────────────────────────────
@@ -135,16 +124,88 @@ export function useOnboardingFlow() {
         }
     }, [formData, submitted]);
 
-    // ── Step navigation (skips inactive steps) ───────────────────────────────
+    // ── Validation ───────────────────────────────────────────────────────────
+    const validateStep = useCallback(
+        (step: OnboardingStep): { valid: boolean; errors: string[] } => {
+            const errors: string[] = [];
+
+            switch (step) {
+                case 1:
+                    if (!formData.brand.brandName.trim()) errors.push('Brand name is required');
+                    if (!formData.brand.addressLine1.trim()) errors.push('Address is required');
+                    if (!formData.brand.city.trim()) errors.push('City is required');
+                    if (!formData.brand.postalCode.trim()) errors.push('Postal code is required');
+                    break;
+                case 2:
+                    // At least one non-POS module should be enabled for Phase 1
+                    if (formData.enabledModuleIds.length === 0) {
+                        errors.push('At least one module must be enabled');
+                    }
+                    break;
+                case 3:
+                    // Email — required fields when custom provider selected
+                    if (needsEmail && formData.email.provider !== 'inherit') {
+                        if (!formData.email.senderEmail.trim()) errors.push('Sender email is required');
+                        if (!formData.email.senderName.trim()) errors.push('Sender name is required');
+                        if (formData.email.provider === 'smtp') {
+                            if (!formData.email.host?.trim()) errors.push('SMTP host is required');
+                            if (!formData.email.username?.trim()) errors.push('SMTP username is required');
+                            if (!formData.email.password?.trim()) errors.push('SMTP password is required');
+                        }
+                        if ((formData.email.provider === 'sendgrid' || formData.email.provider === 'ses') && !formData.email.apiKey?.trim()) {
+                            errors.push('API key is required');
+                        }
+                    }
+                    break;
+                case 4:
+                    // SMS — fully optional. Only validate if custom provider is selected
+                    if (needsSms && formData.sms.provider !== 'inherit') {
+                        if (!formData.sms.senderId.trim()) errors.push('Sender ID is required for custom SMS providers');
+                        if (!formData.sms.apiKey?.trim()) errors.push('API key is required');
+                    }
+                    break;
+                case 5:
+                    // Vapi — required when ai-call-analytics is enabled
+                    if (needsVapi) {
+                        if (!formData.vapi.assistantId.trim()) errors.push('Vapi Assistant ID is required');
+                        if (!formData.vapi.phoneNumber.trim()) errors.push('Assistant phone number is required');
+                    }
+                    break;
+                case 6:
+                    if (!formData.admin.adminName.trim()) errors.push('Admin name is required');
+                    if (!formData.admin.adminEmail.trim()) errors.push('Admin email is required');
+                    // Basic email format check
+                    if (formData.admin.adminEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.admin.adminEmail)) {
+                        errors.push('Invalid email format');
+                    }
+                    break;
+                case 7:
+                    // Review — no additional validation
+                    break;
+            }
+
+            return { valid: errors.length === 0, errors };
+        },
+        [formData, needsEmail, needsSms, needsVapi]
+    );
+
+    // ── Step navigation (validates before advancing) ─────────────────────────
     const nextStep = useCallback(() => {
+        const validation = validateStep(currentStep);
+        if (!validation.valid) {
+            setStepErrors(validation.errors);
+            return;
+        }
+        setStepErrors([]);
         setCurrentStep((prev) => {
             const currentIdx = activeSteps.indexOf(prev);
             if (currentIdx === -1 || currentIdx >= activeSteps.length - 1) return prev;
             return activeSteps[currentIdx + 1]!;
         });
-    }, [activeSteps]);
+    }, [activeSteps, currentStep, validateStep]);
 
     const prevStep = useCallback(() => {
+        setStepErrors([]);
         setCurrentStep((prev) => {
             const currentIdx = activeSteps.indexOf(prev);
             if (currentIdx <= 0) return prev;
@@ -153,8 +214,8 @@ export function useOnboardingFlow() {
     }, [activeSteps]);
 
     const goToStep = useCallback((step: OnboardingStep) => {
-        // Only allow jumping to active steps
         if (activeSteps.includes(step)) {
+            setStepErrors([]);
             setCurrentStep(step);
         }
     }, [activeSteps]);
@@ -163,6 +224,7 @@ export function useOnboardingFlow() {
     const updateBrand = useCallback(
         (updates: Partial<OnboardingFormData['brand']>) => {
             setFormData((prev) => ({ ...prev, brand: { ...prev.brand, ...updates } }));
+            setStepErrors([]);
         },
         []
     );
@@ -170,6 +232,7 @@ export function useOnboardingFlow() {
     const updateAdmin = useCallback(
         (updates: Partial<OnboardingFormData['admin']>) => {
             setFormData((prev) => ({ ...prev, admin: { ...prev.admin, ...updates } }));
+            setStepErrors([]);
         },
         []
     );
@@ -177,6 +240,7 @@ export function useOnboardingFlow() {
     const updateEmail = useCallback(
         (updates: Partial<OnboardingFormData['email']>) => {
             setFormData((prev) => ({ ...prev, email: { ...prev.email, ...updates } }));
+            setStepErrors([]);
         },
         []
     );
@@ -184,6 +248,15 @@ export function useOnboardingFlow() {
     const updateSms = useCallback(
         (updates: Partial<OnboardingFormData['sms']>) => {
             setFormData((prev) => ({ ...prev, sms: { ...prev.sms, ...updates } }));
+            setStepErrors([]);
+        },
+        []
+    );
+
+    const updateVapi = useCallback(
+        (updates: Partial<OnboardingFormData['vapi']>) => {
+            setFormData((prev) => ({ ...prev, vapi: { ...prev.vapi, ...updates } }));
+            setStepErrors([]);
         },
         []
     );
@@ -228,7 +301,8 @@ export function useOnboardingFlow() {
             'Creating brand',
             'Enabling modules',
             ...(needsEmail ? ['Configuring email'] : []),
-            ...(needsSms ? ['Configuring SMS'] : []),
+            ...(needsSms && formData.sms.provider !== 'inherit' ? ['Configuring SMS'] : []),
+            ...(needsVapi ? ['Configuring AI Call Analytics'] : []),
             'Creating tenant admin',
             'Finalizing onboarding',
         ];
@@ -262,22 +336,30 @@ export function useOnboardingFlow() {
                 stepIdx++;
             }
 
-            // 4. Configure SMS (only if enabled)
-            if (needsSms) {
+            // 4. Configure SMS (only if custom provider selected)
+            if (needsSms && formData.sms.provider !== 'inherit') {
                 markStep(stepIdx, 'running');
                 await onboardingService.configureSms(tenant.id, formData.sms);
                 markStep(stepIdx, 'done');
                 stepIdx++;
             }
 
-            // 5. Create tenant admin
+            // 5. Configure Vapi (only if ai-call-analytics enabled)
+            if (needsVapi) {
+                markStep(stepIdx, 'running');
+                await onboardingService.configureVapi(tenant.id, formData.vapi);
+                markStep(stepIdx, 'done');
+                stepIdx++;
+            }
+
+            // 6. Create tenant admin
             markStep(stepIdx, 'running');
             await onboardingService.createAdminUser(tenant.id, formData.admin);
             markStep(stepIdx, 'done');
             logAction({ action: AUDIT_ACTIONS.USER_CREATED, entity: AUDIT_ENTITIES.USER, metadata: { tenantId: tenant.id, role: 'BRAND_ADMIN', email: formData.admin.adminEmail } });
             stepIdx++;
 
-            // 6. Finalize
+            // 7. Finalize
             markStep(stepIdx, 'running');
             await onboardingService.finalizeOnboarding(tenant.id);
             markStep(stepIdx, 'done');
@@ -287,7 +369,7 @@ export function useOnboardingFlow() {
             setSubmitted(true);
             logAction({ action: AUDIT_ACTIONS.ONBOARDING_COMPLETED, entity: AUDIT_ENTITIES.TENANT, entityId: tenant.id });
         } catch (err: any) {
-            const msg = err?.response?.data?.message || err?.message || 'Onboarding failed';
+            const msg = err?.response?.data?.message || err?.response?.data?.error || err?.message || 'Onboarding failed';
             setSubmitError(msg);
             logAction({ action: AUDIT_ACTIONS.ONBOARDING_FAILED, entity: AUDIT_ENTITIES.TENANT, metadata: { error: msg, brandName: formData.brand.brandName } });
 
@@ -300,49 +382,7 @@ export function useOnboardingFlow() {
             setSubmitting(false);
             submitAttempted.current = false;
         }
-    }, [formData, markStep, needsEmail, needsSms]);
-
-    // ── Validation ───────────────────────────────────────────────────────────
-    const validateStep = useCallback(
-        (step: OnboardingStep): { valid: boolean; errors: string[] } => {
-            const errors: string[] = [];
-
-            switch (step) {
-                case 1:
-                    if (!formData.brand.brandName.trim()) errors.push('Brand name is required');
-                    if (!formData.brand.addressLine1.trim()) errors.push('Address is required');
-                    if (!formData.brand.city.trim()) errors.push('City is required');
-                    if (!formData.brand.postalCode.trim()) errors.push('Postal code is required');
-                    break;
-                case 2:
-                    // Entitlements — at least POS must be enabled
-                    if (!formData.enabledModuleIds.includes('pos')) errors.push('POS module is required');
-                    break;
-                case 3:
-                    // Email — only validated if step is active
-                    if (needsEmail && formData.email.provider !== 'inherit' && !formData.email.senderEmail) {
-                        errors.push('Sender email is required for custom providers');
-                    }
-                    break;
-                case 4:
-                    // SMS — only validated if step is active
-                    if (needsSms && formData.sms.provider !== 'inherit' && !formData.sms.senderId) {
-                        errors.push('Sender ID is required for custom providers');
-                    }
-                    break;
-                case 5:
-                    if (!formData.admin.adminName.trim()) errors.push('Admin name is required');
-                    if (!formData.admin.adminEmail.trim()) errors.push('Admin email is required');
-                    break;
-                case 6:
-                    // Review — no additional validation
-                    break;
-            }
-
-            return { valid: errors.length === 0, errors };
-        },
-        [formData, needsEmail, needsSms]
-    );
+    }, [formData, markStep, needsEmail, needsSms, needsVapi]);
 
     const resetDraft = useCallback(() => {
         clearDraft();
@@ -350,6 +390,7 @@ export function useOnboardingFlow() {
         setCurrentStep(1);
         setSubmitted(false);
         setCreatedTenantId(null);
+        setStepErrors([]);
     }, []);
 
     return {
@@ -366,6 +407,7 @@ export function useOnboardingFlow() {
         // Conditional flags
         needsEmail,
         needsSms,
+        needsVapi,
 
         // Form data
         formData,
@@ -373,6 +415,7 @@ export function useOnboardingFlow() {
         updateAdmin,
         updateEmail,
         updateSms,
+        updateVapi,
         updateEnabledModules,
         updateEntitlementPaths,
 
@@ -386,6 +429,7 @@ export function useOnboardingFlow() {
 
         // Validation
         validateStep,
+        stepErrors,
         resetDraft,
     };
 }

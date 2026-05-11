@@ -5,6 +5,12 @@ import { FormSectionTitle } from './ui';
 import { ModuleTreeSelector } from '@/modules/platform/components/tenants/ModuleTreeSelector';
 import { getModuleNodes } from '@/shared/config/modules';
 
+/**
+ * Phase 1 Launch — Only these root modules are available for tenant provisioning.
+ * All other modules render as "Coming Soon" and cannot be selected.
+ */
+const PHASE_1_MODULE_IDS = new Set(['email-campaigns', 'ai-call-analytics']);
+
 interface ModuleStepProps {
     selectedPaths: string[];
     onUpdatePaths: (paths: string[]) => void;
@@ -26,6 +32,17 @@ export function ModuleStep({ selectedPaths, onUpdatePaths }: ModuleStepProps) {
         (node) => !node.isSystem && node.status === 'active'
     );
 
+    // Compute which modules are Coming Soon (not in Phase 1)
+    const comingSoonIds = React.useMemo(() => {
+        const ids = new Set<string>();
+        configurableModules.forEach((mod) => {
+            if (!PHASE_1_MODULE_IDS.has(mod.id)) {
+                ids.add(mod.id);
+            }
+        });
+        return ids;
+    }, [configurableModules]);
+
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <section className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-8">
@@ -38,8 +55,10 @@ export function ModuleStep({ selectedPaths, onUpdatePaths }: ModuleStepProps) {
                     modules={configurableModules}
                     selectedPaths={selectedPaths}
                     onChange={onUpdatePaths}
+                    comingSoonIds={comingSoonIds}
                 />
             </section>
         </div>
     );
 }
+

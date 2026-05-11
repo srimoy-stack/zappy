@@ -26,11 +26,13 @@ const handler = NextAuth({
 
                     if (res.ok && data.access_token) {
                         // Return user object with JWT token embedded
+                        // CRITICAL: tenant_id from backend enables tenant-scoped sessions
                         return {
                             id: String(data.user.id),
                             name: data.user.name,
                             email: data.user.email,
                             role: data.user.role,
+                            tenantId: data.user.tenant_id ? String(data.user.tenant_id) : null,
                             accessToken: data.access_token,
                             tokenExpiry: data.expires_in,
                         } as any;
