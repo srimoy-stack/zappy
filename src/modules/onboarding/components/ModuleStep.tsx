@@ -1,15 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { LayoutGrid } from 'lucide-react';
 import { FormSectionTitle } from './ui';
 import { ModuleTreeSelector } from '@/modules/platform/components/tenants/ModuleTreeSelector';
 import { getModuleNodes } from '@/shared/config/modules';
-
-/**
- * Phase 1 Launch — Only these root modules are available for tenant provisioning.
- * All other modules render as "Coming Soon" and cannot be selected.
- */
-const PHASE_1_MODULE_IDS = new Set(['email-campaigns', 'ai-call-analytics']);
 
 interface ModuleStepProps {
     selectedPaths: string[];
@@ -17,11 +11,20 @@ interface ModuleStepProps {
 }
 
 /**
+ * Phase 1 modules — only these are available for selection during onboarding.
+ * All other modules are rendered as "Coming Soon" (visible but not toggleable).
+ * POS is always-on (isCore), so it doesn't need to be listed here.
+ */
+const PHASE_1_MODULE_IDS = new Set([
+    'email-campaigns',
+    'ai-call-analytics',
+]);
+
+/**
  * ModuleStep — Registry-driven module entitlement configuration.
  *
- * No longer fetches modules from the API.
  * The registry IS the canonical module tree.
- * The API only stores which paths are enabled for this tenant.
+ * Modules NOT in PHASE_1_MODULE_IDS are shown as "Coming Soon".
  */
 export function ModuleStep({ selectedPaths, onUpdatePaths }: ModuleStepProps) {
     // Registry is static — loaded at import time, zero async
@@ -32,14 +35,14 @@ export function ModuleStep({ selectedPaths, onUpdatePaths }: ModuleStepProps) {
         (node) => !node.isSystem && node.status === 'active'
     );
 
-    // Compute which modules are Coming Soon (not in Phase 1)
-    const comingSoonIds = React.useMemo(() => {
+    // Modules not in Phase 1 → "Coming Soon" (visible, greyed out, not toggleable)
+    const comingSoonIds = useMemo(() => {
         const ids = new Set<string>();
-        configurableModules.forEach((mod) => {
-            if (!PHASE_1_MODULE_IDS.has(mod.id)) {
+        for (const mod of configurableModules) {
+            if (!mod.isCore && !PHASE_1_MODULE_IDS.has(mod.id)) {
                 ids.add(mod.id);
             }
-        });
+        }
         return ids;
     }, [configurableModules]);
 
@@ -61,4 +64,3 @@ export function ModuleStep({ selectedPaths, onUpdatePaths }: ModuleStepProps) {
         </div>
     );
 }
-

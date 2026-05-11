@@ -72,6 +72,7 @@ function mapStatusToCode(status: number): string {
         case 401: return API_ERROR_CODES.UNAUTHORIZED;
         case 403: return API_ERROR_CODES.FORBIDDEN;
         case 404: return API_ERROR_CODES.NOT_FOUND;
+        case 422: return API_ERROR_CODES.VALIDATION;
         default:
             if (status >= 500) return API_ERROR_CODES.SERVER;
             return API_ERROR_CODES.UNKNOWN;

@@ -18,55 +18,45 @@ import {
 import { UserRole } from '@/shared/types/auth';
 import { Brand, TenantStatus, TENANT_STATUS_CONFIG } from '@/shared/types/tenant';
 import { cn } from '@/utils';
+import { apiClient } from '@/shared/api/apiClient';
 
-// ─── Mock Data (aligned with adapter) ──────────────────────────────────────────
+// ─── Helpers ────────────────────────────────────────────────────────────────────
 
-const MOCK_BRANDS: Brand[] = [
-    {
-        id: 'brand-001', brandLegalName: 'Acme Pizza Co. Ltd.', brandName: 'Acme Pizza Co.',
-        tradeName: 'Acme Pizza', address: '123 Main St, Toronto', timezone: 'America/Toronto',
-        currency: 'CAD', primaryContact: 'john@acmepizza.com', contactPhone: '+1-416-555-0100',
-        status: 'Operational', createdDate: '2025-06-15', createdBy: 'admin', totalStores: 12,
-        totalUsers: 45, enabledModules: ['pos', 'inventory', 'online-ordering', 'reports', 'email-campaigns'],
-        province: 'Ontario', modulesPurchasedCount: 5, plan: 'Enterprise', slug: 'acme-pizza',
-        lightLogo: '', darkLogo: '', defaultPaymentTerms: 'Net 30',
-        defaultTaxScheme: 'HST', defaultTaxRate: 13,
-        lastActivity: '2026-05-07T14:30:00Z', onboardingProgress: 100
-    },
-    {
-        id: 'brand-002', brandLegalName: 'QuickBite Foods Ltd.', brandName: 'QuickBite Foods',
-        tradeName: 'QuickBite', address: '456 Elm St, Vancouver', timezone: 'America/Vancouver',
-        currency: 'CAD', primaryContact: 'sarah@quickbite.ca', contactPhone: '+1-604-555-0200',
-        status: 'Configuring', createdDate: '2025-08-22', createdBy: 'admin', totalStores: 8,
-        totalUsers: 12, enabledModules: ['pos', 'inventory', 'reports'],
-        province: 'British Columbia', modulesPurchasedCount: 3, plan: 'Growth', slug: 'quickbite',
-        lightLogo: '', darkLogo: '', defaultPaymentTerms: 'Net 15',
-        defaultTaxScheme: 'GST+PST', defaultTaxRate: 12,
-        lastActivity: '2026-05-06T09:15:00Z', onboardingProgress: 65
-    },
-    {
-        id: 'brand-003', brandLegalName: 'Burger Nation Inc.', brandName: 'Burger Nation',
-        tradeName: 'Burger Nation', address: '789 Oak Ave, Calgary', timezone: 'America/Edmonton',
-        currency: 'CAD', primaryContact: 'admin@burgernation.ca', contactPhone: '+1-403-555-0300',
-        status: 'Suspended', createdDate: '2025-03-04', createdBy: 'admin', totalStores: 3,
-        totalUsers: 5, enabledModules: ['pos', 'inventory'],
-        province: 'Alberta', modulesPurchasedCount: 2, plan: 'Starter', slug: 'burger-nation',
-        lightLogo: '', darkLogo: '', defaultPaymentTerms: 'Net 30',
-        defaultTaxScheme: 'GST', defaultTaxRate: 5,
-        lastActivity: '2026-01-20T11:00:00Z', onboardingProgress: 100
-    },
-    {
-        id: 'brand-004', brandLegalName: 'Sushi Express Holdings', brandName: 'Sushi Express',
-        tradeName: 'Sushi Express', address: '101 Bay St, Toronto', timezone: 'America/Toronto',
-        currency: 'CAD', primaryContact: 'ops@sushiexpress.com', contactPhone: '+1-416-555-0400',
-        status: 'Operational', createdDate: '2024-11-10', createdBy: 'admin', totalStores: 22,
-        totalUsers: 85, enabledModules: ['pos', 'inventory', 'online-ordering'],
-        province: 'Ontario', modulesPurchasedCount: 7, plan: 'Enterprise', slug: 'sushi-express',
-        lightLogo: '', darkLogo: '', defaultPaymentTerms: 'Net 30',
-        defaultTaxScheme: 'HST', defaultTaxRate: 13,
-        onboardingProgress: 100
-    },
-];
+/**
+ * Map Laravel Tenant model → frontend Brand type.
+ * Backend returns snake_case; frontend expects camelCase with enriched fields.
+ */
+function mapTenantToBrand(t: any): Brand {
+    const settings = t.settings || {};
+    return {
+        id: String(t.id),
+        brandLegalName: t.legal_name || t.name || '',
+        brandName: t.name || '',
+        tradeName: settings.tradeName || t.name || '',
+        address: settings.address || '',
+        timezone: t.timezone || 'America/Toronto',
+        currency: t.currency || 'CAD',
+        primaryContact: t.contact_email || '',
+        contactPhone: t.contact_phone || '',
+        status: (t.status as TenantStatus) || 'Draft',
+        createdDate: t.created_at?.split('T')[0] || '',
+        createdBy: 'admin',
+        totalStores: t.stores_count ?? 0,
+        totalUsers: t.users_count ?? 0,
+        province: settings.province || '',
+        modulesPurchasedCount: t.modules_count ?? 0,
+        enabledModules: t.modules?.filter((m: any) => m.enabled).map((m: any) => m.module_key) || [],
+        plan: settings.plan || 'Standard',
+        slug: t.slug || '',
+        lightLogo: settings.lightLogo || '',
+        darkLogo: settings.darkLogo || '',
+        defaultPaymentTerms: settings.defaultPaymentTerms || '',
+        defaultTaxScheme: settings.defaultTaxScheme || '',
+        defaultTaxRate: settings.defaultTaxRate || 0,
+        lastActivity: t.updated_at || undefined,
+        onboardingProgress: t.status === 'Operational' ? 100 : t.status === 'Configuring' ? 65 : t.status === 'Provisioned' ? 30 : 0,
+    };
+}
 
 interface AuditEvent {
     type: string;
@@ -75,8 +65,6 @@ interface AuditEvent {
     timestamp: string;
     actor: string;
 }
-
-// ─── Helpers ────────────────────────────────────────────────────────────────────
 
 const auditLog: AuditEvent[] = [];
 
@@ -117,13 +105,23 @@ export default function TenantsPage() {
     // Suspend modal
     const [suspendTarget, setSuspendTarget] = useState<Brand | null>(null);
 
-    // ── Data Fetch (mock) ─────────────────────────────────────────────────
+    // ── Data Fetch (real API) ─────────────────────────────────────────────
     useEffect(() => {
         const load = async () => {
             setIsLoading(true);
-            await new Promise((r) => setTimeout(r, 400));
-            setBrands(MOCK_BRANDS);
-            setIsLoading(false);
+            try {
+                const { data } = await apiClient.get('/tenants', {
+                    params: { per_page: 100 },
+                });
+                // Laravel paginate returns { data: [...], ... }
+                const tenants = Array.isArray(data) ? data : (data.data || []);
+                setBrands(tenants.map(mapTenantToBrand));
+            } catch (err) {
+                console.error('[TenantsPage] Failed to fetch tenants:', err);
+                setBrands([]);
+            } finally {
+                setIsLoading(false);
+            }
         };
         load();
     }, []);

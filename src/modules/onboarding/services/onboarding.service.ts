@@ -111,16 +111,17 @@ export async function configureVapi(
     tenantId: string,
     config: OnboardingVapiConfig
 ): Promise<void> {
-    if (!config.assistantId) return;
+    const assistantId = config.assistantId?.trim();
+    if (!assistantId) return;
 
     // PATCH /tenants/{id} — vapi_assistant_id is a fillable column
     await apiClient.patch(`/tenants/${tenantId}`, {
-        vapi_assistant_id: config.assistantId,
+        vapi_assistant_id: assistantId,
         // Phone number stored in settings JSON for reference
         settings: {
             vapi: {
-                phoneNumber: config.phoneNumber,
-                assistantId: config.assistantId,
+                phoneNumber: config.phoneNumber?.trim(),
+                assistantId,
             },
         },
     });
@@ -136,12 +137,14 @@ export async function createAdminUser(
     tenantId: string,
     data: OnboardingAdminData
 ): Promise<{ id: string }> {
-    // Call the tenant-scoped user creation endpoint directly
-    // Backend expects: fullName, email, phone, userType (TenantController::createUser)
+    // Normalize email: trim whitespace and lowercase to match backend behavior
+    // and prevent case-sensitive duplicate detection mismatches.
+    const normalizedEmail = data.adminEmail?.trim().toLowerCase();
+
     const { data: response } = await apiClient.post(`/tenants/${tenantId}/users`, {
-        fullName: data.adminName,
-        email: data.adminEmail,
-        phone: data.adminPhone,
+        fullName: data.adminName?.trim(),
+        email: normalizedEmail,
+        phone: data.adminPhone?.trim() || undefined,
         userType: 'BRAND_ADMIN',
     });
 

@@ -46,7 +46,8 @@ export function OnboardingPage() {
     const isLastStep = flow.currentStepIndex === flow.activeSteps.length - 1;
 
     // ── Submission Overlay ───────────────────────────────────────────────────
-    if (flow.submitting || flow.submitted) {
+    // Show overlay while submitting, after success, OR when there's an error to display
+    if (flow.submitting || flow.submitted || flow.submitError) {
         return (
             <div className="min-h-screen bg-slate-50/50 flex items-center justify-center p-6">
                 <div className="max-w-lg w-full bg-white p-12 rounded-[2rem] border border-slate-200 shadow-2xl shadow-slate-100">
@@ -88,14 +89,24 @@ export function OnboardingPage() {
                                 ))}
                             </div>
                             {flow.submitError && (
-                                <div className="p-4 bg-red-50 border border-red-200 rounded-2xl">
-                                    <p className="text-xs font-bold text-red-700">{flow.submitError}</p>
-                                    <button
-                                        onClick={flow.handleSubmit}
-                                        className="mt-3 px-6 py-2 bg-red-600 text-white rounded-xl text-xs font-black hover:bg-red-700 transition-colors"
-                                    >
-                                        Retry
-                                    </button>
+                                <div className="p-5 bg-red-50 border border-red-200 rounded-2xl space-y-3">
+                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">Provisioning Failed</p>
+                                    <p className="text-xs font-bold text-red-700 leading-relaxed break-words">{flow.submitError}</p>
+                                    <div className="flex gap-3 pt-1">
+                                        <button
+                                            onClick={flow.handleSubmit}
+                                            disabled={flow.submitting}
+                                            className="px-6 py-2.5 bg-red-600 text-white rounded-xl text-xs font-black hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            Retry from Failed Step
+                                        </button>
+                                        <button
+                                            onClick={flow.resetDraft}
+                                            className="px-6 py-2.5 bg-white text-slate-600 rounded-xl text-xs font-black border border-slate-200 hover:bg-slate-50 transition-colors"
+                                        >
+                                            Start Over
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         </div>
