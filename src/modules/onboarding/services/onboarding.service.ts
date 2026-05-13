@@ -29,12 +29,19 @@ export async function createTenant(data: OnboardingBrandData): Promise<{ id: str
         brandLegalName: data.brandLegalName,
         brandName: data.brandName,
         tradeName: data.tradeName,
-        address: data.addressLine1,
+        address: [data.addressLine1, data.addressLine2].filter(Boolean).join(', '),
+        addressLine1: data.addressLine1,
+        addressLine2: data.addressLine2,
+        city: data.city,
+        province: data.province,
+        postalCode: data.postalCode,
+        country: data.country,
         timezone: data.timezone,
         currency: data.currency,
         contactEmail: data.contactEmail,
         contactPhone: data.contactPhone,
         defaultPaymentTerms: data.paymentTermType,
+        netDays: data.netDays,
     });
 
     return { id: String(response.id), slug: String(response.slug) };
@@ -146,6 +153,7 @@ export async function createAdminUser(
         email: normalizedEmail,
         phone: data.adminPhone?.trim() || undefined,
         userType: 'BRAND_ADMIN',
+        inviteMethod: data.inviteMethod || 'MAGIC_LINK',
     });
 
     return { id: String(response.user?.id || response.id) };
@@ -153,11 +161,11 @@ export async function createAdminUser(
 
 // ─── 7. Finalize ─────────────────────────────────────────────────────────────
 //
-// Status lifecycle: DRAFT → PROVISIONED → CONFIGURING → OPERATIONAL → SUSPENDED
-// After onboarding wizard completes, tenant moves to PROVISIONED.
-// CONFIGURING happens when tenant admin starts operational setup.
-// OPERATIONAL is set after first successful store + POS configuration.
+// Status lifecycle: DRAFT → ACTIVE → SUSPENDED
+// DRAFT    = tenant created but wizard not completed
+// ACTIVE   = wizard completed — modules, config, and admin user are all set
+// SUSPENDED = suspended by platform admin (billing, violation, etc.)
 
 export async function finalizeOnboarding(tenantId: string): Promise<void> {
-    await api.updateTenant(tenantId, { status: 'provisioned' } as any);
+    await api.updateTenant(tenantId, { status: 'active' } as any);
 }

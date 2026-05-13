@@ -33,6 +33,7 @@ const handler = NextAuth({
                             email: data.user.email,
                             role: data.user.role,
                             tenantId: data.user.tenant_id ? String(data.user.tenant_id) : null,
+                            tenantSlug: data.user.tenant_slug || null,
                             accessToken: data.access_token,
                             tokenExpiry: data.expires_in,
                         } as any;
@@ -55,6 +56,7 @@ const handler = NextAuth({
                 token.accessToken = user.accessToken;
                 token.tokenExpiry = user.tokenExpiry;
                 token.tenantId = user.tenantId;
+                token.tenantSlug = user.tenantSlug;
                 token.storeIds = user.storeIds;
             }
             return token;
@@ -65,6 +67,7 @@ const handler = NextAuth({
                 session.user.role = token.role;
                 session.user.accessToken = token.accessToken;
                 session.user.tenantId = token.tenantId;
+                session.user.tenantSlug = token.tenantSlug;
                 session.user.storeIds = token.storeIds;
             }
             return session;

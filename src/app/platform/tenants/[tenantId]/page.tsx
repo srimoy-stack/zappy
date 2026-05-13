@@ -5,11 +5,13 @@ import { useParams, useRouter } from 'next/navigation';
 import {
     ArrowLeft, ChevronRight, Building2, Activity, Shield, LayoutGrid,
     Store, Users, MessageSquare, FileText, Ban, RefreshCw, LogIn, Pencil,
+    CheckCircle2, Trash2, Loader2, Play,
 } from 'lucide-react';
 
 import { Brand, TenantStatus, TENANT_STATUS_CONFIG } from '@/shared/types/tenant';
 import { UserType } from '@/shared/types/auth';
 import { cn } from '@/utils';
+import { apiClient } from '@/shared/api/apiClient';
 
 import {
     OverviewTab,
@@ -115,23 +117,150 @@ export default function TenantDetailPage() {
     const tenantId = params?.tenantId as string | undefined;
 
     const [activeTab, setActiveTab] = useState<TenantTab>('overview');
-    const [brand, setBrand] = useState<Brand>(MOCK_BRAND);
+    const [brand, setBrand] = useState<Brand | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [users, setUsers] = useState<typeof MOCK_USERS>([]);
 
-    // In real app, fetch from API on mount
+    // Fetch real tenant data from API
     useEffect(() => {
-        // TODO: const data = await api.getTenant(tenantId);
-        setBrand(MOCK_BRAND);
+        if (!tenantId) return;
+
+        const fetchTenant = async () => {
+            setLoading(true);
+            try {
+                const { data } = await apiClient.get(`/tenants/${tenantId}`);
+
+                // Map backend response → Brand type
+                const mapped: Brand = {
+                    id: String(data.id),
+                    brandLegalName: data.legal_name || data.name || '',
+                    brandName: data.name || '',
+                    tradeName: data.name || '',
+                    address: data.settings?.address || '',
+                    timezone: data.timezone || '',
+                    currency: data.currency || '',
+                    primaryContact: data.contact_email || '',
+                    contactPhone: data.contact_phone || '',
+                    status: data.status === 'active' ? 'Operational' : (data.status === 'suspended' ? 'Suspended' : 'Draft'),
+                    createdDate: data.created_at || '',
+                    createdBy: 'Platform Admin',
+                    totalStores: 0,
+                    totalUsers: data.users?.length || 0,
+                    province: data.settings?.province || '',
+                    modulesPurchasedCount: data.enabledModules?.length || 0,
+                    enabledModules: data.enabledModules || [],
+                    plan: data.settings?.plan || 'Standard',
+                    slug: data.slug || '',
+                    lightLogo: '',
+                    darkLogo: '',
+                    defaultPaymentTerms: data.settings?.paymentTerms || '',
+                    defaultTaxScheme: data.settings?.taxScheme || '',
+                    defaultTaxRate: data.settings?.taxRate || 0,
+                    lastActivity: data.updated_at || '',
+                    onboardingProgress: data.status === 'active' ? 100 : 0,
+                    communicationConfig: (data.settings?.email || data.settings?.sms) ? {
+                        email: data.settings?.email || { provider: 'smtp', senderEmail: '', senderName: '' },
+                        sms: data.settings?.sms || { provider: 'twilio', senderId: '' },
+                    } : undefined,
+                };
+
+                setBrand(mapped);
+
+                // Map users
+                if (data.users) {
+                    setUsers(data.users.map((u: any) => ({
+                        id: String(u.id),
+                        name: u.name,
+                        email: u.email,
+                        userType: u.role === 'brand_admin' ? UserType.BRAND_ADMIN : UserType.MANAGER,
+                        role: u.role === 'brand_admin' ? 'Brand Admin' : u.role,
+                        storeAccess: 'All Locations',
+                        storeIds: [],
+                        status: 'Active' as const,
+                        lastLogin: '',
+                        createdAt: '',
+                    })));
+                }
+            } catch (err) {
+                console.error('Failed to fetch tenant:', err);
+                // Fallback to mock for dev
+                setBrand(MOCK_BRAND);
+                setUsers([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTenant();
     }, [tenantId]);
 
-    const handleSuspend = () => {
-        if (!confirm(`Are you sure you want to suspend ${brand.brandName}? All store operations will be halted.`)) return;
-        setBrand(prev => ({ ...prev, status: 'Suspended' }));
+    const [actionLoading, setActionLoading] = useState(false);
+
+    const handleStatusChange = async (newStatus: string, displayStatus: TenantStatus, confirmMsg: string) => {
+        if (!brand || actionLoading) return;
+        if (!confirm(confirmMsg)) return;
+        setActionLoading(true);
+        try {
+            await apiClient.patch(`/tenants/${tenantId}`, { status: newStatus });
+            setBrand(prev => prev ? ({ ...prev, status: displayStatus }) : prev);
+        } catch (err) {
+            console.error('Status update failed:', err);
+            alert('Failed to update tenant status.');
+        } finally {
+            setActionLoading(false);
+        }
     };
 
-    const handleReactivate = () => {
-        if (!confirm(`Reactivate ${brand.brandName}?`)) return;
-        setBrand(prev => ({ ...prev, status: 'Operational' }));
+    const handleSuspend = () => handleStatusChange(
+        'suspended', 'Suspended',
+        `Are you sure you want to suspend ${brand?.brandName}? All store operations will be halted.`
+    );
+
+    const handleReactivate = () => handleStatusChange(
+        'active', 'Operational',
+        `Reactivate ${brand?.brandName}?`
+    );
+
+    const handleActivate = () => handleStatusChange(
+        'active', 'Operational',
+        `Activate ${brand?.brandName}? This will mark the tenant as fully operational.`
+    );
+
+    const handleDeleteDraft = async () => {
+        if (!brand || actionLoading) return;
+        if (!confirm(`Permanently delete draft tenant "${brand.brandName}"? This cannot be undone.`)) return;
+        setActionLoading(true);
+        try {
+            await apiClient.delete(`/tenants/${tenantId}`);
+            router.push('/platform/tenants');
+        } catch (err) {
+            console.error('Delete failed:', err);
+            alert('Failed to delete tenant.');
+            setActionLoading(false);
+        }
     };
+
+    if (loading || !brand) {
+        return (
+            <div className="max-w-[1600px] mx-auto space-y-6 pb-32 px-2 pt-2">
+                <div className="animate-pulse space-y-6">
+                    <div className="h-4 w-32 bg-slate-200 rounded" />
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-slate-200" />
+                        <div className="space-y-2">
+                            <div className="h-7 w-64 bg-slate-200 rounded" />
+                            <div className="h-4 w-48 bg-slate-100 rounded" />
+                        </div>
+                    </div>
+                    <div className="h-10 w-full bg-slate-100 rounded" />
+                    <div className="grid grid-cols-4 gap-4">
+                        {[1,2,3,4].map(i => <div key={i} className="h-24 bg-slate-100 rounded-xl" />)}
+                    </div>
+                    <div className="h-64 bg-slate-50 rounded-xl" />
+                </div>
+            </div>
+        );
+    }
 
     const statusConfig = TENANT_STATUS_CONFIG[brand.status] || TENANT_STATUS_CONFIG.Draft;
 
@@ -176,28 +305,52 @@ export default function TenantDetailPage() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => router.push(`/platform/tenants/${tenantId}/impersonate`)}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-xl text-xs font-black hover:bg-amber-100 transition-all"
-                    >
-                        <LogIn size={14} /> Impersonate
-                    </button>
-                    <button
-                        onClick={() => router.push(`/platform/tenants/${tenantId}/config`)}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-xl text-xs font-black hover:bg-slate-50 transition-all"
-                    >
-                        <Pencil size={14} /> Edit Brand
-                    </button>
-                    {brand.status === 'Suspended' ? (
-                        <button onClick={handleReactivate}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-black hover:bg-emerald-100 transition-all">
-                            <RefreshCw size={14} /> Reactivate
-                        </button>
+                    {brand.status === 'Draft' ? (
+                        /* Draft-specific actions */
+                        <>
+                            <button
+                                onClick={() => router.push(`/platform/tenants/onboarding?resume=${tenantId}`)}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-black hover:bg-blue-700 transition-all shadow-sm">
+                                <Play size={14} /> Resume Onboarding
+                            </button>
+                            <button onClick={handleActivate} disabled={actionLoading}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-black hover:bg-emerald-100 transition-all disabled:opacity-50">
+                                {actionLoading ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                                Force Activate
+                            </button>
+                            <button onClick={handleDeleteDraft} disabled={actionLoading}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-black hover:bg-rose-100 transition-all disabled:opacity-50">
+                                {actionLoading ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
+                                Delete Draft
+                            </button>
+                        </>
                     ) : (
-                        <button onClick={handleSuspend}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-black hover:bg-rose-100 transition-all">
-                            <Ban size={14} /> Suspend
-                        </button>
+                        /* Active / Suspended actions */
+                        <>
+                            <button
+                                onClick={() => router.push(`/platform/tenants/${tenantId}/impersonate`)}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-xl text-xs font-black hover:bg-amber-100 transition-all">
+                                <LogIn size={14} /> Impersonate
+                            </button>
+                            <button
+                                onClick={() => router.push(`/platform/tenants/${tenantId}/config`)}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-xl text-xs font-black hover:bg-slate-50 transition-all">
+                                <Pencil size={14} /> Edit Brand
+                            </button>
+                            {brand.status === 'Suspended' ? (
+                                <button onClick={handleReactivate} disabled={actionLoading}
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-black hover:bg-emerald-100 transition-all disabled:opacity-50">
+                                    {actionLoading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
+                                    Reactivate
+                                </button>
+                            ) : (
+                                <button onClick={handleSuspend} disabled={actionLoading}
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-black hover:bg-rose-100 transition-all disabled:opacity-50">
+                                    {actionLoading ? <Loader2 size={14} className="animate-spin" /> : <Ban size={14} />}
+                                    Suspend
+                                </button>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
@@ -235,7 +388,7 @@ export default function TenantDetailPage() {
                 {activeTab === 'users' && (
                     <UsersTab
                         tenantId={tenantId || ''}
-                        users={MOCK_USERS}
+                        users={users}
                         stores={MOCK_STORES.map(s => ({ id: s.id, name: s.name }))}
                     />
                 )}
@@ -246,3 +399,4 @@ export default function TenantDetailPage() {
         </div>
     );
 }
+

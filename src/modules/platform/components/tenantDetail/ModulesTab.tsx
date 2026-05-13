@@ -1,9 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ModuleTreeSelector } from '../tenants/ModuleTreeSelector';
-import { MODULE_REGISTRY } from '@/shared/config/modules';
+import { getModuleNodes } from '@/shared/config/modules';
 import { LayoutGrid, Save, RotateCcw } from 'lucide-react';
+
+/**
+ * Phase 1 modules — only these are toggleable.
+ * All other modules show as "Coming Soon".
+ */
+const PHASE_1_MODULE_IDS = new Set(['email-campaigns', 'ai-call-analytics']);
 
 interface ModulesTabProps {
     tenantId: string;
@@ -14,6 +20,21 @@ export function ModulesTab({ tenantId, initialPaths }: ModulesTabProps) {
     const [selectedPaths, setSelectedPaths] = useState<string[]>(initialPaths);
     const [isDirty, setIsDirty] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+
+    const moduleNodes = getModuleNodes();
+    const configurableModules = moduleNodes.filter(
+        (node) => !node.isSystem && node.status === 'active'
+    );
+
+    const comingSoonIds = useMemo(() => {
+        const ids = new Set<string>();
+        for (const mod of configurableModules) {
+            if (!PHASE_1_MODULE_IDS.has(mod.id)) {
+                ids.add(mod.id);
+            }
+        }
+        return ids;
+    }, [configurableModules]);
 
     const handleChange = (paths: string[]) => {
         setSelectedPaths(paths);
@@ -72,9 +93,10 @@ export function ModulesTab({ tenantId, initialPaths }: ModulesTabProps) {
 
             {/* Tree Selector */}
             <ModuleTreeSelector
-                modules={MODULE_REGISTRY}
+                modules={configurableModules}
                 selectedPaths={selectedPaths}
                 onChange={handleChange}
+                comingSoonIds={comingSoonIds}
             />
         </div>
     );

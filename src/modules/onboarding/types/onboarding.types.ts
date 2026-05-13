@@ -219,7 +219,7 @@ export function createInitialFormData(): OnboardingFormData {
             assistantId: '',
             phoneNumber: '',
         },
-        enabledModuleIds: ['pos'],
-        selectedEntitlementPaths: ['pos'],
+        enabledModuleIds: [],
+        selectedEntitlementPaths: [],
     };
 }

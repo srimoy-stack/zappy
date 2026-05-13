@@ -32,19 +32,20 @@ export default function LoginPage() {
                 const { getSession } = await import('next-auth/react');
                 const session = await getSession();
                 const rawRole = (session?.user as any)?.role || '';
+                const tenantSlug = (session?.user as any)?.tenantSlug;
 
                 // Resolve correct landing page based on role
                 const roleKey = rawRole.toLowerCase();
-                const ROLE_LANDING: Record<string, string> = {
-                    'platform_super_admin': '/platform/tenants',
-                    'super_admin': '/platform/tenants',
-                    'admin': '/platform/tenants',
-                    'brand_admin': '/backoffice/home',
-                    'manager': '/backoffice/home',
-                };
-                const landingPage = ROLE_LANDING[roleKey] || '/backoffice/home';
 
-                router.push(landingPage);
+                if (['platform_super_admin', 'super_admin', 'admin'].includes(roleKey)) {
+                    router.push('/platform/tenants');
+                } else if (tenantSlug) {
+                    // Brand users → slug-based dashboard
+                    router.push(`/${tenantSlug}/home`);
+                } else {
+                    router.push('/backoffice/home');
+                }
+
                 router.refresh();
             }
         } catch (err) {

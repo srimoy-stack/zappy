@@ -14,6 +14,9 @@ import {
     ChevronLeft,
     ChevronRight,
     LogIn,
+    CheckCircle2,
+    Trash2,
+    Play,
 } from 'lucide-react';
 import { UserRole } from '@/shared/types/auth';
 import { Brand, TenantStatus, TENANT_STATUS_CONFIG } from '@/shared/types/tenant';
@@ -26,8 +29,25 @@ import { apiClient } from '@/shared/api/apiClient';
  * Map Laravel Tenant model → frontend Brand type.
  * Backend returns snake_case; frontend expects camelCase with enriched fields.
  */
+/**
+ * Map backend status string → frontend TenantStatus
+ * Backend stores: draft, active, suspended, provisioned, configuring
+ * Frontend uses: Draft, Operational, Suspended, Provisioned, Configuring
+ */
+function mapStatus(raw: string): TenantStatus {
+    const map: Record<string, TenantStatus> = {
+        draft: 'Draft',
+        active: 'Operational',
+        suspended: 'Suspended',
+        provisioned: 'Provisioned',
+        configuring: 'Configuring',
+    };
+    return map[raw?.toLowerCase()] || 'Draft';
+}
+
 function mapTenantToBrand(t: any): Brand {
     const settings = t.settings || {};
+    const status = mapStatus(t.status);
     return {
         id: String(t.id),
         brandLegalName: t.legal_name || t.name || '',
@@ -38,7 +58,7 @@ function mapTenantToBrand(t: any): Brand {
         currency: t.currency || 'CAD',
         primaryContact: t.contact_email || '',
         contactPhone: t.contact_phone || '',
-        status: (t.status as TenantStatus) || 'Draft',
+        status,
         createdDate: t.created_at?.split('T')[0] || '',
         createdBy: 'admin',
         totalStores: t.stores_count ?? 0,
@@ -54,7 +74,7 @@ function mapTenantToBrand(t: any): Brand {
         defaultTaxScheme: settings.defaultTaxScheme || '',
         defaultTaxRate: settings.defaultTaxRate || 0,
         lastActivity: t.updated_at || undefined,
-        onboardingProgress: t.status === 'Operational' ? 100 : t.status === 'Configuring' ? 65 : t.status === 'Provisioned' ? 30 : 0,
+        onboardingProgress: status === 'Operational' ? 100 : status === 'Configuring' ? 65 : status === 'Provisioned' ? 30 : 0,
     };
 }
 
@@ -198,6 +218,28 @@ export default function TenantsPage() {
 
         setSuspendTarget(null);
     }, [suspendTarget]);
+
+    const handleActivateTenant = useCallback(async (brand: Brand) => {
+        if (!confirm(`Activate ${brand.brandName}? This will mark the tenant as fully operational.`)) return;
+        try {
+            await apiClient.patch(`/tenants/${brand.id}`, { status: 'active' });
+            setBrands(prev => prev.map(b => b.id === brand.id ? { ...b, status: 'Operational' as TenantStatus, onboardingProgress: 100 } : b));
+        } catch (err) {
+            console.error('Activate failed:', err);
+            alert('Failed to activate tenant.');
+        }
+    }, []);
+
+    const handleDeleteDraft = useCallback(async (brand: Brand) => {
+        if (!confirm(`Permanently delete draft tenant "${brand.brandName}"? This cannot be undone.`)) return;
+        try {
+            await apiClient.delete(`/tenants/${brand.id}`);
+            setBrands(prev => prev.filter(b => b.id !== brand.id));
+        } catch (err) {
+            console.error('Delete failed:', err);
+            alert('Failed to delete tenant. Only draft tenants can be deleted.');
+        }
+    }, []);
 
     const clearFilters = useCallback(() => {
         setSearchQuery('');
@@ -455,7 +497,7 @@ export default function TenantsPage() {
                                                     </div>
                                                 </td>
 
-                                                {/* Actions */}
+                                                {/* Actions — context-aware per status */}
                                                 <td className="px-8 py-5">
                                                     <div
                                                         className="flex items-center justify-center gap-2"
@@ -464,26 +506,59 @@ export default function TenantsPage() {
                                                         <button
                                                             onClick={() => handleRowClick(brand)}
                                                             className="p-2.5 bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all border border-slate-100"
+                                                            title="View Details"
                                                         >
                                                             <Eye size={16} />
                                                         </button>
-                                                        <button
-                                                            onClick={() => router.push(`/platform/tenants/${brand.id}/impersonate`)}
-                                                            className="p-2.5 bg-amber-50 text-amber-600 hover:text-amber-700 hover:bg-amber-100 rounded-xl transition-all border border-amber-100"
-                                                        >
-                                                            <LogIn size={16} />
-                                                        </button>
-                                                        <button
-                                                            onClick={() => setSuspendTarget(brand)}
-                                                            className={cn(
-                                                                "p-2.5 rounded-xl transition-all border",
-                                                                brand.status === 'Suspended'
-                                                                    ? "bg-emerald-50 text-emerald-600 border-emerald-100 hover:bg-emerald-100"
-                                                                    : "bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100"
-                                                            )}
-                                                        >
-                                                            <ShieldBan size={16} />
-                                                        </button>
+                                                        {brand.status === 'Draft' ? (
+                                                            /* Draft: Resume + Activate + Delete */
+                                                            <>
+                                                                <button
+                                                                    onClick={() => router.push(`/platform/tenants/onboarding?resume=${brand.id}`)}
+                                                                    className="p-2.5 bg-blue-50 text-blue-600 hover:text-blue-700 hover:bg-blue-100 rounded-xl transition-all border border-blue-100"
+                                                                    title="Resume Onboarding"
+                                                                >
+                                                                    <Play size={16} />
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleActivateTenant(brand)}
+                                                                    className="p-2.5 bg-emerald-50 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-100 rounded-xl transition-all border border-emerald-100"
+                                                                    title="Force Activate"
+                                                                >
+                                                                    <CheckCircle2 size={16} />
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleDeleteDraft(brand)}
+                                                                    className="p-2.5 bg-rose-50 text-rose-600 hover:text-rose-700 hover:bg-rose-100 rounded-xl transition-all border border-rose-100"
+                                                                    title="Delete Draft"
+                                                                >
+                                                                    <Trash2 size={16} />
+                                                                </button>
+                                                            </>
+                                                        ) : (
+                                                            /* Active/Suspended: Impersonate + Suspend/Reactivate */
+                                                            <>
+                                                                <button
+                                                                    onClick={() => router.push(`/platform/tenants/${brand.id}/impersonate`)}
+                                                                    className="p-2.5 bg-amber-50 text-amber-600 hover:text-amber-700 hover:bg-amber-100 rounded-xl transition-all border border-amber-100"
+                                                                    title="Impersonate"
+                                                                >
+                                                                    <LogIn size={16} />
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => setSuspendTarget(brand)}
+                                                                    className={cn(
+                                                                        "p-2.5 rounded-xl transition-all border",
+                                                                        brand.status === 'Suspended'
+                                                                            ? "bg-emerald-50 text-emerald-600 border-emerald-100 hover:bg-emerald-100"
+                                                                            : "bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100"
+                                                                    )}
+                                                                    title={brand.status === 'Suspended' ? 'Reactivate' : 'Suspend'}
+                                                                >
+                                                                    <ShieldBan size={16} />
+                                                                </button>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

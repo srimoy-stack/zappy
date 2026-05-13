@@ -49,8 +49,14 @@ export function RouteGuard({ children, allowedPrefix, additionalUserTypes = [] }
         if (!userType) return;
 
         // ── Level 1: Prefix check ────────────────────────────────────────
+        // Slug-based routes (/{tenant-slug}/*) are treated as /backoffice equivalents
+        const KNOWN_PREFIXES = ['/platform', '/backoffice', '/pos', '/kds', '/callcenter'];
+        const normalizedPrefix = KNOWN_PREFIXES.some(p => allowedPrefix.startsWith(p))
+            ? allowedPrefix
+            : '/backoffice'; // Slug-based route → treat as backoffice
+
         const isAllowed =
-            canAccessPrefix(userType, allowedPrefix) ||
+            canAccessPrefix(userType, normalizedPrefix) ||
             additionalUserTypes.includes(userType);
 
         if (!isAllowed) {

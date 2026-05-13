@@ -6,23 +6,7 @@ import { ShieldAlert, Loader2, CheckCircle2 } from 'lucide-react';
 import { useImpersonation } from '@/app/providers/ImpersonationProvider';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { UserRole } from '@/shared/types/auth';
-
-// ─── Mock Brand Name Resolver ────────────────────────────────────────────────────
-// In production, resolve this from your API using the tenantId from the URL.
-const BRAND_NAMES: Record<string, string> = {
-    'brand-001': 'Acme Pizza Co.',
-    'brand-002': 'QuickBite Foods Ltd.',
-    'brand-003': 'Burger Nation Inc.',
-    'brand-004': 'Sushi Express Holdings',
-    'brand-005': 'Taco Loco Restaurants',
-    'brand-006': 'Noodle House Asia',
-    'brand-007': 'Café Bonheur Inc.',
-    'brand-008': 'Prairie Grills Ltd.',
-    'brand-009': 'Harvest Bowl Co.',
-    'brand-010': 'Flame & Grill Steakhouse',
-    'brand-011': 'Coastal Catches Seafood',
-    'brand-012': 'Golden Wok Group',
-};
+import { apiClient } from '@/shared/api/apiClient';
 
 // ─── Component ──────────────────────────────────────────────────────────────────
 
@@ -44,7 +28,6 @@ export default function ImpersonatePage() {
     const router = useRouter();
     const params = useParams();
     const tenantId = params?.tenantId as string;
-    const brandName = BRAND_NAMES[tenantId] ?? `Brand ${tenantId}`;
 
     const { role, user } = useAuth();
     const { startImpersonation } = useImpersonation();
@@ -52,6 +35,8 @@ export default function ImpersonatePage() {
     const [phase, setPhase] = useState<'authorizing' | 'generating' | 'redirecting' | 'denied'>(
         'authorizing'
     );
+    const [brandName, setBrandName] = useState(`Brand ${tenantId}`);
+    const [tenantSlug, setTenantSlug] = useState<string | null>(null);
 
     useEffect(() => {
         if (!tenantId) return;
@@ -62,11 +47,18 @@ export default function ImpersonatePage() {
             return;
         }
 
-        // Simulate async token generation (real backend call would go here)
         setPhase('generating');
 
         const generate = async () => {
-            // Artificial brief delay to show UX confirmation screen
+            // Fetch real tenant data
+            try {
+                const { data } = await apiClient.get(`/tenants/${tenantId}`);
+                setBrandName(data.name || `Brand ${tenantId}`);
+                setTenantSlug(data.slug || null);
+            } catch {
+                // Fallback if fetch fails
+            }
+
             await new Promise((r) => setTimeout(r, 1200));
 
             startImpersonation(tenantId, brandName, {
@@ -76,7 +68,13 @@ export default function ImpersonatePage() {
 
             setPhase('redirecting');
             await new Promise((r) => setTimeout(r, 700));
-            router.replace('/backoffice/items');
+
+            // Redirect to slug-based URL if available
+            if (tenantSlug) {
+                router.replace(`/${tenantSlug}/home`);
+            } else {
+                router.replace('/backoffice/home');
+            }
         };
 
         generate();

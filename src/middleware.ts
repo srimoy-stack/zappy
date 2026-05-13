@@ -4,12 +4,12 @@
  * Runs BEFORE page render on the server/edge.
  * - Redirects unauthenticated users to /login
  * - Enforces role → route prefix mapping using canonical roles
+ * - Supports slug-based tenant routing (/{slug}/*)
  * - Allows super admins cross-access (impersonation)
+ * - Redirects legacy /backoffice/* to /{tenant-slug}/*
  * - Backend must still revalidate on every API call
  *
  * IMPORTANT: Uses the canonical role system from shared/types/auth.ts.
- * All backend role strings are normalized via BACKEND_ROLE_MAP before
- * any routing decision is made.
  */
 
 import { NextResponse } from 'next/server';
@@ -17,8 +17,6 @@ import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 // ─── Canonical UserType System (inlined for edge compatibility) ─────────────
-// These MUST stay in sync with src/shared/types/auth.ts.
-// We inline here because edge middleware needs minimal dependencies.
 
 const enum CanonicalUserType {
     PLATFORM_SUPER_ADMIN = 'PLATFORM_SUPER_ADMIN',
@@ -31,9 +29,6 @@ const enum CanonicalUserType {
     DELIVERY = 'DELIVERY',
 }
 
-/**
- * Normalizes ANY backend role string → canonical UserType.
- */
 function resolveUserType(raw: string | null | undefined): CanonicalUserType | null {
     if (!raw) return null;
     const key = raw.toLowerCase();
@@ -55,6 +50,15 @@ function resolveUserType(raw: string | null | undefined): CanonicalUserType | nu
     return map[key] ?? null;
 }
 
+// ─── Reserved Route Prefixes (NOT tenant slugs) ────────────────────────────
+
+const RESERVED_PREFIXES = [
+    '/platform', '/backoffice', '/pos', '/kds', '/callcenter',
+    '/login', '/signup', '/forgot-password', '/reset-password',
+    '/accept-invite', '/api', '/kiosk', '/track', '/unsubscribe',
+    '/_next', '/favicon',
+];
+
 // ─── Public Routes ──────────────────────────────────────────────────────────
 
 const PUBLIC_ROUTES = [
@@ -62,6 +66,7 @@ const PUBLIC_ROUTES = [
     '/signup',
     '/forgot-password',
     '/reset-password',
+    '/accept-invite',
     '/api/auth',
     '/kiosk',
     '/track',
@@ -72,7 +77,7 @@ const PUBLIC_ROUTES = [
 
 const DEFAULT_PAGE: Record<CanonicalUserType, string> = {
     [CanonicalUserType.PLATFORM_SUPER_ADMIN]: '/platform/tenants',
-    [CanonicalUserType.BRAND_ADMIN]: '/backoffice/home',
+    [CanonicalUserType.BRAND_ADMIN]: '/backoffice/home',       // Will redirect to /{slug}/home
     [CanonicalUserType.ADMIN]: '/backoffice/home',
     [CanonicalUserType.MANAGER]: '/backoffice/home',
     [CanonicalUserType.POS_USER]: '/pos',
@@ -100,17 +105,29 @@ function isPublicRoute(pathname: string): boolean {
     return PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
 }
 
+function isReservedPrefix(pathname: string): boolean {
+    return RESERVED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
+function isSlugRoute(pathname: string): boolean {
+    // A slug route is any path like /{something}/... that isn't a reserved prefix
+    if (pathname === '/') return false;
+    const firstSegment = '/' + pathname.split('/')[1];
+    return !isReservedPrefix(firstSegment);
+}
+
+function isSlugLoginRoute(pathname: string): boolean {
+    // /{slug}/login is public
+    const parts = pathname.split('/');
+    return parts.length >= 3 && parts[2] === 'login' && !isReservedPrefix('/' + parts[1]);
+}
+
 // ─── Middleware ──────────────────────────────────────────────────────────────
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // 1. Public routes — always allow
-    if (isPublicRoute(pathname)) {
-        return NextResponse.next();
-    }
-
-    // 2. Static assets and Next.js internals — skip
+    // 1. Static assets and Next.js internals — skip
     if (
         pathname.startsWith('/_next') ||
         pathname.startsWith('/favicon') ||
@@ -119,44 +136,90 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // 3. Verify JWT via next-auth (proper server-side verification)
+    // 2. Public routes — always allow (including /{slug}/login)
+    if (isPublicRoute(pathname) || isSlugLoginRoute(pathname)) {
+        return NextResponse.next();
+    }
+
+    // 3. Verify JWT via next-auth
     const token = await getToken({
         req: request,
         secret: process.env.NEXTAUTH_SECRET,
     });
 
     if (!token) {
-        // Not authenticated — redirect to login with callback
+        // Determine correct login URL
+        if (isSlugRoute(pathname)) {
+            // Redirect to branded login: /{slug}/login
+            const slug = pathname.split('/')[1];
+            const loginUrl = new URL(`/${slug}/login`, request.url);
+            return NextResponse.redirect(loginUrl);
+        }
         const loginUrl = new URL('/login', request.url);
         loginUrl.searchParams.set('callbackUrl', pathname);
         return NextResponse.redirect(loginUrl);
     }
 
-    // 4. Extract and normalize UserType using canonical system
+    // 4. Extract and normalize UserType
     const rawRole = (token as any).role || (token as any).user_role || null;
     const userType = resolveUserType(rawRole as string);
+    const tenantSlug = (token as any).tenantSlug || null;
+    const isSuperAdmin = userType === CanonicalUserType.PLATFORM_SUPER_ADMIN;
 
     // 5. Root path → redirect to UserType's default page
     if (pathname === '/') {
-        const defaultPage = userType ? DEFAULT_PAGE[userType] : '/backoffice/home';
+        if (isSuperAdmin) {
+            return NextResponse.redirect(new URL('/platform/tenants', request.url));
+        }
+        // Brand users → redirect to their slug-based dashboard
+        if (tenantSlug) {
+            return NextResponse.redirect(new URL(`/${tenantSlug}/home`, request.url));
+        }
+        const defaultPage = userType ? DEFAULT_PAGE[userType] : '/login';
         return NextResponse.redirect(new URL(defaultPage, request.url));
     }
 
-    // 6. UserType-based route enforcement
+    // 6. Legacy /backoffice/* → redirect to /{slug}/* for brand users
+    if (pathname.startsWith('/backoffice') && tenantSlug) {
+        const subPath = pathname.replace('/backoffice', '');
+        return NextResponse.redirect(new URL(`/${tenantSlug}${subPath || '/home'}`, request.url));
+    }
+
+    // 7. Slug-based routes: /{slug}/*
+    if (isSlugRoute(pathname)) {
+        // Super admin can access any slug (impersonation)
+        if (isSuperAdmin) {
+            return NextResponse.next();
+        }
+
+        // Brand users: their slug must match the URL slug
+        const urlSlug = pathname.split('/')[1];
+        if (tenantSlug && urlSlug !== tenantSlug) {
+            console.warn(
+                `[Middleware] Tenant slug mismatch: URL="${urlSlug}" JWT="${tenantSlug}". Redirecting.`
+            );
+            return NextResponse.redirect(new URL(`/${tenantSlug}/home`, request.url));
+        }
+
+        // Tenant user accessing their own slug — allow
+        return NextResponse.next();
+    }
+
+    // 8. Traditional role-based prefix enforcement for non-slug routes
     if (userType) {
         const allowed = ALLOWED_PREFIXES[userType] || [];
         const isAllowed = allowed.some((prefix) => pathname.startsWith(prefix));
 
         if (!isAllowed) {
-            const defaultPage = DEFAULT_PAGE[userType] || '/backoffice/home';
+            const defaultPage = userType ? DEFAULT_PAGE[userType] : '/login';
             console.warn(
-                `[Middleware] UserType "${userType}" (raw: "${rawRole}") blocked from ${pathname}. → ${defaultPage}`
+                `[Middleware] UserType "${userType}" blocked from ${pathname}. → ${defaultPage}`
             );
             return NextResponse.redirect(new URL(defaultPage, request.url));
         }
     }
 
-    // 7. Authenticated + authorized — proceed
+    // 9. Authenticated + authorized — proceed
     return NextResponse.next();
 }
 
@@ -164,11 +227,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/',
-        '/platform/:path*',
-        '/backoffice/:path*',
-        '/pos/:path*',
-        '/kds/:path*',
-        '/callcenter/:path*',
+        '/((?!_next/static|_next/image|favicon.ico).*)',
     ],
 };

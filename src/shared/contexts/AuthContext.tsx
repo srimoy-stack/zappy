@@ -26,6 +26,7 @@ interface AuthUser {
     role: UserRoleRef;
     tenantId?: string;
     tenantName?: string;
+    tenantSlug?: string;
     storeIds?: string[];
     stores?: Array<{ id: string; name: string; code?: string }>;
     enabledModules?: string[];
@@ -46,6 +47,7 @@ interface AuthContextValue {
 
     // Context Scopes
     tenantId: string | null;
+    tenantSlug: string | null;
     storeIds: string[];
     activeStoreId: string | null;
     enabledModules: string[];
@@ -66,6 +68,7 @@ const AuthContext = createContext<AuthContextValue>({
     isSystemRole: false,
     isSuperAdmin: false,
     tenantId: null,
+    tenantSlug: null,
     storeIds: [],
     activeStoreId: null,
     enabledModules: [],
@@ -126,6 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                     role: roleRef,
                     tenantId: data.tenant?.id,
                     tenantName: data.tenant?.name,
+                    tenantSlug: data.tenant?.slug,
                     storeIds: data.stores?.map((s: any) => s.id) || [],
                     stores: data.stores || [],
                     enabledModules: data.enabledModules || [],
@@ -183,6 +187,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const isSystemRole = meData?.role.isSystem || false;
     const isSuperAdminUser = isSuperAdmin(userType);
     const tenantId = meData?.tenantId || null;
+    const tenantSlug = meData?.tenantSlug || null;
     const storeIds = meData?.storeIds || [];
     const enabledModules = meData?.enabledModules || [];
     const entitlementPaths = meData?.entitlementPaths || [];
@@ -197,6 +202,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isSystemRole,
         isSuperAdmin: isSuperAdminUser,
         tenantId,
+        tenantSlug,
         storeIds,
         activeStoreId: storeIds[0] || null,
         enabledModules,
