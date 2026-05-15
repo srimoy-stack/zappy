@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Eye, Download, ArrowUpDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, Download, ArrowUpDown, ArrowUp, ArrowDown, Check, PhoneForwarded } from 'lucide-react';
 import { useCalls } from '../hooks/useCalls';
 import { useStats } from '../hooks/useStats';
 import { useAlerts } from '../hooks/useAlerts';
@@ -167,7 +167,7 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                 <tr className="border-b border-slate-100 bg-slate-50">
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 w-10"></th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600">Caller</th>
-                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Type</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Store</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600">Status</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('sentiment')}>
                                         <span className="flex items-center gap-1">Sentiment <SortIcon col="sentiment" /></span>
@@ -175,13 +175,13 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('success_status')}>
                                         <span className="flex items-center gap-1">Result <SortIcon col="success_status" /></span>
                                     </th>
+                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Transferred</th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('duration_seconds')}>
                                         <span className="flex items-center gap-1">Duration <SortIcon col="duration_seconds" /></span>
                                     </th>
                                     <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer select-none" onClick={() => toggleSort('call_datetime')}>
                                         <span className="flex items-center gap-1">Date <SortIcon col="call_datetime" /></span>
                                     </th>
-                                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Ended</th>
                                     <th className="px-4 py-3 text-center font-semibold text-slate-600 w-12"></th>
                                 </tr>
                             </thead>
@@ -209,18 +209,9 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                                     call.status_color === 'yellow' ? 'bg-amber-500' : 'bg-red-500'
                                                 }`} />
                                             </td>
-                                            <td className="px-4 py-3 text-slate-700 font-medium text-xs">{call.caller_number || '—'}</td>
-                                            <td className="px-4 py-3">
-                                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                                                    call.call_type === 'inboundPhoneCall' ? 'bg-blue-50 text-blue-700' :
-                                                    call.call_type === 'outboundPhoneCall' ? 'bg-purple-50 text-purple-700' :
-                                                    call.call_type === 'webCall' ? 'bg-cyan-50 text-cyan-700' :
-                                                    'bg-slate-50 text-slate-500'
-                                                }`}>
-                                                    {call.call_type === 'inboundPhoneCall' ? 'Inbound' :
-                                                     call.call_type === 'outboundPhoneCall' ? 'Outbound' :
-                                                     call.call_type === 'webCall' ? 'Web' : '—'}
-                                                </span>
+                                            <td className="px-4 py-3 text-slate-700 font-medium text-xs whitespace-nowrap">{call.caller_number || '—'}</td>
+                                            <td className="px-4 py-3 text-slate-700 font-medium text-[11px] truncate max-w-[140px]" title={call.store_name || call.location_id}>
+                                                {call.store_name || (call.location_id !== 'unknown' ? call.location_id : '—')}
                                             </td>
                                             <td className="px-4 py-3"><StatusBadge type="call_status" value={call.call_status} /></td>
                                             <td className="px-4 py-3">
@@ -229,11 +220,18 @@ export default function CallsPage({ onViewDetail }: { onViewDetail?: (id: number
                                             <td className="px-4 py-3">
                                                 {call.has_analysis ? <StatusBadge type="success_status" value={call.success_status} /> : <span className="text-[10px] text-slate-400">—</span>}
                                             </td>
+                                            <td className="px-4 py-3">
+                                                {call.was_transferred ? (
+                                                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 whitespace-nowrap">
+                                                        <PhoneForwarded className="h-2.5 w-2.5" />
+                                                        {call.transferred_to || 'Live Agent'}
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-[10px] text-slate-400">—</span>
+                                                )}
+                                            </td>
                                             <td className="px-4 py-3 text-slate-600 tabular-nums text-xs">{fmt(call.duration_seconds)}</td>
                                             <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmtDate(call.call_datetime)}</td>
-                                            <td className="px-4 py-3 text-slate-500 text-[11px] max-w-[120px] truncate capitalize">
-                                                {call.ended_reason?.replace(/-/g, ' ') || '—'}
-                                            </td>
                                             <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
                                                 <button
                                                     onClick={() => onViewDetail?.(call.id)}

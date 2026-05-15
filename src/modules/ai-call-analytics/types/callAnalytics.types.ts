@@ -71,6 +71,9 @@ export interface AiCall {
     call_id: string;
     caller_number: string;
     location_id: string;
+    store_name: string | null;
+    transferred_to: string | null;
+    was_transferred: boolean;
     call_datetime: string;
     duration_seconds: number | null;
     call_status: CallStatus;
