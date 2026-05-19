@@ -68,6 +68,7 @@ const PUBLIC_ROUTES = [
     '/reset-password',
     '/accept-invite',
     '/api/auth',
+    '/pos',
     '/kiosk',
     '/track',
     '/unsubscribe',
